@@ -1,0 +1,7 @@
+{
+  "hello": "你好",
+
+  "errorcode.-1": "网络错误",
+  "errorcode.404": "资源不存在",
+  "errorcode.fallback": "网络错误"
+}

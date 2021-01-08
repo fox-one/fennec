@@ -1,0 +1,16 @@
+a {
+  text-decoration: none;
+}
+
+span, div, p, a {
+  user-select: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  outline: none!important;
+  -webkit-tap-highlight-color: transparent;
+}

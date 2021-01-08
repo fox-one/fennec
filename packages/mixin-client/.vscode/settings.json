@@ -1,0 +1,14 @@
+{
+  "eslint.validate": ["javascript", "javascriptreact", "vue"],
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
+  "vetur.format.defaultFormatterOptions": {},
+  "vetur.validation.template": false,
+  "vetur.format.defaultFormatter.html": "prettier",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

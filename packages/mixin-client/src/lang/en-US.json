@@ -1,0 +1,7 @@
+{
+  "hello": "Hello",
+
+  "errorcode.-1": "NETWORK ERROR",
+  "errorcode.404": "CANNOT FIND RESOURCE",
+  "errorcode.fallback": "NETWORK ERROR"
+}

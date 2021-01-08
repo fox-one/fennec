@@ -1,0 +1,12 @@
+{
+  "menifest_version": 2,
+
+  "name": "Mixin Light Client",
+  "description": "Mixin Chrome Light Wallet",
+  "version": "0.1.0",
+
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Mixin Chrome Light Wallet"
+  }
+}
