@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "types": ["webpack-env", "vuetify"],
+    "paths": {
+      "@/*": ["src/*"],
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue", "src/background.js"],
+  "exclude": ["node_modules"]
+}
