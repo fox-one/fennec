@@ -15,10 +15,10 @@
     "baseUrl": ".",
     "types": ["webpack-env", "vuetify"],
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue", "src/background.js"],
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"],
   "exclude": ["node_modules"]
 }

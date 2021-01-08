@@ -1,6 +1,6 @@
 <template>
   <div>
-    hello world 2323
+    UnLockPage
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-class HelloWorld extends Vue {}
-export default HelloWorld;
+class UnLockPage extends Vue {}
+export default UnLockPage;
 </script>

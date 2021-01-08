@@ -3952,6 +3952,11 @@ extend@~3.0.2:
   resolved "https://registry.npm.taobao.org/extend/download/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha1-+LETa0Bx+9jrFAr/hYsQGewpFfo=
 
+extensionizer@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/extensionizer/-/extensionizer-1.0.1.tgz#504544239a7610ba8404b15c1832091a37768d09"
+  integrity sha512-UES5CSOYqshNsWFrpORcQR47+ph6UvQK25mguD44IyeMemt40CG+LTZrH1PgpGUHX3w7ACtNQnmM0J+qEe8G0Q==
+
 external-editor@^3.0.3:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/external-editor/download/external-editor-3.1.0.tgz#cb03f740befae03ea4d283caed2741a83f335495"
