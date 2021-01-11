@@ -1,13 +1,19 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { ModuleTree } from "vuex";
+import { RootState, Store } from "./interface";
+import app from "./modules/app";
 
-Vue.use(Vuex);
+export default function() {
+  Vue.use(Vuex);
 
-const store = new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
-});
+  const modules: ModuleTree<RootState> = {
+    app
+  };
 
-export default store;
+  return new Vuex.Store({
+    state: {},
+    mutations: {},
+    actions: {},
+    modules
+  }) as Store;
+}

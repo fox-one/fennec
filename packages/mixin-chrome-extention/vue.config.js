@@ -1,9 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
-function resolve(dir) {
-  return path.join(__dirname, dir);
-}
-
 module.exports = {
   pages: {
     popup: {
@@ -22,8 +16,5 @@ module.exports = {
     }
   },
   transpileDependencies: ["vuetify"],
-  productionSourceMap: false,
-  chainWebpack: config => {
-    config.resolve.alias.set("@", resolve("./src"));
-  }
+  productionSourceMap: false
 };
