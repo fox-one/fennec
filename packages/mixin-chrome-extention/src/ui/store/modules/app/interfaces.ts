@@ -10,10 +10,17 @@ import { RootState } from "../../interface";
 
 export type State = {
   appbar: App.AppBarState;
+  layout: App.AppLayout;
+  settings: App.AppSettings;
 };
 
 export type Mutations = {
-  [MutationTypes.SET_APPBAR]: (s: State, d: Partial<App.AppBarState>) => void;
+  [MutationTypes.SET_APPBAR]: (s: State, v: Partial<App.AppBarState>) => void;
+  [MutationTypes.SET_LAYOUT]: (s: State, v: App.AppLayout) => void;
+  [MutationTypes.SET_APP_SETINGS]: (
+    s: State,
+    v: Partial<App.AppSettings>
+  ) => void;
 };
 
 export type Getters = {};

@@ -1,5 +1,7 @@
 import useVuetify from "./vuetify";
 
 export default function() {
-  useVuetify();
+  const vuetify = useVuetify();
+
+  return { vuetify };
 }

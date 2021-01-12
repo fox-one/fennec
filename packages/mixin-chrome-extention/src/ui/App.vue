@@ -1,14 +1,33 @@
 <template>
   <div id="app" class="app">
-    <router-view />
+    <component :is="layoutComponent">
+      <router-view />
+    </component>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import DefaultLayout from "@/ui/layouts/default/Index.vue";
 
-@Component
-class App extends Vue {}
+@Component({
+  components: {
+    DefaultLayout
+  }
+})
+class App extends Vue {
+  get layout(): App.AppLayout {
+    return this.$store.state.app.layout;
+  }
+
+  get layoutComponent() {
+    switch (this.layout) {
+      case "default":
+        return "default-layout";
+    }
+    return "default-layout";
+  }
+}
 export default App;
 </script>
 

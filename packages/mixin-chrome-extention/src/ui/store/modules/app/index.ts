@@ -4,11 +4,17 @@ import MutationTypes from "./mutation-types";
 import { Mutations, State, Actions } from "./interfaces";
 import { RootState } from "../../interface";
 
-const state = {
+const state: State = {
   appbar: {
     title: "",
     show: true,
     back: false
+  },
+  layout: "default",
+  settings: {
+    currency: "usd",
+    colorStyle: "green_down_red_up",
+    dark: false
   }
 };
 
@@ -21,6 +27,12 @@ const mutations: MutationTree<State> & Mutations = {
       back: true
     };
     state.appbar = { ...defaultValue, ...data };
+  },
+  [MutationTypes.SET_LAYOUT](state, data) {
+    state.layout = data;
+  },
+  [MutationTypes.SET_APP_SETINGS](state, data) {
+    state.settings = { ...state.settings, ...data };
   }
 };
 

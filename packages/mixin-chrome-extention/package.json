@@ -9,6 +9,7 @@
     "lint:fix": "prettier --write \"**/*.ts\" \"**/*.vue\" --ignore-path=.gitignore"
   },
   "dependencies": {
+    "@foxone/uikit": "^1.1.16",
     "bignumber.js": "^9.0.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.8.28",
