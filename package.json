@@ -1,7 +1,18 @@
 {
-  "name": "root",
   "private": true,
+  "license": "Apache-2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "yarn watch",
+    "watch": "cd packages/mixin-extension && webpack --config webpack.config.js --mode development --watch",
+    "build": "cd packages/mixin-extension && webpack --config webpack.config.js --mode production",
+    "lint": "eslint --ext .js,.cjs,.mjs,.ts,.tsx --ignore-path=.gitignore",
+    "prettier:fix": "prettier --write \"**/*.ts\" \"**/*.vue\" --ignore-path=.gitignore"
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,0 +1,16 @@
+{
+  "name": "@foxone/mixin-extension-inject",
+  "description": "A generic injector (usable to any extension), that populates the base exposed interfaces to be used by dapps.",
+  "version": "0.1.0",
+  "author": "zhangqingwu <18656007202@163.com>",
+  "license": "Apache-2",
+  "main": "index.js",
+  "sideEffects": false,
+  "dependencies": {
+    "@babel/runtime": "^7.12.5"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.126",
+    "@types/firefox-webext-browser": "^82.0.0"
+  }
+}

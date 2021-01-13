@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@foxone/mixin-extension": ["packages/mixin-extension/src"],
+      "@foxone/mixin-extension/*": ["packages/mixin-extension/src/*"],
+      "@foxone/mixin-extension-base": ["packages/mixin-extension-base/src"],
+      "@foxone/mixin-extension-base/*": ["packages/mixin-extension-base/src/*"],
+      "@foxone/mixin-extension-ui": ["packages/mixin-extension-ui/src"],
+      "@foxone/mixin-extension-ui/*": ["packages/mixin-extension-ui/src/*"],
+      "@foxone/mixin-extension-inject": ["packages/mixin-extension-inject/src"],
+      "@foxone/mixin-extension-inject/*": ["packages/mixin-extension-inject/src/*"],
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules",
+    "build/**/*",
+    "**/build/*",
+    "**/build/**/*"
+  ],
+}

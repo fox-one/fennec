@@ -1,0 +1,32 @@
+{
+  "author": "foxone",
+  "description": "TODO: Add description",
+  "homepage_url": "https://fox.one",
+  "name": "Mixin Extension",
+  "short_name": "Mixin Extension",
+  "default_locale": "en",
+  "manifest_version": 2,
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Mixin Extension",
+    "default_popup": "index.html"
+  },
+  "content_scripts": [{
+    "js": ["content.js"],
+    "matches": ["http://*/*", "https://*/*"],
+    "run_at": "document_start"
+  }],
+  "icons": {
+    "16": "icons/16.png",
+    "19": "icons/19.png",
+    "38": "icons/38.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "web_accessible_resources": ["page.js"],
+  "content_security_policy": "script-src 'self' http://localhost:8098 blob: 'unsafe-eval' 'wasm-eval'; object-src 'self'"
+}

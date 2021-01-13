@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "SF Compact Display";
+  font-style: normal;
+  font-weight: normal;
+  src: local("SF Compact Display Medium"),
+    url("./sf-compact-display-medium.woff") format("woff");
+}
