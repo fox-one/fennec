@@ -6,5 +6,8 @@
   "license": "ISC",
   "dependencies": {
     "extensionizer": "^1.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }

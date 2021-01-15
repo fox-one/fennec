@@ -1,8 +1,4 @@
-// import { injectExtension } from "@foxone/mixin-extension-inject";
-
-function handleResponse(data) {
-  console.log("handleResponse", data);
-}
+import { injectExtension, handleResponse, enable, redirectIfPhishing } from "@foxone/mixin-extension-base/inject";
 
 window.addEventListener("message", ({ data, source }) => {
   if (source !== window || data.origin !== "content") {
@@ -16,9 +12,20 @@ window.addEventListener("message", ({ data, source }) => {
   }
 });
 
-// function inject() {
-//   injectExtension(enable, {
-//     name: "mixin-client",
-//     version: "0.1.0"
-//   });
-// }
+function inject() {
+  injectExtension(enable, {
+    name: "mixin-client",
+    version: "0.1.0"
+  });
+}
+
+redirectIfPhishing()
+  .then((gotRedirected) => {
+    if (!gotRedirected) {
+      inject();
+    }
+  })
+  .catch((e) => {
+    console.warn(`Unable to determine if the site is in the phishing list: ${(e as Error).message}`);
+    inject();
+  });

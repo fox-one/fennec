@@ -7,5 +7,10 @@
   "license": "Apache-2",
   "dependencies": {
     "extensionizer": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.128",
+    "@types/firefox-webext-browser": "^82.0.0",
+    "prettier": "^2.2.1"
   }
 }
