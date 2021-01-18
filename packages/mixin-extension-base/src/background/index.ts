@@ -26,6 +26,8 @@ export default function handler<T extends ActionTypes>(data: RequestMessage<T>, 
       if (!port) {
         throw "Port has been disconnected";
       }
+
+      port.postMessage({ id, res });
     })
     .catch((err) => {
       console.log(`[err] ${source}:: ${err.message}`);

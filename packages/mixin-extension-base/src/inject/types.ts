@@ -35,7 +35,7 @@ export interface InjectedData {
 type This = typeof globalThis;
 
 export interface InjectedWindow extends This {
-  mixin: Record<string, InjectProvider>;
+  __MIXIN__: Record<string, InjectProvider>;
 }
 
 export interface InjectProvider {

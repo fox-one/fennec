@@ -14,7 +14,7 @@ window.addEventListener("message", ({ data, source }) => {
 
 function inject() {
   injectExtension(enable, {
-    name: "mixin-client",
+    name: "mixin_ext",
     version: "0.1.0"
   });
 }

@@ -11,12 +11,19 @@ export type ActionParams<T extends ActionTypes> = {
 
 export default function (state) {
   return async function <T extends ActionTypes>(params: ActionParams<T>) {
-    const { payload, action } = params;
+    const { payload, action, url } = params;
     const handlers = createHandlers(state);
+
+    if (action === "pub(phishing.redirectIfDenied)") {
+      return handlers.redirectIfPhishing(url);
+    }
 
     switch (action) {
       case "pub(authorize.tab)":
         return handlers.authorize(payload as any);
+
+      case "pub(accounts.list)":
+        return handlers.accountsList();
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

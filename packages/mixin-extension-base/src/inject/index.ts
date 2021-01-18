@@ -52,12 +52,14 @@ export function handleResponse<T extends ActionTypes>(data: ResponseMessage<T>) 
     delete handlers[data.id];
   }
 
+  console.log("[handle response]", data);
+
   if (data.subscription) {
     handler.subscriber?.(data.subscription);
   } else if (data.error) {
     handler.reject(new Error(data.error));
   } else {
-    handler.resolve(data.response);
+    handler.resolve(data.res);
   }
 }
 
@@ -66,9 +68,9 @@ export function injectExtension(
   { name, version }: InjectOptions
 ): void {
   const win = window as Window & InjectedWindow;
-  win.mixin = win.mixin || {};
+  win.__MIXIN__ = win.__MIXIN__ || {};
 
-  win.mixin[name] = {
+  win.__MIXIN__[name] = {
     enable: (origin: string): Promise<InjectedData> => enable(origin),
     version
   };

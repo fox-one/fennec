@@ -10,6 +10,6 @@ export type RequestMessage<T extends ActionTypes> = {
 export type ResponseMessage<T extends ActionTypes> = {
   error?: string;
   id: string;
-  response?: ActionResponses[T];
+  res?: ActionResponses[T];
   subscription?: any;
 };

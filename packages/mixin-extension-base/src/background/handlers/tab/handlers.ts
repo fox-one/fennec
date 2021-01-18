@@ -26,7 +26,6 @@ export default function createHandlers(state) {
       const isDenied = checkIfDenied(url);
       if (isDenied) {
         redirectPhishingLanding();
-        return true;
       }
 
       return false;
