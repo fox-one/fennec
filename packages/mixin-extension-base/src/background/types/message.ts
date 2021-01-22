@@ -1,4 +1,4 @@
-import type { ActionPayloads, ActionTypes, ActionResponses } from "./actions";
+import type { ActionPayloads, ActionTypes, ActionResponses } from "./index";
 
 export type RequestMessage<T extends ActionTypes> = {
   id: string;

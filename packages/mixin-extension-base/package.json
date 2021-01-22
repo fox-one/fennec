@@ -6,9 +6,13 @@
   "author": "zhangqingwu <18656007202@163.com>",
   "license": "Apache-2",
   "dependencies": {
-    "extensionizer": "^1.0.1"
+    "extensionizer": "^1.0.1",
+    "rxjs": "^6.6.3",
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@types/chrome": "^0.0.128",
     "@types/firefox-webext-browser": "^82.0.0",
     "prettier": "^2.2.1"

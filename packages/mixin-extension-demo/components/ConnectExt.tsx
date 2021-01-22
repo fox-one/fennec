@@ -37,9 +37,11 @@ export default defineComponent({
     });
 
     return () => (
-      <button class={meta.value.classes} onClick={toggleConnect}>
-        {meta.value.text}
-      </button>
+      <>
+        <button class={meta.value.classes} onClick={toggleConnect}>
+          {meta.value.text}
+        </button>
+      </>
     );
   }
-});
+}) as any;

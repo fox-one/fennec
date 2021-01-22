@@ -33,13 +33,13 @@ export default defineComponent({
       }
 
       return (
-        <div>
+        <>
           <p class="my-3">{meta.value.text}</p>
           <button class={"button is-small" + meta.value.classes} onClick={getAccount}>
             GetAccount
           </button>
-        </div>
+        </>
       );
     };
   }
-});
+}) as any;

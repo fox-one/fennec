@@ -14,6 +14,6 @@ export default function initializeUi(container: string) {
     el: container,
     store: createStore(),
     router: createRouter(),
-    render: h => h(App)
+    render: (h) => h(App)
   });
 }

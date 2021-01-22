@@ -1,3 +1,4 @@
+import { Message } from "@foxone/mixin-extension-base/types";
 import extension from "extensionizer";
 
 const port = extension.runtime.connect({ name: "content" });
@@ -8,7 +9,7 @@ port.onMessage.addListener((data) => {
 });
 
 // all messages from the page, pass them to the extension
-window.addEventListener("message", ({ data, source }) => {
+window.addEventListener("message", ({ data, source }: Message) => {
   if (source != window || data.origin !== "page") {
     return;
   }

@@ -1,10 +1,12 @@
 import type { RequestMessage } from "./types/message";
-import type { ActionTypes } from "./types/actions";
+import type { ActionTypes } from "./types";
+import type { State } from "../state/types";
 
 import { isExtension } from "../utils/helper";
 import createHandlers from "./handlers";
+import createState from "../state";
 
-const state = "";
+const state: State = createState();
 const handlers = createHandlers(state);
 
 export default function handler<T extends ActionTypes>(data: RequestMessage<T>, port: chrome.runtime.Port) {

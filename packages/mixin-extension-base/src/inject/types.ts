@@ -1,4 +1,11 @@
-import type { ActionPayloads, ActionTypes, ActionResponses } from "../background/types/actions";
+import type {
+  ActionPayloads,
+  ActionTypesWithNoSubscriptions,
+  ActionResponses,
+  ActionTypesWithNullPayload,
+  ActionTypesWithSubscriptions,
+  SubscriptionMessageTypes
+} from "../background/types";
 
 export interface Handler {
   resolve: (data?: any) => void;
@@ -9,8 +16,13 @@ export interface Handler {
 export type Handlers = Record<string, Handler>;
 
 export interface SendMessage {
-  <T extends ActionTypes>(action: T): Promise<ActionResponses[T]>;
-  <T extends ActionTypes>(action: T, payload: ActionPayloads[T]): Promise<ActionResponses[T]>;
+  <T extends ActionTypesWithNullPayload>(action: T): Promise<ActionResponses[T]>;
+  <T extends ActionTypesWithNoSubscriptions>(action: T, payload: ActionPayloads[T]): Promise<ActionResponses[T]>;
+  <T extends ActionTypesWithSubscriptions>(
+    action: T,
+    payload: ActionPayloads[T],
+    subscriber: (data: SubscriptionMessageTypes[T]) => void
+  ): Promise<ActionResponses[T]>;
 }
 
 export interface InjectedExtensionInfo {

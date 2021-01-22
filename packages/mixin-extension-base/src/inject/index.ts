@@ -1,21 +1,40 @@
 import type { Handlers, InjectOptions, InjectedData, InjectedWindow } from "./types";
-import type { ActionPayloads, ActionResponses, ActionTypes } from "../background/types/actions";
-import { RequestMessage, ResponseMessage } from "../background/types/message";
+import type {
+  ActionTypes,
+  ActionTypesWithNoSubscriptions,
+  ActionTypesWithSubscriptions,
+  ActionPayloads,
+  ActionResponses,
+  ActionTypesWithNullPayload,
+  SubscriptionMessageTypes
+} from "../background/types";
+import type { RequestMessage, ResponseMessage } from "../background/types/message";
+
 import Accounts from "./account";
 
 const handlers: Handlers = {};
 let idCounter = 0;
 
-export function sendMessage<T extends ActionTypes>(action: T): Promise<ActionResponses[T]>;
-export function sendMessage<T extends ActionTypes>(action: T, payload: ActionPayloads[T]): Promise<ActionResponses[T]>;
+export function sendMessage<T extends ActionTypesWithNullPayload>(action: T): Promise<ActionResponses[T]>;
+export function sendMessage<T extends ActionTypesWithNoSubscriptions>(
+  action: T,
+  payload: ActionPayloads[T]
+): Promise<ActionResponses[T]>;
+export function sendMessage<T extends ActionTypesWithSubscriptions>(
+  action: T,
+  payload: ActionPayloads[T],
+  subscriber: (data: SubscriptionMessageTypes[T]) => void
+): Promise<ActionResponses[T]>;
+
 export function sendMessage<T extends ActionTypes>(
   action: T,
-  payload?: ActionPayloads[T]
+  payload?: ActionPayloads[T],
+  subscriber?: (data: unknown) => void
 ): Promise<ActionResponses[T]> {
   return new Promise((resolve, reject) => {
     const id = `${Date.now()}.${++idCounter}`;
 
-    handlers[id] = { reject, resolve };
+    handlers[id] = { reject, resolve, subscriber };
 
     const request: RequestMessage<T> = {
       id,
@@ -51,8 +70,6 @@ export function handleResponse<T extends ActionTypes>(data: ResponseMessage<T>) 
   if (!handler.subscriber) {
     delete handlers[data.id];
   }
-
-  console.log("[handle response]", data);
 
   if (data.subscription) {
     handler.subscriber?.(data.subscription);

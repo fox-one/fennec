@@ -18,17 +18,22 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.(js|ts|tsx)$/,
         exclude: [/node_modules/],
         use: [
           {
-            loader: "babel-loader"
+            loader: "babel-loader",
+            options: {
+              plugins: [
+                ["@babel/plugin-proposal-class-properties", { loose: true }],
+                ["@babel/plugin-proposal-private-methods", { loose: true }]
+              ]
+            }
           }
         ]
       },
       {
         test: /\.tsx?$/,
-        // include: [/node_modules\/@foxone\/uikit/],
         loader: "ts-loader",
         options: {
           appendTsSuffixTo: [/.vue$/]

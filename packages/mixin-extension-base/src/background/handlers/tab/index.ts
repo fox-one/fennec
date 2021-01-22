@@ -1,4 +1,7 @@
-import type { ActionTypes, ActionPayloads } from "../../types/actions";
+import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
+import type { AuthTabPayload } from "../../types/auth";
+import type { State } from "../../../state/types";
+
 import createHandlers from "./handlers";
 
 export type ActionParams<T extends ActionTypes> = {
@@ -9,8 +12,10 @@ export type ActionParams<T extends ActionTypes> = {
   url: string;
 };
 
-export default function (state) {
-  return async function <T extends ActionTypes>(params: ActionParams<T>) {
+export default function (state: State) {
+  return async function <T extends ActionTypes>(
+    params: ActionParams<T>
+  ): Promise<ActionResponses[keyof ActionResponses]> {
     const { payload, action, url } = params;
     const handlers = createHandlers(state);
 
@@ -20,7 +25,7 @@ export default function (state) {
 
     switch (action) {
       case "pub(authorize.tab)":
-        return handlers.authorize(payload as any);
+        return handlers.authorize(payload as AuthTabPayload, url);
 
       case "pub(accounts.list)":
         return handlers.accountsList();

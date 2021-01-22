@@ -1,10 +1,10 @@
 <template>
-  <v-app>
+  <div>
     <default-appbar />
     <v-main>
       <slot />
     </v-main>
-  </v-app>
+  </div>
 </template>
 
 <script lang="ts">

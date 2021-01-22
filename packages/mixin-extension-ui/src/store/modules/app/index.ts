@@ -1,10 +1,9 @@
 import { Module, MutationTree, ActionTree } from "vuex";
-import ActionTypes from "./action-types";
-import MutationTypes from "./mutation-types";
-import { Mutations, State, Actions } from "./interfaces";
-import { RootState } from "../../interface";
+import { Mutations, State, Actions, ActionTypes, MutationTypes } from "./types";
+import { RootState } from "../../types";
 
 const state: State = {
+  initing: false,
   appbar: {
     title: "",
     show: true,
@@ -19,6 +18,9 @@ const state: State = {
 };
 
 const mutations: MutationTree<State> & Mutations = {
+  [MutationTypes.SET_INITING](state, value) {
+    state.initing = value;
+  },
   [MutationTypes.SET_APPBAR](state, data) {
     const defaultValue = {
       title: "",

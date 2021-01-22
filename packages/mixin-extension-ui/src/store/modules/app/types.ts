@@ -1,15 +1,28 @@
 import { ActionContext, Store as VuexStore, CommitOptions, DispatchOptions } from "vuex";
-import MutationTypes from "./mutation-types";
-import ActionTypes from "./action-types";
-import { RootState } from "../../interface";
+import { RootState } from "../../types";
+
+export const AppModuleKey = "APP/";
+
+export enum ActionTypes {
+  GET_COUTNER = "GET_COUTNER"
+}
+
+export enum MutationTypes {
+  SET_INITING = "SET_INITING",
+  SET_APPBAR = "SET_APPBAR",
+  SET_LAYOUT = "SET_LAYOUT",
+  SET_APP_SETINGS = "SET_APP_SETTINGS"
+}
 
 export type State = {
+  initing: boolean;
   appbar: MixinApp.AppBarState;
   layout: MixinApp.AppLayout;
   settings: MixinApp.AppSettings;
 };
 
 export type Mutations = {
+  [MutationTypes.SET_INITING]: (s: State, v: boolean) => void;
   [MutationTypes.SET_APPBAR]: (s: State, v: Partial<MixinApp.AppBarState>) => void;
   [MutationTypes.SET_LAYOUT]: (s: State, v: MixinApp.AppLayout) => void;
   [MutationTypes.SET_APP_SETINGS]: (s: State, v: Partial<MixinApp.AppSettings>) => void;
@@ -25,7 +38,7 @@ export type Actions = {
   [ActionTypes.GET_COUTNER]({ commit }: AugmentedActionContext): void;
 };
 
-export type AppModuleTypes<S = State> = Omit<VuexStore<S>, "commit" | "getters" | "dispatch"> & {
+export type AppModuleType<S = State> = Omit<VuexStore<S>, "commit" | "getters" | "dispatch"> & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
     key: K,
     payload?: P,

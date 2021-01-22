@@ -1,8 +1,4 @@
-import Vue from "vue";
-import Vuetify from "vuetify";
-import UIKit from "@foxone/uikit";
-
-const options = {
+export default {
   theme: {
     dark: false,
     options: {
@@ -22,10 +18,3 @@ const options = {
     }
   }
 };
-
-export default function() {
-  Vue.use(Vuetify);
-  Vue.use(UIKit);
-
-  return new Vuetify(options);
-}
