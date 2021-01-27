@@ -39,7 +39,7 @@ export function sendMessage<T extends ActionTypes>(
     const request: RequestMessage<T> = {
       id,
       action,
-      payload: payload,
+      payload,
       origin: "page"
     };
 

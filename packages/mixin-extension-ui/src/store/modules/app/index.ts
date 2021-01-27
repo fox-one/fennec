@@ -4,16 +4,21 @@ import { RootState } from "../../types";
 
 const state: State = {
   initing: false,
-  appbar: {
-    title: "",
-    show: true,
-    back: false
-  },
   layout: "default",
   settings: {
     currency: "usd",
     colorStyle: "green_down_red_up",
     dark: false
+  },
+  appbar: {
+    title: "",
+    show: true,
+    back: false
+  },
+  toast: {
+    show: false,
+    color: "info",
+    message: ""
   }
 };
 
@@ -35,6 +40,9 @@ const mutations: MutationTree<State> & Mutations = {
   },
   [MutationTypes.SET_APP_SETINGS](state, data) {
     state.settings = { ...state.settings, ...data };
+  },
+  [MutationTypes.SET_TOAST](state, data) {
+    state.toast = data;
   }
 };
 

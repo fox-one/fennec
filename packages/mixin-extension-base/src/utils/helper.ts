@@ -15,12 +15,12 @@ export function stripUrl(url: string) {
 
 export function openPopup(windows: number[]) {
   const WINDOW_OPTS = {
-    height: 621,
+    height: 620,
     left: 150,
     top: 150,
     type: "popup",
     url: chrome.extension.getURL("notification.html"),
-    width: 560
+    width: 400
   };
 
   extension.windows.create({ ...WINDOW_OPTS }, (window: chrome.windows.Window) => {
@@ -36,4 +36,20 @@ export function closePopup(id: number, windows: number[]) {
   });
 
   windows = [];
+}
+
+export function checkForError() {
+  const { lastError } = extension.runtime;
+  if (!lastError) {
+    return undefined;
+  }
+
+  if (lastError.stack && lastError.message) {
+    return lastError;
+  }
+  return new Error(lastError.message);
+}
+
+export function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
 }

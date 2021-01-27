@@ -1,8 +1,9 @@
 import type { Resolver } from "./types";
 import type { AuthTabPayload } from "../background/types/auth";
+import type { Store } from "./types";
 
 import { BehaviorSubject } from "rxjs";
-import { openPopup, closePopup, stripUrl } from "../utils/helper";
+import { openPopup, stripUrl } from "../utils/helper";
 
 export interface AuthUrlInfo {
   count: number;
@@ -25,8 +26,6 @@ export interface AuthorizeRequest {
   payload: AuthTabPayload;
 }
 
-const AUTH_URLS_KEY = "authUrls";
-
 let idCounter = 0;
 
 function getId() {
@@ -34,19 +33,21 @@ function getId() {
 }
 
 export default class AuthState {
-  readonly #authUrls: Record<string, AuthUrlInfo> = {};
+  #authUrls: Record<string, AuthUrlInfo> = {};
 
-  readonly #authRequests: Record<string, AuthRequest> = {};
+  #authRequests: Record<string, AuthRequest> = {};
 
   #windows = [];
 
+  #store: BehaviorSubject<Store>;
+
   public readonly authSubject: BehaviorSubject<AuthorizeRequest[]> = new BehaviorSubject<AuthorizeRequest[]>([]);
 
-  constructor() {
-    const authString = localStorage.getItem(AUTH_URLS_KEY) || "{}";
-    const previousAuth = JSON.parse(authString) as Record<string, AuthUrlInfo>;
-
-    this.#authUrls = previousAuth;
+  constructor(opts: { store: BehaviorSubject<Store> }) {
+    this.#store = opts.store;
+    this.#store.subscribe((data) => {
+      this.#authUrls = data.authUrls;
+    });
   }
 
   get authorizeRequests(): AuthorizeRequest[] {
@@ -57,8 +58,9 @@ export default class AuthState {
     this.authSubject.next(this.authorizeRequests);
   }
 
-  private saveCurrentAuthList() {
-    localStorage.setItem(AUTH_URLS_KEY, JSON.stringify(this.#authUrls));
+  private persistAuthUrls(data: Record<string, AuthUrlInfo>) {
+    const newStore = { ...this.#store.getValue(), authUrls: data };
+    this.#store.next(newStore);
   }
 
   private authComplete(id: string, resolve: (result: boolean) => void, reject: (error: Error) => void) {
@@ -70,13 +72,21 @@ export default class AuthState {
         payload: { origin }
       } = this.#authRequests[id];
 
-      this.#authUrls[stripUrl(url)] = {
+      const key = stripUrl(url);
+      const value = {
         count: 0,
         id: idStr,
         isAllowed,
         origin,
         url
       };
+
+      this.persistAuthUrls({
+        ...this.#authUrls,
+        [key]: value
+      });
+      delete this.#authRequests[id];
+      this.updateAuthSubject();
     };
 
     return {
@@ -104,7 +114,6 @@ export default class AuthState {
 
     return new Promise((resolve, reject) => {
       const id = getId();
-
       this.#authRequests[id] = {
         ...this.authComplete(id, resolve, reject),
         id,

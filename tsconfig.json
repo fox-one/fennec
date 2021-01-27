@@ -22,6 +22,8 @@
       "@foxone/mixin-extension-ui/*": ["packages/mixin-extension-ui/src/*"],
       "@foxone/mixin-extension-inject": ["packages/mixin-extension-inject/src"],
       "@foxone/mixin-extension-inject/*": ["packages/mixin-extension-inject/src/*"],
+      "@foxone/mixin-sdk": ["packages/mixin-sdk/src"],
+      "@foxone/mixin-sdk/*": ["packages/mixin-sdk/src/*"],
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true

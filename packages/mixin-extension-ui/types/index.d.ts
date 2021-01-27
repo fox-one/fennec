@@ -5,6 +5,12 @@ declare namespace MixinApp {
     back: boolean;
   };
 
+  export type AppToastState = {
+    show: boolean;
+    color: string;
+    message: string;
+  };
+
   export type AppLayout = "default";
 
   export type Currency = "usd" | "cny" | "jpy";

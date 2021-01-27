@@ -1,7 +1,7 @@
 import { ActionContext, Store as VuexStore, CommitOptions, DispatchOptions } from "vuex";
 import { RootState } from "../../types";
 
-export const AppModuleKey = "APP/";
+export const AppModuleKey = "app/";
 
 export enum ActionTypes {
   GET_COUTNER = "GET_COUTNER"
@@ -11,7 +11,8 @@ export enum MutationTypes {
   SET_INITING = "SET_INITING",
   SET_APPBAR = "SET_APPBAR",
   SET_LAYOUT = "SET_LAYOUT",
-  SET_APP_SETINGS = "SET_APP_SETTINGS"
+  SET_APP_SETINGS = "SET_APP_SETTINGS",
+  SET_TOAST = "SET_TOAST"
 }
 
 export type State = {
@@ -19,6 +20,7 @@ export type State = {
   appbar: MixinApp.AppBarState;
   layout: MixinApp.AppLayout;
   settings: MixinApp.AppSettings;
+  toast: MixinApp.AppToastState;
 };
 
 export type Mutations = {
@@ -26,6 +28,7 @@ export type Mutations = {
   [MutationTypes.SET_APPBAR]: (s: State, v: Partial<MixinApp.AppBarState>) => void;
   [MutationTypes.SET_LAYOUT]: (s: State, v: MixinApp.AppLayout) => void;
   [MutationTypes.SET_APP_SETINGS]: (s: State, v: Partial<MixinApp.AppSettings>) => void;
+  [MutationTypes.SET_TOAST]: (s: State, v: MixinApp.AppToastState) => void;
 };
 
 export type Getters = {};

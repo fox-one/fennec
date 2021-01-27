@@ -6,6 +6,7 @@
   "author": "zhangqingwu <18656007202@163.com>",
   "license": "Apache-2",
   "dependencies": {
+    "browser-passworder": "^2.0.3",
     "extensionizer": "^1.0.1",
     "rxjs": "^6.6.3",
     "vuex": "^3.6.0"

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "src/index.ts",
   "dependencies": {
-    "@foxone/uikit": "^1.1.16",
+    "@foxone/uikit": "^2.0.14",
     "bignumber.js": "^9.0.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.8.28",

@@ -1,6 +1,5 @@
 import type { InjectedAccount } from "../../inject/types";
 import type { AuthUrlInfo } from "../../state/auth";
-import type { AccountJson } from "./account";
 
 export interface ApproveAuthPayload {
   id: string;
@@ -21,7 +20,6 @@ export interface AuthRequests {
 }
 
 export interface AuthActionSignatures {
-  "pri(accounts.subscribe)": [null, boolean, AccountJson[]];
   "pri(authorize.requests)": [null, boolean, AuthRequests[]];
   "pri(authorize.list)": [null, Record<string, AuthUrlInfo>];
   "pri(authorize.reject)": [RejectAuthPayload, boolean];

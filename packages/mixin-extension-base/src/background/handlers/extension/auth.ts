@@ -3,13 +3,8 @@ import type { State } from "../../../state/types";
 
 import { createSubscription, unsubscribe } from "../subscriptions";
 
-export default function createHandlers(state: State) {
+export default function createAuthHandlers(state: State) {
   return {
-    accountsSubscribe(id: string, port: chrome.runtime.Port): boolean {
-      const cb = createSubscription<"pri(accounts.subscribe)">(id, port);
-      return false;
-    },
-
     authorizeSubscribe(id: string, port: chrome.runtime.Port): boolean {
       const cb = createSubscription<"pri(authorize.requests)">(id, port);
       const subscription = state.auth.authSubject.subscribe((requests: AuthorizeRequest[]) => {
@@ -50,4 +45,4 @@ export default function createHandlers(state: State) {
   };
 }
 
-export type ExtensionActionHandlers = ReturnType<typeof createHandlers>;
+export type ExtensionActionHandlers = ReturnType<typeof createAuthHandlers>;

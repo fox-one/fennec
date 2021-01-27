@@ -20,7 +20,7 @@ export default defineComponent({
 
     const connect = async () => {
       loading.value = true;
-      const ctx = await ext?.value?.enable();
+      const ctx = await ext?.value?.enable("Mixin Client Demo");
       loading.value = false;
       emit("update-ctx", ctx);
     };

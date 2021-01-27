@@ -3,9 +3,6 @@
     <template v-if="loading">
       <f-loading color="primary" />
     </template>
-    <template v-else-if="hasAuthRequest">
-      <auth-request />
-    </template>
     <template v-else>
       <component :is="layoutComponent">
         <router-view />
@@ -34,8 +31,9 @@ class App extends Vue {
     switch (this.layout) {
       case "default":
         return "default-layout";
+      default:
+        return "default-layout";
     }
-    return "default-layout";
   }
 
   get initing() {
@@ -46,8 +44,11 @@ class App extends Vue {
     return this.$store.state.auth.authorizeRequests.length > 0;
   }
 
-  mounted() {
-    this.$utils.app.init(this);
+  async mounted() {
+    await this.$utils.app.init(this);
+    if (this.hasAuthRequest) {
+      this.$router.replace({ name: "authorize" });
+    }
   }
 }
 export default App;
@@ -56,11 +57,6 @@ export default App;
 <style lang="scss" scoped>
 .app {
   width: 400px;
-  height: 800px;
-  // color: var(--v-primary-base);
-}
-
-.btn {
-  color: var(--v-primary-base);
+  height: 620px;
 }
 </style>
