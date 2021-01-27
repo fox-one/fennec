@@ -1,6 +1,6 @@
 import { signAuthenticationToken, signEncryptedPin } from "./encrypt";
 
-export interface Wallet {
+export interface MixinAccount {
   pin: string;
   pin_token: string;
   session_id: string;
@@ -9,17 +9,17 @@ export interface Wallet {
 }
 
 export default class MixinKeyring {
-  #accounts: Wallet[] = [];
+  #accounts: MixinAccount[] = [];
 
   constructor() {
     this.#accounts = [];
   }
 
-  serialize() {
+  public serialize() {
     return Promise.resolve(this.#accounts.map((w) => JSON.stringify(w)));
   }
 
-  deserialize(keys: string[]) {
+  public deserialize(keys: string[]) {
     return new Promise<void>((resovle, reject) => {
       try {
         this.#accounts = keys.map((key) => {
@@ -32,36 +32,32 @@ export default class MixinKeyring {
     });
   }
 
-  getAccountFor(clientId: string) {
-    const wallet = this.#accounts.find((w) => w.client_id === clientId);
-    if (!wallet) {
-      throw `Mixin wallet ${clientId} not found in keyring`;
-    }
-    return wallet;
+  public getAccounts() {
+    return this.#accounts;
   }
 
-  signAuthorizeToken(clientId: string, method: string, uri: string, params: any) {
+  public signAuthorizeToken(clientId: string, method: string, uri: string, params: any) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(
       signAuthenticationToken(wallet.client_id, wallet.session_id, wallet.private_key, method, uri, params)
     );
   }
 
-  encryptPin(clientId: string) {
+  public encryptPin(clientId: string) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(signEncryptedPin(wallet.pin, wallet.pin_token, wallet.session_id, wallet.private_key));
   }
 
-  exportAccount(clientId) {
+  public exportAccount(clientId) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(JSON.stringify(wallet));
   }
 
-  removeAccount(clientId: string) {
+  public removeAccount(clientId: string) {
     this.#accounts = this.#accounts.filter((w) => w.client_id !== clientId);
   }
 
-  addAccount(configs: string) {
+  public addAccount(configs: string) {
     const account = JSON.parse(configs);
     if (!this.checkAccount(account)) {
       throw new Error("Account config not match");
@@ -72,7 +68,7 @@ export default class MixinKeyring {
     this.#accounts.push(account);
   }
 
-  checkAccount(obj: any) {
+  private checkAccount(obj: any) {
     const keys = ["pin", "pin_token", "session_id", "private_key", "client_id"];
     for (const key of keys) {
       if (!obj[key] || typeof obj[key] !== "string") {
@@ -81,5 +77,13 @@ export default class MixinKeyring {
     }
 
     return true;
+  }
+
+  private getAccountFor(clientId: string) {
+    const wallet = this.#accounts.find((w) => w.client_id === clientId);
+    if (!wallet) {
+      throw `Mixin wallet ${clientId} not found in keyring`;
+    }
+    return wallet;
   }
 }

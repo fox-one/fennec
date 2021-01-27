@@ -15,6 +15,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import DefaultLayout from "./layouts/default/Index.vue";
 import AuthRequest from "./components/auth/AuthRequest.vue";
+import { authorizeRequestGuard, initializeGuard } from "./router/guard";
 
 @Component({
   components: {
@@ -46,8 +47,15 @@ class App extends Vue {
 
   async mounted() {
     await this.$utils.app.init(this);
-    if (this.hasAuthRequest) {
+
+    if (initializeGuard(this.$store)) {
+      this.$router.replace({ name: "welcome" });
+      return;
+    }
+
+    if (authorizeRequestGuard(this.$store)) {
       this.$router.replace({ name: "authorize" });
+      return;
     }
   }
 }

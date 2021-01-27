@@ -12,6 +12,8 @@ import type {
 import extension from "extensionizer";
 import { PORT_EXTENSION } from "@foxone/mixin-extension-base/constants";
 import createAuthMessages from "./auth";
+import createKeyringMessages from "./keyring";
+import createPreferenceMessages from "./perference";
 
 interface Handler {
   resolve: (data: any) => void;
@@ -72,5 +74,7 @@ export function sendMessage<T extends ActionTypes>(
 }
 
 export default {
-  ...createAuthMessages(sendMessage)
+  ...createAuthMessages(sendMessage),
+  ...createKeyringMessages(sendMessage),
+  ...createPreferenceMessages(sendMessage)
 };

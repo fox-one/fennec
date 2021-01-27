@@ -1,14 +1,13 @@
-import type { Store } from "./types";
+import type { Store, State } from "./types";
+
 import { BehaviorSubject } from "rxjs";
+import { initStoreData } from "./init-data";
+import LcoalStore from "../utils/lcoal-store";
 import AuthState from "./auth";
 import KeyringState from "./keyring";
-import LcoalStore from "../utils/lcoal-store";
+import PreferenceState from "./preference";
 
 const localstore = new LcoalStore();
-const initStoreData = {
-  authUrls: {},
-  keyring: undefined
-};
 
 async function initStore() {
   let store = (await localstore.get()) as Store;
@@ -23,10 +22,11 @@ async function initStore() {
   return storeSubject;
 }
 
-export default async function createState() {
+export default async function createState(): Promise<State> {
   const store = await initStore();
   return {
     auth: new AuthState({ store }),
-    keyring: new KeyringState({ store })
+    keyring: new KeyringState({ store }),
+    preference: new PreferenceState({ store })
   };
 }

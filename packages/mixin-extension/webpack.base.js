@@ -10,7 +10,7 @@ const ManifestPlugin = require("webpack-extension-manifest-plugin");
 const pkgJson = require("./package.json");
 const manifest = require("./manifest.json");
 
-const packages = ["mixin-extension", "mixin-extension-base", "mixin-extension-ui"];
+const packages = ["mixin-extension", "mixin-extension-base", "mixin-extension-ui", "mixin-sdk"];
 
 module.exports = {
   context: __dirname,

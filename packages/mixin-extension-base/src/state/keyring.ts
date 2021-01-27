@@ -2,55 +2,63 @@ import type { Store } from "./types";
 import type { SignAuthorizeTokenPlayload } from "../background/types/keyring";
 
 import { BehaviorSubject } from "rxjs";
-import MixinKeyring from "@foxone/mixin-sdk/keyring";
+import MixinKeyring, { MixinAccount } from "@foxone/mixin-sdk/keyring";
 import encryptor from "browser-passworder";
+import { initKeyringData } from "./init-data";
 
 export type KeyringType = MixinKeyring | undefined;
 
 export type KeyringMemState = {
-  keyring: KeyringType;
+  keyring: string[] | undefined;
   isUnlocked: boolean;
+  initialized: boolean;
+  accounts: MixinAccount[];
 };
 
 export default class KeyringState {
-  #keyring: KeyringType;
+  #password: string | null = null;
 
-  #password = "";
+  #keyring: KeyringType = undefined;
 
   #store: BehaviorSubject<Store>;
 
-  #memState: KeyringMemState = {
-    keyring: undefined,
-    isUnlocked: false
-  };
+  #state: KeyringMemState = initKeyringData;
 
-  public readonly keyringSubject: BehaviorSubject<KeyringMemState> = new BehaviorSubject<KeyringMemState>(
-    this.#memState
+  public readonly keyringMemStateSubject: BehaviorSubject<KeyringMemState> = new BehaviorSubject<KeyringMemState>(
+    this.#state
   );
 
   constructor(opts: { store: BehaviorSubject<Store> }) {
     this.#store = opts.store;
+    const state = {
+      ...this.#state,
+      initialized: Boolean(this.#store.getValue().keyring)
+    };
+    this.updateKeyringMemState(state);
   }
 
   public async addNewAccount(configs: string) {
-    await this.persistKeyring();
     const keyring = this.#keyring || new MixinKeyring();
     keyring.addAccount(configs);
-    await this.persistKeyring();
-    this.restoreKeyring(keyring);
+
+    await this.persistKeyring(keyring);
+    this.restoreKeyring();
+    this.restoreAccounts();
     this.setUnLocked();
 
     return true;
   }
 
   public async removeAccount(clientId: string) {
-    await this.persistKeyring();
     if (!this.#keyring) {
       throw "No stored keyring";
     }
 
     this.#keyring.removeAccount(clientId);
-    this.persistKeyring();
+
+    this.persistKeyring(this.#keyring);
+    this.restoreKeyring();
+    this.restoreAccounts();
   }
 
   public async exportAccount(clientId: string) {
@@ -82,6 +90,20 @@ export default class KeyringState {
     this.setUnLocked();
   }
 
+  public async initializePassword(password: string) {
+    this.#password = password;
+  }
+
+  public setUnLocked() {
+    this.updateKeyringMemState({ ...this.#state, isUnlocked: true, accounts: [] });
+  }
+
+  public setLocked() {
+    this.#password = null;
+    this.#keyring = undefined;
+    this.updateKeyringMemState({ ...this.#state, isUnlocked: false, keyring: undefined, accounts: [] });
+  }
+
   private unLockKeyring(password: string) {
     const stored = this.#store.getValue().keyring;
     if (!stored) {
@@ -91,34 +113,38 @@ export default class KeyringState {
     this.clearKeying();
     this.#password = password;
     const decrypted = encryptor.decrypt(this.#password, stored);
+
     const keyring = new MixinKeyring();
     keyring.deserialize(decrypted);
-    this.restoreKeyring(keyring);
-  }
 
-  private setUnLocked() {
-    this.#memState = { ...this.#memState, isUnlocked: true };
-    this.updateKeyringSubject();
-  }
-
-  private restoreKeyring(keyring: KeyringType) {
     this.#keyring = keyring;
-    this.#memState = { ...this.#memState, keyring };
-    this.updateKeyringSubject();
+    this.restoreKeyring();
+    this.restoreAccounts();
   }
 
   private clearKeying() {
     this.#keyring = undefined;
-    this.#memState = { ...this.#memState, keyring: undefined };
-    this.updateKeyringSubject();
+    this.#state.keyring = undefined;
+    this.#store.next({ ...this.#store.getValue(), keyring: undefined });
+    this.restoreKeyring();
+    this.restoreAccounts();
   }
 
-  private updateKeyringSubject() {
-    this.keyringSubject.next(this.#memState);
+  private updateKeyringMemState(data: KeyringMemState) {
+    this.#state = data;
+    this.keyringMemStateSubject.next(data);
   }
 
-  private async persistKeyring() {
-    const serialized = await this.#keyring?.serialize();
+  private restoreAccounts() {
+    this.updateKeyringMemState({ ...this.#state, accounts: this.#keyring?.getAccounts() ?? [] });
+  }
+
+  private restoreKeyring() {
+    this.updateKeyringMemState({ ...this.#state, keyring: this.#store.getValue().keyring });
+  }
+
+  private async persistKeyring(keyring: MixinKeyring) {
+    const serialized = await keyring.serialize();
     const encrypted = encryptor.encrypt(this.#password, serialized);
     const newStore = { ...this.#store.getValue(), keyring: encrypted };
     this.#store.next(newStore);

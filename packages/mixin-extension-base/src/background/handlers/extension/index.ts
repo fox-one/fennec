@@ -5,6 +5,7 @@ import type { State } from "../../../state/types";
 
 import createAuthHandlers from "./auth";
 import createKeyringHandlers from "./keyring";
+import createPreferenceHandlers from "./preference";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -18,9 +19,15 @@ export default function (state: State) {
     params: ActionParams<T>
   ): Promise<ActionResponses[keyof ActionResponses]> {
     const { action, payload, id, port } = params;
-    const handlers = { ...createAuthHandlers(state), ...createKeyringHandlers(state) };
+
+    const handlers = {
+      ...createAuthHandlers(state),
+      ...createKeyringHandlers(state),
+      ...createPreferenceHandlers(state)
+    };
 
     switch (action) {
+      // Accounts
       case "pri(authorize.requests)":
         return handlers.authorizeSubscribe(id, port);
 
@@ -30,8 +37,19 @@ export default function (state: State) {
       case "pri(authorize.reject)":
         return handlers.rejectAuthorize(payload as RejectAuthPayload);
 
+      // Keyring
       case "pri(keyring.createAccount)":
         return handlers.createAccount(payload as CreateAccountPayload);
+
+      case "pri(keyring.subscribe)":
+        return handlers.createKeyringStateSubscribe(id, port);
+
+      // Preference
+      case "pri(preference.subscribe)":
+        return handlers.perferenceSubscribe(id, port);
+
+      case "pri(perference.completeOnboarding)":
+        return handlers.completeOnboarding();
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);
