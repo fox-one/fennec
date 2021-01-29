@@ -3,7 +3,7 @@ import Home from "../views/home.vue";
 import Lock from "../views/lock.vue";
 import UnLock from "../views/unlock.vue";
 import Authorize from "../views/authorize.vue";
-import Welcome from "../views/first-time-flow/welcome.vue";
+import CreatePassword from "../views/first-time-flow/create-password.vue";
 
 const routes: RouteConfig[] = [
   {
@@ -27,9 +27,9 @@ const routes: RouteConfig[] = [
     component: Authorize
   },
   {
-    path: "/welcome",
-    name: "welcome",
-    component: Welcome
+    path: "/create-password",
+    name: "create-password",
+    component: CreatePassword
   }
 ];
 

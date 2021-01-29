@@ -2,7 +2,7 @@ import type { Store, State } from "./types";
 
 import { BehaviorSubject } from "rxjs";
 import { initStoreData } from "./init-data";
-import LcoalStore from "../utils/lcoal-store";
+import LcoalStore from "../utils/lcoalstore";
 import AuthState from "./auth";
 import KeyringState from "./keyring";
 import PreferenceState from "./preference";

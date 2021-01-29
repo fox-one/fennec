@@ -1,6 +1,8 @@
 const { defaults } = require("jest-config");
 
 module.exports = {
+  // resolver: "browser-resolve",
+  // testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   browser: true,
   moduleFileExtensions: [...defaults.moduleFileExtensions, "ts", "tsx"],
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],

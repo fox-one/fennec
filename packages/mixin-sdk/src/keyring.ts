@@ -36,16 +36,35 @@ export default class MixinKeyring {
     return this.#accounts;
   }
 
-  public signAuthorizeToken(clientId: string, method: string, uri: string, params: any) {
+  public signAuthorizeToken(
+    clientId: string,
+    method: string,
+    uri: string,
+    params: any
+  ) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(
-      signAuthenticationToken(wallet.client_id, wallet.session_id, wallet.private_key, method, uri, params)
+      signAuthenticationToken(
+        wallet.client_id,
+        wallet.session_id,
+        wallet.private_key,
+        method,
+        uri,
+        params
+      )
     );
   }
 
   public encryptPin(clientId: string) {
     const wallet = this.getAccountFor(clientId);
-    return Promise.resolve(signEncryptedPin(wallet.pin, wallet.pin_token, wallet.session_id, wallet.private_key));
+    return Promise.resolve(
+      signEncryptedPin(
+        wallet.pin,
+        wallet.pin_token,
+        wallet.session_id,
+        wallet.private_key
+      )
+    );
   }
 
   public exportAccount(clientId) {

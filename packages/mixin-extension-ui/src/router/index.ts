@@ -1,9 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
-import registerGuard from "./guard";
 
-export default function (store) {
+export default function () {
   Vue.use(VueRouter);
 
   const router = new VueRouter({
@@ -11,7 +10,7 @@ export default function (store) {
     routes
   });
 
-  registerGuard(store, router);
+  // registerGuard(store, router);
 
   return router;
 }

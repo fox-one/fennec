@@ -1,5 +1,4 @@
 export const initKeyringData = {
-  keyring: undefined,
   isUnlocked: false,
   initialized: false,
   accounts: []

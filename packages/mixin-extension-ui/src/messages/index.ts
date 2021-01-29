@@ -19,6 +19,7 @@ interface Handler {
   resolve: (data: any) => void;
   reject: (error: Error) => void;
   subscriber?: (data: any) => void;
+  action: string;
 }
 
 type Handlers = Record<string, Handler>;
@@ -40,6 +41,8 @@ port.onMessage.addListener((data: Message["data"]) => {
     delete handler[data.id];
   }
 
+  console.log(`ui : response : ${handler.action} ${JSON.stringify(data)}`);
+
   if (data.subscription) {
     handler.subscriber?.(data.subscription);
   } else if (data.error) {
@@ -49,7 +52,9 @@ port.onMessage.addListener((data: Message["data"]) => {
   }
 });
 
-export function sendMessage<T extends ActionTypesWithNullPayload>(action: T): Promise<ActionResponses[T]>;
+export function sendMessage<T extends ActionTypesWithNullPayload>(
+  action: T
+): Promise<ActionResponses[T]>;
 export function sendMessage<T extends ActionTypesWithNoSubscriptions>(
   action: T,
   payload: ActionPayloads[T]
@@ -67,7 +72,9 @@ export function sendMessage<T extends ActionTypes>(
 ) {
   return new Promise((resolve, reject) => {
     const id = `${Date.now()}.${++idCounter}`;
-    handlers[id] = { resolve, reject, subscriber };
+    handlers[id] = { resolve, reject, subscriber, action };
+
+    console.log(`ui : resquest : ${id} ${action} ${JSON.stringify(payload)}`);
 
     port.postMessage({ id, action, payload: payload || {} });
   });

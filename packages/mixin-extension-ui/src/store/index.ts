@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex, { ModuleTree } from "vuex";
+import Vuex, { ModuleTree, createLogger } from "vuex";
 import { RootState, Store } from "./types";
 import app from "./modules/app";
 import auth from "./modules/auth";
@@ -20,6 +20,7 @@ export default function () {
     state: {},
     mutations: {},
     actions: {},
-    modules
+    modules,
+    plugins: [createLogger()]
   }) as Store;
 }

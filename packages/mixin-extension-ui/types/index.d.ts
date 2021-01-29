@@ -11,6 +11,11 @@ declare namespace MixinApp {
     message: string;
   };
 
+  export type AppPayingState = {
+    visible: boolean;
+    timer: null | Timer;
+  };
+
   export type AppLayout = "default";
 
   export type Currency = "usd" | "cny" | "jpy";

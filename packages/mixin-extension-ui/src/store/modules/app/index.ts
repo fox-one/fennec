@@ -3,7 +3,7 @@ import { Mutations, State, Actions, ActionTypes, MutationTypes } from "./types";
 import { RootState } from "../../types";
 
 const state: State = {
-  initing: false,
+  initing: true,
   layout: "default",
   settings: {
     currency: "usd",
@@ -19,6 +19,10 @@ const state: State = {
     show: false,
     color: "info",
     message: ""
+  },
+  paying: {
+    visible: false,
+    timer: null
   }
 };
 
@@ -43,6 +47,9 @@ const mutations: MutationTree<State> & Mutations = {
   },
   [MutationTypes.SET_TOAST](state, data) {
     state.toast = data;
+  },
+  [MutationTypes.SET_PAYING](state, data) {
+    state.paying = data;
   }
 };
 

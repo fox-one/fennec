@@ -9,6 +9,14 @@ export default function (sendMessage: SendMessage) {
 
     subscribeKeyingState(cb: (state: KeyringMemState) => void) {
       return sendMessage("pri(keyring.subscribe)", null, cb);
+    },
+
+    initializePassword(password: string) {
+      return sendMessage("pri(keyring.initializePassword)", { password });
+    },
+
+    tryUnlockKeyring(password: string) {
+      return sendMessage("pri(kering.unlock)", { password });
     }
   };
 }

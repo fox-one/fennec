@@ -10,13 +10,18 @@ export default async function () {
   const state: State = await createState();
   const handlers = createHandlers(state);
 
-  return function handler<T extends ActionTypes>(data: RequestMessage<T>, port: chrome.runtime.Port) {
+  return function handler<T extends ActionTypes>(
+    data: RequestMessage<T>,
+    port: chrome.runtime.Port
+  ) {
     const { id, action, payload } = data;
     const isExt = isExtension(port);
-    const from = isExt ? "extension" : port.sender?.url || port.sender?.tab?.url || "<unknown>";
+    const from = isExt
+      ? "extension"
+      : port.sender?.url || port.sender?.tab?.url || "<unknown>";
     const source = `${from} : ${id} : ${action}`;
 
-    console.log(`[in] ${source}:: ${payload}`);
+    console.log(`[in] ${source}:: ${JSON.stringify(payload)}`);
 
     const promise = isExt
       ? handlers.extension<typeof action>({ id, action, payload, port })
@@ -24,7 +29,7 @@ export default async function () {
 
     promise
       .then((res) => {
-        console.log(`[out] ${source}:: ${res}`);
+        console.log(`[out] ${source}:: ${JSON.stringify(res)}`);
 
         if (!port) {
           throw "Port has been disconnected";

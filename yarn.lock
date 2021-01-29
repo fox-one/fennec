@@ -689,10 +689,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-runtime@^7.11.0":
+"@babel/plugin-transform-runtime@^7.11.0", "@babel/plugin-transform-runtime@^7.12.10":
   version "7.12.10"
-  resolved "https://registry.npmjs.org/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.12.10.tgz#af0fded4e846c4b37078e8e5d06deac6cd848562"
-  integrity sha512-xOrUfzPxw7+WDm9igMgQCbO3cJKymX7dFdsgRr1eu9n3KjjyU4pptIXbXPseQDquw+W+RuJEJMHKHNsPNNm3CA==
+  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-runtime/download/@babel/plugin-transform-runtime-7.12.10.tgz?cache=0&sync_timestamp=1607569369088&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-runtime%2Fdownload%2F%40babel%2Fplugin-transform-runtime-7.12.10.tgz#af0fded4e846c4b37078e8e5d06deac6cd848562"
+  integrity sha1-rw/e1OhGxLNweOjl0G3qxs2EhWI=
   dependencies:
     "@babel/helper-module-imports" "^7.12.5"
     "@babel/helper-plugin-utils" "^7.10.4"
@@ -758,10 +758,10 @@
     "@babel/helper-create-regexp-features-plugin" "^7.12.1"
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/preset-env@^7.11.0":
+"@babel/preset-env@^7.11.0", "@babel/preset-env@^7.12.11":
   version "7.12.11"
-  resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.12.11.tgz#55d5f7981487365c93dbbc84507b1c7215e857f9"
-  integrity sha512-j8Tb+KKIXKYlDBQyIOy4BLxzv1NUOwlHfZ74rvW+Z0Gp4/cI2IMDPBWAgWceGcE7aep9oL/0K9mlzlMGxA8yNw==
+  resolved "https://registry.npm.taobao.org/@babel/preset-env/download/@babel/preset-env-7.12.11.tgz?cache=0&sync_timestamp=1608076805354&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpreset-env%2Fdownload%2F%40babel%2Fpreset-env-7.12.11.tgz#55d5f7981487365c93dbbc84507b1c7215e857f9"
+  integrity sha1-VdX3mBSHNlyT27yEUHscchXoV/k=
   dependencies:
     "@babel/compat-data" "^7.12.7"
     "@babel/helper-compilation-targets" "^7.12.5"
@@ -841,7 +841,27 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
+"@babel/preset-typescript@^7.12.7":
+  version "7.12.7"
+  resolved "https://registry.npm.taobao.org/@babel/preset-typescript/download/@babel/preset-typescript-7.12.7.tgz#fc7df8199d6aae747896f1e6c61fc872056632a3"
+  integrity sha1-/H34GZ1qrnR4lvHmxh/IcgVmMqM=
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.10.4"
+    "@babel/helper-validator-option" "^7.12.1"
+    "@babel/plugin-transform-typescript" "^7.12.1"
+
+"@babel/register@^7.12.10":
+  version "7.12.10"
+  resolved "https://registry.npm.taobao.org/@babel/register/download/@babel/register-7.12.10.tgz?cache=0&sync_timestamp=1607585453248&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fregister%2Fdownload%2F%40babel%2Fregister-7.12.10.tgz#19b87143f17128af4dbe7af54c735663b3999f60"
+  integrity sha1-GbhxQ/FxKK9Nvnr1THNWY7OZn2A=
+  dependencies:
+    find-cache-dir "^2.0.0"
+    lodash "^4.17.19"
+    make-dir "^2.1.0"
+    pirates "^4.0.0"
+    source-map-support "^0.5.16"
+
+"@babel/runtime@^7.11.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.8.4":
   version "7.12.5"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
@@ -1969,10 +1989,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@mdi/js@^5.3.45":
-  version "5.8.55"
-  resolved "https://registry.npmjs.org/@mdi/js/-/js-5.8.55.tgz#630bc5fafd8b1d2f6e63489a9ab170177559e41b"
-  integrity sha512-2bvln56SW6V/nSDC/0/NTu1bMF/CgSyZox8mcWbAPWElBN3UYIrukKDUckEER8ifr8X2YJl1RLKQqi7T7qLzmg==
+"@mdi/js@^5.9.55":
+  version "5.9.55"
+  resolved "https://registry.npm.taobao.org/@mdi/js/download/@mdi/js-5.9.55.tgz#8f5bc4d924c23f30dab20545ddc768e778bbc882"
+  integrity sha1-j1vE2STCPzDasgVF3cdo53i7yII=
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -2225,7 +2245,7 @@
   resolved "https://registry.npmjs.org/@types/braces/-/braces-3.0.0.tgz#7da1c0d44ff1c7eb660a36ec078ea61ba7eb42cb"
   integrity sha512-TbH79tcyi9FHwbyboOKeRachRq63mSuWYXOflsNO9ZyE5ClQ/JaozNKl+aWUq87qPNsXasXxi2AbgfwIJ+8GQw==
 
-"@types/chrome@^0.0.128":
+"@types/chrome@*", "@types/chrome@^0.0.128":
   version "0.0.128"
   resolved "https://registry.npmjs.org/@types/chrome/-/chrome-0.0.128.tgz#5dbd8b2539a367353fbe4386f119b510105f8b6a"
   integrity sha512-eGc599TDtersMBW1cSnExHm0IHrXrO5xdk6Sa2Dq30ED+hR1rpT1ez0NNcCgvGO52nmktGfyvd3Uyquzv3LL4g==
@@ -2456,6 +2476,26 @@
   dependencies:
     "@types/mime" "*"
     "@types/node" "*"
+
+"@types/sinon-chrome@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.npm.taobao.org/@types/sinon-chrome/download/@types/sinon-chrome-2.2.10.tgz#d131e25d5a06f9f2e37d71a2099e8dd74e4c1de9"
+  integrity sha1-0THiXVoG+fLjfXGiCZ6N105MHek=
+  dependencies:
+    "@types/chrome" "*"
+    "@types/sinon" "*"
+
+"@types/sinon@*":
+  version "9.0.10"
+  resolved "https://registry.npm.taobao.org/@types/sinon/download/@types/sinon-9.0.10.tgz#7fb9bcb6794262482859cab66d59132fca18fcf7"
+  integrity sha1-f7m8tnlCYkgoWcq2bVkTL8oY/Pc=
+  dependencies:
+    "@types/sinonjs__fake-timers" "*"
+
+"@types/sinonjs__fake-timers@*":
+  version "6.0.2"
+  resolved "https://registry.npm.taobao.org/@types/sinonjs__fake-timers/download/@types/sinonjs__fake-timers-6.0.2.tgz#3a84cf5ec3249439015e14049bd3161419bf9eae"
+  integrity sha1-OoTPXsMklDkBXhQEm9MWFBm/nq4=
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -4624,8 +4664,8 @@ browser-process-hrtime@^1.0.0:
 
 browser-resolve@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npmjs.org/browser-resolve/-/browser-resolve-2.0.0.tgz#99b7304cb392f8d73dba741bb2d7da28c6d7842b"
-  integrity sha512-7sWsQlYL2rGLy2IWm8WL8DCTJvYLc/qlOnsakDac87SOoCd16WLsaAMdCiAqsTNHIe+SXfaqyxyo6THoWqs8WQ==
+  resolved "https://registry.npm.taobao.org/browser-resolve/download/browser-resolve-2.0.0.tgz#99b7304cb392f8d73dba741bb2d7da28c6d7842b"
+  integrity sha1-mbcwTLOS+Nc9unQbstfaKMbXhCs=
   dependencies:
     resolve "^1.17.0"
 
@@ -7279,10 +7319,10 @@ find-cache-dir@^0.1.1:
     mkdirp "^0.5.1"
     pkg-dir "^1.0.0"
 
-find-cache-dir@^2.1.0:
+find-cache-dir@^2.0.0, find-cache-dir@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.npmjs.org/find-cache-dir/-/find-cache-dir-2.1.0.tgz#8d0f94cd13fe43c6c7c261a0d86115ca918c05f7"
-  integrity sha512-Tq6PixE0w/VMFfCgbONnkiQIVol/JJL7nRMi20fqzA4NRs9AfeqMGeRdPi3wIhYkxjeBaWh2rxwapn5Tu3IqOQ==
+  resolved "https://registry.npm.taobao.org/find-cache-dir/download/find-cache-dir-2.1.0.tgz#8d0f94cd13fe43c6c7c261a0d86115ca918c05f7"
+  integrity sha1-jQ+UzRP+Q8bHwmGg2GEVypGMBfc=
   dependencies:
     commondir "^1.0.1"
     make-dir "^2.0.0"
@@ -8934,6 +8974,33 @@ jest-changed-files@^26.6.2:
   dependencies:
     "@jest/types" "^26.6.2"
     execa "^4.0.0"
+    throat "^5.0.0"
+
+jest-circus@^26.6.3:
+  version "26.6.3"
+  resolved "https://registry.npm.taobao.org/jest-circus/download/jest-circus-26.6.3.tgz#3cc7ef2a6a3787e5d7bfbe2c72d83262154053e7"
+  integrity sha1-PMfvKmo3h+XXv74sctgyYhVAU+c=
+  dependencies:
+    "@babel/traverse" "^7.1.0"
+    "@jest/environment" "^26.6.2"
+    "@jest/test-result" "^26.6.2"
+    "@jest/types" "^26.6.2"
+    "@types/babel__traverse" "^7.0.4"
+    "@types/node" "*"
+    chalk "^4.0.0"
+    co "^4.6.0"
+    dedent "^0.7.0"
+    expect "^26.6.2"
+    is-generator-fn "^2.0.0"
+    jest-each "^26.6.2"
+    jest-matcher-utils "^26.6.2"
+    jest-message-util "^26.6.2"
+    jest-runner "^26.6.3"
+    jest-runtime "^26.6.3"
+    jest-snapshot "^26.6.2"
+    jest-util "^26.6.2"
+    pretty-format "^26.6.2"
+    stack-utils "^2.0.2"
     throat "^5.0.0"
 
 jest-cli@^26.6.3:
@@ -11390,7 +11457,7 @@ pinkie@^2.0.0:
   resolved "https://registry.npmjs.org/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha1-clVrgM+g1IqXToDnckjoDtT3+HA=
 
-pirates@^4.0.1:
+pirates@^4.0.0, pirates@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/pirates/download/pirates-4.0.1.tgz#643a92caf894566f91b2b986d2c66950a8e2fb87"
   integrity sha1-ZDqSyviUVm+RsrmG0sZpUKji+4c=
@@ -13130,10 +13197,10 @@ source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
-source-map-support@^0.5.6, source-map-support@~0.5.12, source-map-support@~0.5.19:
+source-map-support@^0.5.16, source-map-support@^0.5.6, source-map-support@~0.5.12, source-map-support@~0.5.19:
   version "0.5.19"
-  resolved "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
-  integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
+  resolved "https://registry.npm.taobao.org/source-map-support/download/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
+  integrity sha1-qYti+G3K9PZzmWSMCFKRq56P7WE=
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"

@@ -9,7 +9,6 @@ import { initKeyringData } from "./init-data";
 export type KeyringType = MixinKeyring | undefined;
 
 export type KeyringMemState = {
-  keyring: string[] | undefined;
   isUnlocked: boolean;
   initialized: boolean;
   accounts: MixinAccount[];
@@ -38,15 +37,21 @@ export default class KeyringState {
   }
 
   public async addNewAccount(configs: string) {
-    const keyring = this.#keyring || new MixinKeyring();
-    keyring.addAccount(configs);
+    if (!this.#password) {
+      throw new Error("Keyring has not been unlock, no password found");
+    }
 
-    await this.persistKeyring(keyring);
-    this.restoreKeyring();
-    this.restoreAccounts();
+    if (!this.#keyring) {
+      this.#keyring = new MixinKeyring();
+    }
+
+    this.#keyring.addAccount(configs);
+    await this.persistKeyring(this.#keyring);
+    await this.unLockKeyring(this.#password);
+
     this.setUnLocked();
 
-    return true;
+    return this.#state.accounts;
   }
 
   public async removeAccount(clientId: string) {
@@ -55,9 +60,7 @@ export default class KeyringState {
     }
 
     this.#keyring.removeAccount(clientId);
-
     this.persistKeyring(this.#keyring);
-    this.restoreKeyring();
     this.restoreAccounts();
   }
 
@@ -69,7 +72,12 @@ export default class KeyringState {
     return this.#keyring.exportAccount(clientId);
   }
 
-  public async signAuthorizeToken({ clientId, uri, method, params }: SignAuthorizeTokenPlayload) {
+  public async signAuthorizeToken({
+    clientId,
+    uri,
+    method,
+    params
+  }: SignAuthorizeTokenPlayload) {
     if (!this.#keyring) {
       throw "No stored keyring";
     }
@@ -86,25 +94,34 @@ export default class KeyringState {
   }
 
   public async submitPassword(password: string) {
-    this.unLockKeyring(password);
+    await this.unLockKeyring(password);
     this.setUnLocked();
+    return true;
   }
 
   public async initializePassword(password: string) {
     this.#password = password;
+    return true;
   }
 
   public setUnLocked() {
-    this.updateKeyringMemState({ ...this.#state, isUnlocked: true, accounts: [] });
+    this.updateKeyringMemState({
+      ...this.#state,
+      isUnlocked: true
+    });
   }
 
   public setLocked() {
     this.#password = null;
     this.#keyring = undefined;
-    this.updateKeyringMemState({ ...this.#state, isUnlocked: false, keyring: undefined, accounts: [] });
+    this.updateKeyringMemState({
+      ...this.#state,
+      isUnlocked: false,
+      accounts: []
+    });
   }
 
-  private unLockKeyring(password: string) {
+  private async unLockKeyring(password: string) {
     const stored = this.#store.getValue().keyring;
     if (!stored) {
       throw new Error("Cannot unlock keyring without previous stored value");
@@ -112,21 +129,18 @@ export default class KeyringState {
 
     this.clearKeying();
     this.#password = password;
-    const decrypted = encryptor.decrypt(this.#password, stored);
+    const decrypted = await encryptor.decrypt(this.#password, stored);
 
     const keyring = new MixinKeyring();
     keyring.deserialize(decrypted);
 
     this.#keyring = keyring;
-    this.restoreKeyring();
     this.restoreAccounts();
   }
 
   private clearKeying() {
     this.#keyring = undefined;
-    this.#state.keyring = undefined;
     this.#store.next({ ...this.#store.getValue(), keyring: undefined });
-    this.restoreKeyring();
     this.restoreAccounts();
   }
 
@@ -136,16 +150,15 @@ export default class KeyringState {
   }
 
   private restoreAccounts() {
-    this.updateKeyringMemState({ ...this.#state, accounts: this.#keyring?.getAccounts() ?? [] });
-  }
-
-  private restoreKeyring() {
-    this.updateKeyringMemState({ ...this.#state, keyring: this.#store.getValue().keyring });
+    this.updateKeyringMemState({
+      ...this.#state,
+      accounts: this.#keyring?.getAccounts() ?? []
+    });
   }
 
   private async persistKeyring(keyring: MixinKeyring) {
     const serialized = await keyring.serialize();
-    const encrypted = encryptor.encrypt(this.#password, serialized);
+    const encrypted = await encryptor.encrypt(this.#password, serialized);
     const newStore = { ...this.#store.getValue(), keyring: encrypted };
     this.#store.next(newStore);
   }

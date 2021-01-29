@@ -23,7 +23,7 @@
     "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
-    "@mdi/js": "^5.3.45",
+    "@mdi/js": "^5.9.55",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",

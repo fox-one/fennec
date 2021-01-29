@@ -1,13 +1,13 @@
 import type { Store as VuexStore, CommitOptions, DispatchOptions } from "vuex";
 import type { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
 
-export const KeyringModulePerfix = "keyring";
+export const KeyringModulePerfix = "keyring/";
 
 export enum MutationTypes {
   UPDATE_KEYRING_STATE = "UPDATE_KEYRING_STATE"
 }
 
-export type State = KeyringMemState;
+export type State = { keyring: KeyringMemState };
 
 export type Mutations = {
   [MutationTypes.UPDATE_KEYRING_STATE](s: State, v: KeyringMemState): void;
@@ -17,7 +17,10 @@ export type Getters = {};
 
 export type Actions = {};
 
-export type AppModuleType<S = State> = Omit<VuexStore<S>, "commit" | "getters" | "dispatch"> & {
+export type AppModuleType<S = State> = Omit<
+  VuexStore<S>,
+  "commit" | "getters" | "dispatch"
+> & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
     key: K,
     payload?: P,

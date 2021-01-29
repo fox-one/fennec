@@ -1,8 +1,6 @@
 <template>
   <v-app id="app" class="app">
-    <template v-if="loading">
-      <f-loading color="primary" />
-    </template>
+    <f-loading v-if="initing" loading color="primary" fullscreen />
     <template v-else>
       <component :is="layoutComponent">
         <router-view />
@@ -15,7 +13,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import DefaultLayout from "./layouts/default/Index.vue";
 import AuthRequest from "./components/auth/AuthRequest.vue";
-import { authorizeRequestGuard, initializeGuard } from "./router/guard";
 
 @Component({
   components: {
@@ -47,16 +44,6 @@ class App extends Vue {
 
   async mounted() {
     await this.$utils.app.init(this);
-
-    if (initializeGuard(this.$store)) {
-      this.$router.replace({ name: "welcome" });
-      return;
-    }
-
-    if (authorizeRequestGuard(this.$store)) {
-      this.$router.replace({ name: "authorize" });
-      return;
-    }
   }
 }
 export default App;

@@ -1,6 +1,10 @@
 import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
 import type { ApproveAuthPayload, RejectAuthPayload } from "../../types/auth";
-import type { CreateAccountPayload } from "../../types/keyring";
+import type {
+  CreateAccountPayload,
+  InitializedPasswordPayload,
+  UnlockKeyringPayload
+} from "../../types/keyring";
 import type { State } from "../../../state/types";
 
 import createAuthHandlers from "./auth";
@@ -43,6 +47,14 @@ export default function (state: State) {
 
       case "pri(keyring.subscribe)":
         return handlers.createKeyringStateSubscribe(id, port);
+
+      case "pri(keyring.initializePassword)":
+        return handlers.initializePassword(
+          payload as InitializedPasswordPayload
+        );
+
+      case "pri(kering.unlock)":
+        return handlers.tryUnlockKeyring(payload as UnlockKeyringPayload);
 
       // Preference
       case "pri(preference.subscribe)":
