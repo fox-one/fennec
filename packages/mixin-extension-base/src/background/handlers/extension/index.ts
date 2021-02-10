@@ -3,7 +3,9 @@ import type { ApproveAuthPayload, RejectAuthPayload } from "../../types/auth";
 import type {
   CreateAccountPayload,
   InitializedPasswordPayload,
-  UnlockKeyringPayload
+  UnlockKeyringPayload,
+  SignAuthorizeTokenPayload,
+  EncryptPinPayload
 } from "../../types/keyring";
 import type { State } from "../../../state/types";
 
@@ -55,6 +57,14 @@ export default function (state: State) {
 
       case "pri(kering.unlock)":
         return handlers.tryUnlockKeyring(payload as UnlockKeyringPayload);
+
+      case "pri(kering.signAuthorizeToken)":
+        return handlers.signAuthorizeToken(
+          payload as SignAuthorizeTokenPayload
+        );
+
+      case "pri(kering.encryptPin)":
+        return handlers.encryptPin(payload as EncryptPinPayload);
 
       // Preference
       case "pri(preference.subscribe)":

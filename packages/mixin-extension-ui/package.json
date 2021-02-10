@@ -5,7 +5,7 @@
   "dependencies": {
     "@foxone/mixin-extension-base": "^1.0.0",
     "@foxone/mixin-sdk": "^1.0.0",
-    "@foxone/uikit": "^2.0.14",
+    "@foxone/uikit": "^2.0.17",
     "bignumber.js": "^9.0.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.8.28",

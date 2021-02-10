@@ -17,6 +17,18 @@ export default function (sendMessage: SendMessage) {
 
     tryUnlockKeyring(password: string) {
       return sendMessage("pri(kering.unlock)", { password });
+    },
+
+    signAuthorizeToken(uri: string, method: string, data: any) {
+      return sendMessage("pri(kering.signAuthorizeToken)", {
+        uri,
+        method,
+        data
+      });
+    },
+
+    encryptPin(pin: string) {
+      return sendMessage("pri(kering.encryptPin)", { pin });
     }
   };
 }

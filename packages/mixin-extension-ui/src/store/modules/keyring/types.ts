@@ -3,9 +3,9 @@ import type { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring
 
 export const KeyringModulePerfix = "keyring/";
 
-export enum MutationTypes {
-  UPDATE_KEYRING_STATE = "UPDATE_KEYRING_STATE"
-}
+export const MutationTypes = {
+  UPDATE_KEYRING_STATE: "UPDATE_KEYRING_STATE"
+} as const;
 
 export type State = { keyring: KeyringMemState };
 

@@ -5,7 +5,8 @@ export const initKeyringData = {
 };
 
 export const initPerferenceData = {
-  completeOnboarding: false
+  completeOnboarding: false,
+  seletedAccount: undefined
 };
 
 export const initStoreData = {

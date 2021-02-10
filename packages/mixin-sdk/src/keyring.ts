@@ -40,7 +40,7 @@ export default class MixinKeyring {
     clientId: string,
     method: string,
     uri: string,
-    params: any
+    data: any
   ) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(
@@ -50,16 +50,16 @@ export default class MixinKeyring {
         wallet.private_key,
         method,
         uri,
-        params
+        data
       )
     );
   }
 
-  public encryptPin(clientId: string) {
+  public encryptPin(clientId: string, pin: string) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(
       signEncryptedPin(
-        wallet.pin,
+        pin,
         wallet.pin_token,
         wallet.session_id,
         wallet.private_key

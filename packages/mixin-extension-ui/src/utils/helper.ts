@@ -9,9 +9,9 @@ export function toast(vue: Vue, data: { message: string; color?: string }) {
 
 export function errorToast(
   vue: Vue,
-  error: { message: string; code?: string | number } | Error
+  error: { description?: string; message?: string; code?: string | number }
 ) {
-  const message = error?.message;
+  const message = error?.description || error?.message;
   const code = "code" in error ? error.code : "";
   toast(vue, { message: `${code} ${message}`, color: "error" });
 }

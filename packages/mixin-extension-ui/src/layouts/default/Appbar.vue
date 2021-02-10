@@ -1,5 +1,9 @@
 <template>
-  <f-app-bar v-bind="appbar" @back="handleBack"></f-app-bar>
+  <f-app-bar v-bind="appbar" @back="handleBack">
+    <v-btn icon small @click="handleReload">
+      <v-icon>{{ $icons.mdiReload }}</v-icon>
+    </v-btn>
+  </f-app-bar>
 </template>
 
 <script lang="ts">
@@ -16,6 +20,10 @@ class Appbar extends Vue {
       ...appbar,
       color: isDark ? "#121212" : "#FFFFFF"
     };
+  }
+
+  handleReload() {
+    window.location.reload();
   }
 
   handleBack() {

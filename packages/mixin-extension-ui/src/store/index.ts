@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Vuex, { ModuleTree, createLogger } from "vuex";
-import { RootState, Store } from "./types";
+import { RootState } from "./types";
 import app from "./modules/app";
 import auth from "./modules/auth";
 import keyring from "./modules/keyring";
 import preference from "./modules/preference";
+import wallet from "./modules/wallet";
 
 export default function () {
   Vue.use(Vuex);
@@ -13,7 +14,8 @@ export default function () {
     app,
     auth,
     keyring,
-    preference
+    preference,
+    wallet
   };
 
   return new Vuex.Store({
@@ -22,5 +24,5 @@ export default function () {
     actions: {},
     modules,
     plugins: [createLogger()]
-  }) as Store;
+  });
 }

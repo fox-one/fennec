@@ -48,7 +48,7 @@ port.onMessage.addListener((data: Message["data"]) => {
   } else if (data.error) {
     handler.reject(new Error(data.error));
   } else {
-    handler.resolve(data.response);
+    handler.resolve(data.res);
   }
 });
 

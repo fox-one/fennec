@@ -1,6 +1,7 @@
 import type AuthState from "./auth";
 import type KeyringState from "./keyring";
 import type PerferenceState from "./preference";
+import type ProviderState from "./provider";
 import type { AuthUrlInfo } from "./auth";
 
 export interface Resolver<T> {
@@ -9,13 +10,15 @@ export interface Resolver<T> {
 }
 
 export interface State {
-  auth: InstanceType<typeof AuthState>;
-  keyring: InstanceType<typeof KeyringState>;
-  preference: InstanceType<typeof PerferenceState>;
+  auth: AuthState;
+  keyring: KeyringState;
+  preference: PerferenceState;
+  provider: ProviderState;
 }
 
 export interface PerferenceStore {
   completeOnboarding: boolean;
+  seletedAccount: undefined | string;
 }
 
 export interface Store {

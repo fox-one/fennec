@@ -8,18 +8,18 @@ import { RootState } from "../../types";
 
 export const AppModuleKey = "app/";
 
-export enum ActionTypes {
-  GET_COUTNER = "GET_COUTNER"
-}
+export const ActionTypes = {
+  GET_COUTNER: "GET_COUTNER"
+} as const;
 
-export enum MutationTypes {
-  SET_INITING = "SET_INITING",
-  SET_APPBAR = "SET_APPBAR",
-  SET_LAYOUT = "SET_LAYOUT",
-  SET_APP_SETINGS = "SET_APP_SETTINGS",
-  SET_TOAST = "SET_TOAST",
-  SET_PAYING = "SET_PAYING"
-}
+export const MutationTypes = {
+  SET_INITING: "SET_INITING",
+  SET_APPBAR: "SET_APPBAR",
+  SET_LAYOUT: "SET_LAYOUT",
+  SET_APP_SETINGS: "SET_APP_SETTINGS",
+  SET_TOAST: "SET_TOAST",
+  SET_PAYING: "SET_PAYING"
+} as const;
 
 export type State = {
   initing: boolean;

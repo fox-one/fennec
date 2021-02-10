@@ -3,9 +3,9 @@ import type { AuthorizeRequest } from "@foxone/mixin-extension-base/state/auth";
 
 export const AuthModulePerfix = "auth/";
 
-export enum MutationTypes {
-  UPDATE_AUTHORIZE_URLS = "UPDATE_AUTHORIZE_URLS"
-}
+export const MutationTypes = {
+  UPDATE_AUTHORIZE_URLS: "UPDATE_AUTHORIZE_URLS"
+} as const;
 
 export type State = {
   authorizeRequests: AuthorizeRequest[];
@@ -19,7 +19,10 @@ export type Getters = {};
 
 export type Actions = {};
 
-export type AppModuleType<S = State> = Omit<VuexStore<S>, "commit" | "getters" | "dispatch"> & {
+export type AppModuleType<S = State> = Omit<
+  VuexStore<S>,
+  "commit" | "getters" | "dispatch"
+> & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
     key: K,
     payload?: P,

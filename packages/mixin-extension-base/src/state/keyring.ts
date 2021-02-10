@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import MixinKeyring, { MixinAccount } from "@foxone/mixin-sdk/keyring";
 import encryptor from "browser-passworder";
 import { initKeyringData } from "./init-data";
+import PreferenceState from "./preference";
 
 export type KeyringType = MixinKeyring | undefined;
 
@@ -21,19 +22,22 @@ export default class KeyringState {
 
   #store: BehaviorSubject<Store>;
 
+  #preference: PreferenceState;
+
   #state: KeyringMemState = initKeyringData;
 
   public readonly keyringMemStateSubject: BehaviorSubject<KeyringMemState> = new BehaviorSubject<KeyringMemState>(
     this.#state
   );
 
-  constructor(opts: { store: BehaviorSubject<Store> }) {
+  constructor(opts: {
+    preference: PreferenceState;
+    store: BehaviorSubject<Store>;
+  }) {
     this.#store = opts.store;
-    const state = {
-      ...this.#state,
-      initialized: Boolean(this.#store.getValue().keyring)
-    };
-    this.updateKeyringMemState(state);
+    this.#preference = opts.preference;
+
+    this.updateKeyringMemState(this.#state);
   }
 
   public async addNewAccount(configs: string) {
@@ -76,21 +80,21 @@ export default class KeyringState {
     clientId,
     uri,
     method,
-    params
+    data
   }: SignAuthorizeTokenPlayload) {
     if (!this.#keyring) {
       throw "No stored keyring";
     }
 
-    return this.#keyring.signAuthorizeToken(clientId, method, uri, params);
+    return this.#keyring.signAuthorizeToken(clientId, method, uri, data);
   }
 
-  public async signPin(clientId: string) {
+  public async encryptPin(clientId: string, pin: string) {
     if (!this.#keyring) {
       throw "No stored keyring";
     }
 
-    return this.#keyring.encryptPin(clientId);
+    return this.#keyring.encryptPin(clientId, pin);
   }
 
   public async submitPassword(password: string) {
@@ -127,7 +131,6 @@ export default class KeyringState {
       throw new Error("Cannot unlock keyring without previous stored value");
     }
 
-    this.clearKeying();
     this.#password = password;
     const decrypted = await encryptor.decrypt(this.#password, stored);
 
@@ -145,14 +148,24 @@ export default class KeyringState {
   }
 
   private updateKeyringMemState(data: KeyringMemState) {
-    this.#state = data;
-    this.keyringMemStateSubject.next(data);
+    this.#state = {
+      ...data,
+      initialized: Boolean(this.#store.getValue().keyring)
+    };
+    this.keyringMemStateSubject.next(this.#state);
   }
 
   private restoreAccounts() {
+    const accounts = this.#keyring?.getAccounts() ?? [];
+
+    const seletedAccount = this.#preference.preference.seletedAccount;
+    if (!seletedAccount && accounts) {
+      this.#preference.setSelectedAccount(accounts[0]?.client_id);
+    }
+
     this.updateKeyringMemState({
       ...this.#state,
-      accounts: this.#keyring?.getAccounts() ?? []
+      accounts
     });
   }
 

@@ -15,6 +15,11 @@ import {
   MutationTypes as KeyringMutationTypes,
   KeyringModulePerfix
 } from "../store/modules/keyring/types";
+import {
+  ActionTypes as WalletActionTypes,
+  WalletModuleKey
+} from "../store/modules/wallet/types";
+
 import registerGuard, {
   initializeGuard,
   authorizeRequestGuard,
@@ -63,32 +68,42 @@ export function loadKeyringFromBackground(vm: Vue) {
   });
 }
 
+export async function loadWalletData(vm: Vue) {
+  await Promise.all([
+    vm.$store.dispatch(WalletModuleKey + WalletActionTypes.LOAD_ASSETS),
+    vm.$store.dispatch(WalletModuleKey + WalletActionTypes.LOAD_EXCHANGE_RATES)
+  ]);
+}
+
 export async function afterInit(vm: Vue) {
   registerGuard(vm.$store, vm.$router);
 
-  const routeName = vm.$route.name;
-  if (routeName !== "create-password" && initializeGuard(vm.$store)) {
+  if (initializeGuard(vm.$store)) {
     vm.$router.replace({ name: "create-password" });
     return;
   }
 
-  if (routeName !== "authorize" && authorizeRequestGuard(vm.$store)) {
+  if (authorizeRequestGuard(vm.$store)) {
     vm.$router.replace({ name: "authorize" });
     return;
   }
 
-  if (routeName !== "unlock" && appLockedGuard(vm.$store)) {
+  if (appLockedGuard(vm.$store)) {
     vm.$router.replace({ name: "unlock" });
     return;
   }
+
+  await loadWalletData(vm);
 }
 
 export async function init(vm: Vue) {
   vm.$store.commit(AppModuleKey + AppMutationTypes.SET_INITING, true);
+
   await loadAuthorizeRequestsFromBackground(vm);
   await loadPerferenceFromBackground(vm);
   await loadKeyringFromBackground(vm);
-  vm.$store.commit(AppModuleKey + AppMutationTypes.SET_INITING, false);
 
-  afterInit(vm);
+  await afterInit(vm);
+
+  vm.$store.commit(AppModuleKey + AppMutationTypes.SET_INITING, false);
 }

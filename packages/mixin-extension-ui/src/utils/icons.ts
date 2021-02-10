@@ -1,5 +1,6 @@
-import { mdiLock } from "@mdi/js";
+import { mdiLock, mdiReload } from "@mdi/js";
 
 export default {
-  mdiLock
+  mdiLock,
+  mdiReload
 };

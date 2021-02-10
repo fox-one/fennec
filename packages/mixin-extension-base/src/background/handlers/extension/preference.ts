@@ -5,9 +5,11 @@ export default function createPerferenceHandlers(state: State) {
   return {
     perferenceSubscribe(id: string, port: chrome.runtime.Port) {
       const cb = createSubscription<"pri(preference.subscribe)">(id, port);
-      const subscription = state.preference.perferenceSubjection.subscribe((data) => {
-        cb(data);
-      });
+      const subscription = state.preference.perferenceSubjection.subscribe(
+        (data) => {
+          cb(data);
+        }
+      );
 
       port.onDisconnect.addListener(() => {
         unsubscribe(id);

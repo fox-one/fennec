@@ -3,7 +3,7 @@ export interface Message extends MessageEvent {
     error?: string;
     id: string;
     origin: string;
-    response?: string;
+    res?: string;
     subscription?: string;
   };
 }

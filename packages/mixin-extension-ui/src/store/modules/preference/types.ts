@@ -3,9 +3,9 @@ import type { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
 
 export const PreferenceModulePerfix = "preference/";
 
-export enum MutationTypes {
-  UPDATE_PREFRENCE = "UPDATE_PREFRENCE"
-}
+export const MutationTypes = {
+  UPDATE_PREFRENCE: "UPDATE_PREFRENCE"
+} as const;
 
 export type State = {
   preference: PerferenceStore;
@@ -19,7 +19,10 @@ export type Getters = {};
 
 export type Actions = {};
 
-export type AppModuleType<S = State> = Omit<VuexStore<S>, "commit" | "getters" | "dispatch"> & {
+export type AppModuleType<S = State> = Omit<
+  VuexStore<S>,
+  "commit" | "getters" | "dispatch"
+> & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
     key: K,
     payload?: P,

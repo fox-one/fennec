@@ -41,7 +41,9 @@ export default class AuthState {
 
   #store: BehaviorSubject<Store>;
 
-  public readonly authSubject: BehaviorSubject<AuthorizeRequest[]> = new BehaviorSubject<AuthorizeRequest[]>([]);
+  public readonly authSubject: BehaviorSubject<
+    AuthorizeRequest[]
+  > = new BehaviorSubject<AuthorizeRequest[]>([]);
 
   constructor(opts: { store: BehaviorSubject<Store> }) {
     this.#store = opts.store;
@@ -51,7 +53,11 @@ export default class AuthState {
   }
 
   get authorizeRequests(): AuthorizeRequest[] {
-    return Object.values(this.#authRequests).map(({ id, url, payload }) => ({ id, url, payload }));
+    return Object.values(this.#authRequests).map(({ id, url, payload }) => ({
+      id,
+      url,
+      payload
+    }));
   }
 
   private updateAuthSubject() {
@@ -63,7 +69,11 @@ export default class AuthState {
     this.#store.next(newStore);
   }
 
-  private authComplete(id: string, resolve: (result: boolean) => void, reject: (error: Error) => void) {
+  private authComplete(
+    id: string,
+    resolve: (result: boolean) => void,
+    reject: (error: Error) => void
+  ) {
     const complete = (result: boolean | Error) => {
       const isAllowed = result === true;
       const {
@@ -101,7 +111,10 @@ export default class AuthState {
     };
   }
 
-  public async authorizeUrl(url: string, payload: AuthTabPayload): Promise<boolean> {
+  public async authorizeUrl(
+    url: string,
+    payload: AuthTabPayload
+  ): Promise<boolean> {
     const idStr = stripUrl(url);
 
     if (this.#authUrls[idStr]) {
