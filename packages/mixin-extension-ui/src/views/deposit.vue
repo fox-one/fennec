@@ -1,0 +1,115 @@
+<template>
+  <v-container>
+    <div class="f-caption my-3">Deposit</div>
+    <asset-select v-model="asset" />
+    <div v-if="meta.destination" class="my-5">
+      <div class="f-caption my-3">Address</div>
+      <v-layout>
+        <v-flex>
+          <div class="destination mr-5">{{ meta.destination }}</div>
+          <div class="my-3">
+            <v-btn
+              v-clipboard:copy="meta.destination"
+              v-clipboard:success="() => handleCopied()"
+              v-clipboard:error="() => handleCopyFail()"
+              small
+              depressed
+              rounded
+              color="primary"
+            >
+              Copy
+            </v-btn>
+          </div>
+        </v-flex>
+        <div>
+          <asset-qr-code :value="meta.destination" :asset="asset" />
+        </div>
+      </v-layout>
+    </div>
+    <div v-if="meta.tag" class="my-5">
+      <div class="f-caption my-3">Tag</div>
+      <v-layout>
+        <v-flex>
+          <div class="tag mr-5">{{ meta.tag }}</div>
+          <div class="my-3">
+            <v-btn
+              v-clipboard:copy="meta.tag"
+              v-clipboard:success="() => handleCopied()"
+              v-clipboard:error="() => handleCopyFail()"
+              small
+              depressed
+              rounded
+              color="primary"
+            >
+              Copy
+            </v-btn>
+          </div>
+        </v-flex>
+        <div>
+          <asset-qr-code :value="meta.tag" :asset="asset" />
+        </div>
+      </v-layout>
+    </div>
+  </v-container>
+</template>
+
+<script lang="ts">
+import { Component, Mixins } from "vue-property-decorator";
+import { Asset } from "@foxone/mixin-sdk/types";
+import PageView from "../mixin/page";
+import AssetSelect from "../components/wallet/AssetSelect.vue";
+import AssetQRCode from "../components/wallet/AssetQRCode.vue";
+
+@Component({
+  components: {
+    AssetSelect,
+    "asset-qr-code": AssetQRCode
+  }
+})
+class DepositPage extends Mixins(PageView) {
+  asset: Asset | null = null;
+
+  get appbar() {
+    return {
+      back: true
+    };
+  }
+
+  get title() {
+    return "Deposit";
+  }
+
+  get meta() {
+    return {
+      destination: this.asset?.destination ?? "",
+      tag: this.asset?.tag ?? "",
+      symbol: this.asset?.symbol ?? "",
+      confirmations: this.asset?.destination ?? ""
+    };
+  }
+
+  handleCopied() {
+    this.$utils.helper.onCopySuccess(this);
+  }
+
+  handleCopyFail() {
+    this.$utils.helper.onCopyFail(this);
+  }
+}
+export default DepositPage;
+</script>
+
+<style lang="scss" scoped>
+::v-deep {
+  .asset-select {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.destination {
+  font-size: 16px;
+  line-height: 1.2;
+  word-break: break-all;
+}
+</style>

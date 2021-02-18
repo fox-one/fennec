@@ -7,15 +7,16 @@ import usePlugins from "./plugins";
 import "./scss/index.scss";
 
 export default function initializeUi(container: string) {
-  const { vuetify } = usePlugins();
+  const { vuetify, i18n } = usePlugins();
   const store = createStore();
   const router = createRouter();
 
-  (window as any)._vue_ = new Vue({
+  new Vue({
     vuetify,
     el: container,
     store,
     router,
+    i18n,
     render: (h) => h(App)
   });
 }

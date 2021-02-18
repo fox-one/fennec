@@ -1,6 +1,5 @@
 import { signAuthenticationToken, signEncryptedPin } from "../src/encrypt";
 import axios from "axios";
-import endpoints from "@foxone/mixin-extension-ui/endpoints";
 
 describe("mixin-sdk/encrypt", () => {
   const configs = {
@@ -75,6 +74,22 @@ describe("mixin-sdk/encrypt", () => {
       axios.getUri(config),
       endpoint.data
     );
+
+    try {
+      const response = await axios.request({
+        url: config.url,
+        method: config.method,
+        data: config.data,
+        params: config.params,
+        baseURL: config.baseURL,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      expect(Array.isArray(response.data.data)).toBe(true);
+    } catch (error) {
+      expect(error).toMatch("error");
+    }
   });
 
   test("encrypt pin should work as expect", async () => {

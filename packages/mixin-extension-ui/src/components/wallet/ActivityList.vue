@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <list-wapper :data="meta.snapshots" :loading="reloading || loading">
     <v-list>
       <v-list-item v-for="(snapshot, index) in meta.snapshots" :key="index">
         <span>
@@ -30,15 +30,20 @@
         </div>
       </v-list-item>
     </v-list>
-  </div>
+  </list-wapper>
 </template>
 
 <script lang="ts">
 import { Snapshot, Transaction } from "@foxone/mixin-sdk/types";
 import { Component, Vue } from "vue-property-decorator";
 import { WalletModuleKey, ActionTypes } from "../../store/modules/wallet/types";
+import ListWapper from "../hoc/ListWarpper.vue";
 
-@Component
+@Component({
+  components: {
+    ListWapper
+  }
+})
 class ActivityList extends Vue {
   reloading = false;
 
@@ -51,7 +56,7 @@ class ActivityList extends Vue {
     const snapshotSourceMetas = enums.snapshotSourceMeta(this);
 
     const snapshots: Snapshot[] = this.$store.state.wallet.snapshots;
-    const transactions: Transaction[] = this.$store.state.wallet.transactions;
+    // const transactions: Transaction[] = this.$store.state.wallet.transactions;
 
     const snapshotsMeta = snapshots.map((snapshot) => {
       const source = snapshotSourceMetas[snapshot.source];
@@ -77,10 +82,10 @@ class ActivityList extends Vue {
       await Promise.all([
         dispatch(WalletModuleKey + ActionTypes.LOAD_SNAPSHOTS, {
           reload: true
-        }),
-        dispatch(WalletModuleKey + ActionTypes.LOAD_TRANSACTIONS, {
-          reload: true
         })
+        // dispatch(WalletModuleKey + ActionTypes.LOAD_TRANSACTIONS, {
+        //   reload: true
+        // })
       ]);
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

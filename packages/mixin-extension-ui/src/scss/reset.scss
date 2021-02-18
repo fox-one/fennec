@@ -3,6 +3,10 @@
   .v-toolbar {
     transition: none !important;
   }
+
+  .f-bottom-sheet {
+    overflow: auto;
+  }
 }
 
 .theme--light.v-application {

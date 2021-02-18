@@ -4,6 +4,7 @@
       <div class="f-headline">{{ meta.totalBTCFormat }}</div>
       <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
     </div>
+    <asset-actions />
     <wallet-tabs />
   </v-container>
 </template>
@@ -13,10 +14,12 @@ import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../mixin/page";
 import { GetterKeys, WalletModuleKey } from "../store/modules/wallet/types";
 import WalletTabs from "../components/wallet/WalletTabs.vue";
+import AssetActions from "../components/wallet/AssetActions.vue";
 
 @Component({
   components: {
-    WalletTabs
+    WalletTabs,
+    AssetActions
   }
 })
 class HomePage extends Mixins(PageView) {

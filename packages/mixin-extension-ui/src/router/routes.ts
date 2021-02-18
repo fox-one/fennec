@@ -4,6 +4,8 @@ import Lock from "../views/lock.vue";
 import UnLock from "../views/unlock.vue";
 import Authorize from "../views/authorize.vue";
 import CreatePassword from "../views/first-time-flow/create-password.vue";
+import Deposit from "../views/deposit.vue";
+import Withdraw from "../views/withdraw.vue";
 
 const routes: RouteConfig[] = [
   {
@@ -30,6 +32,16 @@ const routes: RouteConfig[] = [
     path: "/create-password",
     name: "create-password",
     component: CreatePassword
+  },
+  {
+    path: "/deposit",
+    name: "deposit",
+    component: Deposit
+  },
+  {
+    path: "/withdraw",
+    name: "withdraw",
+    component: Withdraw
   }
 ];
 

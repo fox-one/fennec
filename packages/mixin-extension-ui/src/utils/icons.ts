@@ -1,6 +1,7 @@
-import { mdiLock, mdiReload } from "@mdi/js";
+import { mdiLock, mdiReload, mdiHelpCircle } from "@mdi/js";
 
 export default {
   mdiLock,
-  mdiReload
+  mdiReload,
+  mdiHelpCircle
 };
