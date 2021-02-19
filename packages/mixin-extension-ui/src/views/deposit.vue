@@ -1,54 +1,57 @@
 <template>
   <v-container>
-    <div class="f-caption my-3">Deposit</div>
-    <asset-select v-model="asset" />
-    <div v-if="meta.destination" class="my-5">
-      <div class="f-caption my-3">Address</div>
-      <v-layout>
-        <v-flex>
-          <div class="destination mr-5">{{ meta.destination }}</div>
-          <div class="my-3">
-            <v-btn
-              v-clipboard:copy="meta.destination"
-              v-clipboard:success="() => handleCopied()"
-              v-clipboard:error="() => handleCopyFail()"
-              small
-              depressed
-              rounded
-              color="primary"
-            >
-              Copy
-            </v-btn>
+    <f-loading v-if="loading" :loading="loading" fullscreen />
+    <div v-else>
+      <div class="f-caption my-3">Deposit</div>
+      <asset-select v-model="asset" />
+      <div v-if="meta.destination" class="my-5">
+        <div class="f-caption my-3">Address</div>
+        <v-layout>
+          <v-flex>
+            <div class="destination mr-5">{{ meta.destination }}</div>
+            <div class="my-3">
+              <v-btn
+                v-clipboard:copy="meta.destination"
+                v-clipboard:success="() => handleCopied()"
+                v-clipboard:error="() => handleCopyFail()"
+                small
+                depressed
+                rounded
+                color="primary"
+              >
+                Copy
+              </v-btn>
+            </div>
+          </v-flex>
+          <div>
+            <asset-qr-code :value="meta.destination" :asset="asset" />
           </div>
-        </v-flex>
-        <div>
-          <asset-qr-code :value="meta.destination" :asset="asset" />
-        </div>
-      </v-layout>
-    </div>
-    <div v-if="meta.tag" class="my-5">
-      <div class="f-caption my-3">Tag</div>
-      <v-layout>
-        <v-flex>
-          <div class="tag mr-5">{{ meta.tag }}</div>
-          <div class="my-3">
-            <v-btn
-              v-clipboard:copy="meta.tag"
-              v-clipboard:success="() => handleCopied()"
-              v-clipboard:error="() => handleCopyFail()"
-              small
-              depressed
-              rounded
-              color="primary"
-            >
-              Copy
-            </v-btn>
+        </v-layout>
+      </div>
+      <div v-if="meta.tag" class="my-5">
+        <div class="f-caption my-3">Tag</div>
+        <v-layout>
+          <v-flex>
+            <div class="tag mr-5">{{ meta.tag }}</div>
+            <div class="my-3">
+              <v-btn
+                v-clipboard:copy="meta.tag"
+                v-clipboard:success="() => handleCopied()"
+                v-clipboard:error="() => handleCopyFail()"
+                small
+                depressed
+                rounded
+                color="primary"
+              >
+                Copy
+              </v-btn>
+            </div>
+          </v-flex>
+          <div>
+            <asset-qr-code :value="meta.tag" :asset="asset" />
           </div>
-        </v-flex>
-        <div>
-          <asset-qr-code :value="meta.tag" :asset="asset" />
-        </div>
-      </v-layout>
+        </v-layout>
+      </div>
     </div>
   </v-container>
 </template>
@@ -69,6 +72,8 @@ import AssetQRCode from "../components/wallet/AssetQRCode.vue";
 class DepositPage extends Mixins(PageView) {
   asset: Asset | null = null;
 
+  loading = false;
+
   get appbar() {
     return {
       back: true
@@ -86,6 +91,33 @@ class DepositPage extends Mixins(PageView) {
       symbol: this.asset?.symbol ?? "",
       confirmations: this.asset?.destination ?? ""
     };
+  }
+
+  get preset() {
+    return this.$route.query.preset;
+  }
+
+  get assets(): Asset[] {
+    return this.$store.state.wallet.assets;
+  }
+
+  mounted() {
+    this.setInitAsset();
+  }
+
+  async setInitAsset() {
+    if (!this.preset) {
+      return;
+    }
+
+    this.loading = true;
+    try {
+      const res = await this.$endpoints.getAsset(this.preset as string);
+      this.asset = res;
+    } catch (error) {
+      this.$utils.helper.errorToast(this, error);
+    }
+    this.loading = false;
   }
 
   handleCopied() {

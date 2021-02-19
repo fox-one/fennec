@@ -5,7 +5,22 @@
       <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
     </div>
     <asset-actions />
-    <wallet-tabs />
+    <v-layout class="mt-3">
+      <v-flex class="mr-4">
+        <v-text-field
+          v-model="search"
+          placeholder="Search"
+          solo
+          hide-details
+          flat
+          clear
+          dense
+          background-color="rgba(0, 0, 0, 0.03)"
+        />
+      </v-flex>
+      <asset-add />
+    </v-layout>
+    <asset-list :filter="search" />
   </v-container>
 </template>
 
@@ -13,16 +28,20 @@
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../mixin/page";
 import { GetterKeys, WalletModuleKey } from "../store/modules/wallet/types";
-import WalletTabs from "../components/wallet/WalletTabs.vue";
 import AssetActions from "../components/wallet/AssetActions.vue";
+import AssetAdd from "../components/wallet/AssetAdd.vue";
+import AssetList from "../components/wallet/AssetList.vue";
 
 @Component({
   components: {
-    WalletTabs,
-    AssetActions
+    AssetActions,
+    AssetAdd,
+    AssetList
   }
 })
 class HomePage extends Mixins(PageView) {
+  search = "";
+
   get title() {
     return "Home";
   }

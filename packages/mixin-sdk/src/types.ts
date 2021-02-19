@@ -123,6 +123,7 @@ export interface Asset {
   mixin_id: string;
   confirmations: number;
   capitalization: number;
+  liquidity?: string;
 }
 
 export interface NetworkAsset {
@@ -155,7 +156,16 @@ export enum SnapshotSource {
   WITHDRAWAL_FAILED = "WITHDRAWAL_FAILED"
 }
 
-export interface Snapshot {
+export enum SnapshotType {
+  DEPOSIT = "deposit",
+  TRANSFER = "transfer",
+  WITHDRAWAL = "withdrawal",
+  WITHDRAWAL_FEE_CHARGED = "fee",
+  WITHDRAWAL_FAILED = "rebate",
+  RAW = "raw"
+}
+
+export interface NetworkSnapshot {
   amount: string;
   asset: {
     asset_id: string;
@@ -169,11 +179,28 @@ export interface Snapshot {
   data: string;
   snapshot_id: string;
   source: SnapshotSource;
-  type: string;
+  type: SnapshotType;
   // Options only for user (or App) who has access.
   user_id?: string;
   trace_id?: string;
   opponent_id?: string;
+}
+
+export interface Snapshot {
+  amount: string;
+  asset_id: string;
+  closing_balance: string;
+  counter_user_id: string;
+  created_at: string;
+  memo: string;
+  opening_balance: string;
+  opponent_id: string;
+  snapshot_at: string;
+  snapshot_hash: string;
+  snapshot_id: string;
+  trace_id: string;
+  transaction_hash: string;
+  type: SnapshotType;
 }
 
 export interface Address {
@@ -273,4 +300,10 @@ export interface MultisigRequest {
   raw_transaction: string;
   created_at: string;
   code_id: string;
+}
+
+export interface Ticker {
+  price_btc: string;
+  price_usd: string;
+  type: string;
 }

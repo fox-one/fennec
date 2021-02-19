@@ -5,6 +5,7 @@
         v-for="(asset, index) in meta.assets"
         :key="index"
         class="pa-0"
+        @click="handleToAssetDetail(asset)"
       >
         <span class="mr-2">
           <v-img width="28" height="28" :src="asset.icon" />
@@ -31,7 +32,7 @@
 
 <script lang="ts">
 import { Asset } from "@foxone/mixin-sdk/types";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import ListWapper from "../hoc/ListWarpper.vue";
 
 @Component({
@@ -40,8 +41,22 @@ import ListWapper from "../hoc/ListWarpper.vue";
   }
 })
 class AssetList extends Vue {
+  @Prop() filter!: string;
+
   get meta() {
-    const assets: Asset[] = this.$store.state.wallet.assets;
+    let assets: Asset[] = this.$store.state.wallet.assets;
+    assets = assets.filter((x) => {
+      const symbol = x.symbol.toLowerCase();
+      const name = x.name.toLowerCase();
+      const filter = this.filter.toLowerCase();
+      return symbol.startsWith(filter) || name.startsWith(filter);
+    });
+    assets = assets.sort((x, y) => {
+      const amountX = Number(x.balance) * Number(x.price_usd);
+      const amountY = Number(y.balance) * Number(y.price_usd);
+      return amountY - amountX;
+    });
+
     const currencyExchange = this.$utils.currency.currencyExchange;
     const toPercent = this.$utils.number.toPercent;
     const getValueColor = this.$utils.color.getValueColor;
@@ -57,6 +72,7 @@ class AssetList extends Vue {
       const priceChangeColor = getValueColor(this, priceChange);
 
       return {
+        id: asset.asset_id,
         balance: asset.balance,
         icon: asset.icon_url,
         symbol: asset.symbol,
@@ -69,6 +85,10 @@ class AssetList extends Vue {
     return {
       assets: assetsMeta
     };
+  }
+
+  handleToAssetDetail(asset) {
+    this.$router.push({ name: "asset-id", params: { id: asset.id } });
   }
 }
 export default AssetList;

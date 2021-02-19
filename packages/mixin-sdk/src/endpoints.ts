@@ -16,11 +16,13 @@ import type {
   Snapshot,
   Address,
   Fee,
+  Ticker,
   MultisigUTXO,
   MultisigRequest,
   Transaction,
   ExchangeRate,
-  RelationshipActionPayload
+  RelationshipActionPayload,
+  NetworkSnapshot
 } from "./types";
 
 import { HttpMethod } from "./types";
@@ -107,7 +109,7 @@ export default function (provider: ProviderInterface) {
       return provider.send("/network/snapshots", HttpMethod.GET, "", opts);
     },
 
-    getNetworkSnapshot(id: string): Promise<Snapshot> {
+    getNetworkSnapshot(id: string): Promise<NetworkSnapshot> {
       return provider.send(`/network/snapshots/${id}`, HttpMethod.GET);
     },
 
@@ -117,7 +119,7 @@ export default function (provider: ProviderInterface) {
       return provider.send("/external/transactions", HttpMethod.GET, "", opts);
     },
 
-    getNetworkTopAssets(): Promise<Asset & { liquidity: string }> {
+    getNetworkTopAssets(): Promise<Asset[]> {
       return provider.send(`/network/assets/top`, HttpMethod.GET);
     },
 
@@ -156,6 +158,14 @@ export default function (provider: ProviderInterface) {
 
     getBlockingUsers(): Promise<User[]> {
       return provider.send("/blocking_users", HttpMethod.GET);
+    },
+
+    getSnapshot(id: string): Promise<Snapshot> {
+      return provider.send(`/snapshots/${id}`, HttpMethod.GET);
+    },
+
+    ticker(opts: { asset: string; offset: string }): Promise<Ticker> {
+      return provider.send(`/ticker`, HttpMethod.GET, "", opts);
     }
   };
 }

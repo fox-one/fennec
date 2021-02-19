@@ -29,3 +29,7 @@ export function toPercent(opts: {
   const s = !opts.s ? "" : n.lte(0) ? "-" : "+";
   return `${s}${v}%`;
 }
+
+export function addSymbol(n: string | number): string {
+  return Number(n) > 0 ? `+${n}` : `${n}`;
+}

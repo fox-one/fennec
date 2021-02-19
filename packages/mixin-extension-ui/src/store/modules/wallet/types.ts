@@ -62,11 +62,11 @@ export interface Actions {
   [ActionTypes.LOAD_EXCHANGE_RATES]({ commit }: AugmentedActionContext): void;
   [ActionTypes.LOAD_SNAPSHOTS](
     { commit }: AugmentedActionContext,
-    payload: { reload: boolean }
+    payload: { reload: boolean; asset: string }
   ): void;
   [ActionTypes.LOAD_TRANSACTIONS](
     { commit }: AugmentedActionContext,
-    payload: { reload: boolean }
+    payload: { reload: boolean; destination: string; tag: string }
   ): void;
 }
 

@@ -35,3 +35,25 @@ export function onCopyFail(vm: Vue) {
     color: "error"
   });
 }
+
+export function debounce(fn: Function, delay: number) {
+  let timeoutId = 0 as any;
+  return (...args: any[]) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
+}
+
+export function throttle<T extends (...args: any[]) => any>(
+  fn: T,
+  limit: number
+) {
+  let throttling = false;
+  return (...args: Parameters<T>): void | ReturnType<T> => {
+    if (!throttling) {
+      throttling = true;
+      setTimeout(() => (throttling = false), limit);
+      return fn(...args);
+    }
+  };
+}

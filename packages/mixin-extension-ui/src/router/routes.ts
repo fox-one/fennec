@@ -6,6 +6,8 @@ import Authorize from "../views/authorize.vue";
 import CreatePassword from "../views/first-time-flow/create-password.vue";
 import Deposit from "../views/deposit.vue";
 import Withdraw from "../views/withdraw.vue";
+import AssetDetail from "../views/asset/_id.vue";
+import SnapshotDetail from "../views/snapshot/_id.vue";
 
 const routes: RouteConfig[] = [
   {
@@ -42,6 +44,16 @@ const routes: RouteConfig[] = [
     path: "/withdraw",
     name: "withdraw",
     component: Withdraw
+  },
+  {
+    path: "/asset/:id",
+    name: "asset-id",
+    component: AssetDetail
+  },
+  {
+    path: "/snapshot/:id",
+    name: "snapshot-id",
+    component: SnapshotDetail
   }
 ];
 

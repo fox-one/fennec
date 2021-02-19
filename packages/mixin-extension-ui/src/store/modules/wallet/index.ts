@@ -58,6 +58,7 @@ const actions: ActionTree<State, RootState> & Actions = {
     const rates = await endpoints.getExchangeRates();
     commit(MutationTypes.SET_EXCHANGE_RATE, rates);
   },
+
   async [ActionTypes.LOAD_SNAPSHOTS]({ commit, state }, payload) {
     const snapshots = state.snapshots;
     let offset = "";
@@ -67,10 +68,16 @@ const actions: ActionTree<State, RootState> & Actions = {
       offset = last?.created_at ?? "";
     }
 
-    const opts: SnapshotQueryParams = { offset, limit: 20 };
+    const opts: SnapshotQueryParams = {
+      offset,
+      limit: 20,
+      asset: payload.asset
+    };
     const res = await endpoints.getSnapshots(opts);
-    commit(MutationTypes.SET_SNAPSHOTS, [...snapshots, ...res]);
+    const data = payload.reload ? res : [...snapshots, ...res];
+    commit(MutationTypes.SET_SNAPSHOTS, data);
   },
+
   async [ActionTypes.LOAD_TRANSACTIONS]({ commit }, payload) {
     const transactions = state.transactions;
     let offset = "";
@@ -80,9 +87,15 @@ const actions: ActionTree<State, RootState> & Actions = {
       offset = last?.created_at;
     }
 
-    const opts: ExternalTransactionParams = { offset, limit: 20 };
+    const opts: ExternalTransactionParams = {
+      offset,
+      limit: 20,
+      destination: payload.destination,
+      tag: payload.tag
+    };
     const res = await endpoints.getExternalTransactions(opts);
-    commit(MutationTypes.SET_TRANSACTIONS, res);
+    const data = payload.reload ? res : [...transactions, ...res];
+    commit(MutationTypes.SET_TRANSACTIONS, data);
   }
 };
 

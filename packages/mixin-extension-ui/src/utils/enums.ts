@@ -1,26 +1,30 @@
-import { SnapshotSource } from "@foxone/mixin-sdk/types";
+import { SnapshotType } from "@foxone/mixin-sdk/types";
 
-export function snapshotSourceMeta(_vm: Vue) {
+export function snapshotTypeMetas(_vm: Vue) {
   return {
-    [SnapshotSource.DEPOSIT_CONFIRMED]: {
+    [SnapshotType.DEPOSIT]: {
       text: "Deposit",
       icon: require("../assets/images/deposit.svg")
     },
-    [SnapshotSource.TRANSFER_INITIALIZED]: {
+    [SnapshotType.TRANSFER]: {
       text: "Transfer",
       icon: require("../assets/images/transfer.svg")
     },
-    [SnapshotSource.WITHDRAWAL_FAILED]: {
+    [SnapshotType.WITHDRAWAL_FAILED]: {
       text: "Rebate",
       icon: require("../assets/images/rebate.svg")
     },
-    [SnapshotSource.WITHDRAWAL_FEE_CHARGED]: {
+    [SnapshotType.WITHDRAWAL_FEE_CHARGED]: {
       text: "Fee",
       icon: require("../assets/images/mining.svg")
     },
-    [SnapshotSource.WITHDRAWAL_INITIALIZED]: {
+    [SnapshotType.WITHDRAWAL]: {
       text: "Withdrawal",
       icon: require("../assets/images/withdraw.svg")
+    },
+    [SnapshotType.RAW]: {
+      text: "Raw",
+      icon: require("../assets/images/global.svg")
     }
   };
 }

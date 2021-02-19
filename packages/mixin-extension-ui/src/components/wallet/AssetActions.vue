@@ -24,13 +24,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Asset } from "@foxone/mixin-sdk/types";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component
 class AssetActions extends Vue {
+  @Prop() asset!: Asset | undefined;
+
   handleDeposit() {
-    // this.$emit("deposit");
-    this.$router.push({ name: "deposit" });
+    this.$router.push({
+      name: "deposit",
+      query: { preset: this.asset?.asset_id ?? "" }
+    });
   }
 
   handleWithdraw() {
