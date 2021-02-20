@@ -10,7 +10,12 @@ const ManifestPlugin = require("webpack-extension-manifest-plugin");
 const pkgJson = require("./package.json");
 const manifest = require("./manifest.json");
 
-const packages = ["mixin-extension", "mixin-extension-base", "mixin-extension-ui", "mixin-sdk"];
+const packages = [
+  "mixin-extension",
+  "mixin-extension-base",
+  "mixin-extension-ui",
+  "mixin-sdk"
+];
 
 module.exports = {
   context: __dirname,
@@ -58,7 +63,8 @@ module.exports = {
             options: {
               implementation: require("sass"),
               sassOptions: {
-                prependData: "@import '@foxone/mixin-extension-ui/src/scss/_variables.scss';"
+                prependData:
+                  "@import '@foxone/mixin-extension-ui/src/scss/_variables.scss';"
               }
             }
           }

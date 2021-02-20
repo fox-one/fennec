@@ -1,8 +1,21 @@
-import { mdiLock, mdiReload, mdiHelpCircle, mdiPlus } from "@mdi/js";
+import {
+  mdiLock,
+  mdiReload,
+  mdiHelpCircle,
+  mdiChevronLeft,
+  mdiPlus,
+  mdiPlusCircleOutline,
+  mdiCheckboxBlankCircleOutline,
+  mdiCheckboxMarkedCircle
+} from "@mdi/js";
 
 export default {
   mdiLock,
   mdiReload,
   mdiPlus,
-  mdiHelpCircle
+  mdiHelpCircle,
+  mdiChevronLeft,
+  mdiPlusCircleOutline,
+  mdiCheckboxBlankCircleOutline,
+  mdiCheckboxMarkedCircle
 };

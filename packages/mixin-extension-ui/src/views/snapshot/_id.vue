@@ -18,30 +18,35 @@
       </v-layout>
 
       <div class="mt-5">
-        <div>
+        <div
+          v-clipboard:copy="meta.id"
+          v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+          v-clipboard:error="() => $utils.helper.onCopyFail(this)"
+        >
           <div class="f-caption text--secondary">Transaction Id</div>
           <div>{{ meta.id }}</div>
         </div>
+        <v-divider class="my-2" />
 
-        <div class="mt-4">
+        <div>
           <div class="f-caption text--secondary">Transaction Type</div>
           <div>{{ meta.typeText }}</div>
         </div>
+        <v-divider class="my-2" />
 
-        <div class="mt-4">
-          <div class="f-caption text--secondary">Sender</div>
+        <div>
+          <div class="f-caption text--secondary">Opponent</div>
+          <div>{{ meta.opponent }}</div>
         </div>
+        <v-divider class="my-2" />
 
-        <div class="mt-4">
-          <div class="f-caption text--secondary">Recevier</div>
-        </div>
-
-        <div class="mt-4">
+        <div>
           <div class="f-caption text--secondary">Memo</div>
           <div>{{ meta.memo }}</div>
         </div>
+        <v-divider class="my-2" />
 
-        <div class="mt-4">
+        <div>
           <div class="f-caption text--secondary">Date</div>
           <div>{{ meta.date }}</div>
         </div>
@@ -51,6 +56,7 @@
 </template>
 
 <script lang="ts">
+import { WalletModuleKey, ActionTypes } from "../../store/modules/wallet/types";
 import { Asset, Snapshot, Ticker } from "@foxone/mixin-sdk/types";
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../../mixin/page";
@@ -62,6 +68,8 @@ class SnapshotPage extends Mixins(PageView) {
   snapshot: Snapshot | null = null;
 
   createdPrice: Ticker | null = null;
+
+  opponent: string = "";
 
   get title() {
     return "Snapshot";
@@ -110,7 +118,8 @@ class SnapshotPage extends Mixins(PageView) {
       date: formatDate({
         t: this.snapshot?.created_at ?? "",
         p: "YYYY-MM-DD HH:mm:ss"
-      })
+      }),
+      opponent: (this.opponent || this.snapshot?.opponent_id) ?? ""
     };
   }
 
@@ -124,10 +133,19 @@ class SnapshotPage extends Mixins(PageView) {
     try {
       const res = await this.$endpoints.getSnapshot(this.id);
       this.snapshot = res;
+      this.requestOpponent();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
     this.loading = false;
+  }
+
+  async requestOpponent() {
+    const user = await this.$store.dispatch(
+      WalletModuleKey + ActionTypes.LOAD_USER,
+      { id: this.snapshot?.opponent_id }
+    );
+    this.opponent = user.full_name;
   }
 
   async requestCreatedTicker() {

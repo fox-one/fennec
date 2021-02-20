@@ -81,7 +81,7 @@ class ActivityList extends Vue {
         icon: source.icon,
         text: source.text,
         time: formatTime({ t: snapshot.created_at, p: "MMM DD, YYYY" }),
-        opponent: snapshot.opponent_id,
+        opponent: snapshot.opponent || snapshot.opponent_id,
         amountFiat
       };
     });

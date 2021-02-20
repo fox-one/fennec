@@ -1,1 +1,3 @@
-
+export const EVENTS = {
+  CONFIRM_PASSWORD: "CONFIRM_PASSWORD"
+};

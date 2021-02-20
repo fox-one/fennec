@@ -2,7 +2,13 @@
   <v-container>
     <v-layout align-center justify-center>
       <span class="mr-3">
-        <v-img width="38" height="38" :src="meta.asset.icon_url" />
+        <f-mixin-asset-logo
+          :size="48"
+          :logo="meta.asset.icon_url"
+          :chain-logo="
+            $utils.helper.getChainAssetLogo(this, meta.asset.chain_id)
+          "
+        />
       </span>
       <div>
         <div class="f-headline">{{ meta.totalBalanceFormat }}</div>
@@ -29,7 +35,7 @@ import ActivityList from "../../components/wallet/ActivityList.vue";
 })
 class AssetDetail extends Mixins(PageView) {
   get title() {
-    return "Detail";
+    return "Asset";
   }
 
   get id() {

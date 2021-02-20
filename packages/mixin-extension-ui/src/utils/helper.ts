@@ -1,5 +1,6 @@
 import { MutationTypes, AppModuleKey } from "../store/modules/app/types";
 import { Asset } from "@foxone/mixin-sdk/types";
+import { MixinAsset } from "@foxone/uikit/src/components/FAssetAmountInput/types";
 
 export function toast(vue: Vue, data: { message: string; color?: string }) {
   vue.$store.commit(AppModuleKey + MutationTypes.SET_TOAST, {
@@ -17,9 +18,13 @@ export function errorToast(
   toast(vue, { message: `${code} ${message}`, color: "error" });
 }
 
-export function getChainAsset(vm: Vue, asset: Asset) {
+export function getChainAsset(vm: Vue, id: string) {
   const assets: Asset[] = vm.$store.state.wallet.assets;
-  return assets.find((x) => x.asset_id === asset.chain_id);
+  return assets.find((x) => id === x.asset_id);
+}
+
+export function getChainAssetLogo(vm: Vue, id: string) {
+  return getChainAsset(vm, id)?.icon_url ?? "";
 }
 
 export function onCopySuccess(vm: Vue) {
@@ -55,5 +60,15 @@ export function throttle<T extends (...args: any[]) => any>(
       setTimeout(() => (throttling = false), limit);
       return fn(...args);
     }
+  };
+}
+
+export function convertToListAsset(vm: Vue, asset: Asset): MixinAsset {
+  return {
+    id: asset.asset_id,
+    symbol: asset.symbol,
+    name: asset.name,
+    logo: asset.icon_url,
+    chainLogo: asset && getChainAssetLogo(vm, asset.chain_id)
   };
 }

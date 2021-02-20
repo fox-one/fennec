@@ -36,8 +36,8 @@
             <div class="my-3">
               <v-btn
                 v-clipboard:copy="meta.tag"
-                v-clipboard:success="() => handleCopied()"
-                v-clipboard:error="() => handleCopyFail()"
+                v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+                v-clipboard:error="() => $utils.helper.onCopyFail(this)"
                 small
                 depressed
                 rounded
@@ -118,14 +118,6 @@ class DepositPage extends Mixins(PageView) {
       this.$utils.helper.errorToast(this, error);
     }
     this.loading = false;
-  }
-
-  handleCopied() {
-    this.$utils.helper.onCopySuccess(this);
-  }
-
-  handleCopyFail() {
-    this.$utils.helper.onCopyFail(this);
   }
 }
 export default DepositPage;

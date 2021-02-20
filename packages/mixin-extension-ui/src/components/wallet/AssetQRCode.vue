@@ -25,7 +25,7 @@ class AssetQRCode extends Vue {
   }
 
   get chainLogo() {
-    const chain = this.$utils.helper.getChainAsset(this, this.asset);
+    const chain = this.$utils.helper.getChainAsset(this, this.asset.chain_id);
     return chain?.icon_url ?? "";
   }
 }

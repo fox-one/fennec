@@ -67,6 +67,12 @@ export default class MixinKeyring {
     );
   }
 
+  public async getEncryptedPin(clientId: string) {
+    const wallet = this.getAccountFor(clientId);
+    const pin = wallet.pin;
+    return await this.encryptPin(clientId, pin);
+  }
+
   public exportAccount(clientId) {
     const wallet = this.getAccountFor(clientId);
     return Promise.resolve(JSON.stringify(wallet));

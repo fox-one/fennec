@@ -7,14 +7,20 @@
       z-index="1000"
       @cancel="handlePayingCancel"
     />
+    <confirm-password-modal />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Mutation } from "vuex-class";
+import ConfirmPasswordModal from "../../components/account/ConfirmPasswrodModal.vue";
 
-@Component
+@Component({
+  components: {
+    ConfirmPasswordModal
+  }
+})
 class Modals extends Vue {
   @State((state) => state.app.toast) toast!: MixinApp.AppToastState;
 

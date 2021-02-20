@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper">
     <div v-if="loading" class="d-flex justify-center pa-5">
-      <f-loading color="primary" />
+      <f-loading size="28" color="primary" />
     </div>
     <div
       v-else-if="!empty"

@@ -29,6 +29,10 @@ export default function (sendMessage: SendMessage) {
 
     encryptPin(pin: string) {
       return sendMessage("pri(kering.encryptPin)", { pin });
+    },
+
+    getEncryptedPin(password: string) {
+      return sendMessage("pri(kering.getEncryptedPin)", { password });
     }
   };
 }

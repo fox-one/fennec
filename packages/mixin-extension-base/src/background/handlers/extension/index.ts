@@ -5,7 +5,8 @@ import type {
   InitializedPasswordPayload,
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
-  EncryptPinPayload
+  EncryptPinPayload,
+  GetEncryptedPinPayload
 } from "../../types/keyring";
 import type { State } from "../../../state/types";
 
@@ -65,6 +66,9 @@ export default function (state: State) {
 
       case "pri(kering.encryptPin)":
         return handlers.encryptPin(payload as EncryptPinPayload);
+
+      case "pri(kering.getEncryptedPin)":
+        return handlers.getEncryptedPin(payload as GetEncryptedPinPayload);
 
       // Preference
       case "pri(preference.subscribe)":

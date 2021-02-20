@@ -4,7 +4,8 @@ import type {
   InitializedPasswordPayload,
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
-  EncryptPinPayload
+  EncryptPinPayload,
+  GetEncryptedPinPayload
 } from "../../types/keyring";
 
 import { createSubscription, unsubscribe } from "../subscriptions";
@@ -60,6 +61,15 @@ export default function (state: State) {
         throw new Error("No selected account");
       }
       return state.keyring.encryptPin(selectedAccount, pin);
+    },
+
+    getEncryptedPin({ password }: GetEncryptedPinPayload) {
+      const selectedAccount = state.preference.preference.seletedAccount;
+      if (!selectedAccount) {
+        throw new Error("No selected account");
+      }
+
+      return state.keyring.getEncryptedPin(selectedAccount, password);
     }
   };
 }

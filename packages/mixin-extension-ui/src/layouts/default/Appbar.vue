@@ -1,9 +1,16 @@
 <template>
-  <f-app-bar v-bind="appbar" @back="handleBack">
-    <v-btn icon small @click="handleReload">
-      <v-icon>{{ $icons.mdiReload }}</v-icon>
+  <v-app-bar flat dense :color="appbar.color">
+    <v-btn small v-if="appbar.back" icon @click="handleBack">
+      <v-icon>
+        {{ $icons.mdiChevronLeft }}
+      </v-icon>
     </v-btn>
-  </f-app-bar>
+    <span>{{ appbar.title }}</span>
+    <v-spacer />
+    <v-btn small icon @click="handleReload">
+      <v-icon small>{{ $icons.mdiReload }}</v-icon>
+    </v-btn>
+  </v-app-bar>
 </template>
 
 <script lang="ts">

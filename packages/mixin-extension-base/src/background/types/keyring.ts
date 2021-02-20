@@ -30,6 +30,10 @@ export interface EncryptPinPayload {
   pin: string;
 }
 
+export interface GetEncryptedPinPayload {
+  password: string;
+}
+
 export interface KeyringActionSignatures {
   "pri(keyring.subscribe)": [null, boolean, KeyringMemState];
 
@@ -38,4 +42,5 @@ export interface KeyringActionSignatures {
   "pri(kering.unlock)": [UnlockKeyringPayload, boolean];
   "pri(kering.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
   "pri(kering.encryptPin)": [EncryptPinPayload, string];
+  "pri(kering.getEncryptedPin)": [GetEncryptedPinPayload, string];
 }

@@ -10,7 +10,9 @@ function checkIfDenied(url: string) {
 }
 
 function redirectPhishingLanding() {
-  const url = `${extension.extension.getURL("index.html")}#${PHISHING_PAGE_REDIRECT}`;
+  const url = `${extension.extension.getURL(
+    "index.html"
+  )}#${PHISHING_PAGE_REDIRECT}`;
   chrome.tabs.update({ url });
   return null;
 }

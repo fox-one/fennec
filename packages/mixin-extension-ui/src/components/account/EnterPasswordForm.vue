@@ -15,16 +15,18 @@
       :disabled="!valid"
       @click="handleSubmit"
     >
-      Unlock
+      {{ label || "Unlock" }}
     </v-btn>
   </v-form>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component
 class EnterPasswordForm extends Vue {
+  @Prop() label!: string;
+
   loading = false;
 
   valid = false;
@@ -47,8 +49,9 @@ class EnterPasswordForm extends Vue {
     this.loading = true;
     try {
       await this.$messages.tryUnlockKeyring(this.password);
-      this.$emit("completed");
+      this.$emit("completed", this.password);
     } catch (error) {
+      this.$emit("failed");
       this.$utils.helper.errorToast(this, error);
     }
     this.loading = false;

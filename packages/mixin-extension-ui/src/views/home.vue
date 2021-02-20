@@ -43,7 +43,7 @@ class HomePage extends Mixins(PageView) {
   search = "";
 
   get title() {
-    return "Home";
+    return "";
   }
 
   get appbar() {

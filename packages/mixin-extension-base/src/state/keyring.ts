@@ -125,6 +125,20 @@ export default class KeyringState {
     });
   }
 
+  public async getEncryptedPin(clientId: string, password: string) {
+    const stored = this.#store.getValue().keyring;
+    if (!stored) {
+      throw new Error("Cannot unlock keyring without previous stored value");
+    }
+
+    if (!this.#keyring) {
+      throw new Error("cannot find #keying");
+    }
+
+    await encryptor.decrypt(password, stored);
+    return await this.#keyring.getEncryptedPin(clientId);
+  }
+
   private async unLockKeyring(password: string) {
     const stored = this.#store.getValue().keyring;
     if (!stored) {

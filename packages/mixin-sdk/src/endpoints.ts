@@ -59,7 +59,7 @@ export default function (provider: ProviderInterface) {
       return provider.send("/snapshots", HttpMethod.GET, "", opts);
     },
 
-    getAssetWithdrawAddresses(assetId: string): Promise<Address> {
+    getAssetWithdrawAddresses(assetId: string): Promise<Address[]> {
       return provider.send(`/assets/${assetId}/addresses`, HttpMethod.GET);
     },
 
@@ -140,7 +140,7 @@ export default function (provider: ProviderInterface) {
       return provider.send("/me", HttpMethod.GET);
     },
 
-    getUser(id: string): Promise<User[]> {
+    getUser(id: string): Promise<User> {
       return provider.send(`/users/${id}`, HttpMethod.GET);
     },
 

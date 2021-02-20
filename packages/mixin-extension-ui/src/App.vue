@@ -51,7 +51,7 @@ export default App;
 
 <style lang="scss" scoped>
 .app {
-  width: 400px;
+  width: 360px;
   height: 600px;
   overflow: auto;
 }

@@ -8,7 +8,11 @@
         @click="handleToAssetDetail(asset)"
       >
         <span class="mr-2">
-          <v-img width="28" height="28" :src="asset.icon" />
+          <f-mixin-asset-logo
+            :size="28"
+            :logo="asset.icon"
+            :chain-logo="getAssetChainLogo(asset)"
+          />
         </span>
         <v-list-item-content>
           <v-list-item-title>
@@ -73,6 +77,7 @@ class AssetList extends Vue {
 
       return {
         id: asset.asset_id,
+        chain: asset.chain_id,
         balance: asset.balance,
         icon: asset.icon_url,
         symbol: asset.symbol,
@@ -87,9 +92,27 @@ class AssetList extends Vue {
     };
   }
 
+  getAssetChainLogo(asset) {
+    return this.$utils.helper.getChainAssetLogo(this, asset.chain);
+  }
+
   handleToAssetDetail(asset) {
     this.$router.push({ name: "asset-id", params: { id: asset.id } });
   }
 }
 export default AssetList;
 </script>
+
+<style lang="scss" scoped>
+::v-deep {
+  .f-asset-logo .f-asset-logo__chain--small {
+    width: 12px !important;
+    height: 12px !important;
+
+    .v-image {
+      width: 10px !important;
+      height: 10px !important;
+    }
+  }
+}
+</style>

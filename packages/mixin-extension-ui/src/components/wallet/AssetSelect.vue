@@ -25,16 +25,21 @@
     </template>
     <list-wapper :data="filterAssets">
       <v-list>
-        <f-list-item
+        <v-list-item
           v-for="(asset, index) in filterAssets"
           :key="index"
-          :title="asset.symbol"
           @click="handleSelect(asset)"
         >
-          <template #head>
-            <v-img width="32" height="32" :src="asset.icon_url" />
-          </template>
-        </f-list-item>
+          <f-mixin-asset-logo
+            :size="32"
+            :logo="asset.icon_url"
+            :chain-logo="getAssetChainLogo(asset)"
+            class="mr-5"
+          />
+          <v-list-title>
+            {{ asset.symbol }}
+          </v-list-title>
+        </v-list-item>
       </v-list>
     </list-wapper>
   </f-bottom-sheet>
@@ -98,6 +103,10 @@ class AssetSelect extends Vue {
     }
     this.loading = false;
   }
+
+  getAssetChainLogo(asset) {
+    return this.$utils.helper.getChainAssetLogo(this, asset.chain_id);
+  }
 }
 export default AssetSelect;
 </script>
@@ -106,6 +115,18 @@ export default AssetSelect;
 .asset-select {
   &::before {
     display: none;
+  }
+}
+
+::v-deep {
+  .f-asset-logo .f-asset-logo__chain--small {
+    width: 12px !important;
+    height: 12px !important;
+
+    .v-image {
+      width: 10px !important;
+      height: 10px !important;
+    }
   }
 }
 </style>

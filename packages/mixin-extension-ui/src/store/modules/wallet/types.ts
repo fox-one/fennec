@@ -2,7 +2,8 @@ import type {
   Asset,
   ExchangeRate,
   Snapshot,
-  Transaction
+  Transaction,
+  User
 } from "@foxone/mixin-sdk/types";
 import {
   ActionContext,
@@ -20,6 +21,7 @@ export interface State {
   exchangeRates: ExchangeRate[];
   snapshots: Snapshot[];
   transactions: Transaction[];
+  users: User[];
 }
 
 export const GetterKeys = {
@@ -33,7 +35,8 @@ export const MutationTypes = {
   SET_ASSETS: "SET_ASSETS",
   SET_EXCHANGE_RATE: "SET_EXCHANGE_RATE",
   SET_SNAPSHOTS: "SET_SNAPSHOTS",
-  SET_TRANSACTIONS: "SET_TRANSACTIONS"
+  SET_TRANSACTIONS: "SET_TRANSACTIONS",
+  SET_USERS: "SET_USERS"
 } as const;
 
 export interface Mutations {
@@ -41,6 +44,7 @@ export interface Mutations {
   [MutationTypes.SET_EXCHANGE_RATE](state: State, data: ExchangeRate[]): void;
   [MutationTypes.SET_SNAPSHOTS](state: State, data: Snapshot[]): void;
   [MutationTypes.SET_TRANSACTIONS](state: State, data: Transaction[]): void;
+  [MutationTypes.SET_USERS](state: State, data: User): void;
 }
 
 type AugmentedActionContext = {
@@ -54,7 +58,8 @@ export enum ActionTypes {
   LOAD_ASSETS = "LOAD_ASSETS",
   LOAD_EXCHANGE_RATES = "LOAD_EXCHANGE_RATES",
   LOAD_SNAPSHOTS = "LOAD_SNAPSHOTS",
-  LOAD_TRANSACTIONS = "LOAD_TRANSACTIONS"
+  LOAD_TRANSACTIONS = "LOAD_TRANSACTIONS",
+  LOAD_USER = "LOAD_USER"
 }
 
 export interface Actions {
@@ -67,6 +72,10 @@ export interface Actions {
   [ActionTypes.LOAD_TRANSACTIONS](
     { commit }: AugmentedActionContext,
     payload: { reload: boolean; destination: string; tag: string }
+  ): void;
+  [ActionTypes.LOAD_USER](
+    { commit }: AugmentedActionContext,
+    payload: { id: string }
   ): void;
 }
 

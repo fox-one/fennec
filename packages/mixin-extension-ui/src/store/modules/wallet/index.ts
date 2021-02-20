@@ -10,6 +10,7 @@ import {
 } from "./types";
 import endpoints from "../../../endpoints";
 import {
+  Snapshot,
   SnapshotQueryParams,
   ExternalTransactionParams
 } from "@foxone/mixin-sdk/types";
@@ -18,7 +19,8 @@ const state: State = {
   assets: [],
   exchangeRates: [],
   snapshots: [],
-  transactions: []
+  transactions: [],
+  users: []
 };
 
 const getters: GetterTree<State, RootState> = {
@@ -46,6 +48,11 @@ const mutations: MutationTree<State> & Mutations = {
   },
   [MutationTypes.SET_TRANSACTIONS](state, data) {
     state.transactions = data;
+  },
+  [MutationTypes.SET_USERS](state, user) {
+    if (!state.users.find((x) => x.user_id === user.user_id)) {
+      state.users = [...state.users, user];
+    }
   }
 };
 
@@ -54,12 +61,13 @@ const actions: ActionTree<State, RootState> & Actions = {
     const assets = await endpoints.getAssets();
     commit(MutationTypes.SET_ASSETS, assets);
   },
+
   async [ActionTypes.LOAD_EXCHANGE_RATES]({ commit }) {
     const rates = await endpoints.getExchangeRates();
     commit(MutationTypes.SET_EXCHANGE_RATE, rates);
   },
 
-  async [ActionTypes.LOAD_SNAPSHOTS]({ commit, state }, payload) {
+  async [ActionTypes.LOAD_SNAPSHOTS]({ commit, state, dispatch }, payload) {
     const snapshots = state.snapshots;
     let offset = "";
 
@@ -73,7 +81,17 @@ const actions: ActionTree<State, RootState> & Actions = {
       limit: 20,
       asset: payload.asset
     };
-    const res = await endpoints.getSnapshots(opts);
+    let res = await endpoints.getSnapshots(opts);
+    res = await Promise.all(
+      res.map(
+        async (x): Promise<Snapshot> => {
+          const user = await dispatch(ActionTypes.LOAD_USER, {
+            id: x.opponent_id
+          });
+          return { ...x, opponent: user.full_name };
+        }
+      )
+    );
     const data = payload.reload ? res : [...snapshots, ...res];
     commit(MutationTypes.SET_SNAPSHOTS, data);
   },
@@ -96,6 +114,18 @@ const actions: ActionTree<State, RootState> & Actions = {
     const res = await endpoints.getExternalTransactions(opts);
     const data = payload.reload ? res : [...transactions, ...res];
     commit(MutationTypes.SET_TRANSACTIONS, data);
+  },
+
+  async [ActionTypes.LOAD_USER]({ commit, state }, { id }) {
+    const users = state.users;
+    const user = users.find((x) => x.user_id === id);
+    if (user) {
+      return user;
+    }
+
+    const res = await endpoints.getUser(id);
+    commit("SET_USERS", res);
+    return res;
   }
 };
 

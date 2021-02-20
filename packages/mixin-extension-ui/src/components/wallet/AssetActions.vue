@@ -39,7 +39,10 @@ class AssetActions extends Vue {
   }
 
   handleWithdraw() {
-    this.$emit("withdraw");
+    this.$router.push({
+      name: "withdraw",
+      query: { preset: this.asset?.asset_id ?? "" }
+    });
   }
 
   handleSwap() {

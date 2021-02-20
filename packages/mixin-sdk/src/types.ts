@@ -195,6 +195,7 @@ export interface Snapshot {
   memo: string;
   opening_balance: string;
   opponent_id: string;
+  opponent?: string;
   snapshot_at: string;
   snapshot_hash: string;
   snapshot_id: string;
