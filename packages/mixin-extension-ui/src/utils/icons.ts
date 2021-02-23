@@ -6,7 +6,10 @@ import {
   mdiPlus,
   mdiPlusCircleOutline,
   mdiCheckboxBlankCircleOutline,
-  mdiCheckboxMarkedCircle
+  mdiCheckboxMarkedCircle,
+  mdiSquareEditOutline,
+  mdiMagnify,
+  mdiSwapVertical
 } from "@mdi/js";
 
 export default {
@@ -17,5 +20,8 @@ export default {
   mdiChevronLeft,
   mdiPlusCircleOutline,
   mdiCheckboxBlankCircleOutline,
-  mdiCheckboxMarkedCircle
+  mdiCheckboxMarkedCircle,
+  mdiSquareEditOutline,
+  mdiMagnify,
+  mdiSwapVertical
 };

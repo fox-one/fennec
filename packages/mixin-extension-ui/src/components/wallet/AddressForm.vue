@@ -8,7 +8,7 @@
       />
     </div>
     <v-form ref="form">
-      <v-textarea
+      <f-input
         v-model="form.label"
         auto-grow
         persistent-hint
@@ -18,7 +18,7 @@
         hint="Assign this address with a easy to recognize name"
         :rules="rules.label"
       />
-      <v-textarea
+      <f-input
         v-model="form.destination"
         auto-grow
         persistent-hint
@@ -28,7 +28,7 @@
         class="mb-4"
         :rules="rules.destination"
       />
-      <v-textarea
+      <f-input
         v-if="hasMemo"
         v-model="form.tag"
         auto-grow
@@ -68,13 +68,15 @@
 </template>
 
 <script lang="ts">
-import { Asset } from "@foxone/mixin-sdk/types";
+import { Address, Asset } from "@foxone/mixin-sdk/types";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { EVENTS } from "../../defaults";
 
 @Component
 class AddressForm extends Vue {
   @Prop() asset!: Asset | null;
+
+  @Prop() address!: Address;
 
   saving = false;
 

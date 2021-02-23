@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout align-center justify-center>
+    <v-layout align-center justify-center column>
       <span class="mr-3">
         <f-mixin-asset-logo
           :size="48"
@@ -10,10 +10,12 @@
           "
         />
       </span>
+
       <div>
-        <div class="f-headline">{{ meta.totalBalanceFormat }}</div>
-        <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
+        <span class="f-headline">{{ meta.totalBalanceFormat }}</span>
+        <span class="f-body-2">{{ meta.symbol }}</span>
       </div>
+      <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
     </v-layout>
     <asset-actions :asset="meta.asset" />
     <activity-list v-if="meta.asset" :asset="meta.asset" />
@@ -59,11 +61,12 @@ class AssetDetail extends Mixins(PageView) {
       from: "USD",
       to: "USD"
     });
-    const totalBalanceFormat = format({ n: balance, mp: 8 }) + " " + symbol;
+    const totalBalanceFormat = format({ n: balance, mp: 8 });
 
     return {
       totalBalanceFormat,
       totalUSDFormat,
+      symbol,
       asset
     };
   }

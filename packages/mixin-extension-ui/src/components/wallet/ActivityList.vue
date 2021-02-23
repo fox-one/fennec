@@ -19,14 +19,19 @@
               <span>
                 {{ snapshot.time }}
               </span>
-              <span> From {{ snapshot.opponent }} </span>
+              <span> {{ snapshot.direction }} {{ snapshot.opponent }} </span>
             </div>
           </v-list-item-subtitle>
         </v-list-item-content>
         <div class="text-right ml-3">
-          <div class="f-body-1">
-            <span>{{ snapshot.amount }}</span>
-            <span>{{ snapshot.symbol }}</span>
+          <div>
+            <span
+              :style="{ color: snapshot.amountColor }"
+              class="f-body-1 font-weight-bold"
+            >
+              {{ snapshot.amountText }}
+            </span>
+            <span class="f-caption">{{ snapshot.symbol }}</span>
           </div>
           <div class="f-caption text--secondary">
             <span>{{ snapshot.amountFiat }}</span>
@@ -38,10 +43,10 @@
 </template>
 
 <script lang="ts">
-import { Asset, Snapshot, Transaction } from "@foxone/mixin-sdk/types";
+import { Asset, Snapshot } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { WalletModuleKey, ActionTypes } from "../../store/modules/wallet/types";
-import ListWapper from "../hoc/ListWarpper.vue";
+import ListWapper from "../common/ListWarpper.vue";
 
 @Component({
   components: {
@@ -59,6 +64,7 @@ class ActivityList extends Vue {
     const formatNumber = this.$utils.number.format;
     const formatTime = this.$utils.time.format;
     const currencyExchange = this.$utils.currency.currencyExchange;
+    const getValueColor = this.$utils.color.getValueColor;
     const enums = this.$utils.enums;
     const snapshotTypeMetas = enums.snapshotTypeMetas(this);
 
@@ -73,16 +79,24 @@ class ActivityList extends Vue {
         from: "USD",
         to: "USD"
       });
+      const isFrom = Number(snapshot.amount) > 0;
+      const direction = isFrom ? "From" : "To";
+      const amountText = `${
+        Number(snapshot.amount) > 0 ? "+" : ""
+      }${formatNumber({ n: snapshot.amount })}`;
+      const amountColor = getValueColor(this, snapshot.amount);
 
       return {
         id: snapshot.snapshot_id,
-        amount: formatNumber({ n: snapshot.amount }),
         symbol: this.asset.symbol,
         icon: source.icon,
         text: source.text,
         time: formatTime({ t: snapshot.created_at, p: "MMM DD, YYYY" }),
-        opponent: snapshot.opponent || snapshot.opponent_id,
-        amountFiat
+        opponent: snapshot.opponent_id,
+        amountColor,
+        amountFiat,
+        amountText,
+        direction
       };
     });
 

@@ -5,7 +5,9 @@ import UnLock from "../views/unlock.vue";
 import Authorize from "../views/authorize.vue";
 import CreatePassword from "../views/first-time-flow/create-password.vue";
 import Deposit from "../views/deposit.vue";
-import Withdraw from "../views/withdraw.vue";
+import Send from "../views/send/index.vue";
+import Transfer from "../views/send/transfer.vue";
+import Withdraw from "../views/send/withdraw.vue";
 import AssetDetail from "../views/asset/_id.vue";
 import SnapshotDetail from "../views/snapshot/_id.vue";
 
@@ -41,8 +43,18 @@ const routes: RouteConfig[] = [
     component: Deposit
   },
   {
-    path: "/withdraw",
-    name: "withdraw",
+    path: "/send",
+    name: "send",
+    component: Send
+  },
+  {
+    path: "/send/transfer",
+    name: "send-transfer",
+    component: Transfer
+  },
+  {
+    path: "/send/withdraw",
+    name: "send-withdraw",
     component: Withdraw
   },
   {

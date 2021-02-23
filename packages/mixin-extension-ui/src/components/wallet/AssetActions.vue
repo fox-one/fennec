@@ -4,14 +4,14 @@
       <v-btn icon>
         <img src="../../assets/images/deposit.svg" class="icon" />
       </v-btn>
-      <div class="caption text--secondary">Deposit</div>
+      <div class="caption text--secondary">Receive</div>
     </div>
 
-    <div class="action-item px-5" @click="handleWithdraw">
+    <div class="action-item px-5" @click="handleSend">
       <v-btn icon>
         <img src="../../assets/images/withdraw.svg" class="icon" />
       </v-btn>
-      <div class="caption text--secondary">Withdraw</div>
+      <div class="caption text--secondary">Send</div>
     </div>
 
     <div class="action-item px-5" @click="handleSwap">
@@ -38,9 +38,9 @@ class AssetActions extends Vue {
     });
   }
 
-  handleWithdraw() {
+  handleSend() {
     this.$router.push({
-      name: "withdraw",
+      name: "send",
       query: { preset: this.asset?.asset_id ?? "" }
     });
   }

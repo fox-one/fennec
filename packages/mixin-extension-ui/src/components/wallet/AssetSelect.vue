@@ -1,7 +1,11 @@
 <template>
   <f-bottom-sheet v-model="dialog">
     <template #activator="{ on }">
-      <f-list-item v-on="on" :title="meta.symbol" class="asset-select">
+      <f-list-item
+        v-on="on"
+        :title="meta.symbol"
+        class="asset-select f-bg-greyscale-6"
+      >
         <template #head>
           <f-loading v-if="loading" size="28" />
           <v-icon v-else-if="!meta.icon">
@@ -13,15 +17,7 @@
     </template>
     <template #title> Select asset </template>
     <template #subheader>
-      <v-text-field
-        v-model="search"
-        placeholder="Search"
-        dense
-        hide-details
-        solo
-        flat
-        background-color="rgba(0, 0, 0, 0.03)"
-      />
+      <f-input v-model="search" label="Search" />
     </template>
     <list-wapper :data="filterAssets">
       <v-list>
@@ -48,7 +44,7 @@
 <script lang="ts">
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Model, Vue } from "vue-property-decorator";
-import ListWapper from "../hoc/ListWarpper.vue";
+import ListWapper from "../common/ListWarpper.vue";
 
 @Component({
   components: {
@@ -67,7 +63,9 @@ class AssetSelect extends Vue {
   get assets(): Asset[] {
     const assets: Asset[] = this.$store.state.wallet.assets;
     return assets.sort((x, y) => {
-      return Number(x.balance) - Number(y.balance);
+      const amountX = Number(x.balance) * Number(x.price_usd);
+      const amountY = Number(y.balance) * Number(y.price_usd);
+      return amountY - amountX;
     });
   }
 
@@ -113,6 +111,8 @@ export default AssetSelect;
 
 <style lang="scss" scoped>
 .asset-select {
+  border-radius: 5px;
+
   &::before {
     display: none;
   }

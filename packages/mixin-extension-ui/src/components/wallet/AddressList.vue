@@ -9,18 +9,22 @@
         <v-list-item
           v-for="(address, index) in addresses"
           :key="index"
+          :ripple="false"
           class="pa-0"
-          @click="handleSelectAddress"
+          @click="handleSelectAddress(address)"
         >
           <v-list-item-action class="mr-3">
             <v-checkbox
               :off-icon="$icons.mdiCheckboxBlankCircleOutline"
               :on-icon="$icons.mdiCheckboxMarkedCircle"
-              :input-value="address.id === bindAddress"
+              :input-value="address.address_id === addressId"
             />
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> {{ address.label }} </v-list-item-title>
+            <v-list-item-title>
+              {{ address.label }}
+              <address-edit :address="bindAddress" :asset="asset" />
+            </v-list-item-title>
             <v-list-item-subtitle>
               <span>{{ address.destination }}</span>
               <span v-if="address.tag">
@@ -38,23 +42,29 @@
 <script lang="ts">
 import { Address, Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop, Watch, PropSync } from "vue-property-decorator";
-import ListWapper from "../hoc/ListWarpper.vue";
+import ListWapper from "../common/ListWarpper.vue";
 import AddressAdd from "../wallet/AddressAdd.vue";
+import AddressEdit from "../wallet/AddressEdit.vue";
 
 @Component({
   components: {
     ListWapper,
-    AddressAdd
+    AddressAdd,
+    AddressEdit
   }
 })
 class AddressList extends Vue {
   @Prop() asset!: Asset | null;
 
-  @PropSync("address") bindAddress!: string;
+  @PropSync("address") bindAddress!: Address | null;
 
   loading = false;
 
   addresses: Address[] = [];
+
+  get addressId() {
+    return this.bindAddress?.address_id ?? "";
+  }
 
   @Watch("asset", { immediate: true })
   handleAssetChange() {
@@ -64,12 +74,15 @@ class AddressList extends Vue {
   }
 
   handleSelectAddress(address: Address) {
-    this.bindAddress = address.address_id;
+    if (this.bindAddress?.address_id === address.address_id) {
+      this.bindAddress = null;
+    } else {
+      this.bindAddress = address;
+    }
   }
 
   async requestAssetAddresses(asset: Asset) {
     this.loading = true;
-    console.log(asset);
     try {
       const addresses = await this.$endpoints.getAssetWithdrawAddresses(
         asset.asset_id

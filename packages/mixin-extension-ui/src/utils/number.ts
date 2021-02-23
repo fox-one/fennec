@@ -18,6 +18,10 @@ export function format(opts: { n: BigNumber.Value; p?: number; mp?: number }) {
   return new BigNumber(n).decimalPlaces(percision, 1).toFormat();
 }
 
+export function toPercision(opts: { n: BigNumber.Value; p: number }): string {
+  return new BigNumber(opts.n).decimalPlaces(opts.p).toString();
+}
+
 export function toPercent(opts: {
   n: BigNumber.Value;
   p?: number;

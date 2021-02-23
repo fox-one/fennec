@@ -12,8 +12,8 @@
             <div class="my-3">
               <v-btn
                 v-clipboard:copy="meta.destination"
-                v-clipboard:success="() => handleCopied()"
-                v-clipboard:error="() => handleCopyFail()"
+                v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+                v-clipboard:error="() => $utils.helper.onCopyFail(this)"
                 small
                 depressed
                 rounded
@@ -124,13 +124,6 @@ export default DepositPage;
 </script>
 
 <style lang="scss" scoped>
-::v-deep {
-  .asset-select {
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.03);
-  }
-}
-
 .destination {
   font-size: 16px;
   line-height: 1.2;

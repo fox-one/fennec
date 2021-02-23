@@ -14,8 +14,8 @@
         placeholder="Search"
         dense
         hide-details
-        solo
         flat
+        solo
         background-color="rgba(0, 0, 0, 0.03)"
       />
     </template>
@@ -39,7 +39,7 @@
 <script lang="ts">
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
-import ListWapper from "../hoc/ListWarpper.vue";
+import ListWapper from "../common/ListWarpper.vue";
 
 @Component({
   components: {

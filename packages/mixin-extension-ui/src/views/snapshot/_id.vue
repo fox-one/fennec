@@ -4,9 +4,20 @@
     <div v-else>
       <v-layout align-center justify-center column>
         <span class="mr-3">
-          <v-img width="38" height="38" :src="meta.icon" />
+          <f-mixin-asset-logo
+            :size="48"
+            :logo="meta.icon"
+            :chain-logo="meta.chainIcon"
+          />
         </span>
-        <div class="f-headline mt-3">{{ meta.amountFormat }}</div>
+        <div class="mt-3">
+          <span class="f-headline" :style="{ color: meta.amountColor }">
+            {{ meta.amountFormat }}
+          </span>
+          <span>
+            {{ meta.symbol }}
+          </span>
+        </div>
         <div class="f-body-2 text--secondary">
           <span>value now: </span>
           <span>{{ meta.fiatFormat }}</span>
@@ -23,31 +34,37 @@
           v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
           v-clipboard:error="() => $utils.helper.onCopyFail(this)"
         >
-          <div class="f-caption text--secondary">Transaction Id</div>
+          <div class="f-caption text--secondary mb-1">Transaction Id</div>
           <div>{{ meta.id }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div>
-          <div class="f-caption text--secondary">Transaction Type</div>
+          <div class="f-caption text--secondary mb-1">Transaction Type</div>
           <div>{{ meta.typeText }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div>
-          <div class="f-caption text--secondary">Opponent</div>
+          <div class="f-caption text--secondary mb-1">Opponent</div>
           <div>{{ meta.opponent }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div>
-          <div class="f-caption text--secondary">Memo</div>
-          <div>{{ meta.memo }}</div>
+          <div class="f-caption text--secondary mb-1">Opponent Id</div>
+          <div>{{ meta.opponentId }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div>
-          <div class="f-caption text--secondary">Date</div>
+          <div class="f-caption text--secondary mb-1">Memo</div>
+          <div>{{ meta.memo || "-" }}</div>
+        </div>
+        <v-divider class="my-2" />
+
+        <div>
+          <div class="f-caption text--secondary mb-1">Date</div>
           <div>{{ meta.date }}</div>
         </div>
       </div>
@@ -83,6 +100,7 @@ class SnapshotPage extends Mixins(PageView) {
     const addSymbol = this.$utils.number.addSymbol;
     const currencyExchange = this.$utils.currency.currencyExchange;
     const snapshotTypeMetas = this.$utils.enums.snapshotTypeMetas(this);
+    const getValueColor = this.$utils.color.getValueColor;
     const formatDate = this.$utils.time.format;
 
     const assets: Asset[] = this.$store.state.wallet.assets;
@@ -90,12 +108,17 @@ class SnapshotPage extends Mixins(PageView) {
     const icon = asset?.icon_url ?? "";
     const symbol = asset?.symbol ?? "";
     const amount = this.snapshot?.amount ?? "";
+    const opponentId = this.snapshot?.opponent_id ?? "";
+    const chainIcon = this.$utils.helper.getChainAssetLogo(
+      this,
+      asset?.chain_id ?? ""
+    );
     const fiatAmount = Math.abs(Number(amount)) * Number(asset?.price_usd);
     const createdFiatAmount =
       Math.abs(Number(amount)) * Number(this.createdPrice?.price_usd ?? 0);
     const snapshotMeta = snapshotTypeMetas[this.snapshot?.type ?? ""];
 
-    const amountFormat = `${addSymbol(amount)} ${symbol}`;
+    const amountFormat = `${addSymbol(amount)}`;
     const fiatFormat = currencyExchange(this, {
       n: fiatAmount,
       from: "USD",
@@ -109,9 +132,12 @@ class SnapshotPage extends Mixins(PageView) {
 
     return {
       icon,
+      symbol,
+      chainIcon,
       amountFormat,
       fiatFormat,
       createdFiatFormat,
+      amountColor: getValueColor(this, amount),
       id: this.snapshot?.snapshot_id,
       typeText: snapshotMeta?.text ?? "-",
       memo: this.snapshot?.memo ?? "",
@@ -119,7 +145,8 @@ class SnapshotPage extends Mixins(PageView) {
         t: this.snapshot?.created_at ?? "",
         p: "YYYY-MM-DD HH:mm:ss"
       }),
-      opponent: (this.opponent || this.snapshot?.opponent_id) ?? ""
+      opponent: this.opponent || opponentId,
+      opponentId: opponentId
     };
   }
 

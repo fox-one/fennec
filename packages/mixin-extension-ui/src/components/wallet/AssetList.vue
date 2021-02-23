@@ -7,7 +7,7 @@
         class="pa-0"
         @click="handleToAssetDetail(asset)"
       >
-        <span class="mr-2">
+        <span class="mr-2 d-flex">
           <f-mixin-asset-logo
             :size="28"
             :logo="asset.icon"
@@ -37,7 +37,7 @@
 <script lang="ts">
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
-import ListWapper from "../hoc/ListWarpper.vue";
+import ListWapper from "../common/ListWarpper.vue";
 
 @Component({
   components: {

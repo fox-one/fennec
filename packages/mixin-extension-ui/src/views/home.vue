@@ -5,18 +5,9 @@
       <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
     </div>
     <asset-actions />
-    <v-layout class="mt-3">
+    <v-layout class="mt-3" align-center>
       <v-flex class="mr-4">
-        <v-text-field
-          v-model="search"
-          placeholder="Search"
-          solo
-          hide-details
-          flat
-          clear
-          dense
-          background-color="rgba(0, 0, 0, 0.03)"
-        />
+        <f-input v-model="search" label="Search" />
       </v-flex>
       <asset-add />
     </v-layout>
