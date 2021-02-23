@@ -1017,10 +1017,10 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@foxone/uikit@^2.0.17":
-  version "2.0.17"
-  resolved "https://registry.npm.taobao.org/@foxone/uikit/download/@foxone/uikit-2.0.17.tgz#c04473477b1da272c9b12eb1d319ee7333adc3b8"
-  integrity sha1-wERzR3sdonLJsS6x0xnuczOtw7g=
+"@foxone/uikit@^2.0.25":
+  version "2.0.25"
+  resolved "https://registry.npm.taobao.org/@foxone/uikit/download/@foxone/uikit-2.0.25.tgz#1dd37febcce3c1e420872a5433fbee732253068a"
+  integrity sha1-HdN/68zjweQghypUM/vucyJTBoo=
   dependencies:
     animate.css "^4.1.0"
     bignumber.js "^9.0.0"

@@ -52,7 +52,7 @@ export default function (provider: ProviderInterface) {
     },
 
     transfer(opts: CreateTransferPayload): Promise<Transfer> {
-      return provider.send("/transfers", HttpMethod.GET, opts);
+      return provider.send("/transfers", HttpMethod.POST, opts);
     },
 
     getSnapshots(opts: SnapshotQueryParams): Promise<Snapshot[]> {
