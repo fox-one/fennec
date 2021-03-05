@@ -1,16 +1,19 @@
 <template>
-  <v-form v-model="valid">
-    <v-text-field
+  <v-form v-model="valid" class="form">
+    <f-input
       v-model.trim="password"
-      outlined
       label="your password"
       type="password"
+      class="text--center"
       :rules="rules.password"
     />
+
     <v-btn
-      block
-      text
+      rounded
+      depressed
+      min-width="200"
       color="primary"
+      class="mt-10"
       :loading="loading"
       :disabled="!valid"
       @click="handleSubmit"
@@ -21,10 +24,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Prop, Mixins } from "vue-property-decorator";
+import PageView from "../../mixin/page";
 
 @Component
-class EnterPasswordForm extends Vue {
+class EnterPasswordForm extends Mixins(PageView) {
   @Prop() label!: string;
 
   loading = false;
@@ -59,3 +63,9 @@ class EnterPasswordForm extends Vue {
 }
 export default EnterPasswordForm;
 </script>
+
+<style scoped>
+.form {
+  text-align: center;
+}
+</style>

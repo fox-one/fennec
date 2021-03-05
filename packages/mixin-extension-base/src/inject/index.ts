@@ -1,4 +1,9 @@
-import type { Handlers, InjectOptions, InjectedData, InjectedWindow } from "./types";
+import type {
+  Handlers,
+  InjectOptions,
+  InjectedData,
+  InjectedWindow
+} from "./types";
 import type {
   ActionTypes,
   ActionTypesWithNoSubscriptions,
@@ -8,14 +13,19 @@ import type {
   ActionTypesWithNullPayload,
   SubscriptionMessageTypes
 } from "../background/types";
-import type { RequestMessage, ResponseMessage } from "../background/types/message";
+import type {
+  RequestMessage,
+  ResponseMessage
+} from "../background/types/message";
 
 import Accounts from "./account";
 
 const handlers: Handlers = {};
 let idCounter = 0;
 
-export function sendMessage<T extends ActionTypesWithNullPayload>(action: T): Promise<ActionResponses[T]>;
+export function sendMessage<T extends ActionTypesWithNullPayload>(
+  action: T
+): Promise<ActionResponses[T]>;
 export function sendMessage<T extends ActionTypesWithNoSubscriptions>(
   action: T,
   payload: ActionPayloads[T]
@@ -33,7 +43,6 @@ export function sendMessage<T extends ActionTypes>(
 ): Promise<ActionResponses[T]> {
   return new Promise((resolve, reject) => {
     const id = `${Date.now()}.${++idCounter}`;
-
     handlers[id] = { reject, resolve, subscriber };
 
     const request: RequestMessage<T> = {
@@ -59,7 +68,9 @@ export async function redirectIfPhishing(): Promise<boolean> {
   return await sendMessage("pub(phishing.redirectIfDenied)");
 }
 
-export function handleResponse<T extends ActionTypes>(data: ResponseMessage<T>) {
+export function handleResponse<T extends ActionTypes>(
+  data: ResponseMessage<T>
+) {
   const handler = handlers[data.id];
 
   if (!handler) {

@@ -1,5 +1,5 @@
 <template>
-  <f-bottom-sheet>
+  <f-bottom-sheet v-model="dialog">
     <template #activator="{ on }">
       <v-btn icon v-on="on">
         <v-icon size="26">
@@ -11,26 +11,57 @@
     <template #subheader>
       <v-text-field
         v-model="search"
-        placeholder="Search"
         dense
+        solo
         hide-details
         flat
-        solo
-        background-color="rgba(0, 0, 0, 0.03)"
+        background-color="transparent"
+        placeholder="Search"
+        class="f-bg-greyscale-6"
       />
     </template>
     <list-wapper :loading="loading" :data="assets">
       <v-list>
-        <f-list-item
-          v-for="(asset, index) in assets"
-          :key="index"
-          :title="asset.symbol"
-          @click="handleSelect(asset)"
-        >
-          <template #head>
-            <v-img width="32" height="32" :src="asset.icon_url" />
-          </template>
-        </f-list-item>
+        <v-list-item v-for="(asset, index) in assets" :key="index">
+          <span class="d-flex">
+            <f-mixin-asset-logo
+              :size="32"
+              :logo="asset.icon_url"
+              :chain-logo="getAssetChainLogo(asset)"
+              class="mr-5"
+            />
+          </span>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ asset.symbol }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ asset.name }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-btn
+              v-if="getAssetAdded(asset)"
+              text
+              small
+              color="error"
+              :disabled="getAssetRemoveCanOrNot(asset)"
+              @click="requestRemoveAsset(asset)"
+            >
+              Remove
+            </v-btn>
+            <v-btn
+              v-else
+              text
+              small
+              color="primary"
+              :loading="adding === asset.asset_id"
+              @click="requestAddAsset(asset)"
+            >
+              Add
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
       </v-list>
     </list-wapper>
   </f-bottom-sheet>
@@ -40,6 +71,11 @@
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import ListWapper from "../common/ListWarpper.vue";
+import {
+  WalletModuleKey,
+  MutationTypes,
+  GetterKeys
+} from "../../store/modules/wallet/types";
 
 @Component({
   components: {
@@ -47,9 +83,13 @@ import ListWapper from "../common/ListWarpper.vue";
   }
 })
 class AssetAdd extends Vue {
+  dialog = false;
+
   search = "";
 
   loading = false;
+
+  adding: string = "";
 
   opting: string | null = null;
 
@@ -62,6 +102,35 @@ class AssetAdd extends Vue {
 
   handleSelect(asset: Asset) {
     this.$router.push({ name: "deposit", query: { preset: asset.asset_id } });
+  }
+
+  handleAddedChange(add: boolean, asset: Asset) {
+    if (add) {
+      this.requestAddAsset(asset);
+    } else {
+      this.requestRemoveAsset(asset);
+    }
+  }
+
+  async requestAddAsset(asset: Asset) {
+    this.adding = asset.asset_id;
+    try {
+      const res = await this.$endpoints.getAsset(asset.asset_id);
+      this.$store.commit(
+        WalletModuleKey + MutationTypes.ADD_ADDITION_ASSET,
+        res
+      );
+    } catch (error) {
+      this.$utils.helper.errorToast(this, error);
+    }
+    this.adding = "";
+  }
+
+  async requestRemoveAsset(asset: Asset) {
+    this.$store.commit(
+      WalletModuleKey + MutationTypes.REMVOE_ADDITION_ASSET,
+      asset
+    );
   }
 
   async requestSearchAssets() {
@@ -77,6 +146,24 @@ class AssetAdd extends Vue {
       this.$utils.helper.errorToast(this, error);
     }
     this.loading = false;
+  }
+
+  getAssetChainLogo(asset: Asset) {
+    return this.$utils.helper.getChainAssetLogo(this, asset.chain_id);
+  }
+
+  getAssetAdded(asset: Asset) {
+    const additionAssets: Asset[] = this.$store.getters[
+      WalletModuleKey + GetterKeys.GET_MERGED_ASSETS
+    ];
+    const found = additionAssets.find((x) => x.asset_id === asset.asset_id);
+    return Boolean(found);
+  }
+
+  getAssetRemoveCanOrNot(asset: Asset) {
+    const assets: Asset[] = this.$store.state.wallet.assets;
+    const found = assets.find((x) => x.asset_id === asset.asset_id);
+    return Boolean(found);
   }
 }
 export default AssetAdd;

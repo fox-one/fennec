@@ -7,8 +7,8 @@
       <div v-if="meta.destination" class="my-5">
         <div class="f-caption my-3">Address</div>
         <v-layout>
-          <v-flex>
-            <div class="destination mr-5">{{ meta.destination }}</div>
+          <v-flex class="destination">
+            <div class="mr-5">{{ meta.destination }}</div>
             <div class="my-3">
               <v-btn
                 v-clipboard:copy="meta.destination"
@@ -23,7 +23,7 @@
               </v-btn>
             </div>
           </v-flex>
-          <div>
+          <div class="qr-code">
             <asset-qr-code :value="meta.destination" :asset="asset" />
           </div>
         </v-layout>
@@ -31,8 +31,8 @@
       <div v-if="meta.tag" class="my-5">
         <div class="f-caption my-3">Tag</div>
         <v-layout>
-          <v-flex>
-            <div class="tag mr-5">{{ meta.tag }}</div>
+          <v-flex class="tag">
+            <div class="mr-5">{{ meta.tag }}</div>
             <div class="my-3">
               <v-btn
                 v-clipboard:copy="meta.tag"
@@ -47,7 +47,7 @@
               </v-btn>
             </div>
           </v-flex>
-          <div>
+          <div class="qr-code">
             <asset-qr-code :value="meta.tag" :asset="asset" />
           </div>
         </v-layout>
@@ -127,6 +127,16 @@ export default DepositPage;
 .destination {
   font-size: 16px;
   line-height: 1.2;
+  word-break: break-all;
+}
+
+.qr-code {
+  min-width: 80px;
+}
+
+.tag,
+.destination {
+  max-width: calc(100% - 130px);
   word-break: break-all;
 }
 </style>

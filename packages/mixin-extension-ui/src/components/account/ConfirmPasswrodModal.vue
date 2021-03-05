@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog">
-    <v-card>
-      <v-card-title> Confirm Password </v-card-title>
+    <v-card v-if="dialog">
+      <v-card-title class="justify-center"> Confirm Password </v-card-title>
       <v-card-text>
         <enter-password-form
           :label="'Submit'"

@@ -1,10 +1,14 @@
 <template>
   <v-container>
-    <f-tip type="warning">
-      Only approve this request if you trust the application. Approving gives the application access to the addresses of
-      your accounts.
+    <f-tip type="warning" class="mb-5">
+      Only approve this request if you trust the application. Approving gives
+      the application access to the addresses of your accounts.
     </f-tip>
-    <auth-request v-for="(request, index) in requests" :key="index" :request="request" />
+    <auth-request
+      v-for="(request, index) in requests"
+      :key="index"
+      :request="request"
+    />
   </v-container>
 </template>
 
@@ -26,7 +30,8 @@ class AuthorizePage extends Mixins(PageView) {
 
   get appbar() {
     return {
-      show: false
+      show: true,
+      back: false
     };
   }
 

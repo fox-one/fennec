@@ -3,7 +3,7 @@ import Home from "../views/home.vue";
 import Lock from "../views/lock.vue";
 import UnLock from "../views/unlock.vue";
 import Authorize from "../views/authorize.vue";
-import CreatePassword from "../views/first-time-flow/create-password.vue";
+import Init from "../views/init.vue";
 import Deposit from "../views/deposit.vue";
 import Send from "../views/send/index.vue";
 import Transfer from "../views/send/transfer.vue";
@@ -33,9 +33,9 @@ const routes: RouteConfig[] = [
     component: Authorize
   },
   {
-    path: "/create-password",
-    name: "create-password",
-    component: CreatePassword
+    path: "/init",
+    name: "init",
+    component: Init
   },
   {
     path: "/deposit",

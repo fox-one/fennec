@@ -8,7 +8,7 @@
         </v-icon>
       </div>
       <div class="title font-weight-bold">Wallet is Locked</div>
-      <div class="body-2 text--secondary mb-12 mt-2">
+      <div class="f-body-2 text--secondary mb-12 mt-2">
         Enter your password to unlock wallet
       </div>
       <enter-password-form @completed="handlePasswordEntered" />
@@ -42,7 +42,6 @@ class UnLockPage extends Mixins(PageView) {
   }
 
   handlePasswordEntered() {
-    debugger;
     this.checkUnlockStatus();
   }
 
@@ -66,6 +65,7 @@ class UnLockPage extends Mixins(PageView) {
 
   confirmUnlocked() {
     this.$router.replace({ name: "home" });
+    this.$utils.app.init(this);
   }
 }
 export default UnLockPage;

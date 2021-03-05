@@ -34,13 +34,18 @@ export interface GetEncryptedPinPayload {
   password: string;
 }
 
+export interface ExportKeyringPayload {
+  clientId: string;
+}
+
 export interface KeyringActionSignatures {
   "pri(keyring.subscribe)": [null, boolean, KeyringMemState];
 
-  "pri(keyring.createAccount)": [CreateAccountPayload, MixinAccount[]];
+  "pri(keyring.createAccount)": [CreateAccountPayload, string[]];
   "pri(keyring.initializePassword)": [InitializedPasswordPayload, boolean];
-  "pri(kering.unlock)": [UnlockKeyringPayload, boolean];
-  "pri(kering.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
-  "pri(kering.encryptPin)": [EncryptPinPayload, string];
-  "pri(kering.getEncryptedPin)": [GetEncryptedPinPayload, string];
+  "pri(keyring.unlock)": [UnlockKeyringPayload, boolean];
+  "pri(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
+  "pri(kerying.encryptPin)": [EncryptPinPayload, string];
+  "pri(keyring.getEncryptedPin)": [GetEncryptedPinPayload, string];
+  "pri(keyring.exportAccount)": [ExportKeyringPayload, string];
 }

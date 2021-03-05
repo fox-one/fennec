@@ -11,7 +11,7 @@ export default function initializeUi(container: string) {
   const store = createStore();
   const router = createRouter();
 
-  new Vue({
+  (window as any).__vue__ = new Vue({
     vuetify,
     el: container,
     store,

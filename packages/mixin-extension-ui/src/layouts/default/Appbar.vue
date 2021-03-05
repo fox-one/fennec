@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar flat dense :color="appbar.color">
+  <v-app-bar v-if="appbar.show" flat dense app :color="appbar.color">
     <v-btn small v-if="appbar.back" icon @click="handleBack">
       <v-icon>
         {{ $icons.mdiChevronLeft }}
@@ -7,9 +7,14 @@
     </v-btn>
     <span>{{ appbar.title }}</span>
     <v-spacer />
-    <v-btn small icon @click="handleReload">
-      <v-icon small>{{ $icons.mdiReload }}</v-icon>
-    </v-btn>
+    <div>
+      <v-btn v-if="meta.dev" small icon @click="handleToConfig">
+        <v-icon small>{{ $icons.mdiCog }}</v-icon>
+      </v-btn>
+      <v-btn v-if="meta.dev" small icon @click="handleReload">
+        <v-icon small>{{ $icons.mdiReload }}</v-icon>
+      </v-btn>
+    </div>
   </v-app-bar>
 </template>
 
@@ -27,6 +32,16 @@ class Appbar extends Vue {
       ...appbar,
       color: isDark ? "#121212" : "#FFFFFF"
     };
+  }
+
+  get meta() {
+    return {
+      dev: process.env.NODE_ENV === "development"
+    };
+  }
+
+  handleToConfig() {
+    // this.$router.push({ name: "init" });
   }
 
   handleReload() {

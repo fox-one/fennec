@@ -45,17 +45,29 @@
         </div>
         <v-divider class="my-2" />
 
-        <div>
-          <div class="f-caption text--secondary mb-1">Opponent</div>
-          <div>{{ meta.opponent }}</div>
+        <div v-if="meta.opponent">
+          <div>
+            <div class="f-caption text--secondary mb-1">Opponent</div>
+            <div>{{ meta.opponent }}</div>
+          </div>
+          <v-divider class="my-2" />
         </div>
-        <v-divider class="my-2" />
 
-        <div>
-          <div class="f-caption text--secondary mb-1">Opponent Id</div>
-          <div>{{ meta.opponentId }}</div>
+        <div v-if="meta.opponentId">
+          <div>
+            <div class="f-caption text--secondary mb-1">Opponent Id</div>
+            <div>{{ meta.opponentId }}</div>
+          </div>
+          <v-divider class="my-2" />
         </div>
-        <v-divider class="my-2" />
+
+        <div v-if="meta.sender">
+          <div>
+            <div class="f-caption text--secondary mb-1">Sender</div>
+            <div>{{ meta.sender }}</div>
+          </div>
+          <v-divider class="my-2" />
+        </div>
 
         <div>
           <div class="f-caption text--secondary mb-1">Memo</div>
@@ -137,6 +149,7 @@ class SnapshotPage extends Mixins(PageView) {
       amountFormat,
       fiatFormat,
       createdFiatFormat,
+      sender: this.snapshot?.sender,
       amountColor: getValueColor(this, amount),
       id: this.snapshot?.snapshot_id,
       typeText: snapshotMeta?.text ?? "-",

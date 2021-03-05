@@ -1,56 +1,48 @@
 <template>
-  <list-wapper :data="meta.snapshots" :loading="reloading">
+  <list-wapper :data="meta.activities" :loading="reloading">
     <v-list>
-      <v-list-item
-        v-for="(snapshot, index) in meta.snapshots"
-        :key="index"
-        class="px-0"
-        @click="handleToSnapshot(snapshot)"
-      >
-        <span class="mr-2">
-          <v-img width="18" height="18" :src="snapshot.icon" />
-        </span>
-        <v-list-item-content>
-          <v-list-item-title>
-            <span class="f-body-1">{{ snapshot.text }}</span>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            <div class="f-caption text--secondary snapshot-subtitle">
-              <span>
-                {{ snapshot.time }}
-              </span>
-              <span> {{ snapshot.direction }} {{ snapshot.opponent }} </span>
-            </div>
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <div class="text-right ml-3">
-          <div>
-            <span
-              :style="{ color: snapshot.amountColor }"
-              class="f-body-1 font-weight-bold"
-            >
-              {{ snapshot.amountText }}
-            </span>
-            <span class="f-caption">{{ snapshot.symbol }}</span>
-          </div>
-          <div class="f-caption text--secondary">
-            <span>{{ snapshot.amountFiat }}</span>
-          </div>
-        </div>
-      </v-list-item>
+      <div v-for="(activity, index) in meta.activities" :key="index">
+        <snapshot-list-item
+          v-if="activity.component === 'snapshot'"
+          :snapshot="activity"
+        />
+        <transaction-list-item v-else :item="activity" />
+      </div>
     </v-list>
+    <div
+      v-if="!meta.infiniteDisabled"
+      v-intersect="onLoadMoreIntersect"
+      class="loadmore"
+    >
+      <f-loading :loading="true" size="24" />
+    </div>
+    <div
+      v-if="meta.snapshotsLoaded"
+      class="text-center text--secondary caption"
+    >
+      No more data
+    </div>
   </list-wapper>
 </template>
 
 <script lang="ts">
-import { Asset, Snapshot } from "@foxone/mixin-sdk/types";
+import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { WalletModuleKey, ActionTypes } from "../../store/modules/wallet/types";
+import {
+  WalletModuleKey,
+  MutationTypes,
+  ActionTypes,
+  State
+} from "../../store/modules/wallet/types";
 import ListWapper from "../common/ListWarpper.vue";
+import SnapshotListItem from "./SnapshotListItem.vue";
+import TransactionListItem from "./TransactionListItem.vue";
 
 @Component({
   components: {
-    ListWapper
+    ListWapper,
+    SnapshotListItem,
+    TransactionListItem
   }
 })
 class ActivityList extends Vue {
@@ -68,14 +60,16 @@ class ActivityList extends Vue {
     const enums = this.$utils.enums;
     const snapshotTypeMetas = enums.snapshotTypeMetas(this);
 
-    const snapshots: Snapshot[] = this.$store.state.wallet.snapshots;
-    // const transactions: Transaction[] = this.$store.state.wallet.transactions;
+    const state: State = this.$store.state.wallet;
+    const snapshots = state.snapshots;
+    const snapshotsLoaded = state.snapshotsLoaded;
+    const transactions = state.transactions;
 
     const snapshotsMeta = snapshots.map((snapshot) => {
       const source = snapshotTypeMetas[snapshot.type];
       const amountUSD = Number(snapshot.amount) * Number(this.asset.price_usd);
       const amountFiat = currencyExchange(this, {
-        n: amountUSD,
+        n: Math.abs(amountUSD),
         from: "USD",
         to: "USD"
       });
@@ -87,12 +81,14 @@ class ActivityList extends Vue {
       const amountColor = getValueColor(this, snapshot.amount);
 
       return {
+        component: "snapshot",
         id: snapshot.snapshot_id,
         symbol: this.asset.symbol,
         icon: source.icon,
         text: source.text,
         time: formatTime({ t: snapshot.created_at, p: "MMM DD, YYYY" }),
-        opponent: snapshot.opponent_id,
+        opponent: snapshot.opponent_id || snapshot.sender,
+        created_at: snapshot.created_at,
         amountColor,
         amountFiat,
         amountText,
@@ -100,8 +96,46 @@ class ActivityList extends Vue {
       };
     });
 
+    const transactionsMeta = transactions.map((transaction) => {
+      const confirmations = transaction.confirmations;
+      const threshold = transaction.threshold;
+      const progress = ((confirmations / threshold) * 100).toFixed();
+      const amountText = `${
+        Number(transaction.amount) > 0 ? "+" : ""
+      }${formatNumber({ n: transaction.amount })}`;
+      const amountColor = getValueColor(this, transaction.amount);
+      const amountUSD =
+        Number(transaction.amount) * Number(this.asset.price_usd);
+      const amountFiat = currencyExchange(this, {
+        n: Math.abs(amountUSD),
+        from: "USD",
+        to: "USD"
+      });
+      return {
+        component: "transaction",
+        id: transaction.transaction_id,
+        symbol: this.asset.symbol,
+        sender: transaction.sender,
+        created_at: transaction.created_at,
+        time: formatTime({ t: transaction.created_at, p: "MMM DD, YYYY" }),
+        text: `${confirmations}/${threshold} Confirmations`,
+        progress,
+        amountColor,
+        amountText,
+        amountFiat
+      };
+    });
+
+    const activities = [...snapshotsMeta, ...transactionsMeta].sort((x, y) => {
+      return (
+        new Date(y.created_at).getTime() - new Date(x.created_at).getTime()
+      );
+    });
+
     return {
-      snapshots: snapshotsMeta
+      activities,
+      snapshotsLoaded,
+      infiniteDisabled: this.loading || snapshotsLoaded
     };
   }
 
@@ -109,8 +143,35 @@ class ActivityList extends Vue {
     this.reloadActivities();
   }
 
+  beforeDestroy() {
+    const commit = this.$store.commit;
+    commit(WalletModuleKey + MutationTypes.SET_SNAPSHOTS, []);
+    commit(WalletModuleKey + MutationTypes.SET_SNAPSHOTS_LOADED, false);
+  }
+
   handleToSnapshot(snapshot) {
     this.$router.push({ name: "snapshot-id", params: { id: snapshot.id } });
+  }
+
+  onLoadMoreIntersect(entries, observer, isIntersecting) {
+    console.log(entries, observer, isIntersecting);
+    if (isIntersecting && !this.meta.infiniteDisabled) {
+      this.loadActivities();
+    }
+  }
+
+  async loadActivities() {
+    this.loading = true;
+    try {
+      const dispatch = this.$store.dispatch;
+      await dispatch(WalletModuleKey + ActionTypes.LOAD_SNAPSHOTS, {
+        reload: false,
+        asset: this.asset.asset_id
+      });
+    } catch (error) {
+      this.$utils.helper.errorToast(this, error);
+    }
+    this.loading = false;
   }
 
   async reloadActivities() {

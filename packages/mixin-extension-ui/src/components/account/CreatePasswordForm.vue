@@ -1,24 +1,28 @@
 <template>
-  <v-form v-model="valid">
-    <v-text-field
+  <v-form ref="form" v-model="valid">
+    <f-input
       v-model.trim="password"
-      outlined
       label="Create a password for your account"
       type="password"
+      :hide-details="false"
       :rules="rules.password"
     />
-    <v-text-field
+
+    <f-input
       v-model.trim="confirmPassword"
-      outlined
       label="Confirm password"
       type="password"
       class="mt-4"
+      :hide-details="false"
       :rules="rules.confirmPassword"
     />
+
     <v-btn
-      block
-      text
+      rounded
+      depressed
+      min-width="200"
       color="primary"
+      class="my-5"
       :disabled="!valid"
       :loading="loading"
       @click="handleSubmit"
@@ -56,7 +60,9 @@ class CreatePasswordForm extends Vue {
   }
 
   handleSubmit() {
-    if (this.valid) {
+    const form = this.$refs.form as any;
+    const valid = form.validate();
+    if (valid) {
       this.requestInitializePassword();
     }
   }

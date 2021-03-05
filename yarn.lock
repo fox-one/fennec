@@ -1017,10 +1017,10 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@foxone/uikit@^2.0.25":
-  version "2.0.25"
-  resolved "https://registry.npm.taobao.org/@foxone/uikit/download/@foxone/uikit-2.0.25.tgz#1dd37febcce3c1e420872a5433fbee732253068a"
-  integrity sha1-HdN/68zjweQghypUM/vucyJTBoo=
+"@foxone/uikit@^2.0.36":
+  version "2.0.36"
+  resolved "https://registry.npmjs.org/@foxone/uikit/-/uikit-2.0.36.tgz#6192aea4145d3a72071b3856e28882207b8bdc5a"
+  integrity sha512-W8bdgAPyVgYislKIIE4sZj3XUguz+Fue4wrVHaVtEkEfBazIF1JD3z0QCVVFuc4wVbgMxbB2MaTkoggn38gbFw==
   dependencies:
     animate.css "^4.1.0"
     bignumber.js "^9.0.0"
@@ -1029,7 +1029,7 @@
     vue "^2.6.11"
     vue-class-component "^7.2.5"
     vue-property-decorator "^9.0.0"
-    vuetify "^2.3.8"
+    vuetify "^2.4.5"
 
 "@hapi/address@2.x.x":
   version "2.1.4"
@@ -2997,6 +2997,13 @@
     vue-template-es2015-compiler "^1.9.0"
   optionalDependencies:
     prettier "^1.18.2"
+
+"@vue/composition-api@^1.0.0-rc.3":
+  version "1.0.0-rc.3"
+  resolved "https://registry.npmjs.org/@vue/composition-api/-/composition-api-1.0.0-rc.3.tgz#5174632fdda888f4f04bbaa5263cf01e34ba3fc2"
+  integrity sha512-/N/yCgIeFwAdsChML1RAke7YT5v/LYnPOyrz2zU+fE6xx2MpZfWn+DD2wCf3Vre659AvuXA8zzKLlRaFzW75XQ==
+  dependencies:
+    tslib "^2.1.0"
 
 "@vue/eslint-config-prettier@^6.0.0":
   version "6.0.0"
@@ -14093,7 +14100,7 @@ tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.3:
+tslib@^2.0.3, tslib@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
   integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
@@ -14689,10 +14696,15 @@ vuetify-loader@^1.3.0, vuetify-loader@^1.6.0:
     file-loader "^4.0.0"
     loader-utils "^1.2.0"
 
-vuetify@^2.3.8, vuetify@^2.3.9:
+vuetify@^2.3.9:
   version "2.4.2"
   resolved "https://registry.npmjs.org/vuetify/-/vuetify-2.4.2.tgz#d37d160c1fc6b241fc166a32980b34590a017d6e"
   integrity sha512-8W1928Fv6GKwLiOThutYf2wtD5C9+vcCavlI8NT0YxNOVvluoL8xrep8mGGwDsCkay+4LzaAX92owKeNi3kpWg==
+
+vuetify@^2.4.5:
+  version "2.4.5"
+  resolved "https://registry.npmjs.org/vuetify/-/vuetify-2.4.5.tgz#86de190720d25511df9be37ff3c16a568972fc2d"
+  integrity sha512-P4bN9xwyU91Iq1iW/XBCzgVMQ9fHG0HgJeiPDRoHzC0fX6ZPYBZIN6xPCuoG7zLyGSSoc6JnQqnO7H5mPEsVuA==
 
 vuex-class@^0.3.2:
   version "0.3.2"

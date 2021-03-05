@@ -1,4 +1,9 @@
-import { injectExtension, handleResponse, enable, redirectIfPhishing } from "@foxone/mixin-extension-base/inject";
+import {
+  injectExtension,
+  handleResponse,
+  enable,
+  redirectIfPhishing
+} from "@foxone/mixin-extension-base/inject";
 
 window.addEventListener("message", ({ data, source }) => {
   if (source !== window || data.origin !== "content") {
@@ -26,6 +31,10 @@ redirectIfPhishing()
     }
   })
   .catch((e) => {
-    console.warn(`Unable to determine if the site is in the phishing list: ${(e as Error).message}`);
+    console.warn(
+      `Unable to determine if the site is in the phishing list: ${
+        (e as Error).message
+      }`
+    );
     inject();
   });

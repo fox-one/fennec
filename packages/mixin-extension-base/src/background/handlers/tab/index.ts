@@ -17,7 +17,6 @@ export default function (state: State) {
     params: ActionParams<T>
   ): Promise<ActionResponses[keyof ActionResponses]> {
     const { payload, action, url } = params;
-    console.log(params);
     const handlers = createHandlers(state);
 
     if (action === "pub(phishing.redirectIfDenied)") {

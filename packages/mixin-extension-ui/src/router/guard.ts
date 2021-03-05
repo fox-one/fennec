@@ -16,7 +16,7 @@ export function appLockedGuard(store) {
 export default function (store, router: VueRouter) {
   router.beforeEach((to, _from, next) => {
     if (initializeGuard(store)) {
-      to.name === "create-password" ? next() : next("create-password");
+      to.name === "init" ? next() : next("init");
       return;
     }
 

@@ -121,12 +121,37 @@ export default class AuthState {
       if (!this.#authUrls[idStr].isAllowed) {
         throw `The source ${url} is not allowed to interact with this extension`;
       }
-
       return false;
     }
 
+    const found = Object.entries(this.#authRequests).find(
+      (x) => x[1].idStr === idStr
+    );
+    if (found) {
+      return this.addOrUpdateAuthRequests({
+        id: found[0],
+        idStr,
+        payload,
+        url
+      });
+    } else {
+      return this.addOrUpdateAuthRequests({
+        id: getId(),
+        idStr,
+        payload,
+        url
+      });
+    }
+  }
+
+  private addOrUpdateAuthRequests(opts: {
+    id: string;
+    idStr: string;
+    payload: AuthTabPayload;
+    url: string;
+  }): Promise<boolean> {
+    const { id, idStr, payload, url } = opts;
     return new Promise((resolve, reject) => {
-      const id = getId();
       this.#authRequests[id] = {
         ...this.authComplete(id, resolve, reject),
         id,

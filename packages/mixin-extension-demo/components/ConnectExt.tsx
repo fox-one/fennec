@@ -31,7 +31,9 @@ export default defineComponent({
 
     const meta = computed(() => {
       return reactive({
-        classes: `button ${connected.value ? "is-warning" : "is-primary"} ${loading.value ? "is-loading" : ""}`,
+        classes: `button ${connected.value ? "is-warning" : "is-primary"} ${
+          loading.value ? "is-loading" : ""
+        }`,
         text: connected.value ? "Disconnect" : "Connect"
       });
     });

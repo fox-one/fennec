@@ -18,31 +18,41 @@ export const WalletModuleKey = "wallet/";
 
 export interface State {
   assets: Asset[];
+  additionAssets: Asset[];
   exchangeRates: ExchangeRate[];
   snapshots: Snapshot[];
+  snapshotsLoaded: boolean;
   transactions: Transaction[];
   users: User[];
 }
 
 export const GetterKeys = {
   TOTAL_USD: "TOTAL_USD",
-  TOTAL_BTC: "TOTAL_BTC"
+  TOTAL_BTC: "TOTAL_BTC",
+  GET_ASSET_BY_ID: "GET_ASSET_BY_ID",
+  GET_MERGED_ASSETS: "GET_MERGED_ASSETS"
 } as const;
 
 export type Getters = {};
 
 export const MutationTypes = {
   SET_ASSETS: "SET_ASSETS",
+  ADD_ADDITION_ASSET: "ADD_ADDITION_ASSET",
+  REMVOE_ADDITION_ASSET: "REMVOE_ADDITION_ASSET",
   SET_EXCHANGE_RATE: "SET_EXCHANGE_RATE",
   SET_SNAPSHOTS: "SET_SNAPSHOTS",
+  SET_SNAPSHOTS_LOADED: "SET_SNAPSHOTS_LOADED",
   SET_TRANSACTIONS: "SET_TRANSACTIONS",
   SET_USERS: "SET_USERS"
 } as const;
 
 export interface Mutations {
   [MutationTypes.SET_ASSETS](state: State, data: Asset[]): void;
+  [MutationTypes.ADD_ADDITION_ASSET](state: State, data: Asset): void;
+  [MutationTypes.REMVOE_ADDITION_ASSET](state: State, data: Asset): void;
   [MutationTypes.SET_EXCHANGE_RATE](state: State, data: ExchangeRate[]): void;
   [MutationTypes.SET_SNAPSHOTS](state: State, data: Snapshot[]): void;
+  [MutationTypes.SET_SNAPSHOTS_LOADED](state: State, value: boolean): void;
   [MutationTypes.SET_TRANSACTIONS](state: State, data: Transaction[]): void;
   [MutationTypes.SET_USERS](state: State, data: User): void;
 }

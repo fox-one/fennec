@@ -20,14 +20,17 @@ export function openPopup(windows: number[]) {
     top: 150,
     type: "popup",
     url: chrome.extension.getURL("notification.html"),
-    width: 400
+    width: 360
   };
 
-  extension.windows.create({ ...WINDOW_OPTS }, (window: chrome.windows.Window) => {
-    if (window) {
-      windows.push(window.id);
+  extension.windows.create(
+    { ...WINDOW_OPTS },
+    (window: chrome.windows.Window) => {
+      if (window) {
+        windows.push(window.id);
+      }
     }
-  });
+  );
 }
 
 export function closePopup(id: number, windows: number[]) {

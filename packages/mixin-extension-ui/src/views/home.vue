@@ -1,13 +1,26 @@
 <template>
   <v-container>
     <div class="text-center">
-      <div class="f-headline">{{ meta.totalBTCFormat }}</div>
+      <f-mixin-asset-logo :size="48" :logo="meta.btcIcon" />
+      <div>
+        <span class="f-headline">{{ meta.totalBTCFormat }}</span>
+        <span class="f-body-2">BTC</span>
+      </div>
       <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
     </div>
     <asset-actions />
     <v-layout class="mt-3" align-center>
       <v-flex class="mr-4">
-        <f-input v-model="search" label="Search" />
+        <v-text-field
+          v-model="search"
+          dense
+          solo
+          hide-details
+          flat
+          background-color="transparent"
+          placeholder="Search"
+          class="f-bg-greyscale-6"
+        />
       </v-flex>
       <asset-add />
     </v-layout>
@@ -22,6 +35,7 @@ import { GetterKeys, WalletModuleKey } from "../store/modules/wallet/types";
 import AssetActions from "../components/wallet/AssetActions.vue";
 import AssetAdd from "../components/wallet/AssetAdd.vue";
 import AssetList from "../components/wallet/AssetList.vue";
+import { BTC_ASSET_ID } from "../defaults";
 
 @Component({
   components: {
@@ -50,15 +64,18 @@ class HomePage extends Mixins(PageView) {
 
     const totalUSD = getters[WalletModuleKey + GetterKeys.TOTAL_USD];
     const totalBTC = getters[WalletModuleKey + GetterKeys.TOTAL_BTC];
+    const getAssetById = getters[WalletModuleKey + GetterKeys.GET_ASSET_BY_ID];
+    const btc = getAssetById(BTC_ASSET_ID);
 
     const totalUSDFormat = currencyExchange(this, {
       n: totalUSD,
       from: "USD",
       to: "USD"
     });
-    const totalBTCFormat = format({ n: totalBTC, mp: 8 }) + " BTC";
+    const totalBTCFormat = format({ n: totalBTC, mp: 8 });
 
     return {
+      btcIcon: btc?.icon_url ?? "",
       totalUSDFormat,
       totalBTCFormat
     };

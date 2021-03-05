@@ -4,6 +4,7 @@
       <f-list-item
         v-on="on"
         :title="meta.symbol"
+        :subtitle="meta.name"
         class="asset-select f-bg-greyscale-6"
       >
         <template #head>
@@ -11,13 +12,28 @@
           <v-icon v-else-if="!meta.icon">
             {{ $icons.mdiHelpCircle }}
           </v-icon>
-          <v-img v-else width="32" height="32" :src="meta.icon" />
+          <f-mixin-asset-logo
+            v-else
+            :size="32"
+            :logo="meta.icon"
+            :chain-logo="getAssetChainLogo({ chain_id: meta.chainId })"
+            class="mr-5"
+          />
         </template>
       </f-list-item>
     </template>
     <template #title> Select asset </template>
     <template #subheader>
-      <f-input v-model="search" label="Search" />
+      <v-text-field
+        v-model="search"
+        dense
+        solo
+        hide-details
+        flat
+        background-color="transparent"
+        placeholder="Search"
+        class="f-bg-greyscale-6"
+      />
     </template>
     <list-wapper :data="filterAssets">
       <v-list>
@@ -32,9 +48,14 @@
             :chain-logo="getAssetChainLogo(asset)"
             class="mr-5"
           />
-          <v-list-title>
-            {{ asset.symbol }}
-          </v-list-title>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ asset.symbol }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ asset.name }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </list-wapper>
@@ -81,7 +102,9 @@ class AssetSelect extends Vue {
   get meta() {
     return {
       symbol: this.value?.symbol ?? "Select asset",
-      icon: this.value?.icon_url
+      name: this.value?.name ?? "",
+      icon: this.value?.icon_url,
+      chainId: this.value?.chain_id
     };
   }
 

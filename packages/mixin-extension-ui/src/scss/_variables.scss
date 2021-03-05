@@ -1,5 +1,5 @@
-$body-font-family: -apple-system, BlinkMacSystemFont, SF Compact Display Medium,
-  "PingFang SC", "Helvetica Neue", Roboto, Oxygen, sans-serif;
+$body-font-family: Helvetica "SF Pro Text", "Roboto", Arial, Helvetica,
+  sans-serif;
 
 $font-weights: (
   "thin": 100,
@@ -11,3 +11,9 @@ $font-weights: (
 );
 
 $container-padding-x: 16px;
+
+$material-light: (
+  "text-fields": (
+    "filled": #f5f5f5
+  )
+);

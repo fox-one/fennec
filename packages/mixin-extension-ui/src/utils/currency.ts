@@ -22,7 +22,7 @@ export function currencyExchange(
   const rateFrom = rates.find((x) => x.code === opts.from);
   const rateTo = rates.find((x) => x.code === opts.to);
   if (!rateTo || !rateFrom) {
-    throw "Cannot found from or to asset in fiats rates";
+    return "";
   }
   const value = new BigNumber(opts.n).times(rateFrom.rate).div(rateTo.rate);
   const currency = CURRENCY[rateTo.code];

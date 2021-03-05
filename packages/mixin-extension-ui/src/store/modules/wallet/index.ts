@@ -17,8 +17,10 @@ import {
 
 const state: State = {
   assets: [],
+  additionAssets: [],
   exchangeRates: [],
   snapshots: [],
+  snapshotsLoaded: false,
   transactions: [],
   users: []
 };
@@ -33,6 +35,14 @@ const getters: GetterTree<State, RootState> = {
     return state.assets.reduce((total, asset) => {
       return total + Number(asset.price_btc) * Number(asset.balance);
     }, 0);
+  },
+  [GetterKeys.GET_ASSET_BY_ID](state) {
+    return (id: string) => {
+      return state.assets.find((x) => x.asset_id === id);
+    };
+  },
+  [GetterKeys.GET_MERGED_ASSETS](state) {
+    return [...state.assets, ...state.additionAssets];
   }
 };
 
@@ -40,11 +50,26 @@ const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.SET_ASSETS](state, data) {
     state.assets = data;
   },
+  [MutationTypes.ADD_ADDITION_ASSET](state, asset) {
+    const assets = [...state.assets, ...state.additionAssets];
+    const added = assets.find((x) => x.asset_id === asset.asset_id);
+    if (!added) {
+      state.additionAssets = [...state.additionAssets, asset];
+    }
+  },
+  [MutationTypes.REMVOE_ADDITION_ASSET](state, asset) {
+    state.additionAssets = state.additionAssets.filter(
+      (x) => x.asset_id !== asset.asset_id
+    );
+  },
   [MutationTypes.SET_EXCHANGE_RATE](state, data) {
     state.exchangeRates = data;
   },
   [MutationTypes.SET_SNAPSHOTS](state, data) {
     state.snapshots = data;
+  },
+  [MutationTypes.SET_SNAPSHOTS_LOADED](state, value) {
+    state.snapshotsLoaded = value;
   },
   [MutationTypes.SET_TRANSACTIONS](state, data) {
     state.transactions = data;
@@ -59,6 +84,12 @@ const mutations: MutationTree<State> & Mutations = {
 const actions: ActionTree<State, RootState> & Actions = {
   async [ActionTypes.LOAD_ASSETS]({ commit }) {
     const assets = await endpoints.getAssets();
+    assets.forEach((x) => {
+      const found = state.additionAssets.find((y) => y.asset_id === x.asset_id);
+      if (found) {
+        commit(MutationTypes.REMVOE_ADDITION_ASSET, x);
+      }
+    });
     commit(MutationTypes.SET_ASSETS, assets);
   },
 
@@ -81,19 +112,31 @@ const actions: ActionTree<State, RootState> & Actions = {
       limit: 20,
       asset: payload.asset
     };
+
     let res = await endpoints.getSnapshots(opts);
+    res = res.filter(
+      (x) => !state.snapshots.find((y) => x.snapshot_id === y.snapshot_id)
+    );
     res = await Promise.all(
       res.map(
         async (x): Promise<Snapshot> => {
-          const user = await dispatch(ActionTypes.LOAD_USER, {
-            id: x.opponent_id
-          });
-          return { ...x, opponent: user.full_name };
+          if (x.opponent_id) {
+            const user = await dispatch(ActionTypes.LOAD_USER, {
+              id: x.opponent_id
+            });
+            return { ...x, opponent: user.full_name };
+          }
+          return x;
         }
       )
     );
     const data = payload.reload ? res : [...snapshots, ...res];
     commit(MutationTypes.SET_SNAPSHOTS, data);
+    if (res.length <= 0) {
+      commit(MutationTypes.SET_SNAPSHOTS_LOADED, true);
+    } else {
+      commit(MutationTypes.SET_SNAPSHOTS_LOADED, false);
+    }
   },
 
   async [ActionTypes.LOAD_TRANSACTIONS]({ commit }, payload) {
@@ -107,7 +150,7 @@ const actions: ActionTree<State, RootState> & Actions = {
 
     const opts: ExternalTransactionParams = {
       offset,
-      limit: 20,
+      limit: 100,
       destination: payload.destination,
       tag: payload.tag
     };

@@ -7,6 +7,10 @@ export default function (sendMessage: SendMessage) {
       return sendMessage("pri(keyring.createAccount)", { configStr });
     },
 
+    exportAccount(clientId: string) {
+      return sendMessage("pri(keyring.exportAccount)", { clientId });
+    },
+
     subscribeKeyingState(cb: (state: KeyringMemState) => void) {
       return sendMessage("pri(keyring.subscribe)", null, cb);
     },
@@ -16,11 +20,11 @@ export default function (sendMessage: SendMessage) {
     },
 
     tryUnlockKeyring(password: string) {
-      return sendMessage("pri(kering.unlock)", { password });
+      return sendMessage("pri(keyring.unlock)", { password });
     },
 
     signAuthorizeToken(uri: string, method: string, data: any) {
-      return sendMessage("pri(kering.signAuthorizeToken)", {
+      return sendMessage("pri(keyring.signAuthorizeToken)", {
         uri,
         method,
         data
@@ -28,11 +32,11 @@ export default function (sendMessage: SendMessage) {
     },
 
     encryptPin(pin: string) {
-      return sendMessage("pri(kering.encryptPin)", { pin });
+      return sendMessage("pri(kerying.encryptPin)", { pin });
     },
 
     getEncryptedPin(password: string) {
-      return sendMessage("pri(kering.getEncryptedPin)", { password });
+      return sendMessage("pri(keyring.getEncryptedPin)", { password });
     }
   };
 }

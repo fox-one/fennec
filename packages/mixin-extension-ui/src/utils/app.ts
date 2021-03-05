@@ -79,7 +79,7 @@ export async function afterInit(vm: Vue) {
   registerGuard(vm.$store, vm.$router);
 
   if (initializeGuard(vm.$store)) {
-    vm.$router.replace({ name: "create-password" });
+    vm.$router.replace({ name: "init" });
     return;
   }
 

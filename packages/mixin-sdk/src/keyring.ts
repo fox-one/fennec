@@ -84,7 +84,7 @@ export default class MixinKeyring {
 
   public addAccount(configs: string) {
     const account = JSON.parse(configs);
-    if (!this.checkAccount(account)) {
+    if (!MixinKeyring.checkAccount(account)) {
       throw new Error("Account config not match");
     }
     if (this.#accounts.find((x) => x.client_id === account.client_id)) {
@@ -93,7 +93,7 @@ export default class MixinKeyring {
     this.#accounts.push(account);
   }
 
-  private checkAccount(obj: any) {
+  public static checkAccount(obj: any) {
     const keys = ["pin", "pin_token", "session_id", "private_key", "client_id"];
     for (const key of keys) {
       if (!obj[key] || typeof obj[key] !== "string") {

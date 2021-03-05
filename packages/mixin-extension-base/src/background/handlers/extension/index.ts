@@ -6,7 +6,8 @@ import type {
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
   EncryptPinPayload,
-  GetEncryptedPinPayload
+  GetEncryptedPinPayload,
+  ExportKeyringPayload
 } from "../../types/keyring";
 import type { State } from "../../../state/types";
 
@@ -56,19 +57,22 @@ export default function (state: State) {
           payload as InitializedPasswordPayload
         );
 
-      case "pri(kering.unlock)":
+      case "pri(keyring.unlock)":
         return handlers.tryUnlockKeyring(payload as UnlockKeyringPayload);
 
-      case "pri(kering.signAuthorizeToken)":
+      case "pri(keyring.signAuthorizeToken)":
         return handlers.signAuthorizeToken(
           payload as SignAuthorizeTokenPayload
         );
 
-      case "pri(kering.encryptPin)":
+      case "pri(kerying.encryptPin)":
         return handlers.encryptPin(payload as EncryptPinPayload);
 
-      case "pri(kering.getEncryptedPin)":
+      case "pri(keyring.getEncryptedPin)":
         return handlers.getEncryptedPin(payload as GetEncryptedPinPayload);
+
+      case "pri(keyring.exportAccount)":
+        return handlers.exportAccount(payload as ExportKeyringPayload);
 
       // Preference
       case "pri(preference.subscribe)":

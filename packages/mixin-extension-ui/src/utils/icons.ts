@@ -9,7 +9,11 @@ import {
   mdiCheckboxMarkedCircle,
   mdiSquareEditOutline,
   mdiMagnify,
-  mdiSwapVertical
+  mdiSwapVertical,
+  mdiInformation,
+  mdiCog,
+  mdiDownload,
+  mdiPaperclip
 } from "@mdi/js";
 
 export default {
@@ -23,5 +27,9 @@ export default {
   mdiCheckboxMarkedCircle,
   mdiSquareEditOutline,
   mdiMagnify,
-  mdiSwapVertical
+  mdiSwapVertical,
+  mdiInformation,
+  mdiCog,
+  mdiDownload,
+  mdiPaperclip
 };

@@ -196,6 +196,7 @@ export interface Snapshot {
   opening_balance: string;
   opponent_id: string;
   opponent?: string;
+  sender?: string;
   snapshot_at: string;
   snapshot_hash: string;
   snapshot_id: string;

@@ -1,19 +1,41 @@
 <template>
-  <f-panel class="my-3">
-    <div class="f-title-3">
-      An application, self-identifying as <span class="font-weight-bold">{{ meta.origin }}</span> is requesting access
-      from <a :href="meta.url">{{ meta.url }}</a>
+  <v-alert
+    dense
+    outlined
+    border="left"
+    type="info"
+    :icon="$icons.mdiInformation"
+  >
+    <div class="f-body-2">
+      An application, self-identifying as
+      <span class="font-weight-bold">{{ meta.origin }}</span> is requesting
+      access from
+      <a :href="meta.url" class="text--underlined">{{ meta.url }}</a>
     </div>
     <v-layout class="mt-1">
       <v-spacer />
-      <v-btn small text color="primary" @click="handleApproveRequest" :loading="approving" :disabled="processing">
+      <v-btn
+        small
+        text
+        color="primary"
+        :loading="approving"
+        :disabled="processing"
+        @click="handleApproveRequest"
+      >
         Allow
       </v-btn>
-      <v-btn small text color="error" @click="handleRejectRequest" :loadiing="rejecting" :disabled="processing">
+      <v-btn
+        small
+        text
+        color="error"
+        :loadiing="rejecting"
+        :disabled="processing"
+        @click="handleRejectRequest"
+      >
         Reject
       </v-btn>
     </v-layout>
-  </f-panel>
+  </v-alert>
 </template>
 
 <script lang="ts">
@@ -46,6 +68,7 @@ class AuthRequest extends Vue {
     try {
       await this.$messages.approveAuthRequest(this.request.id);
       this.$utils.helper.toast(this, { message: "Approved", color: "success" });
+      this.$router.push({ name: "home" });
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
@@ -57,6 +80,7 @@ class AuthRequest extends Vue {
     try {
       await this.$messages.rejectAuthRequest(this.request.id);
       this.$utils.helper.toast(this, { message: "Rejected", color: "success" });
+      this.$router.push({ name: "home" });
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

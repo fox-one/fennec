@@ -12,7 +12,7 @@ export type KeyringType = MixinKeyring | undefined;
 export type KeyringMemState = {
   isUnlocked: boolean;
   initialized: boolean;
-  accounts: MixinAccount[];
+  accounts: string[];
 };
 
 export default class KeyringState {
@@ -179,7 +179,7 @@ export default class KeyringState {
 
     this.updateKeyringMemState({
       ...this.#state,
-      accounts
+      accounts: accounts.map((x) => x.client_id)
     });
   }
 
