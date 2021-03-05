@@ -26,6 +26,7 @@ export interface AuthActionSignatures {
   "pri(authorize.approve)": [ApproveAuthPayload, boolean];
 
   "pub(authorize.tab)": [AuthTabPayload, null];
+  "pub(accounts.ensureUnlocked)": [null, boolean];
   "pub(accounts.list)": [null, InjectedAccount[]];
   "pub(phishing.redirectIfDenied)": [null, boolean];
 }

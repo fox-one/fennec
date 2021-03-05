@@ -1,13 +1,24 @@
-import type { Store } from "./types";
+import type { Store, Resolver } from "./types";
 import type { SignAuthorizeTokenPlayload } from "../background/types/keyring";
 
 import { BehaviorSubject } from "rxjs";
-import MixinKeyring, { MixinAccount } from "@foxone/mixin-sdk/keyring";
+import MixinKeyring from "@foxone/mixin-sdk/keyring";
 import encryptor from "browser-passworder";
 import { initKeyringData } from "./init-data";
 import PreferenceState from "./preference";
+import { closePopup, openPopup } from "../utils/helper";
 
 export type KeyringType = MixinKeyring | undefined;
+
+export interface UnlockRequest extends Resolver<boolean> {
+  id: string;
+}
+
+let idCounter = 0;
+
+function getId() {
+  return `${Date.now()}.${++idCounter}`;
+}
 
 export type KeyringMemState = {
   isUnlocked: boolean;
@@ -24,11 +35,19 @@ export default class KeyringState {
 
   #preference: PreferenceState;
 
+  #windows = [];
+
   #state: KeyringMemState = initKeyringData;
+
+  #unlockRequests: UnlockRequest[] = [];
 
   public readonly keyringMemStateSubject: BehaviorSubject<KeyringMemState> = new BehaviorSubject<KeyringMemState>(
     this.#state
   );
+
+  public readonly unlockRequests: BehaviorSubject<
+    UnlockRequest[]
+  > = new BehaviorSubject<UnlockRequest[]>([]);
 
   constructor(opts: {
     preference: PreferenceState;
@@ -139,6 +158,24 @@ export default class KeyringState {
     return await this.#keyring.getEncryptedPin(clientId);
   }
 
+  public async getAccounts() {
+    return this.#state.accounts;
+  }
+
+  public async ensureUnLocked(): Promise<boolean> {
+    if (this.#state.isUnlocked) {
+      return true;
+    }
+
+    return new Promise((resolve, reject) => {
+      const id = getId();
+      const unlockRequests = { id, resolve, reject };
+      this.#unlockRequests.push(unlockRequests);
+
+      openPopup(this.#windows);
+    });
+  }
+
   private async unLockKeyring(password: string) {
     const stored = this.#store.getValue().keyring;
     if (!stored) {
@@ -153,6 +190,11 @@ export default class KeyringState {
 
     this.#keyring = keyring;
     this.restoreAccounts();
+
+    if (this.#unlockRequests.length > 0) {
+      this.#unlockRequests.forEach((x) => x.resolve(true));
+      closePopup(this.#windows);
+    }
   }
 
   private clearKeying() {

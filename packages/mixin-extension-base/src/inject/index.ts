@@ -19,6 +19,10 @@ import type {
 } from "../background/types/message";
 
 import Accounts from "./account";
+import Wallet from "./wallet";
+import axios from "axios";
+import HttpProvider from "@foxone/mixin-sdk/provider/http";
+import createEndpoint from "@foxone/mixin-sdk/endpoints";
 
 const handlers: Handlers = {};
 let idCounter = 0;
@@ -56,11 +60,27 @@ export function sendMessage<T extends ActionTypes>(
   });
 }
 
+const provider = new HttpProvider();
+const endpoints = createEndpoint(provider);
+
+provider.instance.interceptors.request.use(async (config) => {
+  const url = axios.getUri(config);
+  const token = await sendMessage("pub(keyring.signAuthorizeToken)", {
+    uri: url,
+    method: config.method ?? "",
+    data: config.data ?? ""
+  });
+  config.headers = { ...config.headers, Authorization: `Bearer ${token}` };
+  return config;
+});
+
 export async function enable(origin: string): Promise<InjectedData> {
   await sendMessage("pub(authorize.tab)", { origin });
+  await sendMessage("pub(accounts.ensureUnlocked)");
 
   return {
-    accounts: new Accounts(sendMessage)
+    accounts: new Accounts(sendMessage),
+    wallet: new Wallet(sendMessage, endpoints)
   };
 }
 

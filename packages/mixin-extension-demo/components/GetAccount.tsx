@@ -1,29 +1,39 @@
-import { computed, defineComponent, ref, toRefs } from "vue";
+import type {
+  InjectedAccount,
+  InjectedData
+} from "@foxone/mixin-extension-base/src/inject/types";
+import { computed, defineComponent, ref, toRefs, PropType } from "vue";
 
 export default defineComponent({
   name: "GetAccount",
 
   props: {
     connected: Boolean,
-    ctx: Object
+    ctx: {
+      type: Object as PropType<InjectedData>
+    }
   },
 
   setup(props) {
     const { ctx, connected } = toRefs(props);
     const loading = ref(false);
-    const accounts = ref(null);
+    const accounts = ref<InjectedAccount[]>([]);
 
     const getAccount = async () => {
       loading.value = true;
       const res = await ctx?.value?.accounts?.get();
-      accounts.value = res;
+      if (res) {
+        accounts.value = res;
+      }
       loading.value = false;
     };
 
     const meta = computed(() => {
       return {
-        classes: `${loading ? "is-loading" : ""}`,
-        text: accounts.value ? JSON.stringify(accounts.value) : "No Accounts Data"
+        classes: `${loading.value ? "is-loading" : ""}`,
+        text: accounts.value
+          ? JSON.stringify(accounts.value)
+          : "No Accounts Data"
       };
     });
 
@@ -34,10 +44,13 @@ export default defineComponent({
 
       return (
         <>
-          <p class="my-3">{meta.value.text}</p>
-          <button class={"button is-small" + meta.value.classes} onClick={getAccount}>
+          <button
+            class={"button is-small " + meta.value.classes}
+            onClick={getAccount}
+          >
             GetAccount
           </button>
+          <p class="my-3">{meta.value.text}</p>
         </>
       );
     };

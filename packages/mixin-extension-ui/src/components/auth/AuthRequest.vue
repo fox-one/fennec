@@ -68,7 +68,7 @@ class AuthRequest extends Vue {
     try {
       await this.$messages.approveAuthRequest(this.request.id);
       this.$utils.helper.toast(this, { message: "Approved", color: "success" });
-      this.$router.push({ name: "home" });
+      await this.handleRedirect();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
@@ -80,10 +80,16 @@ class AuthRequest extends Vue {
     try {
       await this.$messages.rejectAuthRequest(this.request.id);
       this.$utils.helper.toast(this, { message: "Rejected", color: "success" });
-      this.$router.push({ name: "home" });
+      await this.handleRedirect();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
+    this.rejecting = false;
+  }
+
+  async handleRedirect() {
+    await this.$utils.app.init(this);
+    this.$router.push({ name: "home" });
   }
 }
 export default AuthRequest;

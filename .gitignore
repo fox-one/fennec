@@ -24,3 +24,5 @@ package-lock.json
 _book
 docs/html
 .idea
+build.crx
+build.pem

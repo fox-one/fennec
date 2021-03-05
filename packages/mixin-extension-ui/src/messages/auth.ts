@@ -11,7 +11,9 @@ export default function (sendMessage: SendMessage) {
       return sendMessage("pri(authorize.approve)", { id });
     },
 
-    subscribeAuthorizeRequests(cb: (requests: AuthorizeRequest[]) => void): Promise<boolean> {
+    subscribeAuthorizeRequests(
+      cb: (requests: AuthorizeRequest[]) => void
+    ): Promise<boolean> {
       return sendMessage("pri(authorize.requests)", null, cb);
     }
   };

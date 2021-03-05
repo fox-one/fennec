@@ -1,6 +1,7 @@
 import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
 import type { AuthTabPayload } from "../../types/auth";
 import type { State } from "../../../state/types";
+import type { SignAuthorizeTokenPayload } from "../../types/keyring";
 
 import createHandlers from "./handlers";
 
@@ -27,8 +28,16 @@ export default function (state: State) {
       case "pub(authorize.tab)":
         return handlers.authorize(payload as AuthTabPayload, url);
 
+      case "pub(accounts.ensureUnlocked)":
+        return handlers.ensureUnLocked();
+
       case "pub(accounts.list)":
         return handlers.accountsList();
+
+      case "pub(keyring.signAuthorizeToken)":
+        return handlers.signAuthorizeToken(
+          payload as SignAuthorizeTokenPayload
+        );
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

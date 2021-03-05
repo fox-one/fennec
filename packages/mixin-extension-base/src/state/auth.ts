@@ -20,6 +20,10 @@ export interface AuthRequest extends Resolver<boolean> {
   payload: AuthTabPayload;
 }
 
+export interface ConnectRequest extends Resolver<boolean> {
+  id: string;
+}
+
 export interface AuthorizeRequest {
   id: string;
   url: string;
@@ -121,7 +125,8 @@ export default class AuthState {
       if (!this.#authUrls[idStr].isAllowed) {
         throw `The source ${url} is not allowed to interact with this extension`;
       }
-      return false;
+
+      return true;
     }
 
     const found = Object.entries(this.#authRequests).find(

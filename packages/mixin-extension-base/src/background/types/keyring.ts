@@ -1,4 +1,3 @@
-import { MixinAccount } from "@foxone/mixin-sdk/keyring";
 import type { KeyringMemState } from "../../state/keyring";
 
 export interface CreateAccountPayload {
@@ -39,8 +38,9 @@ export interface ExportKeyringPayload {
 }
 
 export interface KeyringActionSignatures {
-  "pri(keyring.subscribe)": [null, boolean, KeyringMemState];
+  "pub(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
 
+  "pri(keyring.subscribe)": [null, boolean, KeyringMemState];
   "pri(keyring.createAccount)": [CreateAccountPayload, string[]];
   "pri(keyring.initializePassword)": [InitializedPasswordPayload, boolean];
   "pri(keyring.unlock)": [UnlockKeyringPayload, boolean];

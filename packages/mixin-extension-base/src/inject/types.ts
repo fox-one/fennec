@@ -1,3 +1,4 @@
+import { Asset } from "@foxone/mixin-sdk/types";
 import type {
   ActionPayloads,
   ActionTypesWithNoSubscriptions,
@@ -16,8 +17,13 @@ export interface Handler {
 export type Handlers = Record<string, Handler>;
 
 export interface SendMessage {
-  <T extends ActionTypesWithNullPayload>(action: T): Promise<ActionResponses[T]>;
-  <T extends ActionTypesWithNoSubscriptions>(action: T, payload: ActionPayloads[T]): Promise<ActionResponses[T]>;
+  <T extends ActionTypesWithNullPayload>(action: T): Promise<
+    ActionResponses[T]
+  >;
+  <T extends ActionTypesWithNoSubscriptions>(
+    action: T,
+    payload: ActionPayloads[T]
+  ): Promise<ActionResponses[T]>;
   <T extends ActionTypesWithSubscriptions>(
     action: T,
     payload: ActionPayloads[T],
@@ -33,15 +39,20 @@ export interface InjectedExtensionInfo {
 export type InjectOptions = InjectedExtensionInfo;
 
 export interface InjectedAccount {
-  name: string;
+  clientId: string;
 }
 
 export interface InjectedAccounts {
   get(): Promise<InjectedAccount[]>;
 }
 
+export interface InjectedWallet {
+  getAsset(id: string): Promise<Asset>;
+}
+
 export interface InjectedData {
   accounts: InjectedAccounts;
+  wallet: InjectedWallet;
 }
 
 type This = typeof globalThis;

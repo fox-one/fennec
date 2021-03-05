@@ -33,12 +33,10 @@ export function openPopup(windows: number[]) {
   );
 }
 
-export function closePopup(id: number, windows: number[]) {
-  windows.forEach(() => {
+export function closePopup(windows: number[]) {
+  windows.forEach((id) => {
     extension.windows.remove(id);
   });
-
-  windows = [];
 }
 
 export function checkForError() {

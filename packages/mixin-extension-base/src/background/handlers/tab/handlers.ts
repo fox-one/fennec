@@ -3,6 +3,7 @@ import type { State } from "../../../state/types";
 
 import extension from "extensionizer";
 import { PHISHING_PAGE_REDIRECT } from "../../../constants";
+import { SignAuthorizeTokenPayload } from "../../types/keyring";
 
 function checkIfDenied(url: string) {
   // TODO: implements phishing detect
@@ -20,11 +21,30 @@ function redirectPhishingLanding() {
 export default function createHandlers(state: State) {
   return {
     accountsList() {
-      return [];
+      return state.keyring.getAccounts();
+    },
+
+    ensureUnLocked() {
+      return state.keyring.ensureUnLocked();
     },
 
     authorize(payload: AuthTabPayload, url: string): Promise<boolean> {
       return state.auth.authorizeUrl(url, payload);
+    },
+
+    signAuthorizeToken({ method, data, uri }: SignAuthorizeTokenPayload) {
+      const selectedAccount = state.preference.preference.seletedAccount;
+      if (!selectedAccount) {
+        throw new Error("No selected account");
+      }
+
+      const payload = {
+        clientId: selectedAccount,
+        method: method.toUpperCase(),
+        data,
+        uri
+      };
+      return state.keyring.signAuthorizeToken(payload);
     },
 
     async redirectIfPhishing(url: string): Promise<boolean> {
