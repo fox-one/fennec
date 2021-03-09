@@ -46,5 +46,3 @@ export default function createAuthHandlers(state: State) {
     }
   };
 }
-
-export type ExtensionActionHandlers = ReturnType<typeof createAuthHandlers>;

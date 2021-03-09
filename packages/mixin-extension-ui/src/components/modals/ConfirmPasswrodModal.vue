@@ -1,7 +1,9 @@
 <template>
   <v-dialog v-model="dialog">
     <v-card v-if="dialog">
-      <v-card-title class="justify-center"> Confirm Password </v-card-title>
+      <v-card-title class="justify-center f-title-1">
+        Confirm Password
+      </v-card-title>
       <v-card-text>
         <enter-password-form
           :label="'Submit'"
@@ -16,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import EnterPasswordForm from "./EnterPasswordForm.vue";
+import EnterPasswordForm from "../account/EnterPasswordForm.vue";
 import { EVENTS } from "../../defaults";
 
 export interface ConfirmPasswordPayload {

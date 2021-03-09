@@ -1,9 +1,14 @@
 <template>
   <v-app id="app" class="app">
-    <f-loading v-if="initing" loading color="primary" fullscreen />
+    <f-loading v-if="meta.initing" loading color="primary" fullscreen />
     <template v-else>
-      <component :is="layoutComponent">
-        <router-view />
+      <modals />
+      <init-guard v-if="!meta.inited" />
+      <unlock-guard v-else-if="meta.locked" />
+      <auth-guard v-else-if="meta.hasAuthRequest" />
+      <transfer-guard v-else-if="meta.hasTransferRequest" />
+      <component v-else :is="layoutComponent">
+        <wallet-guard />
       </component>
     </template>
   </v-app>
@@ -12,12 +17,22 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import DefaultLayout from "./layouts/default/Index.vue";
-import AuthRequest from "./components/auth/AuthRequest.vue";
+import AuthGuard from "./components/guard/auth.vue";
+import InitGuard from "./components/guard/init.vue";
+import TransferGuard from "./components/guard/transfer.vue";
+import UnlockGuard from "./components/guard/unlock.vue";
+import WalletGuard from "./components/guard/wallet.vue";
+import Modals from "./components/modals/Modals.vue";
 
 @Component({
   components: {
     DefaultLayout,
-    AuthRequest
+    AuthGuard,
+    InitGuard,
+    TransferGuard,
+    UnlockGuard,
+    WalletGuard,
+    Modals
   }
 })
 class App extends Vue {
@@ -34,12 +49,21 @@ class App extends Vue {
     }
   }
 
-  get initing() {
-    return this.$store.state.app.initing;
-  }
+  get meta() {
+    const initing = this.$store.state.app.initing;
+    const inited = this.$store.state.keyring.keyring.initialized;
+    const locked = !this.$store.state.keyring.keyring.isUnlocked;
+    const hasAuthRequest = this.$store.state.auth.authorizeRequests.length > 0;
+    const hasTransferRequest =
+      this.$store.state.transfer.transferRequests.length > 0;
 
-  get hasAuthRequest() {
-    return this.$store.state.auth.authorizeRequests.length > 0;
+    return {
+      initing,
+      inited,
+      locked,
+      hasAuthRequest,
+      hasTransferRequest
+    };
   }
 
   async mounted() {

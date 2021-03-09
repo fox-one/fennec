@@ -7,6 +7,7 @@ import auth from "./modules/auth";
 import keyring from "./modules/keyring";
 import preference from "./modules/preference";
 import wallet from "./modules/wallet";
+import transfer from "./modules/transfer";
 
 export default function () {
   Vue.use(Vuex);
@@ -16,7 +17,8 @@ export default function () {
     auth,
     keyring,
     preference,
-    wallet
+    wallet,
+    transfer
   };
 
   return new Vuex.Store({

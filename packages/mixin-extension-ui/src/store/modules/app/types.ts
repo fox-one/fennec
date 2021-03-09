@@ -6,7 +6,7 @@ import {
 } from "vuex";
 import { RootState } from "../../types";
 
-export const AppModuleKey = "app/";
+export const AppModulePerfix = "app/";
 
 export const ActionTypes = {
   GET_COUTNER: "GET_COUTNER"

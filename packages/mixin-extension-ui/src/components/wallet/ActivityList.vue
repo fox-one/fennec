@@ -29,7 +29,7 @@
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import {
-  WalletModuleKey,
+  WalletModulePerfix,
   MutationTypes,
   ActionTypes,
   State
@@ -134,6 +134,8 @@ class ActivityList extends Vue {
 
     return {
       activities,
+      snapshots,
+      transactions,
       snapshotsLoaded,
       infiniteDisabled: this.loading || snapshotsLoaded
     };
@@ -145,8 +147,8 @@ class ActivityList extends Vue {
 
   beforeDestroy() {
     const commit = this.$store.commit;
-    commit(WalletModuleKey + MutationTypes.SET_SNAPSHOTS, []);
-    commit(WalletModuleKey + MutationTypes.SET_SNAPSHOTS_LOADED, false);
+    commit(WalletModulePerfix + MutationTypes.SET_SNAPSHOTS, []);
+    commit(WalletModulePerfix + MutationTypes.SET_SNAPSHOTS_LOADED, false);
   }
 
   handleToSnapshot(snapshot) {
@@ -164,7 +166,7 @@ class ActivityList extends Vue {
     this.loading = true;
     try {
       const dispatch = this.$store.dispatch;
-      await dispatch(WalletModuleKey + ActionTypes.LOAD_SNAPSHOTS, {
+      await dispatch(WalletModulePerfix + ActionTypes.LOAD_SNAPSHOTS, {
         reload: false,
         asset: this.asset.asset_id
       });
@@ -179,11 +181,11 @@ class ActivityList extends Vue {
     try {
       const dispatch = this.$store.dispatch;
       await Promise.all([
-        dispatch(WalletModuleKey + ActionTypes.LOAD_SNAPSHOTS, {
+        dispatch(WalletModulePerfix + ActionTypes.LOAD_SNAPSHOTS, {
           reload: true,
           asset: this.asset.asset_id
         }),
-        dispatch(WalletModuleKey + ActionTypes.LOAD_TRANSACTIONS, {
+        dispatch(WalletModulePerfix + ActionTypes.LOAD_TRANSACTIONS, {
           reload: true,
           destination: this.asset.destination,
           tag: this.asset.tag

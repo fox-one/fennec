@@ -3,6 +3,7 @@ import { computed, defineComponent, ref } from "vue";
 import ConnectExt from "../components/ConnectExt";
 import GetAccount from "../components/GetAccount";
 import GetAsset from "../components/GetAsset";
+import Transfer from "../components/Transfer";
 
 export default defineComponent(() => {
   const ext = (window as any).__MIXIN__?.mixin_ext;
@@ -28,11 +29,15 @@ export default defineComponent(() => {
           </div>
           <div class="actions mt-5">
             <div class="label">Get Account</div>
-            <GetAccount ctx={ctx} connected={connected.value} />
+            <GetAccount ctx={ctx.value} connected={connected.value} />
           </div>
           <div class="actions mt-5">
             <div class="label">Get Asset</div>
             <GetAsset ctx={ctx.value} connected={connected.value} />
+          </div>
+          <div class="action mt-5">
+            <div class="label">Transfer</div>
+            <Transfer ctx={ctx.value} connected={connected.value} />
           </div>
         </div>
       </div>

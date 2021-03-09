@@ -14,7 +14,7 @@ import {
 
 import { RootState } from "../../types";
 
-export const WalletModuleKey = "wallet/";
+export const WalletModulePerfix = "wallet/";
 
 export interface State {
   assets: Asset[];

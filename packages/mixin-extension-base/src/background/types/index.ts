@@ -1,6 +1,7 @@
 import type { AuthActionSignatures } from "./auth";
 import type { KeyringActionSignatures } from "./keyring";
 import type { PreferenceSignatures } from "./preference";
+import type { WalletActionSignatures } from "./wallet";
 
 type IsNull<T, K extends keyof T> = { [K1 in Exclude<keyof T, K>]: T[K1] } &
   T[K] extends null
@@ -19,7 +20,8 @@ type NoUndefinedValues<T> = {
 
 export type ActionSignatures = AuthActionSignatures &
   KeyringActionSignatures &
-  PreferenceSignatures;
+  PreferenceSignatures &
+  WalletActionSignatures;
 
 export type ActionTypes = keyof ActionSignatures;
 

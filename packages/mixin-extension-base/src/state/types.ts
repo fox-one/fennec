@@ -2,6 +2,7 @@ import type AuthState from "./auth";
 import type KeyringState from "./keyring";
 import type PerferenceState from "./preference";
 import type ProviderState from "./provider";
+import type WalletState from "./wallet";
 import type { AuthUrlInfo } from "./auth";
 
 export interface Resolver<T> {
@@ -14,6 +15,7 @@ export interface State {
   keyring: KeyringState;
   preference: PerferenceState;
   provider: ProviderState;
+  wallet: WalletState;
 }
 
 export interface PerferenceStore {

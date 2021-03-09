@@ -14,6 +14,11 @@ import type { State } from "../../../state/types";
 import createAuthHandlers from "./auth";
 import createKeyringHandlers from "./keyring";
 import createPreferenceHandlers from "./preference";
+import createWalletHandlers from "./wallet";
+import {
+  ApproveTransferPayload,
+  RejectTransferPayload
+} from "../../types/wallet";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -31,7 +36,8 @@ export default function (state: State) {
     const handlers = {
       ...createAuthHandlers(state),
       ...createKeyringHandlers(state),
-      ...createPreferenceHandlers(state)
+      ...createPreferenceHandlers(state),
+      ...createWalletHandlers(state)
     };
 
     switch (action) {
@@ -80,6 +86,16 @@ export default function (state: State) {
 
       case "pri(perference.completeOnboarding)":
         return handlers.completeOnboarding();
+
+      // Wallet
+      case "pri(transfer.list)":
+        return handlers.transferSubscribe(id, port);
+
+      case "pri(transfer.approve)":
+        return handlers.approveTransfer(payload as ApproveTransferPayload);
+
+      case "pri(transfer.reject)":
+        return handlers.rejectTransfer(payload as RejectTransferPayload);
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

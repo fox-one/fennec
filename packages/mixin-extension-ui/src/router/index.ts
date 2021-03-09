@@ -10,7 +10,5 @@ export default function () {
     routes
   });
 
-  // registerGuard(store, router);
-
   return router;
 }

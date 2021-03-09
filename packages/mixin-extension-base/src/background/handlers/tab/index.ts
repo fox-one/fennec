@@ -4,6 +4,7 @@ import type { State } from "../../../state/types";
 import type { SignAuthorizeTokenPayload } from "../../types/keyring";
 
 import createHandlers from "./handlers";
+import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -38,6 +39,9 @@ export default function (state: State) {
         return handlers.signAuthorizeToken(
           payload as SignAuthorizeTokenPayload
         );
+
+      case "pub(transfer.request)":
+        return handlers.requestTransfer(payload as CreateTransferPayload);
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

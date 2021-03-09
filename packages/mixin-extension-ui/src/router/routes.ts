@@ -1,9 +1,7 @@
 import { RouteConfig } from "vue-router";
 import Home from "../views/home.vue";
 import Lock from "../views/lock.vue";
-import UnLock from "../views/unlock.vue";
 import Authorize from "../views/authorize.vue";
-import Init from "../views/init.vue";
 import Deposit from "../views/deposit.vue";
 import Send from "../views/send/index.vue";
 import Transfer from "../views/send/transfer.vue";
@@ -23,19 +21,9 @@ const routes: RouteConfig[] = [
     component: Lock
   },
   {
-    path: "/unlock",
-    name: "unlock",
-    component: UnLock
-  },
-  {
     path: "/authorize",
     name: "authorize",
     component: Authorize
-  },
-  {
-    path: "/init",
-    name: "init",
-    component: Init
   },
   {
     path: "/deposit",

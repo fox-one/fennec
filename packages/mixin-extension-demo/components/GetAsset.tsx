@@ -1,6 +1,13 @@
 import { InjectedData } from "@foxone/mixin-extension-base/src/inject/types";
 import { Asset } from "@foxone/mixin-sdk/src/types";
-import { defineComponent, PropType, toRefs, ref } from "vue";
+import {
+  defineComponent,
+  PropType,
+  toRefs,
+  ref,
+  computed,
+  reactive
+} from "vue";
 
 const btc = "c6d0c728-2624-429b-8e0d-d9d19b6592fa";
 
@@ -25,7 +32,14 @@ export default defineComponent({
       if (res) {
         asset.value = res;
       }
+      loading.value = false;
     };
+
+    const meta = computed(() => {
+      return reactive({
+        classes: `${loading.value ? "is-loading" : ""}`
+      });
+    });
 
     return () => {
       if (!connected.value) {
@@ -34,7 +48,10 @@ export default defineComponent({
 
       return (
         <>
-          <button class={"button is-small"} onClick={getAsset}>
+          <button
+            class={`button is-small ${meta.value.classes}`}
+            onClick={getAsset}
+          >
             Get BTC
           </button>
           <p class="my-3">{JSON.stringify(asset.value)}</p>
@@ -42,4 +59,4 @@ export default defineComponent({
       );
     };
   }
-});
+}) as any;

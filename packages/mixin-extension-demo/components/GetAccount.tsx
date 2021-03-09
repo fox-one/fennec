@@ -2,7 +2,14 @@ import type {
   InjectedAccount,
   InjectedData
 } from "@foxone/mixin-extension-base/src/inject/types";
-import { computed, defineComponent, ref, toRefs, PropType } from "vue";
+import {
+  computed,
+  defineComponent,
+  ref,
+  toRefs,
+  PropType,
+  reactive
+} from "vue";
 
 export default defineComponent({
   name: "GetAccount",
@@ -29,12 +36,12 @@ export default defineComponent({
     };
 
     const meta = computed(() => {
-      return {
+      return reactive({
         classes: `${loading.value ? "is-loading" : ""}`,
         text: accounts.value
           ? JSON.stringify(accounts.value)
           : "No Accounts Data"
-      };
+      });
     });
 
     return () => {
@@ -45,7 +52,7 @@ export default defineComponent({
       return (
         <>
           <button
-            class={"button is-small " + meta.value.classes}
+            class={`button is-small ${meta.value.classes}`}
             onClick={getAccount}
           >
             GetAccount

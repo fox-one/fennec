@@ -14,7 +14,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Mutation } from "vuex-class";
-import ConfirmPasswordModal from "../../components/account/ConfirmPasswrodModal.vue";
+import ConfirmPasswordModal from "./ConfirmPasswrodModal.vue";
 
 @Component({
   components: {

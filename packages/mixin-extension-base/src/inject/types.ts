@@ -1,4 +1,4 @@
-import { Asset } from "@foxone/mixin-sdk/types";
+import { Asset, CreateTransferPayload } from "@foxone/mixin-sdk/types";
 import type {
   ActionPayloads,
   ActionTypesWithNoSubscriptions,
@@ -48,6 +48,7 @@ export interface InjectedAccounts {
 
 export interface InjectedWallet {
   getAsset(id: string): Promise<Asset>;
+  transfer(payload: CreateTransferPayload): Promise<null>;
 }
 
 export interface InjectedData {

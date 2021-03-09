@@ -2,13 +2,7 @@
   <v-container>
     <v-layout align-center justify-center column>
       <span class="mr-3">
-        <f-mixin-asset-logo
-          :size="48"
-          :logo="meta.asset.icon_url"
-          :chain-logo="
-            $utils.helper.getChainAssetLogo(this, meta.asset.chain_id)
-          "
-        />
+        <f-mixin-asset-logo :size="48" :logo="icon" :chain-logo="chainLogo" />
       </span>
 
       <div>
@@ -28,6 +22,10 @@ import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../../mixin/page";
 import AssetActions from "../../components/wallet/AssetActions.vue";
 import ActivityList from "../../components/wallet/ActivityList.vue";
+import {
+  WalletModulePerfix,
+  GetterKeys
+} from "../../store/modules/wallet/types";
 
 @Component({
   components: {
@@ -48,7 +46,9 @@ class AssetDetail extends Mixins(PageView) {
     const currencyExchange = this.$utils.currency.currencyExchange;
     const format = this.$utils.number.format;
 
-    const assets: Asset[] = this.$store.state.wallet.assets;
+    const assets: Asset[] = this.$store.getters[
+      WalletModulePerfix + GetterKeys.GET_MERGED_ASSETS
+    ];
     const asset = assets.find((x) => x.asset_id === this.id);
 
     const balance = Number(asset?.balance) ?? 0;
@@ -62,12 +62,19 @@ class AssetDetail extends Mixins(PageView) {
       to: "USD"
     });
     const totalBalanceFormat = format({ n: balance, mp: 8 });
+    const icon = asset?.icon_url ?? "";
+    const chainLogo = this.$utils.helper.getChainAssetLogo(
+      this,
+      asset?.chain_id ?? ""
+    );
 
     return {
       totalBalanceFormat,
       totalUSDFormat,
       symbol,
-      asset
+      asset,
+      chainLogo,
+      icon
     };
   }
 }

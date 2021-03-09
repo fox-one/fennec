@@ -45,6 +45,10 @@ export default class KeyringState {
     this.#state
   );
 
+  public readonly transferRequestsSubject: BehaviorSubject<any> = new BehaviorSubject(
+    []
+  );
+
   public readonly unlockRequests: BehaviorSubject<
     UnlockRequest[]
   > = new BehaviorSubject<UnlockRequest[]>([]);

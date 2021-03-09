@@ -50,7 +50,7 @@ export interface CreateTransferPayload {
   asset_id: string;
   opponent_id: string;
   amount: string;
-  pin: string;
+  pin?: string;
   trace_id: string;
   memo: string;
 }

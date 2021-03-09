@@ -99,7 +99,7 @@ const actions: ActionTree<State, RootState> & Actions = {
   },
 
   async [ActionTypes.LOAD_SNAPSHOTS]({ commit, state, dispatch }, payload) {
-    const snapshots = state.snapshots;
+    let snapshots = state.snapshots;
     let offset = "";
 
     if (!payload.reload) {
@@ -114,7 +114,7 @@ const actions: ActionTree<State, RootState> & Actions = {
     };
 
     let res = await endpoints.getSnapshots(opts);
-    res = res.filter(
+    snapshots = snapshots.filter(
       (x) => !state.snapshots.find((y) => x.snapshot_id === y.snapshot_id)
     );
     res = await Promise.all(

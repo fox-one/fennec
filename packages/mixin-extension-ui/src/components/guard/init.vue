@@ -1,11 +1,11 @@
 <template>
-  <v-container class="create-password-page">
+  <v-container class="mt-10 mb-5">
     <v-window v-model="step" touchless class="text-center">
       <v-window-item :value="-1">
         <div class="title font-weight-bold">
           Welcome to Mixin Extension Wallet
         </div>
-        <div class="subtitle-2">Here is some image or description</div>
+        <div class="subtitle-2 my-5">Here is some image or description</div>
         <v-btn
           rounded
           depressed
@@ -61,12 +61,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from "vue-property-decorator";
-import PageView from "../mixin/page";
-import CreatePasswordForm from "../components/account/CreatePasswordForm.vue";
-import CreateAccountForm from "../components/account/CreateAccountForm.vue";
-import BackUpKeyring from "../components/account/BackUpKeyring.vue";
-import DelayAction from "../components/common/DelayAction.vue";
+import { Component, Vue } from "vue-property-decorator";
+import CreatePasswordForm from "../account/CreatePasswordForm.vue";
+import CreateAccountForm from "../account/CreateAccountForm.vue";
+import BackUpKeyring from "../account/BackUpKeyring.vue";
+import DelayAction from "../common/DelayAction.vue";
 
 @Component({
   components: {
@@ -76,20 +75,10 @@ import DelayAction from "../components/common/DelayAction.vue";
     DelayAction
   }
 })
-class WelcomePage extends Mixins(PageView) {
+class Init extends Vue {
   step = -1;
 
   loading = false;
-
-  get title() {
-    return "Create Password";
-  }
-
-  get appbar() {
-    return {
-      show: true
-    };
-  }
 
   handleStart() {
     this.step = 0;
@@ -106,18 +95,8 @@ class WelcomePage extends Mixins(PageView) {
   async handleToHome() {
     this.loading = true;
     await this.$utils.app.init(this);
-    this.$router.push({ name: "home" });
     this.loading = false;
   }
 }
-export default WelcomePage;
+export default Init;
 </script>
-
-<style lang="scss" scoped>
-.create-password-page {
-  .title {
-    margin-bottom: 30px;
-    margin-top: 100px;
-  }
-}
-</style>

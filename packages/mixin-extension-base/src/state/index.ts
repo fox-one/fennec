@@ -7,6 +7,7 @@ import AuthState from "./auth";
 import KeyringState from "./keyring";
 import PreferenceState from "./preference";
 import ProviderState from "./provider";
+import WalletState from "./wallet";
 
 const localstore = new LcoalStore();
 
@@ -32,11 +33,13 @@ export default async function createState(): Promise<State> {
   const auth = new AuthState({ store });
   const keyring = new KeyringState({ store, preference });
   const provider = new ProviderState({ preference, keyring });
+  const wallet = new WalletState();
 
   return {
     auth,
     keyring,
     preference,
-    provider
+    provider,
+    wallet
   };
 }

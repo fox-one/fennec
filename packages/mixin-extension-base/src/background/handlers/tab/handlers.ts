@@ -4,6 +4,7 @@ import type { State } from "../../../state/types";
 import extension from "extensionizer";
 import { PHISHING_PAGE_REDIRECT } from "../../../constants";
 import { SignAuthorizeTokenPayload } from "../../types/keyring";
+import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
 
 function checkIfDenied(url: string) {
   // TODO: implements phishing detect
@@ -45,6 +46,10 @@ export default function createHandlers(state: State) {
         uri
       };
       return state.keyring.signAuthorizeToken(payload);
+    },
+
+    requestTransfer(payload: CreateTransferPayload) {
+      return state.wallet.transferRequest(payload);
     },
 
     async redirectIfPhishing(url: string): Promise<boolean> {

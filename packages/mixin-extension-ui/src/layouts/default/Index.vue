@@ -1,7 +1,6 @@
 <template>
   <div>
     <default-appbar />
-    <default-modals />
     <v-main>
       <slot />
     </v-main>
@@ -11,12 +10,10 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Appbar from "./Appbar.vue";
-import Modals from "./Modals.vue";
 
 @Component({
   components: {
-    "default-appbar": Appbar,
-    "default-modals": Modals
+    "default-appbar": Appbar
   }
 })
 class DefaultLayout extends Vue {}

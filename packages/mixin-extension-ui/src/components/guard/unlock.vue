@@ -17,16 +17,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from "vue-property-decorator";
-import PageView from "../mixin/page";
-import EnterPasswordForm from "../components/account/EnterPasswordForm.vue";
+import { Component, Vue } from "vue-property-decorator";
+import EnterPasswordForm from "../account/EnterPasswordForm.vue";
 
 @Component({
   components: {
     EnterPasswordForm
   }
 })
-class UnLockPage extends Mixins(PageView) {
+class UnLockPage extends Vue {
   loading = false;
 
   counter = 3;
@@ -64,7 +63,6 @@ class UnLockPage extends Mixins(PageView) {
   }
 
   confirmUnlocked() {
-    this.$router.replace({ name: "home" });
     this.$utils.app.init(this);
   }
 }

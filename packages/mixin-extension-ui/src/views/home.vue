@@ -31,7 +31,7 @@
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../mixin/page";
-import { GetterKeys, WalletModuleKey } from "../store/modules/wallet/types";
+import { GetterKeys, WalletModulePerfix } from "../store/modules/wallet/types";
 import AssetActions from "../components/wallet/AssetActions.vue";
 import AssetAdd from "../components/wallet/AssetAdd.vue";
 import AssetList from "../components/wallet/AssetList.vue";
@@ -62,9 +62,10 @@ class HomePage extends Mixins(PageView) {
     const currencyExchange = this.$utils.currency.currencyExchange;
     const format = this.$utils.number.format;
 
-    const totalUSD = getters[WalletModuleKey + GetterKeys.TOTAL_USD];
-    const totalBTC = getters[WalletModuleKey + GetterKeys.TOTAL_BTC];
-    const getAssetById = getters[WalletModuleKey + GetterKeys.GET_ASSET_BY_ID];
+    const totalUSD = getters[WalletModulePerfix + GetterKeys.TOTAL_USD];
+    const totalBTC = getters[WalletModulePerfix + GetterKeys.TOTAL_BTC];
+    const getAssetById =
+      getters[WalletModulePerfix + GetterKeys.GET_ASSET_BY_ID];
     const btc = getAssetById(BTC_ASSET_ID);
 
     const totalUSDFormat = currencyExchange(this, {

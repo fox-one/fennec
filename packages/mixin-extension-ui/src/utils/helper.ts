@@ -1,9 +1,9 @@
-import { MutationTypes, AppModuleKey } from "../store/modules/app/types";
+import { MutationTypes, AppModulePerfix } from "../store/modules/app/types";
 import { Asset } from "@foxone/mixin-sdk/types";
 import { MixinAsset } from "@foxone/uikit/src/components/FAssetAmountInput/types";
 
 export function toast(vue: Vue, data: { message: string; color?: string }) {
-  vue.$store.commit(AppModuleKey + MutationTypes.SET_TOAST, {
+  vue.$store.commit(AppModulePerfix + MutationTypes.SET_TOAST, {
     show: true,
     ...data
   });

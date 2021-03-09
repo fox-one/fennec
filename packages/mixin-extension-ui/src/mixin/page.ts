@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { AppModuleKey, MutationTypes } from "../store/modules/app/types";
+import { AppModulePerfix, MutationTypes } from "../store/modules/app/types";
 
 @Component
 class PageView extends Vue {
@@ -18,8 +18,8 @@ class PageView extends Vue {
 
   setProperties() {
     const appbar = { ...this.appbar, title: this.title };
-    this.$store.commit(AppModuleKey + MutationTypes.SET_APPBAR, appbar);
-    this.$store.commit(AppModuleKey + MutationTypes.SET_LAYOUT, this.layout);
+    this.$store.commit(AppModulePerfix + MutationTypes.SET_APPBAR, appbar);
+    this.$store.commit(AppModulePerfix + MutationTypes.SET_LAYOUT, this.layout);
   }
 
   created() {

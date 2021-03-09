@@ -72,7 +72,7 @@ import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import ListWapper from "../common/ListWarpper.vue";
 import {
-  WalletModuleKey,
+  WalletModulePerfix,
   MutationTypes,
   GetterKeys
 } from "../../store/modules/wallet/types";
@@ -117,7 +117,7 @@ class AssetAdd extends Vue {
     try {
       const res = await this.$endpoints.getAsset(asset.asset_id);
       this.$store.commit(
-        WalletModuleKey + MutationTypes.ADD_ADDITION_ASSET,
+        WalletModulePerfix + MutationTypes.ADD_ADDITION_ASSET,
         res
       );
     } catch (error) {
@@ -128,7 +128,7 @@ class AssetAdd extends Vue {
 
   async requestRemoveAsset(asset: Asset) {
     this.$store.commit(
-      WalletModuleKey + MutationTypes.REMVOE_ADDITION_ASSET,
+      WalletModulePerfix + MutationTypes.REMVOE_ADDITION_ASSET,
       asset
     );
   }
@@ -154,7 +154,7 @@ class AssetAdd extends Vue {
 
   getAssetAdded(asset: Asset) {
     const additionAssets: Asset[] = this.$store.getters[
-      WalletModuleKey + GetterKeys.GET_MERGED_ASSETS
+      WalletModulePerfix + GetterKeys.GET_MERGED_ASSETS
     ];
     const found = additionAssets.find((x) => x.asset_id === asset.asset_id);
     return Boolean(found);

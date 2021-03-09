@@ -38,7 +38,10 @@
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ListWapper from "../common/ListWarpper.vue";
-import { WalletModuleKey, GetterKeys } from "../../store/modules/wallet/types";
+import {
+  WalletModulePerfix,
+  GetterKeys
+} from "../../store/modules/wallet/types";
 
 @Component({
   components: {
@@ -50,7 +53,7 @@ class AssetList extends Vue {
 
   get meta() {
     let assets: Asset[] = this.$store.getters[
-      WalletModuleKey + GetterKeys.GET_MERGED_ASSETS
+      WalletModulePerfix + GetterKeys.GET_MERGED_ASSETS
     ];
     assets = assets.filter((x) => {
       const symbol = x.symbol.toLowerCase();

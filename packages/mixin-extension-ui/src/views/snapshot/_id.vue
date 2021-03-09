@@ -85,7 +85,10 @@
 </template>
 
 <script lang="ts">
-import { WalletModuleKey, ActionTypes } from "../../store/modules/wallet/types";
+import {
+  WalletModulePerfix,
+  ActionTypes
+} from "../../store/modules/wallet/types";
 import { Asset, Snapshot, Ticker } from "@foxone/mixin-sdk/types";
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../../mixin/page";
@@ -109,6 +112,7 @@ class SnapshotPage extends Mixins(PageView) {
   }
 
   get meta() {
+    const formatNumber = this.$utils.number.format;
     const addSymbol = this.$utils.number.addSymbol;
     const currencyExchange = this.$utils.currency.currencyExchange;
     const snapshotTypeMetas = this.$utils.enums.snapshotTypeMetas(this);
@@ -129,8 +133,8 @@ class SnapshotPage extends Mixins(PageView) {
     const createdFiatAmount =
       Math.abs(Number(amount)) * Number(this.createdPrice?.price_usd ?? 0);
     const snapshotMeta = snapshotTypeMetas[this.snapshot?.type ?? ""];
-
-    const amountFormat = `${addSymbol(amount)}`;
+    const formatAmount = formatNumber({ n: amount });
+    const amountFormat = `${Number(amount) > 0 ? "+" : ""} ${formatAmount}`;
     const fiatFormat = currencyExchange(this, {
       n: fiatAmount,
       from: "USD",
@@ -182,7 +186,7 @@ class SnapshotPage extends Mixins(PageView) {
 
   async requestOpponent() {
     const user = await this.$store.dispatch(
-      WalletModuleKey + ActionTypes.LOAD_USER,
+      WalletModulePerfix + ActionTypes.LOAD_USER,
       { id: this.snapshot?.opponent_id }
     );
     this.opponent = user.full_name;

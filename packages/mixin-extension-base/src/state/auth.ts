@@ -19,11 +19,6 @@ export interface AuthRequest extends Resolver<boolean> {
   url: string;
   payload: AuthTabPayload;
 }
-
-export interface ConnectRequest extends Resolver<boolean> {
-  id: string;
-}
-
 export interface AuthorizeRequest {
   id: string;
   url: string;
@@ -165,8 +160,8 @@ export default class AuthState {
         url
       };
 
-      openPopup(this.#windows);
       this.updateAuthSubject();
+      openPopup(this.#windows);
     });
   }
 
