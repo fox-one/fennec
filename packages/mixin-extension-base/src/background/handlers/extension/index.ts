@@ -15,6 +15,7 @@ import createAuthHandlers from "./auth";
 import createKeyringHandlers from "./keyring";
 import createPreferenceHandlers from "./preference";
 import createWalletHandlers from "./wallet";
+import createPlatformHandlers from "./platform";
 import {
   ApproveTransferPayload,
   RejectTransferPayload
@@ -37,7 +38,8 @@ export default function (state: State) {
       ...createAuthHandlers(state),
       ...createKeyringHandlers(state),
       ...createPreferenceHandlers(state),
-      ...createWalletHandlers(state)
+      ...createWalletHandlers(state),
+      ...createPlatformHandlers(state)
     };
 
     switch (action) {
@@ -96,6 +98,10 @@ export default function (state: State) {
 
       case "pri(transfer.reject)":
         return handlers.rejectTransfer(payload as RejectTransferPayload);
+
+      // Platform
+      case "pri(platform.closePopup)":
+        return handlers.closePopup();
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

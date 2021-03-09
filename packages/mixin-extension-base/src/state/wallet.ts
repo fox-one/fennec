@@ -1,8 +1,8 @@
 import type { Resolver } from "./types";
+import type PlatformState from "./platform";
 
 import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
 import { BehaviorSubject } from "rxjs";
-import { openPopup } from "../utils/helper";
 
 export interface TransferRequest extends Resolver<boolean> {
   id: string;
@@ -23,7 +23,11 @@ function getId() {
 export default class WalletState {
   #transferRequests: TransferRequest[] = [];
 
-  #windows = [];
+  #platform: PlatformState;
+
+  constructor(opts: { platform: PlatformState }) {
+    this.#platform = opts.platform;
+  }
 
   get transferReqs(): TransferReq[] {
     return Object.values(this.#transferRequests).map(({ id, payload }) => ({
@@ -72,13 +76,12 @@ export default class WalletState {
       };
 
       this.updateTransferRequestsSubject();
-      openPopup(this.#windows);
+      this.#platform.showPopup();
       return true;
     });
   }
 
   public getTransferRequest(id: string): TransferRequest {
-    console.log(this.#transferRequests, id);
     return this.#transferRequests[id];
   }
 }

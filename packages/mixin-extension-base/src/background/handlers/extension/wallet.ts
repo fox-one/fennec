@@ -21,7 +21,6 @@ export default function createWalletHandlers(state: State) {
     },
 
     approveTransfer({ id }) {
-      debugger;
       const queued = state.wallet.getTransferRequest(id);
       if (!queued) {
         throw new Error("Cannot find transfer request");
@@ -34,7 +33,6 @@ export default function createWalletHandlers(state: State) {
     },
 
     rejectTransfer({ id }) {
-      debugger;
       const queued = state.wallet.getTransferRequest(id);
       if (!queued) {
         throw new Error("Cannot find transfer request");

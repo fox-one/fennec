@@ -50,12 +50,17 @@
 
 <script lang="ts">
 import { TransferReq } from "@foxone/mixin-extension-base/state/wallet";
-import { User, Asset, CreateTransferPayload } from "@foxone/mixin-sdk/types";
+import {
+  User,
+  Asset,
+  CreateTransferPayload,
+  Transfer
+} from "@foxone/mixin-sdk/types";
 import { Component, Vue } from "vue-property-decorator";
 import { EVENTS } from "../../defaults";
 
 @Component
-class Transfer extends Vue {
+class TransferGuard extends Vue {
   loading = false;
 
   paying = false;
@@ -120,10 +125,18 @@ class Transfer extends Vue {
     this.rejecting = true;
     try {
       await this.$messages.rejectTransferReq(this.request?.id ?? "");
+      this.$messages.closePopup();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
     this.rejecting = false;
+  }
+
+  handleToSnapshot(transfer: Transfer) {
+    this.$router.push({
+      name: "snapshot-id",
+      params: { id: transfer.snapshot_id }
+    });
   }
 
   async requestTransfer(password: string) {
@@ -131,8 +144,13 @@ class Transfer extends Vue {
     try {
       const payload = this.request?.payload ?? ({} as CreateTransferPayload);
       const pin = await this.$messages.getEncryptedPin(password);
-      await this.$endpoints.transfer({ ...payload, pin });
+      const transfer = await this.$endpoints.transfer({ ...payload, pin });
       await this.$messages.approveTransferReq(this.request?.id ?? "");
+      this.$utils.helper.toast(this, {
+        message: "Transfer successfully",
+        color: "success"
+      });
+      this.handleToSnapshot(transfer);
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
@@ -142,7 +160,6 @@ class Transfer extends Vue {
   async loadTransferResource(request: TransferReq) {
     this.loading = true;
     this.request = request;
-    console.log(`loadTransferResource ${request}`);
     await Promise.all([
       this.requestUser(request.payload.opponent_id),
       this.requestAsset(request.payload.asset_id)
@@ -168,5 +185,5 @@ class Transfer extends Vue {
     }
   }
 }
-export default Transfer;
+export default TransferGuard;
 </script>

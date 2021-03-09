@@ -1,9 +1,10 @@
 import type { Resolver } from "./types";
 import type { AuthTabPayload } from "../background/types/auth";
 import type { Store } from "./types";
+import type PlatformState from "./platform";
 
 import { BehaviorSubject } from "rxjs";
-import { openPopup, stripUrl } from "../utils/helper";
+import { stripUrl } from "../utils/helper";
 
 export interface AuthUrlInfo {
   count: number;
@@ -36,7 +37,7 @@ export default class AuthState {
 
   #authRequests: Record<string, AuthRequest> = {};
 
-  #windows = [];
+  #platform: PlatformState;
 
   #store: BehaviorSubject<Store>;
 
@@ -44,8 +45,12 @@ export default class AuthState {
     AuthorizeRequest[]
   > = new BehaviorSubject<AuthorizeRequest[]>([]);
 
-  constructor(opts: { store: BehaviorSubject<Store> }) {
+  constructor(opts: {
+    store: BehaviorSubject<Store>;
+    platform: PlatformState;
+  }) {
     this.#store = opts.store;
+    this.#platform = opts.platform;
     this.#store.subscribe((data) => {
       this.#authUrls = data.authUrls;
     });
@@ -161,7 +166,7 @@ export default class AuthState {
       };
 
       this.updateAuthSubject();
-      openPopup(this.#windows);
+      this.#platform.showPopup();
     });
   }
 

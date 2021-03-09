@@ -15,6 +15,7 @@ import createAuthMessages from "./auth";
 import createKeyringMessages from "./keyring";
 import createPreferenceMessages from "./perference";
 import createWalletMessages from "./wallet";
+import createPlatformMessages from "./platform";
 
 interface Handler {
   resolve: (data: any) => void;
@@ -85,5 +86,6 @@ export default {
   ...createAuthMessages(sendMessage),
   ...createKeyringMessages(sendMessage),
   ...createPreferenceMessages(sendMessage),
-  ...createWalletMessages(sendMessage)
+  ...createWalletMessages(sendMessage),
+  ...createPlatformMessages(sendMessage)
 };

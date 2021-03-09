@@ -1,12 +1,12 @@
 import type { Store, Resolver } from "./types";
 import type { SignAuthorizeTokenPlayload } from "../background/types/keyring";
+import type PlatformState from "../state/platform";
 
 import { BehaviorSubject } from "rxjs";
 import MixinKeyring from "@foxone/mixin-sdk/keyring";
 import encryptor from "browser-passworder";
 import { initKeyringData } from "./init-data";
 import PreferenceState from "./preference";
-import { closePopup, openPopup } from "../utils/helper";
 
 export type KeyringType = MixinKeyring | undefined;
 
@@ -35,7 +35,7 @@ export default class KeyringState {
 
   #preference: PreferenceState;
 
-  #windows = [];
+  #platform: PlatformState;
 
   #state: KeyringMemState = initKeyringData;
 
@@ -56,9 +56,11 @@ export default class KeyringState {
   constructor(opts: {
     preference: PreferenceState;
     store: BehaviorSubject<Store>;
+    platform: PlatformState;
   }) {
     this.#store = opts.store;
     this.#preference = opts.preference;
+    this.#platform = opts.platform;
 
     this.updateKeyringMemState(this.#state);
   }
@@ -175,8 +177,7 @@ export default class KeyringState {
       const id = getId();
       const unlockRequests = { id, resolve, reject };
       this.#unlockRequests.push(unlockRequests);
-
-      openPopup(this.#windows);
+      this.#platform.showPopup();
     });
   }
 
@@ -197,7 +198,6 @@ export default class KeyringState {
 
     if (this.#unlockRequests.length > 0) {
       this.#unlockRequests.forEach((x) => x.resolve(true));
-      closePopup(this.#windows);
     }
   }
 
