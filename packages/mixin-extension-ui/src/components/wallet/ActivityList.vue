@@ -156,7 +156,6 @@ class ActivityList extends Vue {
   }
 
   onLoadMoreIntersect(entries, observer, isIntersecting) {
-    console.log(entries, observer, isIntersecting);
     if (isIntersecting && !this.meta.infiniteDisabled) {
       this.loadActivities();
     }

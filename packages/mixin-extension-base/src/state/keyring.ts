@@ -15,7 +15,6 @@ export interface UnlockRequest extends Resolver<boolean> {
 }
 
 let idCounter = 0;
-
 function getId() {
   return `${Date.now()}.${++idCounter}`;
 }
@@ -27,9 +26,7 @@ export type KeyringMemState = {
 };
 
 export default class KeyringState {
-  #password: string | null = null;
-
-  #keyring: KeyringType = undefined;
+  #keyring: KeyringType;
 
   #store: BehaviorSubject<Store>;
 
@@ -45,10 +42,6 @@ export default class KeyringState {
     this.#state
   );
 
-  public readonly transferRequestsSubject: BehaviorSubject<any> = new BehaviorSubject(
-    []
-  );
-
   public readonly unlockRequests: BehaviorSubject<
     UnlockRequest[]
   > = new BehaviorSubject<UnlockRequest[]>([]);
@@ -61,44 +54,82 @@ export default class KeyringState {
     this.#store = opts.store;
     this.#preference = opts.preference;
     this.#platform = opts.platform;
-
+    this.#keyring = new MixinKeyring();
     this.updateKeyringMemState(this.#state);
   }
 
-  public async addNewAccount(configs: string) {
-    if (!this.#password) {
-      throw new Error("Keyring has not been unlock, no password found");
-    }
+  private get stored() {
+    return this.#store.getValue()?.keyring;
+  }
 
+  public setUnLocked() {
+    this.updateKeyringMemState({
+      ...this.#state,
+      isUnlocked: true
+    });
+  }
+
+  public setLocked() {
+    this.#keyring = undefined;
+    this.updateKeyringMemState({
+      ...this.#state,
+      isUnlocked: false,
+      accounts: []
+    });
+  }
+
+  async unlock(password: string) {
+    if (!this.stored) {
+      throw new Error("Cannot unlock keyring without previous stored value");
+    }
     if (!this.#keyring) {
       this.#keyring = new MixinKeyring();
     }
 
-    this.#keyring.addAccount(configs);
-    await this.persistKeyring(this.#keyring);
-    await this.unLockKeyring(this.#password);
+    this.#keyring.restore(this.stored, password);
+    this.updateAccounts();
+    if (this.#unlockRequests.length > 0) {
+      this.#unlockRequests.forEach((x) => x.resolve(true));
+    }
 
+    return true;
+  }
+
+  public async addNewAccount(keystore: string, password: string) {
+    if (!this.#keyring) {
+      this.#keyring = new MixinKeyring();
+    }
+    const newStored = await this.#keyring.addAccount(
+      keystore,
+      this.stored,
+      password
+    );
+    await this.persistStore(newStored, password);
+    await this.#keyring.restore(this.stored, password);
     this.setUnLocked();
-
+    this.updateAccounts();
     return this.#state.accounts;
   }
 
-  public async removeAccount(clientId: string) {
+  public async removeAccount(clientId: string, password: string) {
     if (!this.#keyring) {
       throw "No stored keyring";
     }
-
-    this.#keyring.removeAccount(clientId);
-    this.persistKeyring(this.#keyring);
-    this.restoreAccounts();
+    const newStored = await this.#keyring.removeAccount(
+      clientId,
+      this.stored,
+      password
+    );
+    await this.persistStore(newStored, password);
+    await this.#keyring.restore(this.stored, password);
+    this.updateAccounts();
   }
 
-  public async exportAccount(clientId: string) {
+  public async exportAccount(clientId: string, password: string) {
     if (!this.#keyring) {
       throw "No stored keyring";
     }
-
-    return this.#keyring.exportAccount(clientId);
+    return this.#keyring.exportAccount(clientId, this.stored, password);
   }
 
   public async signAuthorizeToken({
@@ -110,58 +141,11 @@ export default class KeyringState {
     if (!this.#keyring) {
       throw "No stored keyring";
     }
-
     return this.#keyring.signAuthorizeToken(clientId, method, uri, data);
   }
 
-  public async encryptPin(clientId: string, pin: string) {
-    if (!this.#keyring) {
-      throw "No stored keyring";
-    }
-
-    return this.#keyring.encryptPin(clientId, pin);
-  }
-
-  public async submitPassword(password: string) {
-    await this.unLockKeyring(password);
-    this.setUnLocked();
-    return true;
-  }
-
-  public async initializePassword(password: string) {
-    this.#password = password;
-    return true;
-  }
-
-  public setUnLocked() {
-    this.updateKeyringMemState({
-      ...this.#state,
-      isUnlocked: true
-    });
-  }
-
-  public setLocked() {
-    this.#password = null;
-    this.#keyring = undefined;
-    this.updateKeyringMemState({
-      ...this.#state,
-      isUnlocked: false,
-      accounts: []
-    });
-  }
-
   public async getEncryptedPin(clientId: string, password: string) {
-    const stored = this.#store.getValue().keyring;
-    if (!stored) {
-      throw new Error("Cannot unlock keyring without previous stored value");
-    }
-
-    if (!this.#keyring) {
-      throw new Error("cannot find #keying");
-    }
-
-    await encryptor.decrypt(password, stored);
-    return await this.#keyring.getEncryptedPin(clientId);
+    return await MixinKeyring.getEncryptedPin(clientId, this.stored, password);
   }
 
   public async getAccounts() {
@@ -172,39 +156,12 @@ export default class KeyringState {
     if (this.#state.isUnlocked) {
       return true;
     }
-
     return new Promise((resolve, reject) => {
       const id = getId();
       const unlockRequests = { id, resolve, reject };
       this.#unlockRequests.push(unlockRequests);
       this.#platform.showPopup();
     });
-  }
-
-  private async unLockKeyring(password: string) {
-    const stored = this.#store.getValue().keyring;
-    if (!stored) {
-      throw new Error("Cannot unlock keyring without previous stored value");
-    }
-
-    this.#password = password;
-    const decrypted = await encryptor.decrypt(this.#password, stored);
-
-    const keyring = new MixinKeyring();
-    keyring.deserialize(decrypted);
-
-    this.#keyring = keyring;
-    this.restoreAccounts();
-
-    if (this.#unlockRequests.length > 0) {
-      this.#unlockRequests.forEach((x) => x.resolve(true));
-    }
-  }
-
-  private clearKeying() {
-    this.#keyring = undefined;
-    this.#store.next({ ...this.#store.getValue(), keyring: undefined });
-    this.restoreAccounts();
   }
 
   private updateKeyringMemState(data: KeyringMemState) {
@@ -215,9 +172,8 @@ export default class KeyringState {
     this.keyringMemStateSubject.next(this.#state);
   }
 
-  private restoreAccounts() {
-    const accounts = this.#keyring?.getAccounts() ?? [];
-
+  private updateAccounts() {
+    const accounts = this.#keyring?.accounts ?? [];
     const seletedAccount = this.#preference.preference.seletedAccount;
     if (!seletedAccount && accounts) {
       this.#preference.setSelectedAccount(accounts[0]?.client_id);
@@ -229,10 +185,8 @@ export default class KeyringState {
     });
   }
 
-  private async persistKeyring(keyring: MixinKeyring) {
-    const serialized = await keyring.serialize();
-    const encrypted = await encryptor.encrypt(this.#password, serialized);
-    const newStore = { ...this.#store.getValue(), keyring: encrypted };
-    this.#store.next(newStore);
+  private async persistStore(stored: string, password: string) {
+    const encrypted = await encryptor.encrypt(password, stored);
+    this.#store.next({ ...this.#store.getValue(), keyring: encrypted });
   }
 }

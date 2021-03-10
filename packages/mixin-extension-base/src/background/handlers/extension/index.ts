@@ -2,10 +2,8 @@ import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
 import type { ApproveAuthPayload, RejectAuthPayload } from "../../types/auth";
 import type {
   CreateAccountPayload,
-  InitializedPasswordPayload,
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
-  EncryptPinPayload,
   GetEncryptedPinPayload,
   ExportKeyringPayload
 } from "../../types/keyring";
@@ -60,11 +58,6 @@ export default function (state: State) {
       case "pri(keyring.subscribe)":
         return handlers.createKeyringStateSubscribe(id, port);
 
-      case "pri(keyring.initializePassword)":
-        return handlers.initializePassword(
-          payload as InitializedPasswordPayload
-        );
-
       case "pri(keyring.unlock)":
         return handlers.tryUnlockKeyring(payload as UnlockKeyringPayload);
 
@@ -72,9 +65,6 @@ export default function (state: State) {
         return handlers.signAuthorizeToken(
           payload as SignAuthorizeTokenPayload
         );
-
-      case "pri(kerying.encryptPin)":
-        return handlers.encryptPin(payload as EncryptPinPayload);
 
       case "pri(keyring.getEncryptedPin)":
         return handlers.getEncryptedPin(payload as GetEncryptedPinPayload);

@@ -1,7 +1,8 @@
 import type { KeyringMemState } from "../../state/keyring";
 
 export interface CreateAccountPayload {
-  configStr: string;
+  keystore: string;
+  password: string;
 }
 
 export interface SignAuthorizeTokenPlayload {
@@ -9,10 +10,6 @@ export interface SignAuthorizeTokenPlayload {
   uri: string;
   method: string;
   data: any;
-}
-
-export interface InitializedPasswordPayload {
-  password: string;
 }
 
 export interface UnlockKeyringPayload {
@@ -35,6 +32,7 @@ export interface GetEncryptedPinPayload {
 
 export interface ExportKeyringPayload {
   clientId: string;
+  password: string;
 }
 
 export interface KeyringActionSignatures {
@@ -42,7 +40,6 @@ export interface KeyringActionSignatures {
 
   "pri(keyring.subscribe)": [null, boolean, KeyringMemState];
   "pri(keyring.createAccount)": [CreateAccountPayload, string[]];
-  "pri(keyring.initializePassword)": [InitializedPasswordPayload, boolean];
   "pri(keyring.unlock)": [UnlockKeyringPayload, boolean];
   "pri(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
   "pri(kerying.encryptPin)": [EncryptPinPayload, string];

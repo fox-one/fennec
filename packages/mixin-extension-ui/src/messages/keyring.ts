@@ -3,20 +3,16 @@ import type { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring
 
 export default function (sendMessage: SendMessage) {
   return {
-    createNewAccount(configStr: string) {
-      return sendMessage("pri(keyring.createAccount)", { configStr });
+    createNewAccount(keystore: string, password: string) {
+      return sendMessage("pri(keyring.createAccount)", { keystore, password });
     },
 
-    exportAccount(clientId: string) {
-      return sendMessage("pri(keyring.exportAccount)", { clientId });
+    exportAccount(clientId: string, password: string) {
+      return sendMessage("pri(keyring.exportAccount)", { clientId, password });
     },
 
     subscribeKeyingState(cb: (state: KeyringMemState) => void) {
       return sendMessage("pri(keyring.subscribe)", null, cb);
-    },
-
-    initializePassword(password: string) {
-      return sendMessage("pri(keyring.initializePassword)", { password });
     },
 
     tryUnlockKeyring(password: string) {
@@ -29,10 +25,6 @@ export default function (sendMessage: SendMessage) {
         method,
         data
       });
-    },
-
-    encryptPin(pin: string) {
-      return sendMessage("pri(kerying.encryptPin)", { pin });
     },
 
     getEncryptedPin(password: string) {

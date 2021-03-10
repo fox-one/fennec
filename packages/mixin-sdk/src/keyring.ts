@@ -1,39 +1,70 @@
 import { signAuthenticationToken, signEncryptedPin } from "./encrypt";
+import encryptor from "browser-passworder";
 
 export interface MixinAccount {
-  pin: string;
-  pin_token: string;
+  pin?: string;
+  pin_token?: string;
   session_id: string;
   private_key: string;
   client_id: string;
 }
 
 export default class MixinKeyring {
-  #accounts: MixinAccount[] = [];
+  accounts: MixinAccount[] = [];
 
-  constructor() {
-    this.#accounts = [];
-  }
-
-  public serialize() {
-    return Promise.resolve(this.#accounts.map((w) => JSON.stringify(w)));
-  }
-
-  public deserialize(keys: string[]) {
-    return new Promise<void>((resovle, reject) => {
+  public static serialize(account: MixinAccount) {
+    return new Promise<string>((resolve, reject) => {
       try {
-        this.#accounts = keys.map((key) => {
-          return JSON.parse(key);
-        });
+        resolve(JSON.stringify(account));
       } catch (error) {
         reject(error);
       }
-      resovle();
     });
   }
 
-  public getAccounts() {
-    return this.#accounts;
+  public static deserialize(keystore: string): Promise<MixinAccount> {
+    return new Promise<MixinAccount>((resovle, reject) => {
+      try {
+        resovle(JSON.parse(keystore));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  public static async decryptFromStored(
+    stored: string | undefined,
+    password: string
+  ): Promise<MixinAccount[]> {
+    if (!stored) {
+      return [];
+    }
+    const decrypted: string[] = JSON.parse(
+      await encryptor.decrypt(password, stored)
+    );
+    return await Promise.all(
+      decrypted.map(async (x) => await MixinKeyring.deserialize(x))
+    );
+  }
+
+  public static async getEncryptedPin(
+    clientId: string,
+    stored: string | undefined,
+    password: string
+  ) {
+    const accounts = await MixinKeyring.decryptFromStored(stored, password);
+    const account = accounts.find((x) => x.client_id === clientId);
+    if (!account) {
+      throw new Error(`Cannot find account for ${clientId}`);
+    }
+    return Promise.resolve(
+      signEncryptedPin(
+        account.pin ?? "",
+        account.pin_token ?? "",
+        account.session_id,
+        account.private_key
+      )
+    );
   }
 
   public signAuthorizeToken(
@@ -42,12 +73,12 @@ export default class MixinKeyring {
     uri: string,
     data: any
   ) {
-    const wallet = this.getAccountFor(clientId);
+    const account = this.getAccountFor(this.accounts, clientId);
     return Promise.resolve(
       signAuthenticationToken(
-        wallet.client_id,
-        wallet.session_id,
-        wallet.private_key,
+        account.client_id,
+        account.session_id,
+        account.private_key,
         method,
         uri,
         data
@@ -55,60 +86,72 @@ export default class MixinKeyring {
     );
   }
 
-  public encryptPin(clientId: string, pin: string) {
-    const wallet = this.getAccountFor(clientId);
-    return Promise.resolve(
-      signEncryptedPin(
-        pin,
-        wallet.pin_token,
-        wallet.session_id,
-        wallet.private_key
+  public async restore(stored: string | undefined, password: string) {
+    const accounts = await MixinKeyring.decryptFromStored(stored, password);
+    this.accounts = accounts.map((account) => {
+      return {
+        client_id: account.client_id,
+        session_id: account.session_id,
+        private_key: account.private_key
+      };
+    });
+  }
+
+  public getAccountFor(accounts: MixinAccount[], clientId: string) {
+    const account = accounts.find((w) => w.client_id === clientId);
+    if (!account) {
+      throw `Mixin wallet ${clientId} not found in keyring`;
+    }
+    return account;
+  }
+
+  public async exportAccount(
+    clientId: string,
+    stored: string | undefined,
+    password: string
+  ) {
+    const accounts = await MixinKeyring.decryptFromStored(stored, password);
+    const account = this.getAccountFor(accounts, clientId);
+    return Promise.resolve(JSON.stringify(account));
+  }
+
+  public async removeAccount(
+    clientId: string,
+    stored: string | undefined,
+    password: string
+  ): Promise<string> {
+    let accounts = await MixinKeyring.decryptFromStored(stored, password);
+    accounts = accounts.filter((x) => x.client_id !== clientId);
+    return JSON.stringify(
+      await Promise.all(
+        accounts.map(async (x) => await MixinKeyring.serialize(x))
       )
     );
   }
 
-  public async getEncryptedPin(clientId: string) {
-    const wallet = this.getAccountFor(clientId);
-    const pin = wallet.pin;
-    return await this.encryptPin(clientId, pin);
-  }
-
-  public exportAccount(clientId) {
-    const wallet = this.getAccountFor(clientId);
-    return Promise.resolve(JSON.stringify(wallet));
-  }
-
-  public removeAccount(clientId: string) {
-    this.#accounts = this.#accounts.filter((w) => w.client_id !== clientId);
-  }
-
-  public addAccount(configs: string) {
-    const account = JSON.parse(configs);
+  public async addAccount(
+    keystore: string,
+    stored: string | undefined,
+    password: string
+  ) {
+    const accounts = await MixinKeyring.decryptFromStored(stored, password);
+    const account = await MixinKeyring.deserialize(keystore);
     if (!MixinKeyring.checkAccount(account)) {
-      throw new Error("Account config not match");
+      throw new Error("import account is invalid");
     }
-    if (this.#accounts.find((x) => x.client_id === account.client_id)) {
-      throw new Error(`${account.client_id} is already in you kering`);
+    if (accounts.find((x) => x.client_id === account.client_id)) {
+      throw new Error(`${account.client_id} has already imported`);
     }
-    this.#accounts.push(account);
+    return JSON.stringify([...(stored || []), keystore]);
   }
 
-  public static checkAccount(obj: any) {
+  public static checkAccount(account) {
     const keys = ["pin", "pin_token", "session_id", "private_key", "client_id"];
     for (const key of keys) {
-      if (!obj[key] || typeof obj[key] !== "string") {
+      if (!account[key] || typeof account[key] !== "string") {
         return false;
       }
     }
-
     return true;
-  }
-
-  private getAccountFor(clientId: string) {
-    const wallet = this.#accounts.find((w) => w.client_id === clientId);
-    if (!wallet) {
-      throw `Mixin wallet ${clientId} not found in keyring`;
-    }
-    return wallet;
   }
 }

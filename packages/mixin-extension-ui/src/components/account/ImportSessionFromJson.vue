@@ -8,6 +8,7 @@
     background-color="transparent"
     class="f-bg-greyscale-6"
     accept="json"
+    placeholder="Keystore"
     :prepend-icon="$icons.mdiPaperclip"
   />
 </template>

@@ -17,7 +17,6 @@
             :size="32"
             :logo="meta.icon"
             :chain-logo="getAssetChainLogo({ chain_id: meta.chainId })"
-            class="mr-5"
           />
         </template>
       </f-list-item>

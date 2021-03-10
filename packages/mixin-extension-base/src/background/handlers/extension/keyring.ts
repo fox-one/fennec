@@ -1,10 +1,8 @@
 import type { State } from "../../../state/types";
 import type {
   CreateAccountPayload,
-  InitializedPasswordPayload,
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
-  EncryptPinPayload,
   GetEncryptedPinPayload,
   ExportKeyringPayload
 } from "../../types/keyring";
@@ -29,20 +27,16 @@ export default function (state: State) {
       return true;
     },
 
-    createAccount({ configStr }: CreateAccountPayload) {
-      return state.keyring.addNewAccount(configStr);
+    createAccount({ keystore, password }: CreateAccountPayload) {
+      return state.keyring.addNewAccount(keystore, password);
     },
 
-    exportAccount({ clientId }: ExportKeyringPayload) {
-      return state.keyring.exportAccount(clientId);
-    },
-
-    initializePassword({ password }: InitializedPasswordPayload) {
-      return state.keyring.initializePassword(password);
+    exportAccount({ clientId, password }: ExportKeyringPayload) {
+      return state.keyring.exportAccount(clientId, password);
     },
 
     tryUnlockKeyring({ password }: UnlockKeyringPayload) {
-      return state.keyring.submitPassword(password);
+      return state.keyring.unlock(password);
     },
 
     signAuthorizeToken({ method, data, uri }: SignAuthorizeTokenPayload) {
@@ -58,14 +52,6 @@ export default function (state: State) {
         uri
       };
       return state.keyring.signAuthorizeToken(payload);
-    },
-
-    encryptPin({ pin }: EncryptPinPayload) {
-      const selectedAccount = state.preference.preference.seletedAccount;
-      if (!selectedAccount) {
-        throw new Error("No selected account");
-      }
-      return state.keyring.encryptPin(selectedAccount, pin);
     },
 
     getEncryptedPin({ password }: GetEncryptedPinPayload) {

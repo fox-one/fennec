@@ -27,6 +27,6 @@ export interface PerferenceStore {
 
 export interface Store {
   authUrls: Record<string, AuthUrlInfo>;
-  keyring: string[] | undefined;
+  keyring: string | undefined;
   preference: PerferenceStore;
 }

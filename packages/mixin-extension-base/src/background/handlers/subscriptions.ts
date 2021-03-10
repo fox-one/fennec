@@ -1,4 +1,7 @@
-import { ActionTypesWithSubscriptions, SubscriptionMessageTypes } from "../types";
+import {
+  ActionTypesWithSubscriptions,
+  SubscriptionMessageTypes
+} from "../types";
 
 export type Subscriptions = Record<string, chrome.runtime.Port>;
 
@@ -19,7 +22,7 @@ export function createSubscription<T extends ActionTypesWithSubscriptions>(
 
 export function unsubscribe(id: string) {
   if (subscriptions[id]) {
-    console.log(`un subsctibe from ${id}`);
+    console.log(`unsubsctibe from ${id}`);
     delete subscriptions[id];
   } else {
     console.error(`unable to unsubscribe from ${id}`);

@@ -99,6 +99,7 @@ const actions: ActionTree<State, RootState> & Actions = {
   },
 
   async [ActionTypes.LOAD_SNAPSHOTS]({ commit, state, dispatch }, payload) {
+    const limit = 20;
     let snapshots = state.snapshots;
     let offset = "";
 
@@ -109,7 +110,7 @@ const actions: ActionTree<State, RootState> & Actions = {
 
     const opts: SnapshotQueryParams = {
       offset,
-      limit: 20,
+      limit,
       asset: payload.asset
     };
 
@@ -132,7 +133,7 @@ const actions: ActionTree<State, RootState> & Actions = {
     );
     const data = payload.reload ? res : [...snapshots, ...res];
     commit(MutationTypes.SET_SNAPSHOTS, data);
-    if (res.length <= 0) {
+    if (res.length < limit) {
       commit(MutationTypes.SET_SNAPSHOTS_LOADED, true);
     } else {
       commit(MutationTypes.SET_SNAPSHOTS_LOADED, false);
