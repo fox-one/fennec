@@ -35,13 +35,23 @@ jobs:
         uses: papeloto/action-zip@v1
         with:
           files: ./packages/mixin-extension/build/
-          dest: build.zip
+          dest: ./packages/mixin-extension/build.zip
 
       - name: Upload & release
         uses: mnao305/chrome-extension-upload@1.1.1
         with:
-          file-path: build.zip
+          file-path: ./packages/mixin-extension/build.zip
           extension-id: eincngenkhohbbfpkohipekcmnkfamjp
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
+
+      - name: Upload & release
+        uses: Klemensas/chrome-extension-upload-action@1.4.1
+        with:
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          file-name: "./packages/mixin-extension/build.zip"
+          app-id: "eincngenkhohbbfpkohipekcmnkfamjp"
+          publish: true
