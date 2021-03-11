@@ -1,12 +1,12 @@
 {
   "name": "@foxone/mixin-extension-base",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "src/index.ts",
   "author": "zhangqingwu <18656007202@163.com>",
   "license": "Apache-2",
   "dependencies": {
-    "@foxone/mixin-sdk": "^1.0.0",
+    "@foxone/mixin-sdk": "^0.0.1",
     "browser-passworder": "^2.0.3",
     "extensionizer": "^1.0.1",
     "rxjs": "^6.6.3",
