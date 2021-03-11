@@ -1,13 +1,13 @@
 {
   "name": "@foxone/mixin-extension",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "> TODO: description",
   "author": "zhangqingwu <18656007202@163.com>",
   "homepage": "",
   "license": "Apache-2",
   "dependencies": {
-    "@foxone/mixin-extension-base": "^1.0.0",
-    "@foxone/mixin-extension-ui": "^0.1.0",
+    "@foxone/mixin-extension-base": "^0.0.1",
+    "@foxone/mixin-extension-ui": "^0.0.1",
     "extensionizer": "^1.0.1",
     "webpack": "^5.13.0"
   },
