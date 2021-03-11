@@ -47,7 +47,7 @@ jobs:
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
 
       - name: Upload & release
-        uses: Klemensas/chrome-extension-upload-action@1.4.1
+        uses: Klemensas/chrome-extension-upload-action
         with:
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
           client-id: ${{ secrets.CLIENT_ID }}
