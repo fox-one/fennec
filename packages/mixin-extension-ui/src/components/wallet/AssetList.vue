@@ -4,7 +4,7 @@
       <v-list-item
         v-for="(asset, index) in meta.assets"
         :key="index"
-        class="pa-0"
+        class="px-2"
         @click="handleToAssetDetail(asset)"
       >
         <span class="mr-2 d-flex">

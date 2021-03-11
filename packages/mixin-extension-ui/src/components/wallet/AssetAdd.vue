@@ -1,8 +1,8 @@
 <template>
   <f-bottom-sheet v-model="dialog">
     <template #activator="{ on }">
-      <v-btn icon v-on="on">
-        <v-icon size="26">
+      <v-btn small icon v-on="on">
+        <v-icon size="20">
           {{ $icons.mdiPlus }}
         </v-icon>
       </v-btn>

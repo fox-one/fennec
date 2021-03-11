@@ -1,18 +1,29 @@
 <template>
-  <v-container>
-    <v-layout align-center justify-center column>
-      <span class="mr-3">
-        <f-mixin-asset-logo :size="48" :logo="icon" :chain-logo="chainLogo" />
-      </span>
+  <v-container class="pa-0">
+    <f-panel elevation="none" class="rounded-0">
+      <v-layout align-center justify-center column>
+        <span class="mr-3">
+          <f-mixin-asset-logo
+            :size="48"
+            :logo="meta.icon"
+            :chain-logo="meta.chainLogo"
+          />
+        </span>
 
-      <div>
-        <span class="f-headline">{{ meta.totalBalanceFormat }}</span>
-        <span class="f-body-2">{{ meta.symbol }}</span>
-      </div>
-      <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
-    </v-layout>
-    <asset-actions :asset="meta.asset" />
-    <activity-list v-if="meta.asset" :asset="meta.asset" />
+        <div>
+          <span class="f-headline">{{ meta.totalBalanceFormat }}</span>
+          <span class="f-body-2">{{ meta.symbol }}</span>
+        </div>
+        <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
+      </v-layout>
+      <asset-actions :asset="meta.asset" />
+    </f-panel>
+
+    <div class="pa-2">
+      <f-panel class="pa-2">
+        <activity-list v-if="meta.asset" :asset="meta.asset" />
+      </f-panel>
+    </div>
   </v-container>
 </template>
 

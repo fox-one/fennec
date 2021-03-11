@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" v-model="valid">
+  <v-form ref="form">
     <f-input
       v-show="useInput"
       v-model="keystore"
@@ -7,7 +7,6 @@
       rows="2"
       label="Keystore"
       :rules="rules.configs"
-      :hide-details="false"
     />
     <import-session-form v-show="!useInput" @select="handleSelectFile" />
     <v-layout class="mt-1">
@@ -77,8 +76,6 @@ class InitAccountForm extends Vue {
 
   useInput = false;
 
-  valid = false;
-
   loading = false;
 
   get rules() {
@@ -106,6 +103,15 @@ class InitAccountForm extends Vue {
         (v: string) => v === this.password || "password is not the same"
       ]
     };
+  }
+
+  get valid() {
+    return (
+      this.keystore &&
+      this.password &&
+      this.confirmPassword &&
+      this.password === this.confirmPassword
+    );
   }
 
   handleSelectFile(text: string) {

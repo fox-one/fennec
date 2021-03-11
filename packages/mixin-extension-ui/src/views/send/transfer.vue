@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <f-loading v-if="loading" fullscreen />
-    <div v-else>
+    <f-panel v-else>
       <v-layout align-center justify-center column>
         <span class="mr-3 avatar">
           <v-img width="48" height="48" :src="meta.userAvatar" />
@@ -43,7 +43,7 @@
       >
         Send
       </v-btn>
-    </div>
+    </f-panel>
   </v-container>
 </template>
 

@@ -2,9 +2,7 @@
   <v-container class="mt-10 mb-5">
     <v-window v-model="step" touchless class="text-center">
       <v-window-item :value="0">
-        <div class="title font-weight-bold">
-          Welcome to Mixin Extension Wallet
-        </div>
+        <div class="title font-weight-bold">Welcome</div>
         <div class="subtitle-2 my-5">Here is some image or description</div>
         <v-btn
           rounded
@@ -18,9 +16,7 @@
         </v-btn>
       </v-window-item>
       <v-window-item :value="1">
-        <div class="subtitle-2">
-          Import your keystore and setup a password for account management.
-        </div>
+        <div class="title">Import keystore and setup password.</div>
         <init-account-form class="mt-5" @completed="handleCompletedImport" />
       </v-window-item>
       <v-window-item :value="2">

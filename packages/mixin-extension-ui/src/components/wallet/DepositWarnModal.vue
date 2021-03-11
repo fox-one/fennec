@@ -7,7 +7,9 @@
       <v-col class="d-flex flex-column justify-center align-center px-5">
         <f-mixin-asset-logo :logo="meta.logo" :chainLogo="meta.chainLogo" />
         <div class="my-5 subtitle-1 text-center">
-          {{ meta.tip }}, {{ meta.confirmations }}
+          {{ meta.tip }}
+          <br />
+          {{ meta.confirmations }}
         </div>
         <div class="error--text my-5 text-center">{{ meta.getAttention }}</div>
         <v-btn
@@ -17,7 +19,7 @@
           :disabled="meta.persistent"
           @click="sheet = false"
         >
-          {{ $t("common.got-it") }} {{ meta.timerText }}
+          {{ "Got it" }} {{ meta.timerText }}
         </v-btn>
       </v-col>
     </v-row>
@@ -25,9 +27,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Getter } from "vuex-class";
+import {
+  GetterKeys,
+  WalletModulePerfix
+} from "../../store/modules/wallet/types";
 import {
   BITCOIN_CHAIN_ID,
   ETHEREUM_CHAIN_ID,
@@ -37,7 +43,8 @@ import {
 
 @Component
 class DepositWarnModal extends Vue {
-  @Getter("wallet/mixin/getMergedAssets") mergedAssets!: Asset[];
+  @Getter(WalletModulePerfix + GetterKeys.GET_MERGED_ASSETS)
+  mergedAssets!: Asset[];
 
   @Prop() asset!: Asset;
 
@@ -50,41 +57,42 @@ class DepositWarnModal extends Vue {
     const chainAsset = this.mergedAssets.find((x) => x.asset_id === chain_id);
     return {
       persistent: this.seconds > 0,
-      title: `${name} ${this.$t("common.deposit")}`,
+      title: `${name} Deposit`,
       logo: icon_url,
       chainLogo: chainAsset && chainAsset.icon_url,
       tip: this.getTip(asset_id, name),
-      confirmations: this.$t("wallet.deposit.tip.confirmation", {
-        confirmations
-      }),
+      confirmations: `Deposit will arrive after at least ${confirmations} block confirmations`,
       getAttention: this.getAttention(asset_id, name),
       timerText: (this.seconds > 0 && `(${this.seconds}S)`) || ""
     };
   }
 
+  @Watch("asset", { immediate: true })
+  handleAssetChange() {
+    this.show();
+  }
+
   getAttention(id, name) {
     switch (id) {
       case EOS_CHAIN_ID:
-        return this.$t("wallet.deposit.tip.account.try-little", {
-          asset: name
-        });
+        return `Attention: Please try a small amount for the first deposit. Both a Memo and an Address are required to successfully deposit your ${name}.`;
       default:
-        return this.$t("wallet.deposit.tip.try-little");
+        return `For first deposit to a new address, please try a small amount!`;
     }
   }
 
   getTip(id, name) {
     switch (id) {
       case BITCOIN_CHAIN_ID:
-        return this.$t("wallet.deposit.tip.btc");
+        return `This address only supports BTC and Omni USDT.`;
       case EOS_CHAIN_ID:
-        return this.$t("wallet.deposit.tip.eos");
+        return `This address supports all base on EOS tokens, such as EOS, IQ, BLACK, OCT, KARMA, etc.`;
       case ETHEREUM_CHAIN_ID:
-        return this.$t("wallet.deposit.tip.eth");
+        return `This address supports all ERC-20 tokens, such as ETH, XIN, TUSD, HT, LOOM, LEO, etc.`;
       case TRON_CHAIN_ID:
-        return this.$t("wallet.deposit.tip.trx");
+        return `This address supports all TRC-10 and TRC-20 tokens, such as TRX, BTT, USDT-TRON, etc.`;
       default:
-        return this.$t("wallet.deposit.tip.common", { asset: name });
+        return `This address only supports ${name}.`;
     }
   }
 
@@ -97,7 +105,7 @@ class DepositWarnModal extends Vue {
     }, 1000);
   }
 
-  mounted() {
+  show() {
     this.sheet = true;
     this.setupTimer();
   }

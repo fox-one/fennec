@@ -1,30 +1,27 @@
 <template>
-  <v-container>
-    <div class="text-center">
-      <f-mixin-asset-logo :size="48" :logo="meta.btcIcon" />
-      <div>
-        <span class="f-headline">{{ meta.totalBTCFormat }}</span>
-        <span class="f-body-2">BTC</span>
+  <v-container class="pa-0">
+    <f-panel elevation="none" class="rounded-0">
+      <div class="text-center">
+        <f-mixin-asset-logo :size="48" :logo="meta.btcIcon" />
+        <div>
+          <span class="f-headline">{{ meta.totalBTCFormat }}</span>
+          <span class="f-body-2">BTC</span>
+        </div>
+        <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
       </div>
-      <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
-    </div>
-    <asset-actions />
-    <v-layout class="mt-3" align-center>
-      <v-flex class="mr-4">
-        <v-text-field
-          v-model="search"
-          dense
-          solo
-          hide-details
-          flat
-          background-color="transparent"
-          placeholder="Search"
-          class="f-bg-greyscale-6"
-        />
-      </v-flex>
+      <asset-actions />
+    </f-panel>
+
+    <v-layout align-center class="pa-2 caption text--secondary">
+      <v-flex>Assets</v-flex>
+      <asset-search />
       <asset-add />
     </v-layout>
-    <asset-list :filter="search" />
+    <div class="pa-2 pt-0">
+      <f-panel class="pa-2 px-0">
+        <asset-list :filter="search" />
+      </f-panel>
+    </div>
   </v-container>
 </template>
 
@@ -35,13 +32,15 @@ import { GetterKeys, WalletModulePerfix } from "../store/modules/wallet/types";
 import AssetActions from "../components/wallet/AssetActions.vue";
 import AssetAdd from "../components/wallet/AssetAdd.vue";
 import AssetList from "../components/wallet/AssetList.vue";
+import AssetSearch from "../components/wallet/AssetSearch.vue";
 import { BTC_ASSET_ID } from "../defaults";
 
 @Component({
   components: {
     AssetActions,
     AssetAdd,
-    AssetList
+    AssetList,
+    AssetSearch
   }
 })
 class HomePage extends Mixins(PageView) {

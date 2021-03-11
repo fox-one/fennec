@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <f-loading v-if="loading" :loading="loading" fullscreen />
-    <div v-else>
+    <f-panel v-else>
       <v-layout justify-center>
         <f-mixin-asset-logo
           size="48"
@@ -31,6 +31,12 @@
         class="mt-5"
       />
 
+      <p class="text-center caption secondary--text mt-5">
+        {{
+          `A transaction fee of ${meta.fee} ${meta.feeAssetSymbol} is required for withdrawing ${meta.symbol}`
+        }}
+      </p>
+
       <v-btn
         rounded
         block
@@ -43,7 +49,7 @@
       >
         Send
       </v-btn>
-    </div>
+    </f-panel>
   </v-container>
 </template>
 
@@ -56,6 +62,10 @@ import {
 } from "@foxone/mixin-sdk/types";
 import { Component, Mixins } from "vue-property-decorator";
 import { v4 as uuid } from "uuid";
+import {
+  WalletModulePerfix,
+  GetterKeys
+} from "../../store/modules/wallet/types";
 import AmountInputWithFiat from "../../components/common/AmountInputWithFiat.vue";
 import PageView from "../../mixin/page";
 import { EVENTS } from "../../defaults";
@@ -97,6 +107,9 @@ class WithdrawPage extends Mixins(PageView) {
 
   get meta() {
     const format = this.$utils.number.format;
+    const getAssetById = this.$store.getters[
+      WalletModulePerfix + GetterKeys.GET_ASSET_BY_ID
+    ];
 
     const icon = this.asset?.icon_url ?? "";
     const chain = this.asset?.chain_id ?? "";
@@ -104,11 +117,16 @@ class WithdrawPage extends Mixins(PageView) {
     const balance = this.asset?.balance ?? "";
     const symbol = this.asset?.symbol ?? "";
     const chainIcon = this.$utils.helper.getChainAssetLogo(this, chain);
+    const fee = this.address?.fee ?? "";
+    const feeAsset = getAssetById(this.asset?.asset_id ?? "");
+    const feeAssetSymbol = feeAsset?.symbol ?? "";
     return {
       icon,
       name,
       symbol,
       chainIcon,
+      fee,
+      feeAssetSymbol,
       balance: `${format({ n: balance, p: 8 })} ${symbol}`
     };
   }

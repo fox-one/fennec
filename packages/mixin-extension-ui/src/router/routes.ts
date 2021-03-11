@@ -1,6 +1,5 @@
 import { RouteConfig } from "vue-router";
 import Home from "../views/home.vue";
-import Lock from "../views/lock.vue";
 import Authorize from "../views/authorize.vue";
 import Deposit from "../views/deposit.vue";
 import Send from "../views/send/index.vue";
@@ -14,11 +13,6 @@ const routes: RouteConfig[] = [
     path: "/",
     name: "home",
     component: Home
-  },
-  {
-    path: "/lock",
-    name: "lock",
-    component: Lock
   },
   {
     path: "/authorize",

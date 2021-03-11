@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <f-loading v-if="loading" :loading="loading" fullscreen />
-    <div v-else>
+    <f-panel v-else>
       <v-layout align-center justify-center column>
         <span class="mr-3">
           <f-mixin-asset-logo
@@ -80,7 +80,7 @@
           <div>{{ meta.date }}</div>
         </div>
       </div>
-    </div>
+    </f-panel>
   </v-container>
 </template>
 

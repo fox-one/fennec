@@ -28,6 +28,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import type { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
+import { EVENTS } from "../../defaults";
 
 @Component
 class BackUpKeyring extends Vue {
@@ -40,9 +41,19 @@ class BackUpKeyring extends Vue {
     };
   }
 
-  async handleBackUp(account: string) {
+  handleBackUp(account: string) {
+    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+      onSuccess: (password: string) =>
+        this.requestExportAccount(password, account)
+    });
+  }
+
+  async requestExportAccount(password: string, account: string) {
     try {
-      const exportedJson = await this.$messages.exportAccount(account);
+      const exportedJson = await this.$messages.exportAccount(
+        account,
+        password
+      );
       const element = document.createElement("a");
       element.href = `data:text/plain;charset=utf-8,${exportedJson}`;
       element.download = `${account}_exported_account_${Date.now()}.json`;

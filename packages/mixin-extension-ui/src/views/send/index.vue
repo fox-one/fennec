@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <f-loading v-if="loading" :loading="loading" fullscreen />
-    <div v-else>
+    <f-panel v-else>
       <div class="f-caption my-3">Withdraw</div>
       <asset-select v-model="asset" />
 
@@ -36,7 +36,7 @@
       >
         Next
       </v-btn>
-    </div>
+    </f-panel>
   </v-container>
 </template>
 

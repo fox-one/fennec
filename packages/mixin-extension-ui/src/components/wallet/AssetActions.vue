@@ -1,5 +1,5 @@
 <template>
-  <div class="asset-actions pa-5 text-center">
+  <div class="asset-actions mt-3 text-center">
     <div class="action-item px-5" @click="handleDeposit">
       <v-btn icon>
         <img src="../../assets/images/deposit.svg" class="icon" />

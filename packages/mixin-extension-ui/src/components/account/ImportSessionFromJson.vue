@@ -1,14 +1,14 @@
 <template>
   <v-file-input
     v-model="file"
-    solo
     flat
+    solo
     hide-details
     truncate-length="15"
-    background-color="transparent"
-    class="f-bg-greyscale-6"
     accept="json"
     placeholder="Keystore"
+    background-color="transparent"
+    class="f-bg-greyscale-5"
     :prepend-icon="$icons.mdiPaperclip"
   />
 </template>
