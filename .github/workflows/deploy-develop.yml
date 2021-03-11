@@ -45,13 +45,3 @@ jobs:
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
-
-      - name: Upload & release
-        uses: Klemensas/chrome-extension-upload-action@$VERSION
-        with:
-          refresh-token: ${{ secrets.REFRESH_TOKEN }}
-          client-id: ${{ secrets.CLIENT_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
-          file-name: "./packages/mixin-extension/build.zip"
-          app-id: "eincngenkhohbbfpkohipekcmnkfamjp"
-          publish: true
