@@ -6,6 +6,7 @@
     "build": "vuedx-typecheck . && vite build"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bulma": "^0.9.1",
     "uuid": "^8.3.2",
     "vue": "^3.0.5"

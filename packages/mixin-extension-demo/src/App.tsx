@@ -4,6 +4,7 @@ import ConnectExt from "../components/ConnectExt";
 import GetAccount from "../components/GetAccount";
 import GetAsset from "../components/GetAsset";
 import Transfer from "../components/Transfer";
+import SignToken from "../components/SignToken";
 
 export default defineComponent(() => {
   const ext = (window as any).__MIXIN__?.mixin_ext;
@@ -38,6 +39,10 @@ export default defineComponent(() => {
           <div class="action mt-5">
             <div class="label">Transfer</div>
             <Transfer ctx={ctx.value} connected={connected.value} />
+          </div>
+          <div class="action mt-5">
+            <div class="label">Sign Token</div>
+            <SignToken ctx={ctx.value} connected={connected.value} />
           </div>
         </div>
       </div>

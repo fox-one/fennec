@@ -54,7 +54,6 @@ export interface CreateTransferPayload {
   trace_id: string;
   memo: string;
 }
-
 export interface SnapshotQueryParams {
   limit: number;
   offset: string;

@@ -1,6 +1,7 @@
 import { SendMessage } from "./types";
 import type { Endpoints } from "@foxone/mixin-sdk/endpoints";
-import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
+import type { CreateTransferPayload } from "@foxone/mixin-sdk/types";
+import type { SignClientTokenPayload } from "../background/types/wallet";
 
 let sendMessage: SendMessage;
 let endpoints: Endpoints;
@@ -17,5 +18,9 @@ export default class Wallet {
 
   public async transfer(payload: CreateTransferPayload) {
     return await sendMessage("pub(transfer.request)", payload);
+  }
+
+  public async signToken(payload: SignClientTokenPayload) {
+    return await sendMessage("pub(token.sign)", payload);
   }
 }

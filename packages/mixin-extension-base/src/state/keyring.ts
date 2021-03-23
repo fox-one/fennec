@@ -78,7 +78,7 @@ export default class KeyringState {
     });
   }
 
-  async unlock(password: string) {
+  public async unlock(password: string) {
     if (!this.stored) {
       throw new Error("Cannot unlock keyring without previous stored value");
     }
@@ -86,8 +86,9 @@ export default class KeyringState {
       this.#keyring = new MixinKeyring();
     }
 
-    this.#keyring.restore(this.stored, password);
+    await this.#keyring.restore(this.stored, password);
     this.updateAccounts();
+    this.setUnLocked();
     if (this.#unlockRequests.length > 0) {
       this.#unlockRequests.forEach((x) => x.resolve(true));
     }
@@ -142,6 +143,29 @@ export default class KeyringState {
       throw "No stored keyring";
     }
     return this.#keyring.signAuthorizeToken(clientId, method, uri, data);
+  }
+
+  public async signClientToken({
+    clientId,
+    method,
+    uri,
+    data,
+    scp,
+    expire,
+    payload
+  }) {
+    if (!this.#keyring) {
+      throw "No stored keyring";
+    }
+    return this.#keyring.signClientToken(
+      clientId,
+      method,
+      uri,
+      data,
+      scp,
+      expire,
+      payload
+    );
   }
 
   public async getEncryptedPin(clientId: string, password: string) {

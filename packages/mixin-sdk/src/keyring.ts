@@ -86,6 +86,31 @@ export default class MixinKeyring {
     );
   }
 
+  public signClientToken(
+    clienId: string,
+    method: string,
+    uri: string,
+    data: any,
+    scp: string,
+    expire: number,
+    payload: any
+  ) {
+    const account = this.getAccountFor(this.accounts, clienId);
+    return Promise.resolve(
+      signAuthenticationToken(
+        account.client_id,
+        account.session_id,
+        account.private_key,
+        method,
+        uri,
+        data,
+        scp,
+        expire,
+        payload
+      )
+    );
+  }
+
   public async restore(stored: string | undefined, password: string) {
     const accounts = await MixinKeyring.decryptFromStored(stored, password);
     this.accounts = accounts.map((account) => {

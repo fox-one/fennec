@@ -4,6 +4,8 @@ import type { State } from "../../../state/types";
 import extension from "extensionizer";
 import { PHISHING_PAGE_REDIRECT } from "../../../constants";
 import { SignAuthorizeTokenPayload } from "../../types/keyring";
+import { SignClientTokenPayload } from "../../types/wallet";
+import { unix } from "@foxone/mixin-sdk/encrypt";
 import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
 
 function checkIfDenied(url: string) {
@@ -59,6 +61,22 @@ export default function createHandlers(state: State) {
       }
 
       return false;
+    },
+
+    signClientToken(payload: SignClientTokenPayload) {
+      const selectedAccount = state.preference.preference.seletedAccount;
+      if (!selectedAccount) {
+        throw new Error("No selected account");
+      }
+      return state.keyring.signClientToken({
+        clientId: selectedAccount,
+        uri: "/me",
+        method: "GET",
+        data: "",
+        scp: "PROFILE:READ",
+        expire: unix() + 60 * 60 * 24,
+        payload
+      });
     }
   };
 }

@@ -25,7 +25,9 @@ export function signAuthenticationToken(
   method: string,
   uri: string,
   data: any,
-  scp = "FULL"
+  scp = "FULL",
+  expire = unix() + 30 * 60,
+  payload = {}
 ) {
   if (typeof data === "object") {
     data = JSON.stringify(data);
@@ -33,20 +35,22 @@ export function signAuthenticationToken(
     data = "";
   }
 
-  const expire = unix() + 30 * 60;
   const md = forge.md.sha256.create();
   md.update(forge.util.encodeUtf8(method + uri + data));
-  const payload = {
-    uid: clientId,
-    sid: sessionId,
-    iat: unix(),
-    exp: expire,
-    jti: uuid(),
-    sig: md.digest().toHex(),
-    scp: scp || "FULL"
-  };
-
-  return jwt.sign(payload, privateKey, { algorithm: "RS512" });
+  return jwt.sign(
+    {
+      uid: clientId,
+      sid: sessionId,
+      iat: unix(),
+      exp: expire,
+      jti: uuid(),
+      sig: md.digest().toHex(),
+      scp: scp || "FULL",
+      ...payload
+    },
+    privateKey,
+    { algorithm: "RS512" }
+  );
 }
 
 function hexToBytes(hex) {

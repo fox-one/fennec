@@ -9,10 +9,15 @@ export interface RejectTransferPayload {
   id: string;
 }
 
+export interface SignClientTokenPayload {
+  payload: any;
+}
+
 export interface WalletActionSignatures {
   "pri(transfer.list)": [null, boolean, TransferReq[]];
   "pri(transfer.approve)": [ApproveTransferPayload, boolean];
   "pri(transfer.reject)": [RejectTransferPayload, boolean];
 
   "pub(transfer.request)": [CreateTransferPayload, null];
+  "pub(token.sign)": [SignClientTokenPayload, string];
 }
