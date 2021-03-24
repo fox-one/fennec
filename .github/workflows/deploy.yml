@@ -43,3 +43,22 @@ jobs:
         with:
           email: 18656007202@163.com
           build_dir: packages/mixin-extension-demo/dist
+
+      # - run: yarn --frozen-lockfile --non-interactive
+
+      # - run: yarn build
+
+      # - name: Zip
+      #   uses: papeloto/action-zip@v1
+      #   with:
+      #     files: ./packages/mixin-extension/build/
+      #     dest: ./packages/mixin-extension/build.zip
+
+      # - name: Upload & release
+      #   uses: mnao305/chrome-extension-upload@1.1.1
+      #   with:
+      #     file-path: ./packages/mixin-extension/build.zip
+      #     extension-id: eincngenkhohbbfpkohipekcmnkfamjp
+      #     client-id: ${{ secrets.CLIENT_ID }}
+      #     client-secret: ${{ secrets.CLIENT_SECRET }}
+      #     refresh-token: ${{ secrets.REFRESH_TOKEN }}
