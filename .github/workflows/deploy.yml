@@ -36,6 +36,8 @@ jobs:
       - run: yarn build
         working-directory: packages/mixin-extension-demo
 
+      - run: cp packages/mixin-extension-demo/dist/index.html packages/mixin-extension-demo/dist/404.html
+
       - name: Deploy to GitHub Pages
         uses: Cecilapp/GitHub-Pages-deploy@v3
         env:
