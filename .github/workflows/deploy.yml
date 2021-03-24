@@ -4,11 +4,12 @@ env:
   PUBLIC_PATH: ""
 
 on:
-  branches:
-    - main
+  push:
+    branches:
+      - main
 
-  paths-ignore:
-    - "README.md"
+    paths-ignore:
+      - "README.md"
 
 jobs:
   build-deploy:
