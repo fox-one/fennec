@@ -123,7 +123,9 @@ export default class AuthState {
 
     if (this.#authUrls[idStr]) {
       if (!this.#authUrls[idStr].isAllowed) {
-        throw `The source ${url} is not allowed to interact with this extension`;
+        throw new Error(
+          `The source ${url} is not allowed to interact with this extension`
+        );
       }
 
       return true;

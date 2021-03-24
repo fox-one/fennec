@@ -5,7 +5,7 @@
     </span>
     <v-list-item-content>
       <v-list-item-title>
-        <span class="f-body-1">{{ snapshot.text }}</span>
+        <span class="f-body-2">{{ snapshot.text }}</span>
       </v-list-item-title>
       <v-list-item-subtitle>
         <div class="f-caption text--secondary snapshot-subtitle">
@@ -46,3 +46,10 @@ class SnapshotListItem extends Vue {
 }
 export default SnapshotListItem;
 </script>
+
+<style lang="scss" scoped>
+.snapshot-subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

@@ -16,6 +16,10 @@ export default class Wallet {
     return await endpoints.getAsset(id);
   }
 
+  public async getAssets() {
+    return await endpoints.getAssets();
+  }
+
   public async transfer(payload: CreateTransferPayload) {
     return await sendMessage("pub(transfer.request)", payload);
   }

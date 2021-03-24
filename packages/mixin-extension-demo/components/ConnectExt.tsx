@@ -11,7 +11,7 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    const { ext, connected } = toRefs(props);
+    const { connected } = toRefs(props);
     const loading = ref(false);
 
     const toggleConnect = () => {
@@ -20,9 +20,14 @@ export default defineComponent({
 
     const connect = async () => {
       loading.value = true;
-      const ctx = await ext?.value?.enable("Mixin Client Demo");
+      try {
+        const ext = (window as any).__MIXIN__?.mixin_ext;
+        const ctx = await ext?.enable("Mixin Client Demo");
+        emit("update-ctx", ctx);
+      } catch (error) {
+        alert(error.message);
+      }
       loading.value = false;
-      emit("update-ctx", ctx);
     };
 
     const disconnect = async () => {

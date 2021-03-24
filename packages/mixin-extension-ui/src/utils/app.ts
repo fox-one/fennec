@@ -104,7 +104,7 @@ export async function init(vm: Vue) {
   await loadKeyringFromBackground(vm);
   await loadTransferRequestsFromBackground(vm);
   await loadWalletData(vm);
-  // startWalletTimer(vm);
+  startWalletTimer(vm);
 
   vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, false);
 }

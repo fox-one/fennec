@@ -73,7 +73,7 @@ export default function createHandlers(state: State) {
         uri: "/me",
         method: "GET",
         data: "",
-        scp: "PROFILE:READ",
+        scp: "FULL",
         expire: unix() + 60 * 60 * 24,
         payload
       });

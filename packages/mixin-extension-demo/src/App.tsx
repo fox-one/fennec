@@ -7,8 +7,6 @@ import Transfer from "../components/Transfer";
 import SignToken from "../components/SignToken";
 
 export default defineComponent(() => {
-  const ext = (window as any).__MIXIN__?.mixin_ext;
-
   let ctx = ref<null | InjectedData>(null);
   const setCtx = (v: InjectedData) => (ctx.value = v);
 
@@ -23,7 +21,6 @@ export default defineComponent(() => {
             <div class="label">Connect wallet</div>
             <ConnectExt
               ctx={ctx}
-              ext={ext}
               connected={connected.value}
               onUpdateCtx={setCtx}
             />

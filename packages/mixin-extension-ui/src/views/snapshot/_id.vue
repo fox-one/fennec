@@ -35,49 +35,65 @@
           v-clipboard:error="() => $utils.helper.onCopyFail(this)"
         >
           <div class="f-caption text--secondary mb-1">Transaction Id</div>
-          <div>{{ meta.id }}</div>
+          <div class="field">{{ meta.id }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div>
           <div class="f-caption text--secondary mb-1">Transaction Type</div>
-          <div>{{ meta.typeText }}</div>
+          <div class="field">{{ meta.typeText }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div v-if="meta.opponent">
-          <div>
+          <div
+            v-clipboard:copy="meta.opponent"
+            v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+            v-clipboard:error="() => $utils.helper.onCopyFail(this)"
+          >
             <div class="f-caption text--secondary mb-1">Opponent</div>
-            <div>{{ meta.opponent }}</div>
+            <div class="field">{{ meta.opponent }}</div>
           </div>
           <v-divider class="my-2" />
         </div>
 
         <div v-if="meta.opponentId">
-          <div>
+          <div
+            v-clipboard:copy="meta.opponentId"
+            v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+            v-clipboard:error="() => $utils.helper.onCopyFail(this)"
+          >
             <div class="f-caption text--secondary mb-1">Opponent Id</div>
-            <div>{{ meta.opponentId }}</div>
+            <div class="field">{{ meta.opponentId }}</div>
           </div>
           <v-divider class="my-2" />
         </div>
 
         <div v-if="meta.sender">
-          <div>
+          <div
+            v-clipboard:copy="meta.sender"
+            v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+            v-clipboard:error="() => $utils.helper.onCopyFail(this)"
+          >
             <div class="f-caption text--secondary mb-1">Sender</div>
-            <div>{{ meta.sender }}</div>
+            <div class="field">{{ meta.sender }}</div>
           </div>
           <v-divider class="my-2" />
         </div>
 
-        <div>
+        <div
+          v-clipboard:copy="meta.memo"
+          v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
+          v-clipboard:error="() => $utils.helper.onCopyFail(this)"
+        >
           <div class="f-caption text--secondary mb-1">Memo</div>
-          <div>{{ meta.memo || "-" }}</div>
+          <div class="field">{{ meta.memo || "-" }}</div>
         </div>
         <v-divider class="my-2" />
 
         <div>
           <div class="f-caption text--secondary mb-1">Date</div>
-          <div>{{ meta.date }}</div>
+          <div class="field">{{ meta.date }}</div>
         </div>
       </div>
     </f-panel>
@@ -209,3 +225,10 @@ class SnapshotPage extends Mixins(PageView) {
 }
 export default SnapshotPage;
 </script>
+
+<style lang="scss" scoped>
+.field {
+  word-break: break-all;
+  font-size: 14px;
+}
+</style>

@@ -16,7 +16,7 @@
         </span>
       </v-list-item-title>
       <v-list-item-subtitle>
-        <div class="f-caption text--secondary">
+        <div class="f-caption text--secondary transaction-subtitle">
           <span>{{ item.time }}</span>
           <span>From {{ item.sender }}</span>
         </div>
@@ -48,3 +48,10 @@ class TransactionListItem extends Vue {
 }
 export default TransactionListItem;
 </script>
+
+<style lang="scss" scoped>
+.transaction-subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

@@ -16,7 +16,7 @@
         <div class="caption text--secondary">≈ {{ meta.fiatAmountText }}</div>
       </div>
 
-      <div class="my-3">
+      <div class="my-3 memo f-body-2">
         {{ meta.memo }}
       </div>
 
@@ -187,3 +187,9 @@ class TransferGuard extends Vue {
 }
 export default TransferGuard;
 </script>
+
+<style scoped>
+.memo {
+  word-break: break-all;
+}
+</style>
