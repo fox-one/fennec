@@ -18,7 +18,9 @@ export default class PerferenceState {
 
   constructor(opts: { store: BehaviorSubject<Store> }) {
     this.#store = opts.store;
-    this.#preference = this.#store.getValue().preference;
+    const preference = this.#store.getValue().preference;
+    this.updatePerference(preference);
+    this.#preference = preference;
   }
 
   completeOnboarding() {
@@ -30,7 +32,7 @@ export default class PerferenceState {
     return true;
   }
 
-  setSelectedAccount(clientId: string) {
+  setSelectedAccount(clientId: string | undefined) {
     const preference: PerferenceStore = {
       ...this.#preference,
       seletedAccount: clientId
@@ -40,6 +42,7 @@ export default class PerferenceState {
   }
 
   private updatePerference(data: PerferenceStore) {
+    console.log(`updatePerference: data :: ${data}`);
     this.#preference = data;
     this.perferenceSubjection.next(data);
     this.#store.next({ ...this.#store.getValue(), preference: data });

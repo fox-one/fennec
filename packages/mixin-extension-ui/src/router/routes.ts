@@ -7,6 +7,9 @@ import Transfer from "../views/send/transfer.vue";
 import Withdraw from "../views/send/withdraw.vue";
 import AssetDetail from "../views/asset/_id.vue";
 import SnapshotDetail from "../views/snapshot/_id.vue";
+import Settings from "../views/settings.vue";
+import Import from "../views/import.vue";
+import BackUp from "../views/backup.vue";
 
 const routes: RouteConfig[] = [
   {
@@ -48,6 +51,21 @@ const routes: RouteConfig[] = [
     path: "/snapshot/:id",
     name: "snapshot-id",
     component: SnapshotDetail
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: Settings
+  },
+  {
+    path: "/import",
+    name: "import",
+    component: Import
+  },
+  {
+    path: "/backup",
+    name: "backup",
+    component: BackUp
   }
 ];
 

@@ -1,20 +1,23 @@
 <template>
-  <v-app-bar v-if="appbar.show" flat dense app :color="appbar.color">
-    <v-btn small v-if="appbar.back" icon @click="handleBack">
-      <v-icon>
-        {{ $icons.mdiChevronLeft }}
-      </v-icon>
-    </v-btn>
-    <span>{{ appbar.title }}</span>
-    <v-spacer />
-    <div>
-      <v-btn v-if="meta.dev" small icon @click="handleToConfig">
-        <v-icon small>{{ $icons.mdiCog }}</v-icon>
+  <v-app-bar v-if="appbar.show" dense flat app :color="appbar.color">
+    <div class="appbar-content">{{ appbar.title }}</div>
+    <v-flex class="d-flex">
+      <v-btn
+        small
+        v-if="appbar.back"
+        icon
+        class="appbar-icon"
+        @click="handleBack"
+      >
+        <v-icon>
+          {{ $icons.mdiChevronLeft }}
+        </v-icon>
       </v-btn>
+      <v-spacer />
       <v-btn v-if="meta.dev" small icon @click="handleReload">
         <v-icon small>{{ $icons.mdiReload }}</v-icon>
       </v-btn>
-    </div>
+    </v-flex>
   </v-app-bar>
 </template>
 
@@ -40,10 +43,6 @@ class Appbar extends Vue {
     };
   }
 
-  handleToConfig() {
-    // this.$router.push({ name: "init" });
-  }
-
   handleReload() {
     window.location.reload();
   }
@@ -58,3 +57,15 @@ class Appbar extends Vue {
 }
 export default Appbar;
 </script>
+
+<style lang="scss" scoped>
+.appbar-content {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+</style>

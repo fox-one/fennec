@@ -199,8 +199,13 @@ export default class KeyringState {
   private updateAccounts() {
     const accounts = this.#keyring?.accounts ?? [];
     const seletedAccount = this.#preference.preference.seletedAccount;
-    if (!seletedAccount && accounts) {
-      this.#preference.setSelectedAccount(accounts[0]?.client_id);
+    console.log(`keyring.updateAccounts: seletedAccount :: ${seletedAccount}`);
+    if (accounts.length === 0) {
+      this.#preference.setSelectedAccount(undefined);
+    } else {
+      if (!seletedAccount) {
+        this.#preference.setSelectedAccount(accounts[0]?.client_id);
+      }
     }
 
     this.updateKeyringMemState({

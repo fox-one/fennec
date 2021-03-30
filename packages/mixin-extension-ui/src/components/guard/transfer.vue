@@ -30,7 +30,7 @@
         :disabled="meta.disabled"
         @click="handlePay"
       >
-        支付
+        Pay
       </v-btn>
       <v-btn
         rounded
@@ -42,7 +42,7 @@
         :disabled="meta.disabled"
         @click="handleReject"
       >
-        拒绝
+        Reject
       </v-btn>
     </div>
   </v-container>

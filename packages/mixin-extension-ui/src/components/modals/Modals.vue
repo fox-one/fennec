@@ -7,18 +7,18 @@
       z-index="1000"
       @cancel="handlePayingCancel"
     />
-    <confirm-password-modal />
+    <password-modal />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { State, Mutation } from "vuex-class";
-import ConfirmPasswordModal from "./ConfirmPasswrodModal.vue";
+import PasswordModal from "./PasswrodModal.vue";
 
 @Component({
   components: {
-    ConfirmPasswordModal
+    PasswordModal
   }
 })
 class Modals extends Vue {

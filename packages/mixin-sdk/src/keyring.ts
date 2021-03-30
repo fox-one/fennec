@@ -112,6 +112,7 @@ export default class MixinKeyring {
   }
 
   public async restore(stored: string | undefined, password: string) {
+    debugger;
     const accounts = await MixinKeyring.decryptFromStored(stored, password);
     this.accounts = accounts.map((account) => {
       return {
@@ -167,7 +168,10 @@ export default class MixinKeyring {
     if (accounts.find((x) => x.client_id === account.client_id)) {
       throw new Error(`${account.client_id} has already imported`);
     }
-    return JSON.stringify([...(stored || []), keystore]);
+    return JSON.stringify([
+      ...(accounts.map((x) => JSON.stringify(x)) || []),
+      keystore
+    ]);
   }
 
   public static checkAccount(account) {

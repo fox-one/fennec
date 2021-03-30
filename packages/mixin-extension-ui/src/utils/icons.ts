@@ -13,7 +13,8 @@ import {
   mdiInformation,
   mdiCog,
   mdiDownload,
-  mdiPaperclip
+  mdiPaperclip,
+  mdiChevronDown
 } from "@mdi/js";
 
 export default {
@@ -31,5 +32,6 @@ export default {
   mdiInformation,
   mdiCog,
   mdiDownload,
-  mdiPaperclip
+  mdiPaperclip,
+  mdiChevronDown
 };

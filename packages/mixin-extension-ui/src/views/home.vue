@@ -1,5 +1,6 @@
 <template>
   <v-container class="pa-0">
+    <home-appbar />
     <f-panel elevation="none" class="rounded-0">
       <div class="text-center">
         <f-mixin-asset-logo :size="48" :logo="meta.btcIcon" />
@@ -33,6 +34,7 @@ import AssetActions from "../components/wallet/AssetActions.vue";
 import AssetAdd from "../components/wallet/AssetAdd.vue";
 import AssetList from "../components/wallet/AssetList.vue";
 import AssetSearch from "../components/wallet/AssetSearch.vue";
+import HomeAppbar from "../components/particle/HomeAppbar.vue";
 import { BTC_ASSET_ID } from "../defaults";
 
 @Component({
@@ -40,7 +42,8 @@ import { BTC_ASSET_ID } from "../defaults";
     AssetActions,
     AssetAdd,
     AssetList,
-    AssetSearch
+    AssetSearch,
+    HomeAppbar
   }
 })
 class HomePage extends Mixins(PageView) {
@@ -52,7 +55,8 @@ class HomePage extends Mixins(PageView) {
 
   get appbar() {
     return {
-      back: false
+      back: false,
+      show: false
     };
   }
 

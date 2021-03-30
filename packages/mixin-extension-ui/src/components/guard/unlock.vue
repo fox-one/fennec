@@ -1,15 +1,10 @@
 <template>
   <v-container>
     <f-loading :loading="loading" fullscreen />
-    <div class="text-center">
+    <div class="text-center content">
+      <div class="f-headline pt-10">Unlock your accounts</div>
       <div class="lock-icon-wrapper">
-        <v-icon color="" size="64">
-          {{ $icons.mdiLock }}
-        </v-icon>
-      </div>
-      <div class="title font-weight-bold">Wallet is Locked</div>
-      <div class="f-body-2 text--secondary mb-12 mt-2">
-        Enter your password to unlock wallet
+        <img src="../../assets/images/password.svg" />
       </div>
       <enter-password-form @completed="handlePasswordEntered" />
     </div>
@@ -71,8 +66,12 @@ export default UnLockPage;
 </script>
 
 <style lang="scss" scoped>
+.content {
+  margin-top: 44px;
+}
+
 .lock-icon-wrapper {
-  margin-top: 100px;
+  margin-top: 40px;
   margin-bottom: 30px;
 }
 </style>

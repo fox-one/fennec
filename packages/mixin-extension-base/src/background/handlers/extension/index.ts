@@ -18,6 +18,7 @@ import {
   ApproveTransferPayload,
   RejectTransferPayload
 } from "../../types/wallet";
+import { SelectAccountPaylod } from "../../types/preference";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -78,6 +79,9 @@ export default function (state: State) {
 
       case "pri(perference.completeOnboarding)":
         return handlers.completeOnboarding();
+
+      case "pri(perference.selectAccount)":
+        return handlers.selectAccount(payload as SelectAccountPaylod);
 
       // Wallet
       case "pri(transfer.list)":

@@ -64,7 +64,7 @@ class EnterPasswordForm extends Mixins(PageView) {
 export default EnterPasswordForm;
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .form {
   text-align: center;
 }

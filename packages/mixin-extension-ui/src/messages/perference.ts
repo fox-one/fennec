@@ -9,6 +9,10 @@ export default function (sendMessage: SendMessage) {
 
     completeOnboarding() {
       return sendMessage("pri(perference.completeOnboarding)");
+    },
+
+    selectAccount(clientId: string) {
+      return sendMessage("pri(perference.selectAccount)", { clientId });
     }
   };
 }

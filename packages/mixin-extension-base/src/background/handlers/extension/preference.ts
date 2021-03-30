@@ -1,4 +1,5 @@
 import type { State } from "../../../state/types";
+import { SelectAccountPaylod } from "../../types/preference";
 import { createSubscription, unsubscribe } from "../subscriptions";
 
 export default function createPerferenceHandlers(state: State) {
@@ -21,6 +22,10 @@ export default function createPerferenceHandlers(state: State) {
 
     completeOnboarding() {
       return state.preference.completeOnboarding();
+    },
+
+    selectAccount({ clientId }: SelectAccountPaylod) {
+      return state.preference.setSelectedAccount(clientId);
     }
   };
 }

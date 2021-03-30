@@ -2,7 +2,7 @@
   <v-container class="pa-0">
     <f-panel elevation="none" class="rounded-0">
       <v-layout align-center justify-center column>
-        <span class="mr-3">
+        <span>
           <f-mixin-asset-logo
             :size="48"
             :logo="meta.icon"
