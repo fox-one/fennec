@@ -11,6 +11,8 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.8.28",
     "extensionizer": "^1.0.1",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.6.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-clipboard2": "^0.3.1",

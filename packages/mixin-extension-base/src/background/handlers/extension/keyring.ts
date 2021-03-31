@@ -4,7 +4,9 @@ import type {
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
   GetEncryptedPinPayload,
-  ExportKeyringPayload
+  ExportKeyringPayload,
+  RemoveAccountPayload,
+  ExportAllAccountsPayload
 } from "../../types/keyring";
 
 import { createSubscription, unsubscribe } from "../subscriptions";
@@ -33,6 +35,14 @@ export default function (state: State) {
 
     exportAccount({ clientId, password }: ExportKeyringPayload) {
       return state.keyring.exportAccount(clientId, password);
+    },
+
+    exportAllAccounts({ password }: ExportAllAccountsPayload) {
+      return state.keyring.exportAllAccounts(password);
+    },
+
+    removeAccount({ clientId, password }: RemoveAccountPayload) {
+      return state.keyring.removeAccount(clientId, password);
     },
 
     tryUnlockKeyring({ password }: UnlockKeyringPayload) {

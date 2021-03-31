@@ -112,7 +112,6 @@ export default class MixinKeyring {
   }
 
   public async restore(stored: string | undefined, password: string) {
-    debugger;
     const accounts = await MixinKeyring.decryptFromStored(stored, password);
     this.accounts = accounts.map((account) => {
       return {
@@ -139,6 +138,11 @@ export default class MixinKeyring {
     const accounts = await MixinKeyring.decryptFromStored(stored, password);
     const account = this.getAccountFor(accounts, clientId);
     return Promise.resolve(JSON.stringify(account));
+  }
+
+  public async exportAllAccounts(stored: string | undefined, password: string) {
+    const accounts = await MixinKeyring.decryptFromStored(stored, password);
+    return Promise.resolve(JSON.stringify(accounts));
   }
 
   public async removeAccount(

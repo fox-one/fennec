@@ -12,7 +12,11 @@
     <input ref="input" type="file" class="input" @change="handleInputChange" />
     <f-bottom-sheet v-model="dialog">
       <template #title> Confirm Import? </template>
-      <account-item v-if="keystore" :id="keystore.client_id" />
+      <account-item v-if="keystore" :id="keystore.client_id">
+        <template #action>
+          <div></div>
+        </template>
+      </account-item>
       <div class="pa-5">
         <v-btn block depressed rounded color="primary" @click="handleConfirm">
           Import

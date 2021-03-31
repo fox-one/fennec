@@ -4,15 +4,17 @@
       <div class="f-caption">Accounts</div>
       <account-list />
     </f-panel>
+    <p class="text-center text--secondary caption mt-2">
+      {{ meta.version }}
+    </p>
   </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
-import { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
 import PageView from "../mixin/page";
 import AccountList from "../components/account/AccountList.vue";
+import { VERSION } from "../defaults";
 
 @Component({
   components: {
@@ -25,9 +27,9 @@ class SettingsPage extends Mixins(PageView) {
   }
 
   get meta() {
-    const keyring: KeyringMemState = this.$store.state.keyring.keyring;
-    const preference: PerferenceStore = this.$store.state.preference.preference;
-    return {};
+    return {
+      version: VERSION
+    };
   }
 }
 export default SettingsPage;

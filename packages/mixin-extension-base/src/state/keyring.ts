@@ -85,7 +85,6 @@ export default class KeyringState {
     if (!this.#keyring) {
       this.#keyring = new MixinKeyring();
     }
-
     await this.#keyring.restore(this.stored, password);
     this.updateAccounts();
     this.setUnLocked();
@@ -113,6 +112,7 @@ export default class KeyringState {
   }
 
   public async removeAccount(clientId: string, password: string) {
+    debugger;
     if (!this.#keyring) {
       throw "No stored keyring";
     }
@@ -124,6 +124,7 @@ export default class KeyringState {
     await this.persistStore(newStored, password);
     await this.#keyring.restore(this.stored, password);
     this.updateAccounts();
+    return true;
   }
 
   public async exportAccount(clientId: string, password: string) {
@@ -131,6 +132,13 @@ export default class KeyringState {
       throw "No stored keyring";
     }
     return this.#keyring.exportAccount(clientId, this.stored, password);
+  }
+
+  public async exportAllAccounts(password: string) {
+    if (!this.#keyring) {
+      throw "No stored keyring";
+    }
+    return this.#keyring.exportAllAccounts(this.stored, password);
   }
 
   public async signAuthorizeToken({
@@ -189,6 +197,7 @@ export default class KeyringState {
   }
 
   private updateKeyringMemState(data: KeyringMemState) {
+    debugger;
     this.#state = {
       ...data,
       initialized: Boolean(this.#store.getValue().keyring)
@@ -199,11 +208,11 @@ export default class KeyringState {
   private updateAccounts() {
     const accounts = this.#keyring?.accounts ?? [];
     const seletedAccount = this.#preference.preference.seletedAccount;
-    console.log(`keyring.updateAccounts: seletedAccount :: ${seletedAccount}`);
     if (accounts.length === 0) {
       this.#preference.setSelectedAccount(undefined);
     } else {
-      if (!seletedAccount) {
+      const found = accounts.find((x) => x.client_id === seletedAccount);
+      if (!found) {
         this.#preference.setSelectedAccount(accounts[0]?.client_id);
       }
     }

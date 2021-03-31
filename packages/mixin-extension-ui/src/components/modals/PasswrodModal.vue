@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="dialog">
     <template v-if="dialog">
-      <v-card v-if="meta.inited">
+      <v-card v-if="meta.inited" class="pa-3">
         <v-card-title class="justify-center f-title-1">
           Confirm Password
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="px-0">
           <enter-password-form
             class="mt-3"
             :label="'Submit'"
@@ -15,11 +15,15 @@
         </v-card-text>
       </v-card>
 
-      <v-card v-else>
+      <v-card v-else class="pa-3">
         <v-card-title class="justify-center f-title-1">
           Create Password
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="px-0">
+          <f-tip type="error" class="mt-5">
+            Password is the only way to unlock and backup your wallet, please
+            make sure to keep it safe.
+          </f-tip>
           <create-password-form
             class="mt-3"
             @completed="handleCompleted"

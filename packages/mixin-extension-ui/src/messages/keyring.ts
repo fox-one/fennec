@@ -11,6 +11,14 @@ export default function (sendMessage: SendMessage) {
       return sendMessage("pri(keyring.exportAccount)", { clientId, password });
     },
 
+    exportAllAccounts(password: string) {
+      return sendMessage("pri(keyring.exportAllAccounts)", { password });
+    },
+
+    removeAccount(clientId: string, password: string) {
+      return sendMessage("pri(keyring.removeAccount)", { password, clientId });
+    },
+
     subscribeKeyingState(cb: (state: KeyringMemState) => void) {
       return sendMessage("pri(keyring.subscribe)", null, cb);
     },

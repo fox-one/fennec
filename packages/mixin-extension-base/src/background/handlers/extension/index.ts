@@ -5,7 +5,9 @@ import type {
   UnlockKeyringPayload,
   SignAuthorizeTokenPayload,
   GetEncryptedPinPayload,
-  ExportKeyringPayload
+  ExportKeyringPayload,
+  RemoveAccountPayload,
+  ExportAllAccountsPayload
 } from "../../types/keyring";
 import type { State } from "../../../state/types";
 
@@ -72,6 +74,12 @@ export default function (state: State) {
 
       case "pri(keyring.exportAccount)":
         return handlers.exportAccount(payload as ExportKeyringPayload);
+
+      case "pri(keyring.exportAllAccounts)":
+        return handlers.exportAllAccounts(payload as ExportAllAccountsPayload);
+
+      case "pri(keyring.removeAccount)":
+        return handlers.removeAccount(payload as RemoveAccountPayload);
 
       // Preference
       case "pri(preference.subscribe)":

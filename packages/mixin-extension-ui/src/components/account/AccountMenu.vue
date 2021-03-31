@@ -1,15 +1,10 @@
 <template>
-  <div v-if="meta.currentUser">
+  <div v-if="currentUser">
     <f-loading fullscreen :loading="loading" />
     <f-bottom-sheet v-model="dialog">
       <template #activator="{ on }">
         <div class="account" v-on="on">
-          <v-img
-            :src="meta.currentUserAvatar"
-            width="18"
-            height="18"
-            class="mr-2"
-          />
+          <account-avatar :url="meta.currentUserAvatar" />
           <span class="account-name mr-1">{{ meta.currentUserName }}</span>
           <v-icon size="14">
             {{ $icons.mdiChevronDown }}
@@ -24,6 +19,7 @@
           v-for="(account, index) in meta.accounts"
           :key="index"
           :id="account"
+          @click.native="handleSelectAccount(account)"
         />
       </f-list>
     </f-bottom-sheet>
@@ -34,12 +30,14 @@
 import { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
 import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
 import { User } from "@foxone/mixin-sdk/types";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import AccountItem from "../account/AccountItem.vue";
+import AccountAvatar from "../account/AccountAvatar.vue";
 
 @Component({
   components: {
-    AccountItem
+    AccountItem,
+    AccountAvatar
   }
 })
 class AccountMenu extends Vue {
@@ -64,17 +62,23 @@ class AccountMenu extends Vue {
     };
   }
 
+  @Watch("meta.selectedAccount")
+  handleAccountChange() {
+    this.requestCuurentAccount(this.meta.selectedAccount);
+  }
+
   mounted() {
     this.requestCuurentAccount(this.meta.selectedAccount);
   }
 
-  async handleSelectAccount(user: User) {
+  async handleSelectAccount(account: string) {
     this.dialog = false;
-    if (user.user_id === this.currentUser?.user_id) {
+    if (account === this.currentUser?.user_id) {
       return;
     }
     this.loading = true;
-    await this.$messages.selectAccount(user.user_id);
+    await this.$messages.selectAccount(account);
+    this.$utils.app.loadWalletData(this);
     this.loading = false;
   }
 

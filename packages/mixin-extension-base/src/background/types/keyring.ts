@@ -35,6 +35,15 @@ export interface ExportKeyringPayload {
   password: string;
 }
 
+export interface ExportAllAccountsPayload {
+  password: string;
+}
+
+export interface RemoveAccountPayload {
+  clientId: string;
+  password: string;
+}
+
 export interface KeyringActionSignatures {
   "pub(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
 
@@ -45,4 +54,6 @@ export interface KeyringActionSignatures {
   "pri(kerying.encryptPin)": [EncryptPinPayload, string];
   "pri(keyring.getEncryptedPin)": [GetEncryptedPinPayload, string];
   "pri(keyring.exportAccount)": [ExportKeyringPayload, string];
+  "pri(keyring.exportAllAccounts)": [ExportAllAccountsPayload, string];
+  "pri(keyring.removeAccount)": [RemoveAccountPayload, boolean];
 }
