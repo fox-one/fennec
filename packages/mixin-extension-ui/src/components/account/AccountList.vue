@@ -115,7 +115,7 @@ class AccountList extends Vue {
 
   async requestAccount(id: string) {
     try {
-      this.user = await this.$endpoints.getUser(id);
+      this.user = await this.$utils.account.getUser(this, id);
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

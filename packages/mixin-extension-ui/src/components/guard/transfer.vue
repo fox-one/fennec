@@ -169,7 +169,7 @@ class TransferGuard extends Vue {
 
   async requestUser(userId: string) {
     try {
-      const res = await this.$endpoints.getUser(userId);
+      const res = await this.$utils.account.getUser(this, userId);
       this.user = res;
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

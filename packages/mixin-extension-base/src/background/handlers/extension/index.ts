@@ -111,6 +111,11 @@ export default function (state: State) {
           payload as ApproveMultisigsPayload
         );
 
+      case "pri(multisigs.reject)":
+        return handlers.rejectMultisigsPayment(
+          payload as RejectMultisigsPayload
+        );
+
       case "pri(rejectMultisigsPayment)":
         return handlers.rejectMultisigsPayment(
           payload as RejectMultisigsPayload

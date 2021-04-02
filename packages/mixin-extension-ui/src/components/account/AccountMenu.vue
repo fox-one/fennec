@@ -12,7 +12,7 @@
         </div>
       </template>
       <template #title>
-        <span>选择账号</span>
+        <span>Select Account</span>
       </template>
       <f-list>
         <account-item
@@ -33,6 +33,10 @@ import { User } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import AccountItem from "../account/AccountItem.vue";
 import AccountAvatar from "../account/AccountAvatar.vue";
+import {
+  ActionTypes,
+  WalletModulePerfix
+} from "../../store/modules/wallet/types";
 
 @Component({
   components: {
@@ -79,7 +83,7 @@ class AccountMenu extends Vue {
 
   async requestCuurentAccount(id: string) {
     this.loading = true;
-    this.currentUser = await this.$endpoints.getUser(id);
+    this.currentUser = await this.$utils.account.getUser(this, id);
     this.loading = false;
   }
 }

@@ -199,7 +199,7 @@ class MultisigsGuard extends Vue {
     try {
       const asset = await this.$endpoints.getAsset(asset_id);
       const users = await Promise.all(
-        receivers.map(async (x) => await this.$endpoints.getUser(x))
+        receivers.map(async (x) => await this.$utils.account.getUser(this, x))
       );
       this.asset = asset;
       this.users = users;

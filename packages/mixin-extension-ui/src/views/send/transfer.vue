@@ -139,7 +139,7 @@ class TransferPage extends Mixins(PageView) {
 
   async requestUser() {
     try {
-      const res = await this.$endpoints.getUser(this.opponentId);
+      const res = await this.$utils.account.getUser(this, this.opponentId);
       this.user = res;
       this.setProperties();
     } catch (error) {

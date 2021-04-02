@@ -51,7 +51,7 @@ class AccountItem extends Vue {
   }
 
   async requestAccount() {
-    this.user = await this.$endpoints.getUser(this.id);
+    this.user = await this.$utils.account.getUser(this, this.id);
   }
 }
 export default AccountItem;

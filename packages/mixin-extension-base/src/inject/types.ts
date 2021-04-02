@@ -1,7 +1,7 @@
 import {
   Asset,
   CreateTransferPayload,
-  RawTransaction
+  RawTransactionRequest
 } from "@foxone/mixin-sdk/types";
 import { SignClientTokenPayload } from "@foxone/mixin-extension-base/background/types/wallet";
 import type {
@@ -57,7 +57,9 @@ export interface InjectedWallet {
   transfer(payload: CreateTransferPayload): Promise<null>;
   signToken(payload: SignClientTokenPayload): Promise<string>;
   multisigsPayment(payload: { code: string }): Promise<boolean>;
-  multisigsGenerate(payload: { transaction: RawTransaction }): Promise<any>;
+  multisigsGenerate(payload: {
+    transaction: RawTransactionRequest;
+  }): Promise<any>;
 }
 
 export interface InjectedData {
