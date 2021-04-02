@@ -1,8 +1,8 @@
 <template>
   <v-list-item>
-    <v-list-item-avatar>
+    <div class="mr-2">
       <account-avatar :url="meta.avatar" size="32" />
-    </v-list-item-avatar>
+    </div>
     <v-list-item-content>
       <v-list-item-title>
         {{ meta.title }}

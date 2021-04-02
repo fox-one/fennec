@@ -8,6 +8,7 @@ import keyring from "./modules/keyring";
 import preference from "./modules/preference";
 import wallet from "./modules/wallet";
 import transfer from "./modules/transfer";
+import multisigs from "./modules/multisigs";
 
 export default function () {
   Vue.use(Vuex);
@@ -18,7 +19,8 @@ export default function () {
     keyring,
     preference,
     wallet,
-    transfer
+    transfer,
+    multisigs
   };
 
   return new Vuex.Store({

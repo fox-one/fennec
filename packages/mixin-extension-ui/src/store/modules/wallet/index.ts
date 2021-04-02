@@ -16,6 +16,7 @@ import {
 } from "@foxone/mixin-sdk/types";
 
 const state: State = {
+  me: null,
   assets: [],
   additionAssets: [],
   exchangeRates: [],
@@ -78,6 +79,9 @@ const mutations: MutationTree<State> & Mutations = {
     if (!state.users.find((x) => x.user_id === user.user_id)) {
       state.users = [...state.users, user];
     }
+  },
+  [MutationTypes.SET_ME](state, user) {
+    state.me = user;
   }
 };
 
@@ -170,6 +174,11 @@ const actions: ActionTree<State, RootState> & Actions = {
     const res = await endpoints.getUser(id);
     commit("SET_USERS", res);
     return res;
+  },
+
+  async [ActionTypes.LOAD_ME]({ commit }, { id }) {
+    const res = await endpoints.getUser(id);
+    commit("SET_ME", res);
   }
 };
 

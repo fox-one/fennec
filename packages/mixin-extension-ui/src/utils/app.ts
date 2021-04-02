@@ -1,5 +1,8 @@
 import { AuthorizeRequest } from "@foxone/mixin-extension-base/state/auth";
-import { TransferReq } from "@foxone/mixin-extension-base/state/wallet";
+import {
+  RawTransactionReq,
+  TransferReq
+} from "@foxone/mixin-extension-base/state/wallet";
 import {
   MutationTypes as AuthMutationTypes,
   AuthModulePerfix
@@ -24,6 +27,10 @@ import {
   MutationTypes as TransferMutationTypes,
   TransferModulePerfix
 } from "../store/modules/transfer/types";
+import {
+  MutationTypes as MultisigsMutationTypes,
+  MultisigsModulePerfix
+} from "../store/modules/multisigs/types";
 
 export function loadAuthorizeRequestsFromBackground(vm: Vue) {
   return new Promise<void>((resolve) => {
@@ -37,15 +44,30 @@ export function loadAuthorizeRequestsFromBackground(vm: Vue) {
   });
 }
 
-export function loadTransferRequestsFromBackground(vm: Vue) {
+export function loadTransferReqsFromBackground(vm: Vue) {
   return new Promise<void>((resolve) => {
-    vm.$messages.subscribeTransferReq((requests: TransferReq[]) => {
+    vm.$messages.subscribeTransferReq((reqs: TransferReq[]) => {
       vm.$store.commit(
         TransferModulePerfix + TransferMutationTypes.UPDATE_TRANSFER_URLS,
-        requests
+        reqs
       );
       resolve();
     });
+  });
+}
+
+export function loadMultisigsTransactionReqsFormBackground(vm: Vue) {
+  return new Promise<void>((resolve) => {
+    vm.$messages.subscribeMultisigsTransactionReq(
+      (reqs: RawTransactionReq[]) => {
+        vm.$store.commit(
+          MultisigsModulePerfix +
+            MultisigsMutationTypes.UPDATE_MULTISIGS_TRANSACTIONS,
+          reqs
+        );
+        resolve();
+      }
+    );
   });
 }
 
@@ -76,6 +98,7 @@ export function loadKeyringFromBackground(vm: Vue) {
 export async function loadWalletData(vm: Vue) {
   const inited = vm.$store.state.keyring.keyring.initialized;
   const locked = !vm.$store.state.keyring.keyring.isUnlocked;
+  const selectedAccount = vm.$store.state.preference.preference.seletedAccount;
   if (!inited || locked) {
     return;
   }
@@ -84,7 +107,10 @@ export async function loadWalletData(vm: Vue) {
     vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ASSETS),
     vm.$store.dispatch(
       WalletModulePerfix + WalletActionTypes.LOAD_EXCHANGE_RATES
-    )
+    ),
+    vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ME, {
+      id: selectedAccount
+    })
   ]);
 }
 
@@ -102,7 +128,8 @@ export async function init(vm: Vue) {
   await loadAuthorizeRequestsFromBackground(vm);
   await loadPerferenceFromBackground(vm);
   await loadKeyringFromBackground(vm);
-  await loadTransferRequestsFromBackground(vm);
+  await loadTransferReqsFromBackground(vm);
+  await loadMultisigsTransactionReqsFormBackground(vm);
   await loadWalletData(vm);
   // startWalletTimer(vm);
 

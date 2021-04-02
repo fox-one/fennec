@@ -1,4 +1,4 @@
-import type { TransferRequest } from "@foxone/mixin-extension-base/state/wallet";
+import type { TransferReq } from "@foxone/mixin-extension-base/state/wallet";
 
 export const TransferModulePerfix = "transfer/";
 
@@ -7,7 +7,7 @@ export const MutationTypes = {
 } as const;
 
 export type State = {
-  transferRequests: TransferRequest[];
+  transferRequests: TransferReq[];
 };
 
 export type Getters = {};

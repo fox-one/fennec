@@ -17,6 +17,7 @@ import { RootState } from "../../types";
 export const WalletModulePerfix = "wallet/";
 
 export interface State {
+  me: User | null;
   assets: Asset[];
   additionAssets: Asset[];
   exchangeRates: ExchangeRate[];
@@ -43,7 +44,8 @@ export const MutationTypes = {
   SET_SNAPSHOTS: "SET_SNAPSHOTS",
   SET_SNAPSHOTS_LOADED: "SET_SNAPSHOTS_LOADED",
   SET_TRANSACTIONS: "SET_TRANSACTIONS",
-  SET_USERS: "SET_USERS"
+  SET_USERS: "SET_USERS",
+  SET_ME: "SET_ME"
 } as const;
 
 export interface Mutations {
@@ -55,6 +57,7 @@ export interface Mutations {
   [MutationTypes.SET_SNAPSHOTS_LOADED](state: State, value: boolean): void;
   [MutationTypes.SET_TRANSACTIONS](state: State, data: Transaction[]): void;
   [MutationTypes.SET_USERS](state: State, data: User): void;
+  [MutationTypes.SET_ME](state: State, data: User): void;
 }
 
 type AugmentedActionContext = {
@@ -69,7 +72,8 @@ export enum ActionTypes {
   LOAD_EXCHANGE_RATES = "LOAD_EXCHANGE_RATES",
   LOAD_SNAPSHOTS = "LOAD_SNAPSHOTS",
   LOAD_TRANSACTIONS = "LOAD_TRANSACTIONS",
-  LOAD_USER = "LOAD_USER"
+  LOAD_USER = "LOAD_USER",
+  LOAD_ME = "LOAD_ME"
 }
 
 export interface Actions {
@@ -84,6 +88,10 @@ export interface Actions {
     payload: { reload: boolean; destination: string; tag: string }
   ): void;
   [ActionTypes.LOAD_USER](
+    { commit }: AugmentedActionContext,
+    payload: { id: string }
+  ): void;
+  [ActionTypes.LOAD_ME](
     { commit }: AugmentedActionContext,
     payload: { id: string }
   ): void;

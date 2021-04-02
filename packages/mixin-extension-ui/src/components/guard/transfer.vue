@@ -74,9 +74,9 @@ class TransferGuard extends Vue {
   request: TransferReq | null = null;
 
   get meta() {
+    const requests = this.$store.state.transfer.transferRequests;
     const format = this.$utils.number.format;
     const currencyExchange = this.$utils.currency.currencyExchange;
-    const requests = this.$store.state.transfer.transferRequests;
     const assetSymbol = this.asset?.symbol ?? "";
     const amount = this.request?.payload?.amount ?? "";
     const amountText = `${format({ n: amount, p: 8 })} ${assetSymbol}`;
@@ -188,7 +188,7 @@ class TransferGuard extends Vue {
 export default TransferGuard;
 </script>
 
-<style scoped>
+<style scss scoped>
 .memo {
   word-break: break-all;
 }

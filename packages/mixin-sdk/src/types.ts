@@ -308,3 +308,30 @@ export interface Ticker {
   price_usd: string;
   type: string;
 }
+
+export interface RawTransactionRequest {
+  asset_id: string;
+  opponent_multisig: OpponentMultisig;
+  amount: string;
+  pin?: string;
+  trace_id?: string;
+  memo?: string;
+}
+
+export interface OpponentMultisig {
+  receivers: string[];
+  threshold: number;
+}
+
+export interface RawTransactionPayment {
+  amount: string;
+  asset_id: string;
+  code_id: string;
+  created_at: string;
+  memo: string;
+  receivers: string[];
+  status: string;
+  threshold: number;
+  trace_id: string;
+  type: string;
+}

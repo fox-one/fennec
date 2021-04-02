@@ -1,5 +1,8 @@
 import { SendMessage } from "@foxone/mixin-extension-base/inject/types";
-import { TransferReq } from "@foxone/mixin-extension-base/state/wallet";
+import {
+  RawTransactionReq,
+  TransferReq
+} from "@foxone/mixin-extension-base/state/wallet";
 
 export default function (sendMessage: SendMessage) {
   return {
@@ -15,6 +18,20 @@ export default function (sendMessage: SendMessage) {
       cb: (requests: TransferReq[]) => void
     ): Promise<boolean> {
       return sendMessage("pri(transfer.list)", null, cb);
+    },
+
+    rejectMultisigsTransactionReq(id: string): Promise<boolean> {
+      return sendMessage("pri(multisigs.reject)", { id });
+    },
+
+    approveMultisigsTransactionReq(id: string): Promise<boolean> {
+      return sendMessage("pri(multisigs.approve)", { id });
+    },
+
+    subscribeMultisigsTransactionReq(
+      cb: (requests: RawTransactionReq[]) => void
+    ): Promise<boolean> {
+      return sendMessage("pri(multisigs.list)", null, cb);
     }
   };
 }

@@ -4,7 +4,10 @@ import type { State } from "../../../state/types";
 import extension from "extensionizer";
 import { PHISHING_PAGE_REDIRECT } from "../../../constants";
 import { SignAuthorizeTokenPayload } from "../../types/keyring";
-import { SignClientTokenPayload } from "../../types/wallet";
+import {
+  MultiSigsPaymentPayload,
+  SignClientTokenPayload
+} from "../../types/wallet";
 import { unix } from "@foxone/mixin-sdk/encrypt";
 import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
 
@@ -52,6 +55,10 @@ export default function createHandlers(state: State) {
 
     requestTransfer(payload: CreateTransferPayload) {
       return state.wallet.transferRequest(payload);
+    },
+
+    requestMultisigsPayment(payload: MultiSigsPaymentPayload) {
+      return state.wallet.multisigsTransactionPayment(payload.transaction);
     },
 
     async redirectIfPhishing(url: string): Promise<boolean> {

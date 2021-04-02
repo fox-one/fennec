@@ -3,7 +3,6 @@
     :src="url || '../../assets/images/default-avatar.vue'"
     :width="size"
     :height="size"
-    class="mr-2"
   />
 </template>
 

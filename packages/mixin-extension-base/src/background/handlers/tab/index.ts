@@ -2,7 +2,10 @@ import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
 import type { AuthTabPayload } from "../../types/auth";
 import type { State } from "../../../state/types";
 import type { SignAuthorizeTokenPayload } from "../../types/keyring";
-import type { SignClientTokenPayload } from "../../types/wallet";
+import type {
+  MultiSigsPaymentPayload,
+  SignClientTokenPayload
+} from "../../types/wallet";
 
 import createHandlers from "./handlers";
 import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
@@ -43,6 +46,11 @@ export default function (state: State) {
 
       case "pub(transfer.request)":
         return handlers.requestTransfer(payload as CreateTransferPayload);
+
+      case "pub(multisigs.request)":
+        return handlers.requestMultisigsPayment(
+          payload as MultiSigsPaymentPayload
+        );
 
       case "pub(token.sign)":
         return handlers.signClientToken(payload as SignClientTokenPayload);

@@ -6,7 +6,8 @@
       <init-guard v-if="!meta.inited" />
       <unlock-guard v-else-if="meta.locked" />
       <auth-guard v-else-if="meta.hasAuthRequest" />
-      <transfer-guard v-else-if="meta.hasTransferRequest" />
+      <transfer-guard v-else-if="meta.hasTransferReq" />
+      <multisigs-guard v-else-if="meta.hasMultisigsTransactionReq" />
       <component v-else :is="layoutComponent">
         <wallet-guard />
       </component>
@@ -22,6 +23,7 @@ import InitGuard from "./components/guard/init.vue";
 import TransferGuard from "./components/guard/transfer.vue";
 import UnlockGuard from "./components/guard/unlock.vue";
 import WalletGuard from "./components/guard/wallet.vue";
+import MultisigsGuard from "./components/guard/multisigs.vue";
 import Modals from "./components/modals/Modals.vue";
 
 @Component({
@@ -32,6 +34,7 @@ import Modals from "./components/modals/Modals.vue";
     TransferGuard,
     UnlockGuard,
     WalletGuard,
+    MultisigsGuard,
     Modals
   }
 })
@@ -54,15 +57,18 @@ class App extends Vue {
     const inited = this.$store.state.keyring.keyring.initialized;
     const locked = !this.$store.state.keyring.keyring.isUnlocked;
     const hasAuthRequest = this.$store.state.auth.authorizeRequests.length > 0;
-    const hasTransferRequest =
+    const hasTransferReq =
       this.$store.state.transfer.transferRequests.length > 0;
+    const hasMultisigsTransactionReq =
+      this.$store.state.multisigs.transactionRequests.length > 0;
 
     return {
       initing,
       inited,
       locked,
       hasAuthRequest,
-      hasTransferRequest
+      hasTransferReq,
+      hasMultisigsTransactionReq
     };
   }
 

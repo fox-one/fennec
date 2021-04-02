@@ -31,13 +31,8 @@ class ActionSelectKeystore extends Vue {
   }
 
   async handleSelectAccount() {
-    if (this.id === this.meta.selectedAccount) {
-      this.$emit("completed");
-      return;
-    }
     this.loading = true;
-    await this.$messages.selectAccount(this.id);
-    this.$utils.app.loadWalletData(this);
+    this.$utils.account.selectAccount(this, this.id);
     this.$emit("completed");
     this.loading = false;
   }

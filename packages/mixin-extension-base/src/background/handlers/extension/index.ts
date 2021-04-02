@@ -17,8 +17,10 @@ import createPreferenceHandlers from "./preference";
 import createWalletHandlers from "./wallet";
 import createPlatformHandlers from "./platform";
 import {
+  ApproveMultisigsPayload,
   ApproveTransferPayload,
-  RejectTransferPayload
+  RejectTransferPayload,
+  RejectMultisigsPayload
 } from "../../types/wallet";
 import { SelectAccountPaylod } from "../../types/preference";
 
@@ -100,6 +102,19 @@ export default function (state: State) {
 
       case "pri(transfer.reject)":
         return handlers.rejectTransfer(payload as RejectTransferPayload);
+
+      case "pri(multisigs.list)":
+        return handlers.multisigPaymentSubscribe(id, port);
+
+      case "pri(multisigs.approve)":
+        return handlers.approveMultisigsPayment(
+          payload as ApproveMultisigsPayload
+        );
+
+      case "pri(rejectMultisigsPayment)":
+        return handlers.rejectMultisigsPayment(
+          payload as RejectMultisigsPayload
+        );
 
       // Platform
       case "pri(platform.closePopup)":

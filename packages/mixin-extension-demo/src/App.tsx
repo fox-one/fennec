@@ -5,6 +5,7 @@ import GetAccount from "../components/GetAccount";
 import GetAsset from "../components/GetAsset";
 import Transfer from "../components/Transfer";
 import SignToken from "../components/SignToken";
+import Multisigs from "../components/Multisigs";
 
 export default defineComponent(() => {
   let ctx = ref<null | InjectedData>(null);
@@ -36,6 +37,10 @@ export default defineComponent(() => {
           <div class="action mt-5">
             <div class="label">Transfer</div>
             <Transfer ctx={ctx.value} connected={connected.value} />
+          </div>
+          <div class="action mt-5">
+            <div class="label">Multisigs</div>
+            <Multisigs ctx={ctx.value} connected={connected.value} />
           </div>
           <div class="action mt-5">
             <div class="label">Sign Token</div>

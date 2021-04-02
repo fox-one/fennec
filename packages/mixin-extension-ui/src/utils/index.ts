@@ -5,5 +5,6 @@ import * as currency from "./currency";
 import * as color from "./color";
 import * as enums from "./enums";
 import * as time from "./time";
+import * as account from "./account";
 
-export default { app, helper, number, currency, color, enums, time };
+export default { app, helper, number, currency, color, enums, time, account };

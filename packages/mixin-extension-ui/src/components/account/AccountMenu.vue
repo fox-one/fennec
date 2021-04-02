@@ -4,7 +4,7 @@
     <f-bottom-sheet v-model="dialog">
       <template #activator="{ on }">
         <div class="account" v-on="on">
-          <account-avatar :url="meta.currentUserAvatar" />
+          <account-avatar :url="meta.currentUserAvatar" class="mr-2" />
           <span class="account-name mr-1">{{ meta.currentUserName }}</span>
           <v-icon size="14">
             {{ $icons.mdiChevronDown }}
@@ -72,13 +72,8 @@ class AccountMenu extends Vue {
   }
 
   async handleSelectAccount(account: string) {
-    this.dialog = false;
-    if (account === this.currentUser?.user_id) {
-      return;
-    }
     this.loading = true;
-    await this.$messages.selectAccount(account);
-    this.$utils.app.loadWalletData(this);
+    await this.$utils.account.selectAccount(this, account);
     this.loading = false;
   }
 

@@ -22,7 +22,9 @@ import type {
   Transaction,
   ExchangeRate,
   RelationshipActionPayload,
-  NetworkSnapshot
+  NetworkSnapshot,
+  RawTransactionRequest,
+  RawTransactionPayment
 } from "./types";
 
 import { HttpMethod } from "./types";
@@ -81,6 +83,18 @@ function createProvider(provider: ProviderInterface) {
 
     getFee(assetId: string): Promise<Fee> {
       return provider.send(`/assets/${assetId}/fee`, HttpMethod.GET);
+    },
+
+    codes(code: string) {
+      return provider.send(`/codes/${code}`, HttpMethod.GET);
+    },
+
+    transactions(opts: RawTransactionRequest) {
+      return provider.send("/transactions", HttpMethod.POST, opts);
+    },
+
+    payments(opts: RawTransactionRequest): Promise<RawTransactionPayment> {
+      return provider.send("/payments", HttpMethod.POST, opts);
     },
 
     // Multisigs
