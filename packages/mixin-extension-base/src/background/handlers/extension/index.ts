@@ -22,7 +22,10 @@ import {
   RejectTransferPayload,
   RejectMultisigsPayload
 } from "../../types/wallet";
-import { SelectAccountPaylod } from "../../types/preference";
+import {
+  SelectAccountPaylod,
+  UpdateAccountProvidersPayload
+} from "../../types/preference";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -92,6 +95,11 @@ export default function (state: State) {
 
       case "pri(perference.selectAccount)":
         return handlers.selectAccount(payload as SelectAccountPaylod);
+
+      case "pri(perference.updateAccountProviders)":
+        return handlers.updateAccountProviders(
+          payload as UpdateAccountProvidersPayload
+        );
 
       // Wallet
       case "pri(transfer.list)":

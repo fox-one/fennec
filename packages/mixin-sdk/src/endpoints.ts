@@ -24,7 +24,8 @@ import type {
   RelationshipActionPayload,
   NetworkSnapshot,
   RawTransactionRequest,
-  RawTransactionPayment
+  RawTransactionPayment,
+  UpdateProfilePayload
 } from "./types";
 
 import { HttpMethod } from "./types";
@@ -152,6 +153,10 @@ function createProvider(provider: ProviderInterface) {
     // Bot
     getMe(): Promise<User> {
       return provider.send("/me", HttpMethod.GET);
+    },
+
+    updateProfile(opts: UpdateProfilePayload) {
+      return provider.send("/me", HttpMethod.POST, opts);
     },
 
     getUser(id: string): Promise<User> {

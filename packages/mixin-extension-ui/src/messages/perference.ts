@@ -1,5 +1,8 @@
 import type { SendMessage } from "@foxone/mixin-extension-base/inject/types";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import {
+  AccountProvider,
+  PerferenceStore
+} from "@foxone/mixin-extension-base/state/types";
 
 export default function (sendMessage: SendMessage) {
   return {
@@ -13,6 +16,12 @@ export default function (sendMessage: SendMessage) {
 
     selectAccount(clientId: string) {
       return sendMessage("pri(perference.selectAccount)", { clientId });
+    },
+
+    updateAccountProviders(providers: AccountProvider[]) {
+      return sendMessage("pri(perference.updateAccountProviders)", {
+        providers
+      });
     }
   };
 }

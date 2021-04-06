@@ -7,7 +7,9 @@
       v-else-if="!empty"
       class="empty-hint text-secondary caption text-center pa-5"
     >
-      {{ hint || "Data is empty" }}
+      <slot name="empty">
+        {{ hint || "Data is empty" }}
+      </slot>
     </div>
     <slot v-else />
   </div>

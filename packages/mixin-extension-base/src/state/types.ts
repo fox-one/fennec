@@ -20,9 +20,15 @@ export interface State {
   platform: PlatformState;
 }
 
+export interface AccountProvider {
+  type: "build-in" | "customer";
+  value: string;
+}
+
 export interface PerferenceStore {
   completeOnboarding: boolean;
   seletedAccount: undefined | string;
+  accountProviders: AccountProvider[];
 }
 
 export interface Store {

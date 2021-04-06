@@ -335,3 +335,8 @@ export interface RawTransactionPayment {
   trace_id: string;
   type: string;
 }
+
+export interface UpdateProfilePayload {
+  full_name: string;
+  avatar_base64: string;
+}

@@ -1,13 +1,22 @@
 <template>
   <v-list-item>
-    <div class="mr-2">
+    <div class="mr-2 d-flex">
       <account-avatar :url="meta.avatar" size="32" />
     </div>
     <v-list-item-content>
-      <v-list-item-title>
+      <v-list-item-title
+        class="py-1"
+        :class="[{ 'primary--text': meta.active }]"
+      >
         {{ meta.title }}
+        <!-- <v-chip v-if="meta.active" small color="primary" class="py-1">
+          Current
+        </v-chip> -->
       </v-list-item-title>
-      <v-list-item-subtitle class="f-caption">
+      <v-list-item-subtitle
+        class="f-caption"
+        :class="[{ 'primary--text': meta.active }]"
+      >
         {{ meta.subtitle }}
       </v-list-item-subtitle>
     </v-list-item-content>
@@ -36,13 +45,16 @@ import AccountAvatar from "../account/AccountAvatar.vue";
 class AccountItem extends Vue {
   @Prop() id!: string;
 
+  @Prop() current!: string;
+
   user: User | null = null;
 
   get meta() {
     return {
       title: this.user?.full_name ?? "-",
       subtitle: this.id,
-      avatar: this.user?.avatar_url
+      avatar: this.user?.avatar_url,
+      active: this.current === this.id
     };
   }
 

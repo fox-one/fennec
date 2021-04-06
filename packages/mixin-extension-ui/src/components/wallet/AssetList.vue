@@ -1,5 +1,10 @@
 <template>
   <list-wapper :data="meta.assets">
+    <template #empty>
+      <div class="text-center">
+        <add-default-assets />
+      </div>
+    </template>
     <v-list>
       <v-list-item
         v-for="(asset, index) in meta.assets"
@@ -38,6 +43,7 @@
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import ListWapper from "../common/ListWarpper.vue";
+import AddDefaultAssets from "../wallet/AddDefaultAssets.vue";
 import {
   WalletModulePerfix,
   GetterKeys
@@ -45,7 +51,8 @@ import {
 
 @Component({
   components: {
-    ListWapper
+    ListWapper,
+    AddDefaultAssets
   }
 })
 class AssetList extends Vue {

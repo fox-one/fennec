@@ -164,10 +164,10 @@ const actions: ActionTree<State, RootState> & Actions = {
     commit(MutationTypes.SET_TRANSACTIONS, data);
   },
 
-  async [ActionTypes.LOAD_USER]({ commit, state }, { id }) {
+  async [ActionTypes.LOAD_USER]({ commit, state }, { id, force }) {
     const users = state.users;
     const user = users.find((x) => x.user_id === id);
-    if (user) {
+    if (!force && user) {
       return user;
     }
 

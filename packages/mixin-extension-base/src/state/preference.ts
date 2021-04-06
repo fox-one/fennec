@@ -1,4 +1,4 @@
-import type { Store, PerferenceStore } from "./types";
+import type { Store, PerferenceStore, AccountProvider } from "./types";
 
 import { BehaviorSubject } from "rxjs";
 import { initPerferenceData } from "./init-data";
@@ -6,7 +6,7 @@ import { initPerferenceData } from "./init-data";
 export default class PerferenceState {
   #store: BehaviorSubject<Store>;
 
-  #preference: PerferenceStore = initPerferenceData;
+  #preference: PerferenceStore = initPerferenceData as PerferenceStore;
 
   perferenceSubjection: BehaviorSubject<PerferenceStore> = new BehaviorSubject<PerferenceStore>(
     this.#preference
@@ -41,8 +41,16 @@ export default class PerferenceState {
     return true;
   }
 
+  setAccountProviders(providers: AccountProvider[]) {
+    const preference: PerferenceStore = {
+      ...this.#preference,
+      accountProviders: providers
+    };
+    this.updatePerference(preference);
+    return true;
+  }
+
   private updatePerference(data: PerferenceStore) {
-    console.log(`updatePerference: data :: ${data}`);
     this.#preference = data;
     this.perferenceSubjection.next(data);
     this.#store.next({ ...this.#store.getValue(), preference: data });

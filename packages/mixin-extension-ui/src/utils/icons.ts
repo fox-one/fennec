@@ -15,7 +15,10 @@ import {
   mdiDownload,
   mdiPaperclip,
   mdiChevronDown,
-  mdiChevronRight
+  mdiChevronRight,
+  mdiAccountCircle,
+  mdiPencilBox,
+  mdiLinkVariant
 } from "@mdi/js";
 
 export default {
@@ -35,5 +38,8 @@ export default {
   mdiDownload,
   mdiPaperclip,
   mdiChevronDown,
-  mdiChevronRight
+  mdiChevronRight,
+  mdiAccountCircle,
+  mdiPencilBox,
+  mdiLinkVariant
 };

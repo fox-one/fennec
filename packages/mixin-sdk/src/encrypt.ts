@@ -36,7 +36,7 @@ export function signAuthenticationToken(
   }
 
   const md = forge.md.sha256.create();
-  md.update(forge.util.encodeUtf8(method + uri + data));
+  md.update(forge.util.encodeUtf8(method.toUpperCase() + uri + data));
   return jwt.sign(
     {
       uid: clientId,

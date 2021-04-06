@@ -7,7 +7,7 @@ import Transfer from "../views/send/transfer.vue";
 import Withdraw from "../views/send/withdraw.vue";
 import AssetDetail from "../views/asset/_id.vue";
 import SnapshotDetail from "../views/snapshot/_id.vue";
-import Settings from "../views/settings.vue";
+import Settings from "../views/settings/index.vue";
 import Import from "../views/import.vue";
 import BackUp from "../views/backup.vue";
 

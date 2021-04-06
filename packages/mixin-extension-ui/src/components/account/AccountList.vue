@@ -4,31 +4,10 @@
       v-for="(item, index) in meta.accounts"
       :key="index"
       :id="item"
+      :current="meta.selectedAccount"
       class="pa-0"
       @click.native="handleClick(item)"
     />
-
-    <v-btn
-      rounded
-      block
-      depressed
-      outlined
-      color="primary"
-      class="mt-6"
-      @click="handleImport"
-    >
-      Import
-    </v-btn>
-    <v-btn
-      rounded
-      block
-      depressed
-      color="primary"
-      class="mt-3"
-      @click="handleToBackup"
-    >
-      Backup
-    </v-btn>
 
     <f-bottom-sheet v-model="dialog">
       <template #title> {{ meta.currentUserName }} </template>
@@ -92,10 +71,6 @@ class AccountList extends Vue {
     this.requestAccount(value);
   }
 
-  handleImport() {
-    this.$router.push({ name: "import" });
-  }
-
   handleSelected() {
     this.dialog = false;
   }
@@ -107,10 +82,6 @@ class AccountList extends Vue {
   handleClick(account: Account) {
     this.currentAccount = account;
     this.dialog = true;
-  }
-
-  handleToBackup() {
-    this.$router.push({ name: "backup" });
   }
 
   async requestAccount(id: string) {

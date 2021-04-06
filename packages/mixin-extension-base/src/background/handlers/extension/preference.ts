@@ -1,5 +1,8 @@
 import type { State } from "../../../state/types";
-import { SelectAccountPaylod } from "../../types/preference";
+import {
+  SelectAccountPaylod,
+  UpdateAccountProvidersPayload
+} from "../../types/preference";
 import { createSubscription, unsubscribe } from "../subscriptions";
 
 export default function createPerferenceHandlers(state: State) {
@@ -26,6 +29,10 @@ export default function createPerferenceHandlers(state: State) {
 
     selectAccount({ clientId }: SelectAccountPaylod) {
       return state.preference.setSelectedAccount(clientId);
+    },
+
+    updateAccountProviders(paylaod: UpdateAccountProvidersPayload) {
+      return state.preference.setAccountProviders(paylaod.providers);
     }
   };
 }

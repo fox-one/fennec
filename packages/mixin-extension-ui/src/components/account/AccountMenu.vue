@@ -33,10 +33,6 @@ import { User } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import AccountItem from "../account/AccountItem.vue";
 import AccountAvatar from "../account/AccountAvatar.vue";
-import {
-  ActionTypes,
-  WalletModulePerfix
-} from "../../store/modules/wallet/types";
 
 @Component({
   components: {
@@ -78,6 +74,7 @@ class AccountMenu extends Vue {
   async handleSelectAccount(account: string) {
     this.loading = true;
     await this.$utils.account.selectAccount(this, account);
+    this.dialog = false;
     this.loading = false;
   }
 

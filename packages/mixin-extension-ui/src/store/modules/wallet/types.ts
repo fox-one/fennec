@@ -89,7 +89,7 @@ export interface Actions {
   ): void;
   [ActionTypes.LOAD_USER](
     { commit }: AugmentedActionContext,
-    payload: { id: string }
+    payload: { id: string; force: boolean }
   ): void;
   [ActionTypes.LOAD_ME](
     { commit }: AugmentedActionContext,

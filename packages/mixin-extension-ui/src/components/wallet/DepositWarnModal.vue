@@ -35,10 +35,10 @@ import {
   WalletModulePerfix
 } from "../../store/modules/wallet/types";
 import {
-  BITCOIN_CHAIN_ID,
-  ETHEREUM_CHAIN_ID,
-  EOS_CHAIN_ID,
-  TRON_CHAIN_ID
+  BTC_ASSET_ID,
+  ETHEREUM_ASSET_ID,
+  EOS_ASSET_ID,
+  TRON_ASSET_ID
 } from "../../defaults";
 
 @Component
@@ -74,7 +74,7 @@ class DepositWarnModal extends Vue {
 
   getAttention(id, name) {
     switch (id) {
-      case EOS_CHAIN_ID:
+      case EOS_ASSET_ID:
         return `Attention: Please try a small amount for the first deposit. Both a Memo and an Address are required to successfully deposit your ${name}.`;
       default:
         return `For first deposit to a new address, please try a small amount!`;
@@ -83,13 +83,13 @@ class DepositWarnModal extends Vue {
 
   getTip(id, name) {
     switch (id) {
-      case BITCOIN_CHAIN_ID:
+      case BTC_ASSET_ID:
         return `This address only supports BTC and Omni USDT.`;
-      case EOS_CHAIN_ID:
+      case EOS_ASSET_ID:
         return `This address supports all base on EOS tokens, such as EOS, IQ, BLACK, OCT, KARMA, etc.`;
-      case ETHEREUM_CHAIN_ID:
+      case ETHEREUM_ASSET_ID:
         return `This address supports all ERC-20 tokens, such as ETH, XIN, TUSD, HT, LOOM, LEO, etc.`;
-      case TRON_CHAIN_ID:
+      case TRON_ASSET_ID:
         return `This address supports all TRC-10 and TRC-20 tokens, such as TRX, BTT, USDT-TRON, etc.`;
       default:
         return `This address only supports ${name}.`;
