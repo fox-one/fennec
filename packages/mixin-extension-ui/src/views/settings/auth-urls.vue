@@ -3,11 +3,13 @@
     <f-loading v-if="loading" fullscreen :loading="loading" />
     <f-panel class="pa-0">
       <div class="f-caption pa-3">Manage Website Access</div>
-      <auth-url-item
-        v-for="(item, index) in authUrls"
-        :key="index"
-        :auth-url="item"
-      />
+      <list-warpper :data="authUrls" :loading="loading">
+        <auth-url-item
+          v-for="(item, index) in authUrls"
+          :key="index"
+          :auth-url="item"
+        />
+      </list-warpper>
     </f-panel>
   </v-container>
 </template>
@@ -17,8 +19,9 @@ import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../../mixin/page";
 import AuthUrlItem from "../../components/auth/AuthUrlItem.vue";
 import { AuthUrlInfo } from "@foxone/mixin-extension-base/state/auth";
+import ListWarpper from "../../components/common/ListWarpper.vue";
 
-@Component({ components: { AuthUrlItem } })
+@Component({ components: { AuthUrlItem, ListWarpper } })
 class AuthUrlsPage extends Mixins(PageView) {
   authUrls: AuthUrlInfo[] = [];
 

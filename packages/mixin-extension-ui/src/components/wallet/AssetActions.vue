@@ -1,23 +1,25 @@
 <template>
   <div class="asset-actions mt-3 text-center">
     <div class="action-item px-5" @click="handleDeposit">
-      <v-btn icon>
-        <img src="../../assets/images/deposit.svg" class="icon" />
-      </v-btn>
+      <img src="../../assets/images/deposit.svg" class="icon" />
       <div class="caption text--secondary">Receive</div>
     </div>
 
     <div class="action-item px-5" @click="handleSend">
-      <v-btn icon>
-        <img src="../../assets/images/withdraw.svg" class="icon" />
-      </v-btn>
+      <img src="../../assets/images/withdraw.svg" class="icon" />
       <div class="caption text--secondary">Send</div>
     </div>
 
     <div class="action-item px-5" @click="handleSwap">
-      <v-btn icon>
+      <a
+        :href="FSWAP_URL"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="4Swap"
+      >
         <img src="../../assets/images/transfer.svg" class="icon" />
-      </v-btn>
+      </a>
+
       <div class="caption text--secondary">Swap</div>
     </div>
   </div>
@@ -26,10 +28,13 @@
 <script lang="ts">
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { FSWAP_URL } from "../../defaults";
 
 @Component
 class AssetActions extends Vue {
   @Prop() asset!: Asset | undefined;
+
+  FSWAP_URL = FSWAP_URL;
 
   handleDeposit() {
     this.$router.push({

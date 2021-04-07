@@ -2,6 +2,8 @@ import pkg from "../package.json";
 
 export const VERSION = "v" + pkg.version;
 
+export const FSWAP_URL = "https://f1-4swap-mtg.firesbox.com/#/";
+
 export const EVENTS = {
   CONFIRM_PASSWORD: "CONFIRM_PASSWORD"
 };
