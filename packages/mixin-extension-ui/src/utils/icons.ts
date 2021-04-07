@@ -18,7 +18,8 @@ import {
   mdiChevronRight,
   mdiAccountCircle,
   mdiPencilBox,
-  mdiLinkVariant
+  mdiLinkVariant,
+  mdiFullscreen
 } from "@mdi/js";
 
 export default {
@@ -41,5 +42,6 @@ export default {
   mdiChevronRight,
   mdiAccountCircle,
   mdiPencilBox,
-  mdiLinkVariant
+  mdiLinkVariant,
+  mdiFullscreen
 };

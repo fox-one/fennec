@@ -20,6 +20,7 @@ export async function selectAccount(vm: Vue, id: string) {
 }
 
 export async function getUser(vm: Vue, id: string, force = false) {
+  if (!id) return;
   return await vm.$store.dispatch(WalletModulePerfix + ActionTypes.LOAD_USER, {
     id,
     force

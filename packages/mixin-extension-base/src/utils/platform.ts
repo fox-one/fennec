@@ -87,8 +87,8 @@ export function getVersion() {
   return extension.runtime.getManifest().version;
 }
 
-export function openExtensionInBrowser(route = null, queryString = null) {
-  let extensionURL = extension.runtime.getURL("home.html");
+export function openExtensionInBrowser(route, queryString) {
+  let extensionURL = extension.runtime.getURL("index.html");
   if (queryString) {
     extensionURL += `?${queryString}`;
   }

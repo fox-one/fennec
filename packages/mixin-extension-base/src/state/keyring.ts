@@ -112,7 +112,6 @@ export default class KeyringState {
   }
 
   public async removeAccount(clientId: string, password: string) {
-    debugger;
     if (!this.#keyring) {
       throw "No stored keyring";
     }
@@ -197,7 +196,6 @@ export default class KeyringState {
   }
 
   private updateKeyringMemState(data: KeyringMemState) {
-    debugger;
     this.#state = {
       ...data,
       initialized: Boolean(this.#store.getValue().keyring)

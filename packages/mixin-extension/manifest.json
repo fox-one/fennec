@@ -1,9 +1,9 @@
 {
   "author": "foxone",
-  "description": "TODO: Add description",
+  "description": "Fennec: Mixin Chrome Extension Wallet",
   "homepage_url": "https://fox.one",
-  "name": "Mixin Extension",
-  "short_name": "Mixin Extension",
+  "name": "Fennec",
+  "short_name": "Fennec",
   "default_locale": "en",
   "manifest_version": 2,
   "permissions": ["storage"],
@@ -12,8 +12,8 @@
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Mixin Extension",
-    "default_popup": "index.html"
+    "default_title": "Fennec: Mixin Chrome Extension Wallet",
+    "default_popup": "popup.html"
   },
   "content_scripts": [{
     "js": ["content.js"],
@@ -27,6 +27,5 @@
     "48": "icons/48.png",
     "128": "icons/128.png"
   },
-  "web_accessible_resources": ["page.js"],
-  "content_security_policy": "script-src 'self' http://localhost:8098 blob: 'unsafe-eval' 'wasm-eval'; object-src 'self'"
+  "web_accessible_resources": ["page.js"]
 }

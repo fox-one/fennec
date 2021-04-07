@@ -41,7 +41,6 @@ class UnLockPage extends Vue {
 
   checkUnlockStatus() {
     this.counter -= 1;
-    debugger;
     const isUnlocked = this.$store.state.keyring.keyring.isUnlocked;
     if (isUnlocked) {
       this.confirmUnlocked();

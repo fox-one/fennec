@@ -14,12 +14,6 @@ import type {
   ExportAllAccountsPayload
 } from "../../types/keyring";
 import type { State } from "../../../state/types";
-
-import createAuthHandlers from "./auth";
-import createKeyringHandlers from "./keyring";
-import createPreferenceHandlers from "./preference";
-import createWalletHandlers from "./wallet";
-import createPlatformHandlers from "./platform";
 import {
   ApproveMultisigsPayload,
   ApproveTransferPayload,
@@ -30,6 +24,13 @@ import {
   SelectAccountPaylod,
   UpdateAccountProvidersPayload
 } from "../../types/preference";
+import type { OpenWindowPayload } from "../../types/platform";
+
+import createAuthHandlers from "./auth";
+import createKeyringHandlers from "./keyring";
+import createPreferenceHandlers from "./preference";
+import createWalletHandlers from "./wallet";
+import createPlatformHandlers from "./platform";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -142,6 +143,9 @@ export default function (state: State) {
       // Platform
       case "pri(platform.closePopup)":
         return handlers.closePopup();
+
+      case "pri(platform.openWindow)":
+        return handlers.openWindow(payload as OpenWindowPayload);
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

@@ -165,6 +165,7 @@ const actions: ActionTree<State, RootState> & Actions = {
   },
 
   async [ActionTypes.LOAD_USER]({ commit, state }, { id, force }) {
+    if (!id) return;
     const users = state.users;
     const user = users.find((x) => x.user_id === id);
     if (!force && user) {
@@ -177,6 +178,7 @@ const actions: ActionTree<State, RootState> & Actions = {
   },
 
   async [ActionTypes.LOAD_ME]({ commit }, { id }) {
+    if (!id) return;
     const res = await endpoints.getUser(id);
     commit("SET_ME", res);
   }

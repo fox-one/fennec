@@ -72,3 +72,7 @@ export function convertToListAsset(vm: Vue, asset: Asset): MixinAsset {
     chainLogo: asset && getChainAssetLogo(vm, asset.chain_id)
   };
 }
+
+export function isPopup() {
+  return window.innerWidth <= 500;
+}

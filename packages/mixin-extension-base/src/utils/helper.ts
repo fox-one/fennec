@@ -13,32 +13,6 @@ export function stripUrl(url: string) {
   return url.split("/")[2];
 }
 
-export function openPopup(windows: number[]) {
-  const WINDOW_OPTS = {
-    height: 620,
-    left: 150,
-    top: 150,
-    type: "popup",
-    url: chrome.extension.getURL("notification.html"),
-    width: 360
-  };
-
-  extension.windows.create(
-    { ...WINDOW_OPTS },
-    (window: chrome.windows.Window) => {
-      if (window) {
-        windows.push(window.id);
-      }
-    }
-  );
-}
-
-export function closePopup(windows: number[]) {
-  windows.forEach((id) => {
-    extension.windows.remove(id);
-  });
-}
-
 export function checkForError() {
   const { lastError } = extension.runtime;
   if (!lastError) {

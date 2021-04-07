@@ -64,11 +64,11 @@ class AccountMenu extends Vue {
 
   @Watch("meta.selectedAccount")
   handleAccountChange() {
-    this.requestCuurentAccount(this.meta.selectedAccount);
+    this.requestCurrentAccount(this.meta.selectedAccount);
   }
 
   mounted() {
-    this.requestCuurentAccount(this.meta.selectedAccount);
+    this.requestCurrentAccount(this.meta.selectedAccount);
   }
 
   async handleSelectAccount(account: string) {
@@ -78,7 +78,8 @@ class AccountMenu extends Vue {
     this.loading = false;
   }
 
-  async requestCuurentAccount(id: string) {
+  async requestCurrentAccount(id: string) {
+    if (!id) return;
     this.loading = true;
     this.currentUser = await this.$utils.account.getUser(this, id);
     this.loading = false;
