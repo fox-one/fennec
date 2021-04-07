@@ -37,6 +37,14 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 class AccountsActions extends Vue {
   dialog = false;
+
+  handleImport() {
+    this.$router.push({ name: "import" });
+  }
+
+  handleToBackup() {
+    this.$router.push({ name: "backup" });
+  }
 }
 export default AccountsActions;
 </script>

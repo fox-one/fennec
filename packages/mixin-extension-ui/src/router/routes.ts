@@ -8,6 +8,7 @@ import Withdraw from "../views/send/withdraw.vue";
 import AssetDetail from "../views/asset/_id.vue";
 import SnapshotDetail from "../views/snapshot/_id.vue";
 import Settings from "../views/settings/index.vue";
+import AuthUrls from "../views/settings/auth-urls.vue";
 import Import from "../views/import.vue";
 import BackUp from "../views/backup.vue";
 
@@ -56,6 +57,11 @@ const routes: RouteConfig[] = [
     path: "/settings",
     name: "settings",
     component: Settings
+  },
+  {
+    path: "/settings/authUrls",
+    name: "settings-authUrls",
+    component: AuthUrls
   },
   {
     path: "/import",

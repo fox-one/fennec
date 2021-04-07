@@ -1,16 +1,26 @@
 <template>
-  <v-container>
-    <f-panel class="mb-5">
-      <div class="f-caption">Profile</div>
+  <v-container class="pa-0">
+    <f-panel class="mb-5 rounded-0">
       <account-profile />
     </f-panel>
-    <f-panel>
-      <div class="f-caption">Accounts <accounts-actions /></div>
-      <account-list />
-    </f-panel>
-    <p class="text-center text--secondary caption mt-2">
-      {{ meta.version }}
-    </p>
+    <div class="pa-3">
+      <f-panel class="mb-5 pa-0">
+        <div class="f-caption pa-3">Accounts <accounts-actions /></div>
+        <account-list />
+      </f-panel>
+      <f-panel class="pa-0">
+        <div class="f-caption pa-3">Settings</div>
+        <f-list>
+          <f-list-item
+            title="Manage Website Access"
+            @click.native="handleManageWebsiteAccess"
+          />
+        </f-list>
+      </f-panel>
+      <p class="text-center text--secondary caption mt-2">
+        {{ meta.version }}
+      </p>
+    </div>
   </v-container>
 </template>
 
@@ -20,10 +30,12 @@ import PageView from "../../mixin/page";
 import AccountList from "../../components/account/AccountList.vue";
 import AccountProfile from "../../components/account/AccountProfile.vue";
 import AccountsActions from "../../components/account/AccountsActions.vue";
+import AuthUrls from "../../components/auth/AuthUrlItem.vue";
 import { VERSION } from "../../defaults";
 
 @Component({
   components: {
+    AuthUrls,
     AccountList,
     AccountProfile,
     AccountsActions
@@ -38,6 +50,10 @@ class SettingsPage extends Mixins(PageView) {
     return {
       version: VERSION
     };
+  }
+
+  handleManageWebsiteAccess() {
+    this.$router.push({ name: "settings-authUrls" });
   }
 }
 export default SettingsPage;

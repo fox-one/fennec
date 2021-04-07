@@ -4,7 +4,8 @@ import type { AuthorizeRequest } from "@foxone/mixin-extension-base/state/auth";
 export const AuthModulePerfix = "auth/";
 
 export const MutationTypes = {
-  UPDATE_AUTHORIZE_URLS: "UPDATE_AUTHORIZE_URLS"
+  UPDATE_AUTHORIZE_URLS: "UPDATE_AUTHORIZE_URLS",
+  UPDATE_AUTHORIZE_REQUESTS: "UPDATE_AUTHORIZE_REQUESTS"
 } as const;
 
 export type State = {
@@ -12,7 +13,11 @@ export type State = {
 };
 
 export type Mutations = {
-  [MutationTypes.UPDATE_AUTHORIZE_URLS](s: State, v: AuthorizeRequest[]): void;
+  [MutationTypes.UPDATE_AUTHORIZE_REQUESTS](
+    s: State,
+    v: AuthorizeRequest[]
+  ): void;
+  [MutationTypes.UPDATE_AUTHORIZE_URLS](s: State, v): void;
 };
 
 export type Getters = {};

@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div v-if="!loading" class="profile">
     <div class="text-center">
       <account-avatar :url="meta.avatar" size="32" />
       <div class="f-body-2 font-weight-bold">

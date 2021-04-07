@@ -1,5 +1,8 @@
 import { SendMessage } from "@foxone/mixin-extension-base/inject/types";
-import { AuthorizeRequest } from "@foxone/mixin-extension-base/state/auth";
+import {
+  AuthorizeRequest,
+  AuthUrlInfo
+} from "@foxone/mixin-extension-base/state/auth";
 
 export default function (sendMessage: SendMessage) {
   return {
@@ -15,6 +18,14 @@ export default function (sendMessage: SendMessage) {
       cb: (requests: AuthorizeRequest[]) => void
     ): Promise<boolean> {
       return sendMessage("pri(authorize.requests)", null, cb);
+    },
+
+    getAuthUrls() {
+      return sendMessage("pri(authorize.authUrls)");
+    },
+
+    updateAuthUrl(id: string, data: AuthUrlInfo) {
+      return sendMessage("pri(authorize.update)", { id, data });
     }
   };
 }

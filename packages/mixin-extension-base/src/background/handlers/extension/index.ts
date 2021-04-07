@@ -1,5 +1,9 @@
 import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
-import type { ApproveAuthPayload, RejectAuthPayload } from "../../types/auth";
+import type {
+  ApproveAuthPayload,
+  RejectAuthPayload,
+  UpdateAuthUrlPayload
+} from "../../types/auth";
 import type {
   CreateAccountPayload,
   UnlockKeyringPayload,
@@ -58,6 +62,12 @@ export default function (state: State) {
 
       case "pri(authorize.reject)":
         return handlers.rejectAuthorize(payload as RejectAuthPayload);
+
+      case "pri(authorize.authUrls)":
+        return handlers.getAuthUrls();
+
+      case "pri(authorize.update)":
+        return handlers.updateAuthUrl(payload as UpdateAuthUrlPayload);
 
       // Keyring
       case "pri(keyring.createAccount)":

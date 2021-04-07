@@ -5,7 +5,6 @@
       :key="index"
       :id="item"
       :current="meta.selectedAccount"
-      class="pa-0"
       @click.native="handleClick(item)"
     />
 

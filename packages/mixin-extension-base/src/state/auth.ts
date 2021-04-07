@@ -189,4 +189,14 @@ export default class AuthState {
   public getAuthRequest(id: string): AuthRequest {
     return this.#authRequests[id];
   }
+
+  public getAuthUrls(): AuthUrlInfo[] {
+    return Object.values(this.#authUrls);
+  }
+
+  public updateAuthUrl(id: string, data: AuthUrlInfo) {
+    const authUrls = { ...this.#authUrls, [id]: data };
+    this.persistAuthUrls(authUrls);
+    return true;
+  }
 }

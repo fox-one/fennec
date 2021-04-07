@@ -1,5 +1,6 @@
 import { AuthorizeRequest } from "@foxone/mixin-extension-base/state/auth";
 import type { State } from "../../../state/types";
+import { UpdateAuthUrlPayload } from "../../types/auth";
 
 import { createSubscription, unsubscribe } from "../subscriptions";
 
@@ -43,6 +44,14 @@ export default function createAuthHandlers(state: State) {
       reject(new Error("Reject"));
 
       return false;
+    },
+
+    getAuthUrls() {
+      return state.auth.getAuthUrls();
+    },
+
+    updateAuthUrl(opts: UpdateAuthUrlPayload) {
+      return state.auth.updateAuthUrl(opts.id, opts.data);
     }
   };
 }
