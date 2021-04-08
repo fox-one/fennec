@@ -6,7 +6,7 @@
   "short_name": "Fennec",
   "default_locale": "en",
   "manifest_version": 2,
-  "permissions": ["storage"],
+  "permissions": ["storage", "activeTab"],
   "background": {
     "scripts": ["background.js"],
     "persistent": true
