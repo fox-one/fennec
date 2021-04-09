@@ -2,6 +2,9 @@
 
 Fennec is a browser extension wallet for Mixin Network.
 
+<img width="374" alt="图片" src="https://user-images.githubusercontent.com/67439/114180680-7b160580-997b-11eb-9639-91eb0cf79611.png">
+
+
 ## Supported browsers
 
 - [x] Chrome and Chromium based browsers
@@ -59,7 +62,7 @@ Not ready yet.
 1. visit https://app.4swap.org 
 2. tap "connect"
 3. tap "connect fennec"
-4. tap "allow" button on popup dialog
+4. tap "allow" button on the popup dialog
 5. enjoy
 
 
