@@ -10,10 +10,6 @@ Fennec is a browser extension wallet for Mixin Network.
 
 ## Install
 
-### Chrome webstore
-
-Not ready, waiting for reviewing.
-
 ### Install from source code
 
 Clone the code
@@ -33,7 +29,18 @@ Launch Chrome, visit [chrome://extensions/](chrome://extensions/), click "Load U
 
 You will see Fennec in the extension list.
 
+### Install from Chrome webstore
+
+Not ready, waiting for reviewing.
+
 ## Create a wallet in Fennec
+
+**IMPORTANT**
+
+- **Please keep your keystore file in safe, and set a strong password in Fennec to protect your keystore.**
+- **Backup is important: If you lose your keystore file, you lose the money.**
+- **Be aware of the cyber attack: If someone gets your keystore file, your money is stolen.**
+- in one word, if you lost the control to the keystore, you fucked up.
 
 ### Import an existed keystore
 
@@ -42,12 +49,6 @@ You will see Fennec in the extension list.
 3. "Secret -> APP SESSION -> RSA sesson", create a new keystore file and download it
 4. open Fennec, import it into Fennec.
 5. if you can not select the keystore file, try to tap the "fullscreen" icon to open Fennec in a new tab
-
-**IMPORTANT**
-
-- **Please keep your keystore file in safe, and set a strong password in Fennec to protect your keystore.**
-- **Backup is important: If you lose your keystore file, you lose the money.**
-- **Be aware of the cyber attack: If someone gets your keystore file, your money is stolen.**
 
 ### Create keystore from account service providers
 
