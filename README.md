@@ -61,7 +61,7 @@ Not ready, waiting for reviewing.
 4. open Fennec, import it into Fennec.
 5. if you can not select the keystore file, try to tap the "fullscreen" icon to open Fennec in a new tab
 
-### Create keystore from account service providers
+### Create via account service providers
 
 Not ready yet.
 
