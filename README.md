@@ -17,7 +17,7 @@ Fennec is a browser extension wallet for Mixin Network.
 
 1. download a release from https://github.com/fox-one/fennec/releases/
 2. extract the files into a directory
-3. Launch Chrome, visit [chrome://extensions/](chrome://extensions/), click "Load Unpacked", browse the location of `/build` directory.
+3. Launch Chrome, visit [chrome://extensions/](chrome://extensions/), click "Load Unpacked", browse the location of this directory.
 
 You will see Fennec in the extension list.
 
