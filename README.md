@@ -65,13 +65,6 @@ Not ready, waiting for reviewing.
 
 Not ready yet.
 
-## Use Fennec
-
-1. visit https://app.4swap.org 
-2. tap "connect"
-3. tap "connect fennec"
-4. tap "allow" button on the popup dialog
-5. enjoy
 
 
 
