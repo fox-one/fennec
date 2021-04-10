@@ -11,9 +11,9 @@ Fennec is a browser extension wallet for Mixin Network.
 - [ ] Firefox
 - [ ] Safari
 
-## Install
+## 1. Install
 
-### Install manually
+### 1.1 Install manually
 
 1. download a release from https://github.com/fox-one/fennec/releases/
 2. extract the files into a directory
@@ -21,7 +21,7 @@ Fennec is a browser extension wallet for Mixin Network.
 
 You will then see Fennec in the extension list.
 
-### Install from source code
+### 1.2 Install from source code
 
 Clone the code
 
@@ -40,11 +40,11 @@ Launch Chrome, visit [chrome://extensions/](chrome://extensions/), click "Load U
 
 You will then see Fennec in the extension list.
 
-### Install from Chrome webstore
+### 1.3 Install from Chrome webstore
 
 Not ready, waiting for being reviewed.
 
-## Create a wallet in Fennec
+## 2. Create a wallet in Fennec
 
 **IMPORTANT**
 
@@ -53,7 +53,7 @@ Not ready, waiting for being reviewed.
 - **Be aware of the cyber attack: If someone gets your keystore file, your money is stolen.**
 - In one word, if you lost the control to the keystore, you are fucked up.
 
-### Import an existed keystore
+### 2.1 Import an existed keystore
 
 1. visit https://developers.mixin.one/dashboard
 2. create a new app
@@ -61,10 +61,12 @@ Not ready, waiting for being reviewed.
 4. open Fennec, import it into Fennec.
 5. if you can not select the keystore file, try to tap the "fullscreen" icon to open Fennec in a new tab
 
-### Create via account service providers
+### 2.2 Create via account service providers
 
 Not ready yet.
 
+## 3. Use fennec
 
+[4swap](https://4swap.org) supports Fennec. Visit https://app.4swap.org, tap "Connect wallet" button to use Fennec in 4swap.
 
 
