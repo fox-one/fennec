@@ -70,3 +70,9 @@ Not ready yet.
 [4swap](https://4swap.org) supports Fennec. Visit https://app.4swap.org, tap "Connect wallet" button to use Fennec in 4swap.
 
 
+## 4. Interact with your Mixin dApp
+
+There are two demos in the project. Go through the source code and you will find it out.
+
+- [A vue demo](https://github.com/fox-one/fennec/tree/main/packages/mixin-extension-demo)
+- [A vanilla js demo](https://github.com/fox-one/fennec/tree/main/packages/vanilla-javascript-demo)
