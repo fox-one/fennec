@@ -2,6 +2,11 @@
   "packages": [
     "packages/*"
   ],
+  "command": {
+    "version": {
+      "allowBranch": "main"
+    }
+  },
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true 
