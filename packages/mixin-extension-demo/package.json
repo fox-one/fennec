@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/mixin-extension/"
+    "build": "vite build --base=/fennec/"
   },
   "dependencies": {
     "axios": "^0.21.1",
