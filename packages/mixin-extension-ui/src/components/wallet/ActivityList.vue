@@ -179,17 +179,17 @@ class ActivityList extends Vue {
     this.reloading = true;
     try {
       const dispatch = this.$store.dispatch;
-      await Promise.all([
-        dispatch(WalletModulePerfix + ActionTypes.LOAD_SNAPSHOTS, {
-          reload: true,
-          asset: this.asset.asset_id
-        }),
-        dispatch(WalletModulePerfix + ActionTypes.LOAD_TRANSACTIONS, {
+      await dispatch(WalletModulePerfix + ActionTypes.LOAD_SNAPSHOTS, {
+        reload: true,
+        asset: this.asset.asset_id
+      });
+      if (this.asset.destination) {
+        await dispatch(WalletModulePerfix + ActionTypes.LOAD_TRANSACTIONS, {
           reload: true,
           destination: this.asset.destination,
           tag: this.asset.tag
-        })
-      ]);
+        });
+      }
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="amount-input-with-fiat">
     <f-input
       ref="input"
-      :value="inputValue"
       type="number"
       label="Amount"
+      :value="inputValue"
       @input="handleInput"
     >
       <template #append>
@@ -40,7 +40,7 @@ class AmountInputWithFiat extends Vue {
 
   @Prop({ type: Number, default: 8 }) percision!: number;
 
-  inputValue = "0";
+  inputValue = "";
 
   useFiat = false;
 
@@ -80,7 +80,7 @@ class AmountInputWithFiat extends Vue {
       empty: !Number(this.inputValue),
       symbol: this.useFiat ? fiatSymbol : assetSymbol,
       quoteSymbol: this.useFiat ? assetSymbol : fiatSymbol,
-      quoteAmount: this.useFiat ? fiatAmount : assetAmount
+      quoteAmount: this.useFiat ? assetAmount : fiatAmount
     };
   }
 
@@ -88,7 +88,7 @@ class AmountInputWithFiat extends Vue {
     const percision = this.useFiat ? FIAT_PERCISION : this.percision;
     let v = this.$utils.number.toPercision({ n: value, p: percision });
     if (isNaN(Number(v))) {
-      v = "0";
+      v = "";
     }
 
     this.inputValue = v;
@@ -104,4 +104,12 @@ class AmountInputWithFiat extends Vue {
 export default AmountInputWithFiat;
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.amount-input-with-fiat {
+  ::v-deep {
+    .v-input__append-outer {
+      height: auto !important;
+    }
+  }
+}
+</style>

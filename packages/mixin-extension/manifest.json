@@ -1,6 +1,6 @@
 {
   "author": "foxone",
-  "description": "Fennec: Mixin Chrome Extension Wallet",
+  "description": "Manage your Mixin Messenger accounts without download apps. Inject accounts and allows sign transactions for a specific account.",
   "homepage_url": "https://fox.one",
   "name": "Fennec",
   "short_name": "Fennec",

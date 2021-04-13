@@ -133,7 +133,7 @@ class MultisigsGuard extends Vue {
   }
 
   handlePay() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestPay(password)
     });
   }

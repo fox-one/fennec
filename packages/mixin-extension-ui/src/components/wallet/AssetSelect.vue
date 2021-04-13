@@ -65,6 +65,10 @@
 import { Asset } from "@foxone/mixin-sdk/types";
 import { Component, Model, Vue } from "vue-property-decorator";
 import ListWapper from "../common/ListWarpper.vue";
+import {
+  WalletModulePerfix,
+  GetterKeys
+} from "../../store/modules/wallet/types";
 
 @Component({
   components: {
@@ -81,7 +85,9 @@ class AssetSelect extends Vue {
   search = "";
 
   get assets(): Asset[] {
-    const assets: Asset[] = this.$store.state.wallet.assets;
+    const assets: Asset[] = this.$store.getters[
+      WalletModulePerfix + GetterKeys.GET_MERGED_ASSETS
+    ];
     return assets.sort((x, y) => {
       const amountX = Number(x.balance) * Number(x.price_usd);
       const amountY = Number(y.balance) * Number(y.price_usd);

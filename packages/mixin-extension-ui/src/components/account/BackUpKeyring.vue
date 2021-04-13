@@ -42,7 +42,7 @@ class BackUpKeyring extends Vue {
   }
 
   handleBackUp(account: string) {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) =>
         this.requestExportAccount(password, account)
     });

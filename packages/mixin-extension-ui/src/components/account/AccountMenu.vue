@@ -12,7 +12,7 @@
         </div>
       </template>
       <template #title>
-        <span>Select Account</span>
+        <span>Accounts</span>
       </template>
       <f-list>
         <account-item
@@ -22,6 +22,28 @@
           @click.native="handleSelectAccount(account)"
         />
       </f-list>
+      <div class="pa-5">
+        <v-btn
+          rounded
+          block
+          depressed
+          outlined
+          color="primary"
+          @click="handleImport"
+        >
+          Import Account
+        </v-btn>
+        <v-btn
+          rounded
+          block
+          depressed
+          color="primary"
+          class="mt-3"
+          @click="handleToBackup"
+        >
+          Backup Account
+        </v-btn>
+      </div>
     </f-bottom-sheet>
   </div>
 </template>
@@ -69,6 +91,14 @@ class AccountMenu extends Vue {
 
   mounted() {
     this.requestCurrentAccount(this.meta.selectedAccount);
+  }
+
+  handleImport() {
+    this.$router.push({ name: "import" });
+  }
+
+  handleToBackup() {
+    this.$router.push({ name: "backup" });
   }
 
   async handleSelectAccount(account: string) {

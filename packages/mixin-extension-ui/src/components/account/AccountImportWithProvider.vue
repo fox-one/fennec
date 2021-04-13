@@ -7,6 +7,7 @@
       </div>
       <div class="my-5">
         <account-provider-selector v-model="provider" />
+        <f-input v-model="name" label="Wallet Name" class="mt-5" />
         <v-btn
           rounded
           depressed
@@ -42,6 +43,8 @@ class AccountImportWithProvider extends Vue {
 
   loading = false;
 
+  name = "Custom Wallet";
+
   get meta() {
     return {
       disabled: !this.provider || this.loading
@@ -60,8 +63,8 @@ class AccountImportWithProvider extends Vue {
     try {
       await this.$utils.account.createAccountFromProvider(this, password, {
         provider: this.provider,
-        walletName: "Customer Name",
-        cipherType: "rsa"
+        walletName: this.name,
+        cipherType: "ed25519"
       });
       this.handleImportSuccess();
     } catch (error) {

@@ -5,7 +5,7 @@
     </f-panel>
     <div class="pa-3">
       <f-panel class="mb-5 pa-0">
-        <div class="f-caption pa-3">Accounts <accounts-actions /></div>
+        <div class="f-caption pa-3">Accounts</div>
         <account-list />
       </f-panel>
       <f-panel class="pa-0">
@@ -29,7 +29,6 @@ import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../../mixin/page";
 import AccountList from "../../components/account/AccountList.vue";
 import AccountProfile from "../../components/account/AccountProfile.vue";
-import AccountsActions from "../../components/account/AccountsActions.vue";
 import AuthUrls from "../../components/auth/AuthUrlItem.vue";
 import { VERSION } from "../../defaults";
 
@@ -37,8 +36,7 @@ import { VERSION } from "../../defaults";
   components: {
     AuthUrls,
     AccountList,
-    AccountProfile,
-    AccountsActions
+    AccountProfile
   }
 })
 class SettingsPage extends Mixins(PageView) {

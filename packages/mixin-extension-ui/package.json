@@ -5,7 +5,7 @@
   "dependencies": {
     "@foxone/mixin-extension-base": "^0.0.3",
     "@foxone/mixin-sdk": "^0.0.3",
-    "@foxone/uikit": "^2.0.36",
+    "@foxone/uikit": "^2.0.51",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
     "core-js": "^3.6.5",

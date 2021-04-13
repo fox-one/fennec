@@ -340,3 +340,7 @@ export interface UpdateProfilePayload {
   full_name: string;
   avatar_base64: string;
 }
+
+export interface DeleteAddressPayload {
+  pin: string;
+}

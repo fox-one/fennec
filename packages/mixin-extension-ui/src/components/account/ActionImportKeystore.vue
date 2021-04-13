@@ -69,9 +69,9 @@ class ImportKeyAction extends Vue {
   }
 
   handleConfirm() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestImportAccount(password)
-    });
+    })
   }
 
   handleSelectFile() {

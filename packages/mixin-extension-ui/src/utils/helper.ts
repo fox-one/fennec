@@ -13,6 +13,7 @@ export function errorToast(
   vue: Vue,
   error: { description?: string; message?: string; code?: string | number }
 ) {
+  console.log((error as any).stack);
   const message = error?.description || error?.message;
   const code = "code" in error ? error.code : "";
   toast(vue, { message: `${code} ${message}`, color: "error" });

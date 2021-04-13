@@ -9,11 +9,11 @@
         <v-layout class="f-caption mt-5" align-center>
           <v-flex>Opponent</v-flex>
           <v-btn text small color="primary" @click="handleToggleMethod">
-            <span class="f-caption" v-if="!useAdderss">tranfer to address</span>
+            <span class="f-caption" v-if="!useAddress">tranfer to address</span>
             <span class="f-caption" v-else>transfer to contact</span>
           </v-btn>
         </v-layout>
-        <template v-if="useAdderss">
+        <template v-if="useAddress">
           <address-list
             v-if="asset"
             :asset="meta.asset"
@@ -64,7 +64,7 @@ class SendPage extends Mixins(PageView) {
 
   loading = false;
 
-  useAdderss = true;
+  useAddress = true;
 
   precision = 8;
 
@@ -123,12 +123,12 @@ class SendPage extends Mixins(PageView) {
   }
 
   handleToggleMethod() {
-    this.useAdderss = !this.useAdderss;
+    this.useAddress = !this.useAddress;
   }
 
   handleNext() {
     const assetId = this.asset?.asset_id;
-    if (this.useAdderss) {
+    if (this.useAddress) {
       const addressId = this.address?.address_id;
       this.$router.push({
         name: "send-withdraw",

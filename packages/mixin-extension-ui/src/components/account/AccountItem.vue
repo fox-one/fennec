@@ -19,6 +19,9 @@
         </v-list-item-subtitle>
       </v-list-item-content>
     </template>
+    <template #tail>
+      <slot name="action"></slot>
+    </template>
   </f-list-item>
 </template>
 

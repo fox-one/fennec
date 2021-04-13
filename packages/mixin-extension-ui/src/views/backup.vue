@@ -1,13 +1,15 @@
 <template>
   <v-container>
-    <f-tip type="error">
-      <span class="font-weight-bold">Notice:</span>
+    <f-tip type="error" class="rounded">
+      <span>Notice:</span>
       <br />
-      Keystore file is the only way to access your assets in mixin network.
+      Keystore file is the <span class="font-weight-bold">ONLY</span> way to
+      access your assets in Mixin Network.
       <br />
       Please backup your keystore file and keep it safe.
     </f-tip>
-    <f-panel class="mt-5 pa-0">
+
+    <f-panel class="pa-0 mt-5">
       <account-item
         v-for="(account, index) in meta.accounts"
         :key="index"
@@ -17,21 +19,36 @@
           <action-backup-keystore :id="account">
             <template #activator="{ on, loading }">
               <v-btn
-                rounded
+                icon
                 depressed
-                small
+                x-small
                 color="primary"
                 v-on="on"
                 :loading="loading"
               >
-                Backup
+                <v-icon>
+                  {{ $icons.mdiDownloadOutline }}
+                </v-icon>
               </v-btn>
             </template>
           </action-backup-keystore>
         </template>
       </account-item>
     </f-panel>
+
     <action-backup-all-keystore />
+
+    <v-btn
+      rounded
+      text
+      small
+      block
+      color="error"
+      class="mt-5"
+      @click="handleToHome"
+    >
+      I have saved keystore files, back to home
+    </v-btn>
   </v-container>
 </template>
 
@@ -56,11 +73,21 @@ class BackUpPage extends Mixins(PageView) {
     return "BackUp";
   }
 
+  get appbar() {
+    return {
+      back: false
+    };
+  }
+
   get meta() {
     const keyring: KeyringMemState = this.$store.state.keyring.keyring;
     const preference: PerferenceStore = this.$store.state.preference.preference;
     const selectedAccount = preference.seletedAccount;
     return { selectedAccount, accounts: keyring.accounts };
+  }
+
+  handleToHome() {
+    this.$router.push({ name: "home" });
   }
 }
 export default BackUpPage;

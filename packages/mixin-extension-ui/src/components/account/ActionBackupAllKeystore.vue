@@ -15,7 +15,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import JSZip from "jszip";
 import FileSaver from "file-saver";
-import { EVENTS } from "../../defaults";
 import { MixinAccount } from "@foxone/mixin-sdk/keyring";
 
 @Component
@@ -23,7 +22,7 @@ class AccountBackupAll extends Vue {
   loading = false;
 
   handleBackupAll() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestExportAllAccounts(password)
     });
   }

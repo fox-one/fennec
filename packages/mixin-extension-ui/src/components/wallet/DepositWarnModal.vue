@@ -70,6 +70,7 @@ class DepositWarnModal extends Vue {
   @Watch("asset", { immediate: true })
   handleAssetChange() {
     this.show();
+    this.seconds = 3;
   }
 
   getAttention(id, name) {

@@ -23,7 +23,11 @@
           <v-list-item-content>
             <v-list-item-title>
               {{ address.label }}
-              <address-edit :address="bindAddress" :asset="asset" />
+              <address-edit
+                :address="address"
+                :asset="asset"
+                @reload="handleReload"
+              />
             </v-list-item-title>
             <v-list-item-subtitle>
               <span>{{ address.destination }}</span>
@@ -35,7 +39,7 @@
         </v-list-item>
       </v-list>
     </list-wapper>
-    <address-add :asset="asset" />
+    <address-add :asset="asset" @reload="handleReload" />
   </div>
 </template>
 
@@ -79,6 +83,12 @@ class AddressList extends Vue {
     } else {
       this.bindAddress = address;
     }
+  }
+
+  handleReload() {
+    if (!this.asset) return;
+    this.requestAssetAddresses(this.asset);
+    this.bindAddress = null;
   }
 
   async requestAssetAddresses(asset: Asset) {

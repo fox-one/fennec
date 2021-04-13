@@ -4,7 +4,6 @@
   "description": "Fennec: Mixin Chrome Extension Wallet",
   "main": "src/index.ts",
   "author": "zhangqingwu <18656007202@163.com>",
-  "license": "Apache-2",
   "dependencies": {
     "@foxone/mixin-sdk": "^0.0.3",
     "browser-passworder": "^2.0.3",

@@ -25,7 +25,8 @@ import type {
   NetworkSnapshot,
   RawTransactionRequest,
   RawTransactionPayment,
-  UpdateProfilePayload
+  UpdateProfilePayload,
+  DeleteAddressPayload
 } from "./types";
 
 import { HttpMethod } from "./types";
@@ -70,8 +71,8 @@ function createProvider(provider: ProviderInterface) {
       return provider.send("/addresses", HttpMethod.POST, opts);
     },
 
-    deleteWithdrawAddress(id: string) {
-      return provider.send(`/addresses/${id}/delete`, HttpMethod.POST);
+    deleteWithdrawAddress(id: string, opts: DeleteAddressPayload) {
+      return provider.send(`/addresses/${id}/delete`, HttpMethod.POST, opts);
     },
 
     getWithdrawAddress(id: string) {
