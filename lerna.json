@@ -7,9 +7,7 @@
       "allowBranch": "main"
     }
   },
-  "version": {
-    "push": true
-  },
+  "version": null,
   "npmClient": "yarn",
-  "useWorkspaces": true 
+  "useWorkspaces": true
 }
