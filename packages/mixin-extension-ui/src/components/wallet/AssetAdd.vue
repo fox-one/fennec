@@ -89,7 +89,7 @@ class AssetAdd extends Vue {
 
   loading = false;
 
-  adding: string = "";
+  adding = "";
 
   opting: string | null = null;
 

@@ -43,7 +43,6 @@ import MixinAccount, {
   MixinAccount as Account
 } from "@foxone/mixin-sdk/keyring";
 import AccountItem from "../account/AccountItem.vue";
-import { EVENTS } from "../../defaults";
 
 @Component({
   components: {
@@ -71,7 +70,7 @@ class ImportKeyAction extends Vue {
   handleConfirm() {
     this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestImportAccount(password)
-    })
+    });
   }
 
   handleSelectFile() {

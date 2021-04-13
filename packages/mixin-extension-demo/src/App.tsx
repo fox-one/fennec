@@ -8,7 +8,7 @@ import SignToken from "../components/SignToken";
 import Multisigs from "../components/Multisigs";
 
 export default defineComponent(() => {
-  let ctx = ref<null | InjectedData>(null);
+  const ctx = ref<null | InjectedData>(null);
   const setCtx = (v: InjectedData) => (ctx.value = v);
 
   const connected = computed(() => Boolean(ctx.value));

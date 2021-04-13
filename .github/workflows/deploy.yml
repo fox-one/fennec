@@ -1,19 +1,17 @@
-name: deploy
+name: CI
 
-env:
-  PUBLIC_PATH: ""
-
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "README.md"
+on: [push, pull_request]
 
 jobs:
-  build-deploy:
+  lint:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startswith(github.ref, 'refs/tags/v') && github.repository_owner == 'fox-one'
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startswith(., 'refs/tags/v') && github.repository_owner == 'fox-one'
     steps:
       - uses: actions/checkout@master
       - uses: actions/cache@v2

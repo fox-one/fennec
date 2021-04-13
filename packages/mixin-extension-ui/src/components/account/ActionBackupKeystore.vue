@@ -18,8 +18,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-import { EVENTS } from "../../defaults";
-
 @Component
 class ActionBackUp extends Vue {
   @Prop() id!: string;

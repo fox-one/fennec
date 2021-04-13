@@ -57,7 +57,6 @@ import {
   Transfer
 } from "@foxone/mixin-sdk/types";
 import { Component, Vue } from "vue-property-decorator";
-import { EVENTS } from "../../defaults";
 
 @Component
 class TransferGuard extends Vue {

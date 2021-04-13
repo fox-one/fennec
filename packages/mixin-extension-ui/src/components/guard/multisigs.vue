@@ -61,7 +61,6 @@
 import { RawTransactionReq } from "@foxone/mixin-extension-base/state/wallet";
 import { Asset, User } from "@foxone/mixin-sdk/types";
 import { Component, Vue } from "vue-property-decorator";
-import { EVENTS } from "../../defaults";
 import AccountAvatar from "../account/AccountAvatar.vue";
 import AccountAvatars from "../account/AccountAvatars.vue";
 

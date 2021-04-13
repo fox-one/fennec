@@ -31,8 +31,8 @@
           </v-list-item-title>
           <v-list-item-subtitle>
             {{ item.type }}
-          </v-list-item-subtitle> </v-list-item-content
-        > 
+          </v-list-item-subtitle>
+        </v-list-item-content>
       </v-list-item>
 
       <div class="pa-5 pb-0">

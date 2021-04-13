@@ -3,8 +3,16 @@
     "packages/*"
   ],
   "command": {
+    "publish": {
+      "allowBranch": [
+        "main",
+        "develop",
+        "next"
+      ],
+      "message": "chore(release): publish %s"
+    },
     "version": {
-      "allowBranch": "main"
+      "push": true
     }
   },
   "version": "0.1.0-alpha.3",

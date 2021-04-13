@@ -43,7 +43,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
-import { EVENTS } from "../../defaults";
 
 @Component
 class ActionRemoveKeystore extends Vue {

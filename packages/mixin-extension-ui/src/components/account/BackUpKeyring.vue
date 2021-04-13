@@ -28,7 +28,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import type { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
-import { EVENTS } from "../../defaults";
 
 @Component
 class BackUpKeyring extends Vue {
