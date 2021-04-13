@@ -42,6 +42,7 @@ jobs:
       - run: zip -r "fennec-${RELEASE_TAG}.zip" "fennec-${RELEASE_TAG}"
 
       - name: GitHub release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
