@@ -1,6 +1,6 @@
 {
   "name": "@foxone/mixin-sdk",
-  "version": null,
+  "version": "0.1.0-alpha.2",
   "description": "Fennec: Mixin Chrome Extension Wallet",
   "author": "",
   "main": "src/index.ts",
