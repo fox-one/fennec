@@ -13,7 +13,7 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    if: if: github.event_name == 'push' && startswith(github.ref, 'refs/tags/v') && github.repository_owner == 'fox-one'
+    if: github.event_name == 'push' && startswith(github.ref, 'refs/tags/v') && github.repository_owner == 'fox-one'
     steps:
       - uses: actions/checkout@master
       - uses: actions/cache@v2
