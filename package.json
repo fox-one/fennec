@@ -5,9 +5,14 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "yarn watch",
-    "watch": "cd packages/mixin-extension && webpack --config webpack.config.js --mode development --watch",
-    "build": "cd packages/mixin-extension && webpack --config webpack.config.js --mode production",
+    "start": "yarn watch:chrome",
+    "watch:chrome": "cd packages/mixin-extension && cross-env TARGET_BROWSER=chrome webpack --config webpack.config.js --mode development --watch",
+    "watch:firefox": "cd packages/mixin-extension && cross-env TARGET_BROWSER=firefox webpack --config webpack.config.js --mode development --watch",
+    "watch:opera": "cd packages/mixin-extension && cross-env TARGET_BROWSER=opera webpack --config webpack.config.js --mode development --watch",
+    "build:chrome": "cd packages/mixin-extension && cross-env TARGET_BROWSER=chrome webpack --config webpack.config.js --mode production",
+    "build:firefox": "cd packages/mixin-extension && cross-env TARGET_BROWSER=firefox webpack --config webpack.config.js --mode production",
+    "build:opera": "cd packages/mixin-extension && cross-env TARGET_BROWSER=opera webpack --config webpack.config.js --mode production",
+    "build": "yarn run build:chrome && yarn run build:firefox && yarn run build:opera",
     "lint": "eslint --ext .js,.cjs,.mjs,.ts,.tsx --ignore-path=.gitignore",
     "prettier:fix": "prettier --write \"**/*.ts\" \"**/*.vue\" --ignore-path=.gitignore",
     "test": "jest"
@@ -34,6 +39,7 @@
     "@types/sinon-chrome": "^2.2.10",
     "babel-jest": "^26.6.3",
     "browser-resolve": "^2.0.0",
+    "cross-env": "^7.0.3",
     "jest": "^26.6.3",
     "jest-circus": "^26.6.3",
     "jest-config": "^26.6.3",
