@@ -70,7 +70,7 @@ class AddressList extends Vue {
     return this.bindAddress?.address_id ?? "";
   }
 
-  @Watch("asset", { immediate: true })
+  @Watch("asset.asset_id", { immediate: true })
   handleAssetChange() {
     if (this.asset) {
       this.requestAssetAddresses(this.asset);

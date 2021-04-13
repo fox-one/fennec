@@ -15,9 +15,12 @@ export function unix() {
 }
 
 export function generateRSASessionKeyPair(): KeyPair {
-  const keypair = forge.pki.rsa.generateKeyPair({ bits: 2048, e: 0x10001 });
+  const keypair = forge.pki.rsa.generateKeyPair({ bits: 1024, e: 0x10001 });
+  const body = forge.asn1
+    .toDer(forge.pki.publicKeyToAsn1(keypair.publicKey))
+    .getBytes();
+  const publicKey = forge.util.encode64(body, 64);
   const privateKey = forge.pki.privateKeyToPem(keypair.privateKey);
-  const publicKey = forge.pki.publicKeyToPem(keypair.publicKey);
   return { publicKey, privateKey };
 }
 
