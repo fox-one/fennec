@@ -1,6 +1,6 @@
 {
   "name": "mixin-extension-demo",
-  "version": "0.0.2",
+  "version": "0.1.0-alpha.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/fennec/"
