@@ -1,10 +1,10 @@
 {
   "name": "@foxone/mixin-extension-ui",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "main": "src/index.ts",
   "dependencies": {
-    "@foxone/mixin-extension-base": "^0.1.0-alpha.5",
-    "@foxone/mixin-sdk": "^0.1.0-alpha.5",
+    "@foxone/mixin-extension-base": "^0.1.0-alpha.6",
+    "@foxone/mixin-sdk": "^0.1.0-alpha.6",
     "@foxone/uikit": "^2.0.51",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
