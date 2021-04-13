@@ -37,10 +37,9 @@ jobs:
       - run: yarn --frozen-lockfile --non-interactive
       - run: yarn build
       - run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      - run: rm -rf release
-      - run: cp -r ./packages/mixin-extension/build release
-      - run: for file in ./release/*.*; do mv "$file" "${file/release\/fennec/release/fennec-${RELEASE_TAG}}"; done
-      - run: zip -jr "release/fennec-${RELEASE_TAG}.zip" release/*
+      - run: rm -rf "fennec-${RELEASE_TAG}"
+      - run: cp -r ./packages/mixin-extension/build "fennec-${RELEASE_TAG}"
+      - run: zip -r "fennec-${RELEASE_TAG}.zip" "fennec-${RELEASE_TAG}"
 
       - name: GitHub release
         uses: actions/create-release@v1
@@ -56,9 +55,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release/fennec-${{ env.RELEASE_TAG }}.zip
-          asset_name: vuetify-${{ env.RELEASE_TAG }}.zip
+          asset_path: fennec-${{ env.RELEASE_TAG }}.zip
+          asset_name: fennec-${{ env.RELEASE_TAG }}.zip
           asset_content_type: application/zip
+
+      - name: Upload Chrome Web Store
+        uses: mnao305/chrome-extension-upload@1.1.1
+        with:
+          file-path: fennec-${{ env.RELEASE_TAG }}.zip
+          extension-id: eincngenkhohbbfpkohipekcmnkfamjp
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
 
       # deploy demo
       - run: yarn --frozen-lockfile --non-interactive
@@ -73,12 +81,3 @@ jobs:
         with:
           email: zhangqw@fox.one
           build_dir: packages/mixin-extension-demo/dist
-
-      # - name: Upload & release
-      #   uses: mnao305/chrome-extension-upload@1.1.1
-      #   with:
-      #     file-path: ./packages/mixin-extension/build.zip
-      #     extension-id: eincngenkhohbbfpkohipekcmnkfamjp
-      #     client-id: ${{ secrets.CLIENT_ID }}
-      #     client-secret: ${{ secrets.CLIENT_SECRET }}
-      #     refresh-token: ${{ secrets.REFRESH_TOKEN }}
