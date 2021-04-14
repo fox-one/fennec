@@ -23,6 +23,11 @@ export default function (state: State) {
 
       chrome.tabs.create({ url });
       return true;
+    },
+
+    onWindowClose() {
+      console.log("window closed");
+      return true;
     }
   };
 }

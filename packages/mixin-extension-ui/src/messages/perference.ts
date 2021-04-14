@@ -7,19 +7,19 @@ import {
 export default function (sendMessage: SendMessage) {
   return {
     subscribePreferenceState(cb: (state: PerferenceStore) => void) {
-      return sendMessage("pri(preference.subscribe)", null, cb);
+      return sendMessage("pri_(preference.subscribe)", null, cb);
     },
 
     completeOnboarding() {
-      return sendMessage("pri(perference.completeOnboarding)");
+      return sendMessage("pri_(perference.completeOnboarding)");
     },
 
     selectAccount(clientId: string) {
-      return sendMessage("pri(perference.selectAccount)", { clientId });
+      return sendMessage("pri_(perference.selectAccount)", { clientId });
     },
 
     updateAccountProviders(providers: AccountProvider[]) {
-      return sendMessage("pri(perference.updateAccountProviders)", {
+      return sendMessage("pri_(perference.updateAccountProviders)", {
         providers
       });
     }

@@ -45,15 +45,15 @@ export interface RemoveAccountPayload {
 }
 
 export interface KeyringActionSignatures {
-  "pub(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
+  "pub_(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
 
-  "pri(keyring.subscribe)": [null, boolean, KeyringMemState];
-  "pri(keyring.createAccount)": [CreateAccountPayload, string[]];
-  "pri(keyring.unlock)": [UnlockKeyringPayload, boolean];
-  "pri(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
-  "pri(kerying.encryptPin)": [EncryptPinPayload, string];
-  "pri(keyring.getEncryptedPin)": [GetEncryptedPinPayload, string];
-  "pri(keyring.exportAccount)": [ExportKeyringPayload, string];
-  "pri(keyring.exportAllAccounts)": [ExportAllAccountsPayload, string];
-  "pri(keyring.removeAccount)": [RemoveAccountPayload, boolean];
+  "pri_(keyring.subscribe)": [null, boolean, KeyringMemState];
+  "pri_(keyring.createAccount)": [CreateAccountPayload, string[]];
+  "pri_(keyring.unlock)": [UnlockKeyringPayload, boolean];
+  "pri_(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
+  "pri_(kerying.encryptPin)": [EncryptPinPayload, string];
+  "pri_(keyring.getEncryptedPin)": [GetEncryptedPinPayload, string];
+  "pri_(keyring.exportAccount)": [ExportKeyringPayload, string];
+  "pri_(keyring.exportAllAccounts)": [ExportAllAccountsPayload, string];
+  "pri_(keyring.removeAccount)": [RemoveAccountPayload, boolean];
 }

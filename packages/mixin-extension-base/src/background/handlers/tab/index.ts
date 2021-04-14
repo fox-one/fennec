@@ -25,34 +25,34 @@ export default function (state: State) {
     const { payload, action, url } = params;
     const handlers = createHandlers(state);
 
-    if (action === "pub(phishing.redirectIfDenied)") {
+    if (action === "pub_(phishing.redirectIfDenied)") {
       return handlers.redirectIfPhishing(url);
     }
 
     switch (action) {
-      case "pub(authorize.tab)":
+      case "pub_(authorize.tab)":
         return handlers.authorize(payload as AuthTabPayload, url);
 
-      case "pub(accounts.ensureUnlocked)":
+      case "pub_(accounts.ensureUnlocked)":
         return handlers.ensureUnLocked();
 
-      case "pub(accounts.list)":
+      case "pub_(accounts.list)":
         return handlers.accountsList();
 
-      case "pub(keyring.signAuthorizeToken)":
+      case "pub_(keyring.signAuthorizeToken)":
         return handlers.signAuthorizeToken(
           payload as SignAuthorizeTokenPayload
         );
 
-      case "pub(transfer.request)":
+      case "pub_(transfer.request)":
         return handlers.requestTransfer(payload as CreateTransferPayload);
 
-      case "pub(multisigs.request)":
+      case "pub_(multisigs.request)":
         return handlers.requestMultisigsPayment(
           payload as MultiSigsPaymentPayload
         );
 
-      case "pub(token.sign)":
+      case "pub_(token.sign)":
         return handlers.signClientToken(payload as SignClientTokenPayload);
 
       default:

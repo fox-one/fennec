@@ -9,10 +9,10 @@ export interface UpdateAccountProvidersPayload {
 }
 
 export interface PreferenceSignatures {
-  "pri(preference.subscribe)": [null, boolean, PerferenceStore];
-  "pri(perference.completeOnboarding)": [null, boolean];
-  "pri(perference.selectAccount)": [SelectAccountPaylod, boolean];
-  "pri(perference.updateAccountProviders)": [
+  "pri_(preference.subscribe)": [null, boolean, PerferenceStore];
+  "pri_(perference.completeOnboarding)": [null, boolean];
+  "pri_(perference.selectAccount)": [SelectAccountPaylod, boolean];
+  "pri_(perference.updateAccountProviders)": [
     UpdateAccountProvidersPayload,
     boolean
   ];
