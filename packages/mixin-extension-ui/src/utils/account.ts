@@ -1,4 +1,5 @@
-import { AccountProvider } from "@foxone/mixin-extension-base/state/types";
+import type { AccountProvider } from "@foxone/mixin-extension-base/state/types";
+
 import { ActionTypes, WalletModulePerfix } from "../store/modules/wallet/types";
 import axios from "axios";
 import HttpProvider from "@foxone/mixin-sdk/provider/http";
@@ -8,6 +9,11 @@ import {
   signEncryptedPin
 } from "@foxone/mixin-sdk/encrypt";
 import { EVENTS } from "../defaults";
+import {
+  generateEd25519SessionKeypair,
+  generateRSASessionKeyPair,
+  KeyPair
+} from "@foxone/mixin-sdk/encrypt";
 import Vue from "vue";
 
 export async function selectAccount(vm: Vue, id: string) {
@@ -44,28 +50,35 @@ export async function createAccountFromProvider(
   }
 ) {
   const { provider, walletName, cipherType } = opts;
+  let keyPair: KeyPair;
+  if (cipherType === "rsa") {
+    keyPair = generateRSASessionKeyPair();
+  } else {
+    keyPair = generateEd25519SessionKeypair();
+  }
   const resp = await axios.post(provider.value, {
-    wallet_name: walletName,
-    cipher_type: cipherType
+    full_name: walletName,
+    session_secret: keyPair.publicKey
   });
-  const keystore = resp.data.keystore;
+
+  const { pin_token, pin_token_base64, session_id, user_id } = resp.data.data;
 
   // create pin for new account
   const randomPin = Math.floor(Math.random() * 1e6).toString();
   const encryptedPin = signEncryptedPin(
     randomPin,
-    keystore.pin_token,
-    keystore.session_id,
-    keystore.private_key
+    pin_token,
+    session_id,
+    keyPair.privateKey
   );
   const http = new HttpProvider();
   const endpoints = createEndpoint(http);
   http.instance.interceptors.request.use(async (config) => {
     const url = axios.getUri(config);
     const token = signAuthenticationToken(
-      keystore.client_id,
-      keystore.session_id,
-      keystore.private_key,
+      user_id,
+      session_id,
+      keyPair.privateKey,
       config.method?.toUpperCase() ?? "",
       url,
       config.data ?? ""
@@ -75,11 +88,13 @@ export async function createAccountFromProvider(
   });
 
   await endpoints.updatePin("", encryptedPin);
-
   await vm.$messages.createNewAccount(
     JSON.stringify({
-      ...keystore,
-      pin: randomPin
+      client_id: user_id,
+      session_id,
+      pin_token: opts.cipherType === "rsa" ? pin_token : pin_token_base64,
+      pin: randomPin,
+      private_key: keyPair.privateKey
     }),
     password
   );

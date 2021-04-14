@@ -2,7 +2,7 @@
   <v-container>
     <f-loading :loading="loading" fullscreen />
     <div class="text-center content">
-      <div class="f-headline pt-10">Unlock your accounts</div>
+      <div class="f-headline pt-10">Unlock Accounts</div>
       <div class="lock-icon-wrapper">
         <img src="../../assets/images/password.svg" />
       </div>

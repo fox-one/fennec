@@ -18,8 +18,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-import { EVENTS } from "../../defaults";
-
 @Component
 class ActionBackUp extends Vue {
   @Prop() id!: string;
@@ -27,7 +25,7 @@ class ActionBackUp extends Vue {
   loading = false;
 
   handleBackUp() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) =>
         this.requestExportAccount(password, this.id)
     });

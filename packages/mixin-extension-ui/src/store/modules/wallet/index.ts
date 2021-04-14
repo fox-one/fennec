@@ -86,7 +86,7 @@ const mutations: MutationTree<State> & Mutations = {
 };
 
 const actions: ActionTree<State, RootState> & Actions = {
-  async [ActionTypes.LOAD_ASSETS]({ commit }) {
+  async [ActionTypes.LOAD_ASSETS]({ commit, state }) {
     const assets = await endpoints.getAssets();
     assets.forEach((x) => {
       const found = state.additionAssets.find((y) => y.asset_id === x.asset_id);

@@ -1017,10 +1017,10 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@foxone/uikit@^2.0.36":
-  version "2.0.36"
-  resolved "https://registry.npmjs.org/@foxone/uikit/-/uikit-2.0.36.tgz#6192aea4145d3a72071b3856e28882207b8bdc5a"
-  integrity sha512-W8bdgAPyVgYislKIIE4sZj3XUguz+Fue4wrVHaVtEkEfBazIF1JD3z0QCVVFuc4wVbgMxbB2MaTkoggn38gbFw==
+"@foxone/uikit@^2.0.51":
+  version "2.0.51"
+  resolved "https://registry.npmjs.org/@foxone/uikit/-/uikit-2.0.51.tgz#8e744aff90db4277dec8d3233286c55d0874e637"
+  integrity sha512-re5rF0STzDknGYDrH5DtMQ7UQVXZ+sCxddUShfQmoO/bzmPX/wohgUGA0gfnt1Yc9qKfvnwIAtlckeiWun1aDw==
   dependencies:
     animate.css "^4.1.0"
     bignumber.js "^9.0.0"

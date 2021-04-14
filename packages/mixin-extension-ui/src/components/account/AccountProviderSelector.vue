@@ -20,21 +20,14 @@
     </template>
     <template #title> Select Provider </template>
     <v-list>
-      <v-list-item
-        v-for="(item, index) in meta.providers"
+      <account-provider-item
+        v-for="(provider, index) in meta.providers"
         :key="index"
-        @click="handleSelect(item)"
-      >
-        <v-list-item-content>
-          <v-list-item-title>
-            {{ item.value }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ item.type }}
-          </v-list-item-subtitle> </v-list-item-content
-        > 
-      </v-list-item>
-
+        :index="index"
+        :provider="provider"
+        :providers="meta.providers"
+        @click.native="handleSelect(provider)"
+      />
       <div class="pa-5 pb-0">
         <account-provider-add />
       </div>
@@ -49,10 +42,12 @@ import {
 } from "@foxone/mixin-extension-base/state/types";
 import { Component, Model, Vue } from "vue-property-decorator";
 import AccountProviderAdd from "./AccountProviderAdd.vue";
+import AccountProviderItem from "./AccountProviderItem.vue";
 
 @Component({
   components: {
-    AccountProviderAdd
+    AccountProviderAdd,
+    AccountProviderItem
   }
 })
 class AccountProviderSelector extends Vue {

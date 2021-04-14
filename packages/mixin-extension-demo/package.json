@@ -1,9 +1,9 @@
 {
   "name": "mixin-extension-demo",
-  "version": "0.0.2",
+  "version": "0.1.0-alpha.8",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/mixin-extension/"
+    "build": "vite build --base=/fennec/"
   },
   "dependencies": {
     "axios": "^0.21.1",

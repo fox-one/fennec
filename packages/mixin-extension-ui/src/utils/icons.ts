@@ -19,7 +19,8 @@ import {
   mdiAccountCircle,
   mdiPencilBox,
   mdiLinkVariant,
-  mdiFullscreen
+  mdiFullscreen,
+  mdiDownloadOutline
 } from "@mdi/js";
 
 export default {
@@ -43,5 +44,6 @@ export default {
   mdiAccountCircle,
   mdiPencilBox,
   mdiLinkVariant,
-  mdiFullscreen
+  mdiFullscreen,
+  mdiDownloadOutline
 };

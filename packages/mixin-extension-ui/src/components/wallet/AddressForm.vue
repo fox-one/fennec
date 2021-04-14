@@ -21,7 +21,9 @@
       <f-input
         v-model="form.destination"
         auto-grow
+        textarea
         persistent-hint
+        aria-spellcheck="false"
         rows="1"
         label="Address"
         :hint="`The address to withdraw ${meta.symbol}.`"
@@ -70,13 +72,12 @@
 <script lang="ts">
 import { Address, Asset } from "@foxone/mixin-sdk/types";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { EVENTS } from "../../defaults";
 
 @Component
 class AddressForm extends Vue {
   @Prop() asset!: Asset | null;
 
-  @Prop() address!: Address;
+  @Prop() address!: Address | null;
 
   saving = false;
 
@@ -107,6 +108,17 @@ class AddressForm extends Vue {
     };
   }
 
+  mounted() {
+    if (this.address) {
+      this.form.label = this.address.label;
+      this.form.tag = this.address.tag;
+      this.form.destination = this.address.destination;
+      if (this.form.tag) {
+        this.hasMemo = true;
+      }
+    }
+  }
+
   toggleMemo() {
     this.hasMemo = !this.hasMemo;
   }
@@ -115,7 +127,7 @@ class AddressForm extends Vue {
     const form: any = this.$refs.form;
     const valid = form.validate();
     if (valid) {
-      this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+      this.$utils.account.confirmPassword(this, {
         onSuccess: (password: string) => this.requestSaveAddress(password)
       });
     }
@@ -132,6 +144,7 @@ class AddressForm extends Vue {
         asset_id: this.asset?.asset_id ?? "",
         pin
       });
+      this.$emit("completed");
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

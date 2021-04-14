@@ -68,7 +68,6 @@ import {
 } from "../../store/modules/wallet/types";
 import AmountInputWithFiat from "../../components/common/AmountInputWithFiat.vue";
 import PageView from "../../mixin/page";
-import { EVENTS } from "../../defaults";
 
 @Component({
   components: {
@@ -142,7 +141,7 @@ class WithdrawPage extends Mixins(PageView) {
   }
 
   handleSend() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestSend(password)
     });
   }

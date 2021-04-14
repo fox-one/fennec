@@ -58,7 +58,6 @@ import { Component, Mixins } from "vue-property-decorator";
 import { v4 as uuid } from "uuid";
 import PageView from "../../mixin/page";
 import AmountInputWithFiat from "../../components/common/AmountInputWithFiat.vue";
-import { EVENTS } from "../../defaults";
 
 @Component({
   components: {
@@ -125,7 +124,7 @@ class TransferPage extends Mixins(PageView) {
   }
 
   handleTransfer() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestTransfer(password)
     });
   }

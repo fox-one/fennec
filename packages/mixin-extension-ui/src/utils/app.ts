@@ -131,7 +131,7 @@ export async function init(vm: Vue) {
   await loadTransferReqsFromBackground(vm);
   await loadMultisigsTransactionReqsFormBackground(vm);
   await loadWalletData(vm);
-  // startWalletTimer(vm);
+  startWalletTimer(vm);
 
   vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, false);
 }

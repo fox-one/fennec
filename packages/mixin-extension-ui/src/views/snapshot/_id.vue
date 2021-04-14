@@ -117,7 +117,7 @@ class SnapshotPage extends Mixins(PageView) {
 
   createdPrice: Ticker | null = null;
 
-  opponent: string = "";
+  opponent = "";
 
   get title() {
     return "Snapshot";
@@ -129,7 +129,7 @@ class SnapshotPage extends Mixins(PageView) {
 
   get meta() {
     const formatNumber = this.$utils.number.format;
-    const addSymbol = this.$utils.number.addSymbol;
+    // const addSymbol = this.$utils.number.addSymbol;
     const currencyExchange = this.$utils.currency.currencyExchange;
     const snapshotTypeMetas = this.$utils.enums.snapshotTypeMetas(this);
     const getValueColor = this.$utils.color.getValueColor;

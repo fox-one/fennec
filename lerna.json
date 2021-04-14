@@ -2,7 +2,21 @@
   "packages": [
     "packages/*"
   ],
-  "version": "independent",
+  "command": {
+    "publish": {
+      "allowBranch": [
+        "main",
+        "develop",
+        "next"
+      ],
+      "message": "chore(release): publish %s"
+    },
+    "version": {
+      "push": true,
+      "conventionalCommits": true
+    }
+  },
+  "version": "0.1.0-alpha.9",
   "npmClient": "yarn",
-  "useWorkspaces": true 
+  "useWorkspaces": true
 }

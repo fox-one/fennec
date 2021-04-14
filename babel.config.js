@@ -12,5 +12,8 @@ module.exports = {
     "@babel/plugin-syntax-import-meta",
     "@babel/plugin-syntax-top-level-await"
   ],
-  presets: ["@babel/preset-typescript", ["@babel/preset-env", { targets: { node: "current" } }]]
+  presets: [
+    "@babel/preset-typescript",
+    ["@babel/preset-env", { targets: { node: "current" } }]
+  ]
 };

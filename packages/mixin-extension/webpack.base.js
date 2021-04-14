@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const WextManifestWebpackPlugin = require('wext-manifest-webpack-plugin');
 
-const pkgJson = require("./package.json");
+const pkgJson = require("../../lerna.json");
 const destPath = path.join(__dirname, 'build');
 const targetBrowser = process.env.TARGET_BROWSER;
 
@@ -120,7 +120,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": {
-        // NODE_ENV: JSON.stringify("production"),
         PKG_NAME: JSON.stringify(pkgJson.name),
         PKG_VERSION: JSON.stringify(pkgJson.version)
       }

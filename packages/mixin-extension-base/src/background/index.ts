@@ -39,6 +39,7 @@ export default async function () {
       })
       .catch((err) => {
         console.log(`[err] ${source}:: ${err.message}`);
+        console.log(err.stack);
         if (port) {
           port.postMessage({ error: err.message, id });
         }

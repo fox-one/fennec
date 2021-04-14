@@ -19,7 +19,11 @@ export function format(opts: { n: BigNumber.Value; p?: number; mp?: number }) {
 }
 
 export function toPercision(opts: { n: BigNumber.Value; p: number }): string {
-  return new BigNumber(opts.n).decimalPlaces(opts.p).toString();
+  const v = new BigNumber(opts.n);
+  if (v.decimalPlaces() > opts.p) {
+    return v.decimalPlaces(opts.p).toFormat({ decimalSeparator: "." });
+  }
+  return opts.n.toString();
 }
 
 export function toPercent(opts: {

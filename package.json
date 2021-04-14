@@ -1,6 +1,5 @@
 {
   "private": true,
-  "license": "Apache-2",
   "workspaces": [
     "packages/*"
   ],
@@ -13,7 +12,7 @@
     "build:firefox": "cd packages/mixin-extension && cross-env TARGET_BROWSER=firefox webpack --config webpack.config.js --mode production",
     "build:opera": "cd packages/mixin-extension && cross-env TARGET_BROWSER=opera webpack --config webpack.config.js --mode production",
     "build": "yarn run build:chrome && yarn run build:firefox && yarn run build:opera",
-    "lint": "eslint --ext .js,.cjs,.mjs,.ts,.tsx --ignore-path=.gitignore",
+    "lint": "eslint --ext .js,.ts,.vue,.tsx ./packages/*/src",
     "prettier:fix": "prettier --write \"**/*.ts\" \"**/*.vue\" --ignore-path=.gitignore",
     "test": "jest"
   },

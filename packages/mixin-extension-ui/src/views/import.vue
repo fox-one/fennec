@@ -26,6 +26,12 @@ class ImportPage extends Mixins(PageView) {
   get title() {
     return "Import Account";
   }
+
+  mounted() {
+    if (this.$utils.helper.isPopup()) {
+      this.$messages.openWindow("/import");
+    }
+  }
 }
 export default ImportPage;
 </script>

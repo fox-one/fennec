@@ -19,6 +19,13 @@ import AccountImportWithProvider from "../account/AccountImportWithProvider.vue"
     AccountImportWithProvider
   }
 })
-class Init extends Vue {}
+class Init extends Vue {
+  mounted() {
+    if (this.$utils.helper.isPopup()) {
+      this.$messages.openWindow("/");
+      window.close();
+    }
+  }
+}
 export default Init;
 </script>

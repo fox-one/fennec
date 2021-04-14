@@ -67,7 +67,7 @@ export default ImgaeFormItem;
 .image-input {
   ::v-deep {
     .v-input__prepend-outer {
-      display: none;
+      display: none !important;
     }
   }
 }

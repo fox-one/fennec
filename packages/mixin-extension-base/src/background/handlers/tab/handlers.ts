@@ -11,6 +11,7 @@ import {
 import { unix } from "@foxone/mixin-sdk/encrypt";
 import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function checkIfDenied(url: string) {
   // TODO: implements phishing detect
   return false;

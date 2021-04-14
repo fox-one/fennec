@@ -28,7 +28,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import type { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
-import { EVENTS } from "../../defaults";
 
 @Component
 class BackUpKeyring extends Vue {
@@ -42,7 +41,7 @@ class BackUpKeyring extends Vue {
   }
 
   handleBackUp(account: string) {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) =>
         this.requestExportAccount(password, account)
     });

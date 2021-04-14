@@ -39,14 +39,11 @@ class HomeAppbar extends Vue {
   }
 
   async handleOpenWindow() {
-    try {
-      await this.$messages.openWindow("/");
-    } catch (error) {
-      this.$utils.helper.errorToast(this, error);
-    }
+    await this.$messages.openWindow("/");
+    window.close();
   }
 
-  handleToConfig() {
+  async handleToConfig() {
     this.$router.push({ name: "settings" });
   }
 }

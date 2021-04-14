@@ -57,7 +57,6 @@ import {
   Transfer
 } from "@foxone/mixin-sdk/types";
 import { Component, Vue } from "vue-property-decorator";
-import { EVENTS } from "../../defaults";
 
 @Component
 class TransferGuard extends Vue {
@@ -116,7 +115,7 @@ class TransferGuard extends Vue {
   }
 
   handlePay() {
-    this.$root.$emit(EVENTS.CONFIRM_PASSWORD, {
+    this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestTransfer(password)
     });
   }

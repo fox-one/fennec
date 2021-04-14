@@ -1,5 +1,6 @@
 import { SnapshotType } from "@foxone/mixin-sdk/types";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function snapshotTypeMetas(_vm: Vue) {
   return {
     [SnapshotType.DEPOSIT]: {
