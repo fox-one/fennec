@@ -1,9 +1,9 @@
 {
   "name": "@foxone/mixin-extension-ui",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "main": "src/index.ts",
   "dependencies": {
-    "@foxone/mixin-extension-base": "^0.1.0-alpha.8",
+    "@foxone/mixin-extension-base": "^0.1.0-alpha.9",
     "@foxone/mixin-sdk": "^0.1.0-alpha.8",
     "@foxone/uikit": "^2.0.51",
     "@vue/composition-api": "^1.0.0-rc.3",
