@@ -13,6 +13,7 @@ export default function createWalletHandlers(state: State) {
       );
 
       port.onDisconnect.addListener(() => {
+        state.wallet.clearAllTransfers();
         unsubscribe(id);
         subscription.unsubscribe();
       });
@@ -29,6 +30,7 @@ export default function createWalletHandlers(state: State) {
       );
 
       port.onDisconnect.addListener(() => {
+        state.wallet.clearAllRawTransactionsRequests();
         unsubscribe(id);
         subscription.unsubscribe();
       });
