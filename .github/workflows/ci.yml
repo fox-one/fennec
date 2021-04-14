@@ -38,8 +38,10 @@ jobs:
       - run: yarn build
       - run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - run: rm -rf "fennec-${RELEASE_TAG}"
-      - run: cp -r ./packages/mixin-extension/build "fennec-${RELEASE_TAG}"
-      - run: zip -r "fennec-${RELEASE_TAG}.zip" "fennec-${RELEASE_TAG}"
+      - run: cd ./packages/mixin-extension/build
+      - run: zip -r "fennec-${RELEASE_TAG}.zip" *
+      - run: mv "fennec-${RELEASE_TAG}.zip" ../../../
+      - run: cd ../../../
 
       - name: GitHub release
         id: create_release
