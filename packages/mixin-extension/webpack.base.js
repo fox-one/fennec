@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const ManifestPlugin = require("webpack-extension-manifest-plugin");
 
-const pkgJson = require("./package.json");
+const pkgJson = require("../../lerna.json");
 const manifest = require("./manifest.json");
 
 const packages = [
@@ -104,7 +104,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": {
-        // NODE_ENV: JSON.stringify("production"),
         PKG_NAME: JSON.stringify(pkgJson.name),
         PKG_VERSION: JSON.stringify(pkgJson.version)
       }
@@ -114,7 +113,8 @@ module.exports = {
       config: {
         base: manifest,
         extend: {
-          version: pkgJson.version.split("-")[0] // remove possible -beta.xx
+          version: pkgJson.version.split("-")[0], // remove possible -beta.xx
+          version_name: pkgJson.version
         }
       }
     }),
