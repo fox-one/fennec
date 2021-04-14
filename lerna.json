@@ -12,7 +12,8 @@
       "message": "chore(release): publish %s"
     },
     "version": {
-      "push": true
+      "push": true,
+      "conventionalCommits": true
     }
   },
   "version": "0.1.0-alpha.8",
