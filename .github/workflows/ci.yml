@@ -60,14 +60,14 @@ jobs:
           asset_name: fennec-${{ env.RELEASE_TAG }}.zip
           asset_content_type: application/zip
 
-      - name: Upload Chrome Web Store
-        uses: mnao305/chrome-extension-upload@1.1.1
-        with:
-          file-path: fennec-${{ env.RELEASE_TAG }}.zip
-          extension-id: eincngenkhohbbfpkohipekcmnkfamjp
-          client-id: ${{ secrets.CLIENT_ID }}
-          client-secret: ${{ secrets.CLIENT_SECRET }}
-          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+      # - name: Upload Chrome Web Store
+      #   uses: mnao305/chrome-extension-upload@1.1.1
+      #   with:
+      #     file-path: fennec-${{ env.RELEASE_TAG }}.zip
+      #     extension-id: eincngenkhohbbfpkohipekcmnkfamjp
+      #     client-id: ${{ secrets.CLIENT_ID }}
+      #     client-secret: ${{ secrets.CLIENT_SECRET }}
+      #     refresh-token: ${{ secrets.REFRESH_TOKEN }}
 
       # deploy demo
       - run: yarn --frozen-lockfile --non-interactive

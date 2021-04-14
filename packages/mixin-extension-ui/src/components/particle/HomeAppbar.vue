@@ -40,6 +40,7 @@ class HomeAppbar extends Vue {
 
   async handleOpenWindow() {
     await this.$messages.openWindow("/");
+    window.close();
   }
 
   async handleToConfig() {

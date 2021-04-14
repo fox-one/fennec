@@ -122,7 +122,7 @@ export default class KeyringState {
       password
     );
     await this.persistStore(newStored, password);
-    await this.#keyring.restore(this.stored, password);
+    await this.#keyring.restore(newStored, password);
     this.updateAccounts();
     return true;
   }

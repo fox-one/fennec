@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" max-width="600">
     <template v-if="dialog">
       <v-card v-if="meta.inited" class="pa-3">
         <v-card-title class="justify-center f-title-1">

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" max-width="600">
     <template #activator="{ on }">
       <v-btn block depressed rounded color="primary" v-on="on">
         Add Customer Provider
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
 
 @Component
@@ -42,6 +42,11 @@ class AccountProviderAdd extends Vue {
   loading = false;
 
   provider = "";
+
+  @Watch("dialog")
+  handleDialogChange() {
+    this.provider = "";
+  }
 
   async handleAdd() {
     this.loading = true;
