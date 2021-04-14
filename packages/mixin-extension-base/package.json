@@ -1,6 +1,6 @@
 {
   "name": "@foxone/mixin-extension-base",
-  "version": "0.1.0-alpha.11",
+  "version": "0.1.0-alpha.12",
   "description": "Fennec: Mixin Chrome Extension Wallet",
   "main": "src/index.ts",
   "author": "zhangqingwu <18656007202@163.com>",
