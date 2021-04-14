@@ -40,8 +40,6 @@ jobs:
       - run: rm -rf "fennec-${RELEASE_TAG}"
       - run: cd ./packages/mixin-extension/build
       - run: zip -r "fennec-${RELEASE_TAG}.zip" *
-      - run: mv "fennec-${RELEASE_TAG}.zip" ../../../
-      - run: cd ../../../
 
       - name: GitHub release
         id: create_release
@@ -58,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: fennec-${{ env.RELEASE_TAG }}.zip
+          asset_path: ./packages/mixin-extension/build/fennec-${{ env.RELEASE_TAG }}.zip
           asset_name: fennec-${{ env.RELEASE_TAG }}.zip
           asset_content_type: application/zip
 
