@@ -34,9 +34,12 @@ function getId() {
 }
 
 export default class WalletState {
-  #transferRequests: TransferRequestWithResolver[] = [];
+  #transferRequests: Record<string, TransferRequestWithResolver> = {};
 
-  #rawTransactionsRequests: RawTransactionRequestWithResolver[] = [];
+  #rawTransactionsRequests: Record<
+    string,
+    RawTransactionRequestWithResolver
+  > = {};
 
   #platform: PlatformState;
 
@@ -157,5 +160,17 @@ export default class WalletState {
     id: string
   ): RawTransactionRequestWithResolver {
     return this.#rawTransactionsRequests[id];
+  }
+
+  public clearAllTransfers() {
+    Object.values(this.#transferRequests).forEach(({ reject }) => {
+      reject(new Error("Reject"));
+    });
+  }
+
+  public clearAllRawTransactionsRequests() {
+    Object.values(this.#rawTransactionsRequests).forEach(({ reject }) => {
+      reject(new Error("Reject"));
+    });
   }
 }

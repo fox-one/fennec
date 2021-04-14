@@ -65,7 +65,7 @@ const endpoints = createEndpoint(provider);
 
 provider.instance.interceptors.request.use(async (config) => {
   const url = axios.getUri(config);
-  const token = await sendMessage("pub(keyring.signAuthorizeToken)", {
+  const token = await sendMessage("pub_(keyring.signAuthorizeToken)", {
     uri: url,
     method: config.method ?? "",
     data: config.data ?? ""
@@ -75,8 +75,8 @@ provider.instance.interceptors.request.use(async (config) => {
 });
 
 export async function enable(origin: string): Promise<InjectedData> {
-  await sendMessage("pub(authorize.tab)", { origin });
-  await sendMessage("pub(accounts.ensureUnlocked)");
+  await sendMessage("pub_(authorize.tab)", { origin });
+  await sendMessage("pub_(accounts.ensureUnlocked)");
 
   return {
     accounts: new Accounts(sendMessage),
@@ -85,7 +85,7 @@ export async function enable(origin: string): Promise<InjectedData> {
 }
 
 export async function redirectIfPhishing(): Promise<boolean> {
-  return await sendMessage("pub(phishing.redirectIfDenied)");
+  return await sendMessage("pub_(phishing.redirectIfDenied)");
 }
 
 export function handleResponse<T extends ActionTypes>(
@@ -94,7 +94,7 @@ export function handleResponse<T extends ActionTypes>(
   const handler = handlers[data.id];
 
   if (!handler) {
-    console.error(`Unknown response: ${JSON.stringify(data)}`);
+    console.log(`Unknown response: ${JSON.stringify(data)}`);
     return;
   }
 

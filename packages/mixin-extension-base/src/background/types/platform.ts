@@ -7,6 +7,7 @@ export interface OpenWindowPayload {
 }
 
 export interface PlatformActionSignatures {
-  "pri(platform.closePopup)": [null, null];
-  "pri(platform.openWindow)": [OpenWindowPayload, boolean];
+  "pri_(platform.closePopup)": [null, null];
+  "pri_(platform.openWindow)": [OpenWindowPayload, boolean];
+  "pri_(platform.onWindowClose)": [null, null];
 }

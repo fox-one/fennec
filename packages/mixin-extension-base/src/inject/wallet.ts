@@ -25,16 +25,16 @@ export default class Wallet {
   }
 
   public async transfer(payload: CreateTransferPayload) {
-    return await sendMessage("pub(transfer.request)", payload);
+    return await sendMessage("pub_(transfer.request)", payload);
   }
 
   public async signToken(payload: SignClientTokenPayload) {
-    return await sendMessage("pub(token.sign)", payload);
+    return await sendMessage("pub_(token.sign)", payload);
   }
 
   public async multisigsPayment(payload: { code: string }) {
     const res: RawTransactionPayment = await endpoints.codes(payload.code);
-    return await sendMessage("pub(multisigs.request)", { transaction: res });
+    return await sendMessage("pub_(multisigs.request)", { transaction: res });
   }
 
   public async multisigsGenerate(payload: {

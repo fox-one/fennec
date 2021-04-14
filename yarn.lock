@@ -5745,7 +5745,7 @@ core-js@^2.4.0, core-js@^2.5.0:
   resolved "https://registry.npmjs.org/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.6.5:
+core-js@^3.1.4, core-js@^3.6.5:
   version "3.8.2"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.8.2.tgz#0a1fd6709246da9ca8eff5bb0cbd15fba9ac7044"
   integrity sha512-FfApuSRgrR6G5s58casCBd9M2k+4ikuu4wbW6pJyYU7bd9zvFc9qf7vr5xmrZOhT9nn+8uwlH1oRR9jTnFoA3A==
@@ -5796,13 +5796,6 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-cross-env@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
-  integrity sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==
-  dependencies:
-    cross-spawn "^7.0.1"
-
 cross-spawn@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
@@ -5831,7 +5824,7 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.3:
+cross-spawn@^7.0.0, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
@@ -6165,7 +6158,7 @@ deepmerge@^1.5.2:
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-1.5.2.tgz#10499d868844cdad4fee0842df8c7f6f0c95a753"
   integrity sha512-95k0GDqvBjZavkuvzx/YqVLv/6YYa17fz6ILMSf7neqQITCPbnfEnQvEgMPNjH4kgobe7+WIL0yJEHku+H3qtQ==
 
-deepmerge@^4.2.2:
+deepmerge@^4.0.0, deepmerge@^4.2.2:
   version "4.2.2"
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
   integrity sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
@@ -6555,11 +6548,6 @@ emittery@^0.7.1:
   version "0.7.2"
   resolved "https://registry.npm.taobao.org/emittery/download/emittery-0.7.2.tgz#25595908e13af0f5674ab419396e2fb394cdfa82"
   integrity sha1-JVlZCOE68PVnSrQZOW4vs5TN+oI=
-
-emoji-log@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/emoji-log/-/emoji-log-1.0.2.tgz#f2da615b05c2e415626e2bdd122dfa37d6d87144"
-  integrity sha512-3r9WI8xWU3gaeuPSrHEO9cbTybzlud82v98qeJlwyeGhUhKMleKdvDLegn/CPd1UZiFfTgl5VmJ9OW7I0y7CVA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -12852,7 +12840,7 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
-schema-utils@^2.0.0, schema-utils@^2.5.0, schema-utils@^2.6.1, schema-utils@^2.6.5, schema-utils@^2.6.6, schema-utils@^2.7.0, schema-utils@^2.7.1:
+schema-utils@^2.0.0, schema-utils@^2.5.0, schema-utils@^2.6.1, schema-utils@^2.6.5, schema-utils@^2.6.6, schema-utils@^2.7.0:
   version "2.7.1"
   resolved "https://registry.npmjs.org/schema-utils/-/schema-utils-2.7.1.tgz#1ca4f32d1b24c590c203b8e7a50bf0ea4cd394d7"
   integrity sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==
@@ -14950,6 +14938,14 @@ webpack-dev-server@^3.11.0:
     ws "^6.2.1"
     yargs "^13.3.2"
 
+webpack-extension-manifest-plugin@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/webpack-extension-manifest-plugin/-/webpack-extension-manifest-plugin-0.6.0.tgz#5fea2b71fa510712d0ecb946784dc7c7672e6dc8"
+  integrity sha512-wDxo7kwBJzCjh5wKq0mJcrRdCpOxVVNsGOruUBJgdonK7S/xVrs9Ni/rUn1dyQ0g4svgx3ykB8X7trcETI0msw==
+  dependencies:
+    core-js "^3.1.4"
+    deepmerge "^4.0.0"
+
 webpack-extension-reloader@^1.1.0:
   version "1.1.4"
   resolved "https://registry.npmjs.org/webpack-extension-reloader/-/webpack-extension-reloader-1.1.4.tgz#f5e5fa580e617c114cc45ddb6eb25c5d6a4dd2f6"
@@ -15067,21 +15063,6 @@ websocket-extensions@>=0.1.1:
   version "0.1.4"
   resolved "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
   integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
-
-wext-manifest-loader@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/wext-manifest-loader/-/wext-manifest-loader-2.3.0.tgz#16b5f7603cc3aa6a6d76efe4bfcbf87ff7bd6ecb"
-  integrity sha512-l6RIJmpiU8ibUKwueNqPys4iV1Jys2VLFIID1poWRuSuXzeDKjPB0TAAX0zMlckkoH6Ft0WKcvPNAEoR9KcUMQ==
-  dependencies:
-    loader-utils "^2.0.0"
-    schema-utils "^2.7.1"
-
-wext-manifest-webpack-plugin@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/wext-manifest-webpack-plugin/-/wext-manifest-webpack-plugin-1.2.1.tgz#80723fdc41d2104d41d408b3496ff74719b0fc66"
-  integrity sha512-NvyNpyhCxMa5aHzJyWcH2RBKIBEoZkb+CFvIk2Pg4QPSvTIUXpPXsiYrtUf5ghJh/DUorPoijwzNFi6agSl4bg==
-  dependencies:
-    emoji-log "^1.0.2"
 
 whatwg-encoding@^1.0.5:
   version "1.0.5"

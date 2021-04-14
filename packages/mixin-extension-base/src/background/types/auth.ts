@@ -25,15 +25,15 @@ export interface UpdateAuthUrlPayload {
 }
 
 export interface AuthActionSignatures {
-  "pri(authorize.requests)": [null, boolean, AuthRequests[]];
-  "pri(authorize.list)": [null, Record<string, AuthUrlInfo>];
-  "pri(authorize.reject)": [RejectAuthPayload, boolean];
-  "pri(authorize.approve)": [ApproveAuthPayload, boolean];
-  "pri(authorize.authUrls)": [null, AuthUrlInfo[]];
-  "pri(authorize.update)": [UpdateAuthUrlPayload, boolean];
+  "pri_(authorize.requests)": [null, boolean, AuthRequests[]];
+  "pri_(authorize.list)": [null, Record<string, AuthUrlInfo>];
+  "pri_(authorize.reject)": [RejectAuthPayload, boolean];
+  "pri_(authorize.approve)": [ApproveAuthPayload, boolean];
+  "pri_(authorize.authUrls)": [null, AuthUrlInfo[]];
+  "pri_(authorize.update)": [UpdateAuthUrlPayload, boolean];
 
-  "pub(authorize.tab)": [AuthTabPayload, null];
-  "pub(accounts.ensureUnlocked)": [null, boolean];
-  "pub(accounts.list)": [null, InjectedAccount[]];
-  "pub(phishing.redirectIfDenied)": [null, boolean];
+  "pub_(authorize.tab)": [AuthTabPayload, null];
+  "pub_(accounts.ensureUnlocked)": [null, boolean];
+  "pub_(accounts.list)": [null, InjectedAccount[]];
+  "pub_(phishing.redirectIfDenied)": [null, boolean];
 }

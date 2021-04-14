@@ -55,97 +55,100 @@ export default function (state: State) {
 
     switch (action) {
       // Accounts
-      case "pri(authorize.requests)":
+      case "pri_(authorize.requests)":
         return handlers.authorizeSubscribe(id, port);
 
-      case "pri(authorize.approve)":
+      case "pri_(authorize.approve)":
         return handlers.approveAuthorize(payload as ApproveAuthPayload);
 
-      case "pri(authorize.reject)":
+      case "pri_(authorize.reject)":
         return handlers.rejectAuthorize(payload as RejectAuthPayload);
 
-      case "pri(authorize.authUrls)":
+      case "pri_(authorize.authUrls)":
         return handlers.getAuthUrls();
 
-      case "pri(authorize.update)":
+      case "pri_(authorize.update)":
         return handlers.updateAuthUrl(payload as UpdateAuthUrlPayload);
 
       // Keyring
-      case "pri(keyring.createAccount)":
+      case "pri_(keyring.createAccount)":
         return handlers.createAccount(payload as CreateAccountPayload);
 
-      case "pri(keyring.subscribe)":
+      case "pri_(keyring.subscribe)":
         return handlers.createKeyringStateSubscribe(id, port);
 
-      case "pri(keyring.unlock)":
+      case "pri_(keyring.unlock)":
         return handlers.tryUnlockKeyring(payload as UnlockKeyringPayload);
 
-      case "pri(keyring.signAuthorizeToken)":
+      case "pri_(keyring.signAuthorizeToken)":
         return handlers.signAuthorizeToken(
           payload as SignAuthorizeTokenPayload
         );
 
-      case "pri(keyring.getEncryptedPin)":
+      case "pri_(keyring.getEncryptedPin)":
         return handlers.getEncryptedPin(payload as GetEncryptedPinPayload);
 
-      case "pri(keyring.exportAccount)":
+      case "pri_(keyring.exportAccount)":
         return handlers.exportAccount(payload as ExportKeyringPayload);
 
-      case "pri(keyring.exportAllAccounts)":
+      case "pri_(keyring.exportAllAccounts)":
         return handlers.exportAllAccounts(payload as ExportAllAccountsPayload);
 
-      case "pri(keyring.removeAccount)":
+      case "pri_(keyring.removeAccount)":
         return handlers.removeAccount(payload as RemoveAccountPayload);
 
       // Preference
-      case "pri(preference.subscribe)":
+      case "pri_(preference.subscribe)":
         return handlers.perferenceSubscribe(id, port);
 
-      case "pri(perference.completeOnboarding)":
+      case "pri_(perference.completeOnboarding)":
         return handlers.completeOnboarding();
 
-      case "pri(perference.selectAccount)":
+      case "pri_(perference.selectAccount)":
         return handlers.selectAccount(payload as SelectAccountPaylod);
 
-      case "pri(perference.updateAccountProviders)":
+      case "pri_(perference.updateAccountProviders)":
         return handlers.updateAccountProviders(
           payload as UpdateAccountProvidersPayload
         );
 
       // Wallet
-      case "pri(transfer.list)":
+      case "pri_(transfer.list)":
         return handlers.transferSubscribe(id, port);
 
-      case "pri(transfer.approve)":
+      case "pri_(transfer.approve)":
         return handlers.approveTransfer(payload as ApproveTransferPayload);
 
-      case "pri(transfer.reject)":
+      case "pri_(transfer.reject)":
         return handlers.rejectTransfer(payload as RejectTransferPayload);
 
-      case "pri(multisigs.list)":
+      case "pri_(multisigs.list)":
         return handlers.multisigPaymentSubscribe(id, port);
 
-      case "pri(multisigs.approve)":
+      case "pri_(multisigs.approve)":
         return handlers.approveMultisigsPayment(
           payload as ApproveMultisigsPayload
         );
 
-      case "pri(multisigs.reject)":
+      case "pri_(multisigs.reject)":
         return handlers.rejectMultisigsPayment(
           payload as RejectMultisigsPayload
         );
 
-      case "pri(rejectMultisigsPayment)":
+      case "pri_(rejectMultisigsPayment)":
         return handlers.rejectMultisigsPayment(
           payload as RejectMultisigsPayload
         );
 
       // Platform
-      case "pri(platform.closePopup)":
+      case "pri_(platform.closePopup)":
         return handlers.closePopup();
 
-      case "pri(platform.openWindow)":
+      case "pri_(platform.openWindow)":
         return handlers.openWindow(payload as OpenWindowPayload);
+
+      case "pri_(platform.onWindowClose)":
+        return handlers.onWindowClose();
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

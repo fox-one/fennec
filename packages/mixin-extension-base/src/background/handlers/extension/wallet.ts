@@ -5,7 +5,7 @@ import { createSubscription, unsubscribe } from "../subscriptions";
 export default function createWalletHandlers(state: State) {
   return {
     transferSubscribe(id: string, port: chrome.runtime.Port): boolean {
-      const cb = createSubscription<"pri(transfer.list)">(id, port);
+      const cb = createSubscription<"pri_(transfer.list)">(id, port);
       const subscription = state.wallet.transferRequestsSubject.subscribe(
         (requests: TransferReq[]) => {
           cb(requests);
@@ -13,6 +13,7 @@ export default function createWalletHandlers(state: State) {
       );
 
       port.onDisconnect.addListener(() => {
+        state.wallet.clearAllTransfers();
         unsubscribe(id);
         subscription.unsubscribe();
       });
@@ -21,7 +22,7 @@ export default function createWalletHandlers(state: State) {
     },
 
     multisigPaymentSubscribe(id: string, port: chrome.runtime.Port): boolean {
-      const cb = createSubscription<"pri(multisigs.list)">(id, port);
+      const cb = createSubscription<"pri_(multisigs.list)">(id, port);
       const subscription = state.wallet.multisigsTransactionsSubject.subscribe(
         (transactions: RawTransactionReq[]) => {
           cb(transactions);
@@ -29,6 +30,7 @@ export default function createWalletHandlers(state: State) {
       );
 
       port.onDisconnect.addListener(() => {
+        state.wallet.clearAllRawTransactionsRequests();
         unsubscribe(id);
         subscription.unsubscribe();
       });

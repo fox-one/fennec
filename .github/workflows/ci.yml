@@ -38,8 +38,8 @@ jobs:
       - run: yarn build
       - run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - run: rm -rf "fennec-${RELEASE_TAG}"
-      - run: cp -r ./packages/mixin-extension/build "fennec-${RELEASE_TAG}"
-      - run: zip -r "fennec-${RELEASE_TAG}.zip" "fennec-${RELEASE_TAG}"
+      - run: cd ./packages/mixin-extension/build
+      - run: zip -r "fennec-${RELEASE_TAG}.zip" *
 
       - name: GitHub release
         id: create_release
@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: fennec-${{ env.RELEASE_TAG }}.zip
+          asset_path: packages/mixin-extension/build/fennec-${{ env.RELEASE_TAG }}.zip
           asset_name: fennec-${{ env.RELEASE_TAG }}.zip
           asset_content_type: application/zip
 

@@ -1,13 +1,5 @@
 {
-  "__chrome|firefox__author": "foxone",
-  "__opera__developer": {
-    "name": "foxone"
-  },
-  "__firefox__applications": {
-    "gecko": {
-      "id": "{A5B50977-D05E-4EE0-9319-A848D77D18C8}"
-    }
-  },
+  "author": "foxone",
   "description": "Manage your Mixin Messenger accounts without download apps. Inject accounts and allows sign transactions for a specific account.",
   "homepage_url": "https://fox.one",
   "name": "Fennec",
@@ -17,13 +9,11 @@
   "permissions": ["storage", "activeTab"],
   "background": {
     "scripts": ["background.js"],
-    "__chrome|opera__persistent": true
+    "persistent": true
   },
   "browser_action": {
     "default_title": "Fennec: Mixin Chrome Extension Wallet",
-    "default_popup": "popup.html",
-    "__chrome|opera__chrome_style": false,
-    "__firefox__browser_style": false
+    "default_popup": "popup.html"
   },
   "content_scripts": [{
     "js": ["content.js"],

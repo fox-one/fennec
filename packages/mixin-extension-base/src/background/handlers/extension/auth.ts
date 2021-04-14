@@ -7,7 +7,7 @@ import { createSubscription, unsubscribe } from "../subscriptions";
 export default function createAuthHandlers(state: State) {
   return {
     authorizeSubscribe(id: string, port: chrome.runtime.Port): boolean {
-      const cb = createSubscription<"pri(authorize.requests)">(id, port);
+      const cb = createSubscription<"pri_(authorize.requests)">(id, port);
       const subscription = state.auth.authSubject.subscribe(
         (requests: AuthorizeRequest[]) => {
           cb(requests);

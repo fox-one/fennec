@@ -8,6 +8,6 @@ export default class Accounts {
   }
 
   public get(): Promise<InjectedAccount[]> {
-    return sendMessage("pub(accounts.list)");
+    return sendMessage("pub_(accounts.list)");
   }
 }
