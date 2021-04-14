@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fennec Demo</title>
+    <style>
+      a {
+        text-decoration: none;
+      }
+
+      * {
+        font-family: "Nunito", sans-serif;
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 660px;
+        padding: 20px;
+        margin: 0 auto;
+      }
+
+      pre {
+        background-color: black;
+        color: blanchedalmond;
+        padding: 16px;
+        margin: 16px 0;
+        font-size: 14px;
+        white-space: pre-wrap;
+        font-family: monospace;
+        max-height: 200px;
+        overflow: auto;
+      }
+
+      button {
+        font-size: 16px;
+        height: 44px;
+        padding: 0 16px;
+        border-radius: 4px;
+        background-color: white;
+        border: 1px solid #999;
+        cursor: pointer;
+      }
+
+      input[type="text"] {
+        height: 44px;
+        border-radius: 4px;
+        border: 1px solid #999;
+        display: block;
+        width: 100%;
+        margin-bottom: 12px;
+        font-size: 14px;
+        font-family: monospace;
+        padding: 0 16px;
+      }
+
+      .title {
+        margin-bottom: 20px;
+      }
+
+      .sec {
+        margin-bottom: 40px;
+      }
+
+      .fea {
+        margin-bottom: 40px;
+      }
+
+      .step {
+        margin-bottom: 12px;
+      }
+
+      .status {
+        background-color: rgb(255, 243, 226);
+        border: 1px solid rgb(255, 208, 122);
+        padding: 8px 16px;
+        margin-bottom: 20px;
+        color: rgb(214, 176, 106);
+      }
+      .status.found {
+        background-color: rgb(228, 255, 255);
+        border-color: rgb(208, 255, 255);
+        color: rgb(74, 141, 141);
+      }
+      .status.connected {
+        background-color: rgb(228, 255, 247);
+        border-color: rgb(208, 255, 237);
+        color: rgb(74, 141, 96);
+      }
+    </style>
+    <script type="application/javascript">
+      let ctx = null,
+        ext = null,
+        token = "",
+        status = null;
+
+      function uuid() {
+        let uuid = "",
+          i,
+          random;
+        for (i = 0; i < 32; i++) {
+          random = (Math.random() * 16) | 0;
+          if (i === 8 || i === 12 || i === 16 || i === 20) {
+            uuid += "-";
+          }
+          uuid += (i === 12
+            ? 4
+            : i === 16
+            ? (random & 3) | 8
+            : random
+          ).toString(16);
+        }
+        return uuid;
+      }
+
+      function load() {
+        status = document.querySelector(".status");
+        checkFennec();
+      }
+
+      function checkFennec() {
+        status.innerText = "Looking for Fennec...";
+        if (window.__MIXIN__ && window.__MIXIN__.mixin_ext) {
+          ext = window.__MIXIN__.mixin_ext;
+          status.innerText = 'Found Fennec, tap "Connect" to connect Fennec';
+          status.classList.add("found");
+          enabledConnectBtn();
+          return ext;
+        }
+        setTimeout(() => {
+          checkFennec();
+        }, 1000);
+      }
+
+      function enabledConnectBtn() {
+        document.querySelector(".connect-btn").disabled = false;
+      }
+
+      function enabledFeatureBtns() {
+        document.querySelectorAll(".feature-btn").forEach((x) => {
+          x.disabled = false;
+        });
+      }
+
+      async function connect() {
+        if (!ext) {
+          throw new Error("Browser Extension is not installed");
+        }
+        ctx = await ext.enable("demo");
+        if (ctx) {
+          token = await ctx.wallet.signToken({
+            payload: { from: "demo" }
+          });
+        }
+      }
+
+      async function getAssets() {
+        return ctx.wallet.getAssets();
+      }
+
+      async function getAsset(id) {
+        return ctx.wallet.getAsset(id);
+      }
+
+      async function transfer(payload) {
+        return ctx.wallet.transfer(payload);
+      }
+
+      async function multisigsPayment(payload) {
+        return ctx.wallet.multisigsPayment(payload);
+      }
+
+      async function multisigsGenerate(payload) {
+        return ctx.wallet.multisigsGenerate(payload);
+      }
+    </script>
+  </head>
+  <body onload="load()">
+    <div class="container">
+      <h1 class="title">Demo: connect to Fennec</h1>
+      <div class="status">Disconnected</div>
+      <div class="sec">
+        <div class="step">Step 1: Connect, get context and token</div>
+        <button disabled class="connect-btn">Connect</button>
+      </div>
+      <div class="sec">
+        <div class="step">Step 2: Invoke Fennec methods</div>
+        <div class="fea">
+          <button disabled class="feature-btn get-btc-btn">Get BTC</button>
+          <pre class="get-btc-output">Tap the button to see the output</pre>
+        </div>
+
+        <div class="fea">
+          <button disabled class="feature-btn get-assets-btn">
+            Get all assets
+          </button>
+          <pre class="get-assets-output">Tap the button to see the output</pre>
+        </div>
+
+        <div class="fea">
+          <input
+            type="text"
+            class="transfer-input"
+            value="dfa655ef-55db-4e18-bdd7-29a7c576a223"
+            placeholder="opponent's id"
+          />
+          <button disabled class="feature-btn transfer-btn">
+            Transfer to someone
+          </button>
+        </div>
+
+        <div class="fea">
+          <input
+            type="text"
+            class="mulsig-input"
+            value="0cc43c5e-4258-4ece-b0ff-d8e719b1d469,17ac525b-5e12-44b0-8f51-5beb8aa1a129"
+            placeholder="opponents' id"
+          />
+          <button disabled class="feature-btn mulsig-btn">Multisigs</button>
+          <pre class="mulsig-output">Tap the button to see the output</pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const connectBtn = document.querySelector(".connect-btn");
+      connectBtn.addEventListener("click", async () => {
+        await connect();
+        status.innerText = "Connected.";
+        status.classList.add("connected");
+        connectBtn.disabled = true;
+        connectBtn.innerText = "Connected";
+        enabledFeatureBtns();
+      });
+      document
+        .querySelector(".get-btc-btn")
+        .addEventListener("click", async function () {
+          const res = await getAsset("c6d0c728-2624-429b-8e0d-d9d19b6592fa");
+          document.querySelector(".get-btc-output").innerText = JSON.stringify(
+            res
+          );
+        });
+      document
+        .querySelector(".get-assets-btn")
+        .addEventListener("click", async () => {
+          const res = await getAssets();
+          document.querySelector(
+            ".get-assets-output"
+          ).innerText = JSON.stringify(res);
+        });
+      document
+        .querySelector(".transfer-btn")
+        .addEventListener("click", function () {
+          const payload = {
+            asset_id: "965e5c6e-434c-3fa9-b780-c50f43cd955c", // CNB
+            amount: "100",
+            opponent_id: document.querySelector(".transfer-input").value,
+            memo: "test",
+            trace_id: uuid()
+          };
+          transfer(payload);
+        });
+      document
+        .querySelector(".mulsig-btn")
+        .addEventListener("click", async () => {
+          const output = document.querySelector(".mulsig-output");
+          const data = {
+            asset_id: "965e5c6e-434c-3fa9-b780-c50f43cd955c", // CNB
+            amount: "100",
+            opponent_multisig: {
+              receivers: document
+                .querySelector(".mulsig-input")
+                .value.split(","),
+              threshold: 1
+            },
+            memo: "mulsig test",
+            trace_id: uuid()
+          };
+          const sig = await multisigsGenerate({
+            transaction: data
+          });
+          output.innerText = "sig:\n" + JSON.stringify(sig);
+          await multisigsPayment({ code: sig.code_id });
+        });
+    </script>
+  </body>
+</html>
