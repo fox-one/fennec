@@ -37,9 +37,8 @@ jobs:
       - run: yarn --frozen-lockfile --non-interactive
       - run: yarn build
       - run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      - run: rm -rf "fennec-${RELEASE_TAG}"
-      - run: cd ./packages/mixin-extension/build
       - run: zip -r "fennec-${RELEASE_TAG}.zip" *
+        working-directory: packages/mixin-extension/build
 
       - name: GitHub release
         id: create_release
