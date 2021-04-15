@@ -75,5 +75,5 @@ Not ready yet.
 
 There are two demos in the project. Go through the source code and you will find it out.
 
-- [A vue demo](http://fox-one.github.io/fennec), and its [source code](https://github.com/fox-one/fennec/tree/main/packages/mixin-extension-demo)
+- [A vue demo](https://fox-one.github.io/fennec), and its [source code](https://github.com/fox-one/fennec/tree/main/packages/mixin-extension-demo)
 - [A vanilla js demo](https://fox-one.github.io/fennec/javascript), and its [source code](https://github.com/fox-one/fennec/tree/main/packages/vanilla-javascript-demo)
