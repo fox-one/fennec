@@ -16,7 +16,7 @@ Fennec is an opensource browser extension wallet for Mixin Network.
 ### 1.1 Install from Chrome webstore or Firefox add-ons 🛒
 
 - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/fox_fennec/)
-- Chrome Store: Not ready, waiting for being reviewed.
+- [Chrome Store](https://chrome.google.com/webstore/detail/fennec/eincngenkhohbbfpkohipekcmnkfamjp)
 
 ### 1.2 Install manually 📦
 
