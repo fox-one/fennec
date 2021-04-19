@@ -60,7 +60,9 @@ class AccountItem extends Vue {
   async requestAccount() {
     try {
       this.user = await this.$utils.account.getUser(this, this.id);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 export default AccountItem;
