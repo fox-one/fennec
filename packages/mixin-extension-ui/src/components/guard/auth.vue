@@ -1,14 +1,6 @@
 <template>
   <v-container>
-    <f-tip type="warning" class="mb-5">
-      Only approve this request if you trust the application. Approving gives
-      the application access to the addresses of your accounts.
-    </f-tip>
-    <auth-request
-      v-for="(request, index) in requests"
-      :key="index"
-      :request="request"
-    />
+    <auth-request :request="current" />
   </v-container>
 </template>
 
@@ -25,6 +17,10 @@ import AuthRequest from "../auth/AuthRequest.vue";
 class Authorize extends Vue {
   get requests(): AuthorizeRequest[] {
     return this.$store.state.auth.authorizeRequests;
+  }
+
+  get current() {
+    return this.requests?.[0];
   }
 }
 export default Authorize;

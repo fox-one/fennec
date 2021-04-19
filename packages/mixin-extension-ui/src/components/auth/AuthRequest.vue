@@ -1,4 +1,49 @@
 <template>
+  <f-panel class="text-center">
+    <div class="mb-2">
+      <v-icon size="48" color="error">
+        {{ $icons.mdiAlert }}
+      </v-icon>
+    </div>
+    <div class="error--text f-title-1">Authorize</div>
+    <div class="f-body-2 text--secondary my-5">
+      An application, self-identifying as
+      <span class="font-weight-bold text--primary">{{ meta.origin }}</span> is
+      requesting access from
+      <a :href="meta.url" class="text--underlined">{{ meta.url }}</a>
+    </div>
+    <f-tip type="warning" class="rounded">
+      Only approve this request if you trust the application. Approving gives
+      the application access to the addresses of your accounts.
+    </f-tip>
+    <div class="my-5">
+      <v-btn
+        rounded
+        depressed
+        min-width="200"
+        color="primary"
+        class="mb-3"
+        :loading="approving"
+        :disabled="processing"
+        @click="handleApproveRequest"
+      >
+        Approve
+      </v-btn>
+      <v-btn
+        rounded
+        outlined
+        depressed
+        min-width="200"
+        color="error"
+        :loadiing="rejecting"
+        :disabled="processing"
+        @click="handleRejectRequest"
+      >
+        Reject
+      </v-btn>
+    </div>
+  </f-panel>
+  <!-- 
   <v-alert
     dense
     outlined
@@ -35,7 +80,7 @@
         Reject
       </v-btn>
     </v-layout>
-  </v-alert>
+  </v-alert> -->
 </template>
 
 <script lang="ts">
