@@ -38,17 +38,7 @@
 
     <action-backup-all-keystore />
 
-    <v-btn
-      rounded
-      text
-      small
-      block
-      color="error"
-      class="mt-5"
-      @click="handleToHome"
-    >
-      I have saved keystore files, back to home
-    </v-btn>
+    <account-backup-confirm-modal />
   </v-container>
 </template>
 
@@ -56,16 +46,18 @@
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../mixin/page";
 import { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 import AccountItem from "../components/account/AccountItem.vue";
 import ActionBackupKeystore from "../components/account/ActionBackupKeystore.vue";
 import ActionBackupAllKeystore from "../components/account/ActionBackupAllKeystore.vue";
+import AccountBackupConfirmModal from "../components/account/AccountBackupConfirmModal.vue";
 
 @Component({
   components: {
     AccountItem,
     ActionBackupKeystore,
-    ActionBackupAllKeystore
+    ActionBackupAllKeystore,
+    AccountBackupConfirmModal
   }
 })
 class BackUpPage extends Mixins(PageView) {
@@ -81,13 +73,9 @@ class BackUpPage extends Mixins(PageView) {
 
   get meta() {
     const keyring: KeyringMemState = this.$store.state.keyring.keyring;
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const selectedAccount = preference.seletedAccount;
     return { selectedAccount, accounts: keyring.accounts };
-  }
-
-  handleToHome() {
-    this.$router.push({ name: "home" });
   }
 }
 export default BackUpPage;

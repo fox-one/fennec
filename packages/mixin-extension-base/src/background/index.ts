@@ -21,7 +21,7 @@ export default async function () {
       : port.sender?.url || port.sender?.tab?.url || "<unknown>";
     const source = `${from} : ${id} : ${action}`;
 
-    console.log(`[in] ${source}:: ${JSON.stringify(payload)}`);
+    // console.log(`[in] ${source}:: ${JSON.stringify(payload)}`);
 
     const promise = isExt
       ? handlers.extension<typeof action>({ id, action, payload, port })
@@ -29,7 +29,7 @@ export default async function () {
 
     promise
       .then((res) => {
-        console.log(`[out] ${source}:: ${JSON.stringify(res)}`);
+        // console.log(`[out] ${source}:: ${JSON.stringify(res)}`);
 
         if (!port) {
           throw "Port has been disconnected";

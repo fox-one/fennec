@@ -41,7 +41,7 @@ export default class AuthState {
 
   #store: BehaviorSubject<Store>;
 
-  public readonly authSubject: BehaviorSubject<
+  public readonly authRequestsSubject: BehaviorSubject<
     AuthorizeRequest[]
   > = new BehaviorSubject<AuthorizeRequest[]>([]);
 
@@ -49,11 +49,9 @@ export default class AuthState {
     store: BehaviorSubject<Store>;
     platform: PlatformState;
   }) {
-    this.#store = opts.store;
     this.#platform = opts.platform;
-    this.#store.subscribe((data) => {
-      this.#authUrls = data.authUrls;
-    });
+    this.#store = opts.store;
+    this.restore();
   }
 
   get authorizeRequests(): AuthorizeRequest[] {
@@ -62,15 +60,6 @@ export default class AuthState {
       url,
       payload
     }));
-  }
-
-  private updateAuthSubject() {
-    this.authSubject.next(this.authorizeRequests);
-  }
-
-  private persistAuthUrls(data: Record<string, AuthUrlInfo>) {
-    const newStore = { ...this.#store.getValue(), authUrls: data };
-    this.#store.next(newStore);
   }
 
   private authComplete(
@@ -95,12 +84,12 @@ export default class AuthState {
         url
       };
 
-      this.persistAuthUrls({
+      this.persist({
         ...this.#authUrls,
         [key]: value
       });
       delete this.#authRequests[id];
-      this.updateAuthSubject();
+      this.updateAuthRequestsSubject();
     };
 
     return {
@@ -167,7 +156,7 @@ export default class AuthState {
         url
       };
 
-      this.updateAuthSubject();
+      this.updateAuthRequestsSubject();
       this.#platform.showPopup();
     });
   }
@@ -196,7 +185,24 @@ export default class AuthState {
 
   public updateAuthUrl(id: string, data: AuthUrlInfo) {
     const authUrls = { ...this.#authUrls, [id]: data };
-    this.persistAuthUrls(authUrls);
+    this.persist(authUrls);
     return true;
+  }
+
+  public removeAuthRequests() {
+    this.#authRequests = {};
+    this.updateAuthRequestsSubject();
+  }
+
+  public restore() {
+    this.#authUrls = this.#store.getValue().authUrls;
+  }
+
+  private persist(data: Record<string, AuthUrlInfo>) {
+    this.#store.next({ ...this.#store.getValue(), authUrls: data });
+  }
+
+  private updateAuthRequestsSubject() {
+    this.authRequestsSubject.next(this.authorizeRequests);
   }
 }

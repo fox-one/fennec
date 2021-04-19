@@ -6,6 +6,7 @@
       type="password"
       class="text--center"
       :rules="rules.password"
+      @keypress.native.enter="handleSubmit"
     />
 
     <v-btn

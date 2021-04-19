@@ -5,7 +5,8 @@ export const VERSION = "v" + pkg.version;
 export const FSWAP_URL = "https://f1-4swap-mtg.firesbox.com/#/";
 
 export const EVENTS = {
-  CONFIRM_PASSWORD: "CONFIRM_PASSWORD"
+  CONFIRM_PASSWORD: "CONFIRM_PASSWORD",
+  APPLICATION_ERROR: "APPLICATION_ERROR"
 };
 
 export const BTC_ASSET_ID = "c6d0c728-2624-429b-8e0d-d9d19b6592fa";

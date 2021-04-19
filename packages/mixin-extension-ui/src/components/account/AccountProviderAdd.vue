@@ -2,11 +2,11 @@
   <v-dialog v-model="dialog" max-width="600">
     <template #activator="{ on }">
       <v-btn block depressed rounded color="primary" v-on="on">
-        Add Customer Provider
+        Add Custom Provider
       </v-btn>
     </template>
     <v-card class="pa-3">
-      <v-card-title class="justify-center"> Customer Provider </v-card-title>
+      <v-card-title class="justify-center"> Custom Provider </v-card-title>
       <v-card-text class="px-0">
         <f-tip type="warning" class="mb-5">
           Make sure your provider is reliable, otherwise you might suffer
@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 
 @Component
 class AccountProviderAdd extends Vue {
@@ -50,12 +50,12 @@ class AccountProviderAdd extends Vue {
 
   async handleAdd() {
     this.loading = true;
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const providers = preference.accountProviders;
     try {
       await this.$messages.updateAccountProviders([
         ...providers,
-        { type: "customer", value: this.provider }
+        { type: "custom", value: this.provider }
       ]);
       this.dialog = false;
     } catch (error) {

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 import { User } from "@foxone/mixin-sdk/types";
 import AccountAvatar from "./AccountAvatar.vue";
 import AccountProfileUpdateModal from "./AccountProfileUpdateModal.vue";
@@ -35,7 +35,7 @@ class AccountProfile extends Vue {
   loading = false;
 
   get meta() {
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const selectedAccount = preference.seletedAccount;
     return {
       selectedAccount,

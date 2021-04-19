@@ -1,14 +1,18 @@
 <template>
-  <v-btn
-    block
-    rounded
-    depressed
-    color="primary"
-    class="mt-5"
-    @click="handleBackupAll"
-  >
-    Backup All
-  </v-btn>
+  <div>
+    <slot name="activator" :on="{ click: handleBackupAll }">
+      <v-btn
+        block
+        rounded
+        depressed
+        color="primary"
+        class="mt-5"
+        @click="handleBackupAll"
+      >
+        Backup All keystore
+      </v-btn>
+    </slot>
+  </div>
 </template>
 
 <script lang="ts">

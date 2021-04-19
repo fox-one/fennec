@@ -1,9 +1,9 @@
 import type AuthState from "./auth";
 import type KeyringState from "./keyring";
-import type PerferenceState from "./preference";
-import type ProviderState from "./provider";
+import type PreferenceState from "./preference";
 import type WalletState from "./wallet";
 import type PlatformState from "./platform";
+import type AppState from "./app";
 import type { AuthUrlInfo } from "./auth";
 
 export interface Resolver<T> {
@@ -14,18 +14,18 @@ export interface Resolver<T> {
 export interface State {
   auth: AuthState;
   keyring: KeyringState;
-  preference: PerferenceState;
-  provider: ProviderState;
+  preference: PreferenceState;
   wallet: WalletState;
   platform: PlatformState;
+  app: AppState;
 }
 
 export interface AccountProvider {
-  type: "build-in" | "customer";
+  type: "built-in" | "custom";
   value: string;
 }
 
-export interface PerferenceStore {
+export interface PreferenceStore {
   completeOnboarding: boolean;
   seletedAccount: undefined | string;
   accountProviders: AccountProvider[];
@@ -34,5 +34,5 @@ export interface PerferenceStore {
 export interface Store {
   authUrls: Record<string, AuthUrlInfo>;
   keyring: string | undefined;
-  preference: PerferenceStore;
+  preference: PreferenceStore;
 }

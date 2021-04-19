@@ -39,7 +39,7 @@ class AccountProviderItem extends Vue {
 
   get meta() {
     return {
-      canRemove: this.provider.type === "customer"
+      canRemove: this.provider.type === "custom"
     };
   }
 

@@ -24,7 +24,8 @@ export default class HttpProvider implements ProviderInterface {
 
     this.#axios.interceptors.response.use((response) => {
       if (response.data.error) {
-        return Promise.reject(response.data.error);
+        const { description, code } = response.data.error;
+        return Promise.reject(new Error(`${code}: ${description}`));
       }
       return Promise.resolve(response.data);
     });

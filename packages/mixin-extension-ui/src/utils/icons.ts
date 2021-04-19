@@ -20,7 +20,9 @@ import {
   mdiPencilBox,
   mdiLinkVariant,
   mdiFullscreen,
-  mdiDownloadOutline
+  mdiDownloadOutline,
+  mdiClose,
+  mdiAlert
 } from "@mdi/js";
 
 export default {
@@ -45,5 +47,7 @@ export default {
   mdiPencilBox,
   mdiLinkVariant,
   mdiFullscreen,
-  mdiDownloadOutline
+  mdiDownloadOutline,
+  mdiClose,
+  mdiAlert
 };

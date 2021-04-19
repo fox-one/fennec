@@ -31,6 +31,7 @@ import {
   MutationTypes as MultisigsMutationTypes,
   MultisigsModulePerfix
 } from "../store/modules/multisigs/types";
+import { EVENTS } from "../defaults";
 
 export function loadAuthorizeRequestsFromBackground(vm: Vue) {
   return new Promise<void>((resolve) => {
@@ -71,7 +72,7 @@ export function loadMultisigsTransactionReqsFormBackground(vm: Vue) {
   });
 }
 
-export function loadPerferenceFromBackground(vm: Vue) {
+export function loadPreferenceFromBackground(vm: Vue) {
   return new Promise<void>((resolve) => {
     vm.$messages.subscribePreferenceState((state) => {
       vm.$store.commit(
@@ -99,11 +100,9 @@ export async function loadWalletData(vm: Vue) {
   const inited = vm.$store.state.keyring.keyring.initialized;
   const locked = !vm.$store.state.keyring.keyring.isUnlocked;
   const selectedAccount = vm.$store.state.preference.preference.seletedAccount;
-  if (!inited || locked) {
-    return;
-  }
+  if (!inited || locked) return;
 
-  await Promise.all([
+  return Promise.all([
     vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ASSETS),
     vm.$store.dispatch(
       WalletModulePerfix + WalletActionTypes.LOAD_EXCHANGE_RATES
@@ -116,22 +115,32 @@ export async function loadWalletData(vm: Vue) {
 
 let timer: any = null;
 export async function startWalletTimer(vm: Vue) {
+  const inited = vm.$store.state.keyring.keyring.initialized;
+  const locked = !vm.$store.state.keyring.keyring.isUnlocked;
+  if (!inited || locked) return;
+
   timer = setInterval(() => {
     loadWalletData(vm);
   }, 3000);
   return timer;
 }
 
+export function handleError(vm: Vue, error: Error) {
+  vm.$root.$emit(EVENTS.APPLICATION_ERROR, error);
+}
+
 export async function init(vm: Vue) {
   vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, true);
-
-  await loadAuthorizeRequestsFromBackground(vm);
-  await loadPerferenceFromBackground(vm);
-  await loadKeyringFromBackground(vm);
-  await loadTransferReqsFromBackground(vm);
-  await loadMultisigsTransactionReqsFormBackground(vm);
-  await loadWalletData(vm);
-  startWalletTimer(vm);
-
+  try {
+    await loadAuthorizeRequestsFromBackground(vm);
+    await loadPreferenceFromBackground(vm);
+    await loadKeyringFromBackground(vm);
+    await loadTransferReqsFromBackground(vm);
+    await loadMultisigsTransactionReqsFormBackground(vm);
+    await loadWalletData(vm);
+    startWalletTimer(vm);
+  } catch (error) {
+    handleError(vm, error);
+  }
   vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, false);
 }

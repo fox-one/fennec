@@ -63,19 +63,12 @@ export default class KeyringState {
   }
 
   public setUnLocked() {
-    this.updateKeyringMemState({
-      ...this.#state,
-      isUnlocked: true
-    });
+    this.updateKeyringMemState({ isUnlocked: true });
   }
 
   public setLocked() {
     this.#keyring = undefined;
-    this.updateKeyringMemState({
-      ...this.#state,
-      isUnlocked: false,
-      accounts: []
-    });
+    this.updateKeyringMemState({ isUnlocked: false, accounts: [] });
   }
 
   public async unlock(password: string) {
@@ -104,11 +97,11 @@ export default class KeyringState {
       this.stored,
       password
     );
-    await this.persistStore(newStored, password);
+    debugger;
+    await this.persist(newStored, password);
     await this.#keyring.restore(this.stored, password);
-
-    this.setUnLocked();
     this.updateAccounts();
+    this.setUnLocked();
     return this.#state.accounts;
   }
 
@@ -121,7 +114,7 @@ export default class KeyringState {
       this.stored,
       password
     );
-    await this.persistStore(newStored, password);
+    await this.persist(newStored, password);
     await this.#keyring.restore(newStored, password);
     this.updateAccounts();
     return true;
@@ -196,8 +189,14 @@ export default class KeyringState {
     });
   }
 
-  private updateKeyringMemState(data: KeyringMemState) {
+  public refresh() {
+    this.#keyring = new MixinKeyring();
+    this.updateKeyringMemState(initKeyringData);
+  }
+
+  private updateKeyringMemState(data: Partial<KeyringMemState>) {
     this.#state = {
+      ...this.#state,
       ...data,
       initialized: Boolean(this.#store.getValue().keyring)
     };
@@ -217,12 +216,11 @@ export default class KeyringState {
     }
 
     this.updateKeyringMemState({
-      ...this.#state,
       accounts: accounts.map((x) => x.client_id)
     });
   }
 
-  private async persistStore(stored: string, password: string) {
+  private async persist(stored: string, password: string) {
     const encrypted = await encryptor.encrypt(password, stored);
     this.#store.next({ ...this.#store.getValue(), keyring: encrypted });
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0">
+  <div>
     <f-panel elevation="none" class="rounded-0">
       <v-layout align-center justify-center column>
         <span>
@@ -18,13 +18,12 @@
       </v-layout>
       <asset-actions :asset="meta.asset" />
     </f-panel>
-
-    <div class="pa-2">
+    <v-container>
       <f-panel class="pa-2">
         <activity-list v-if="meta.asset" :asset="meta.asset" />
       </f-panel>
-    </div>
-  </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts">

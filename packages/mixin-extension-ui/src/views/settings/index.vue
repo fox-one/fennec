@@ -1,9 +1,9 @@
 <template>
-  <v-container class="pa-0">
+  <div>
     <f-panel class="mb-5 rounded-0">
       <account-profile />
     </f-panel>
-    <div class="pa-3">
+    <v-container>
       <f-panel class="mb-5 pa-0">
         <div class="f-caption pa-3">Accounts</div>
         <account-list />
@@ -20,8 +20,8 @@
       <p class="text-center text--secondary caption mt-2">
         {{ meta.version }}
       </p>
-    </div>
-  </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts">

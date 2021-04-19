@@ -4,6 +4,7 @@
     <template v-else>
       <modals />
       <init-guard v-if="!meta.inited" />
+      <error-guard v-else-if="error" :error="error" />
       <unlock-guard v-else-if="meta.locked" />
       <auth-guard v-else-if="meta.hasAuthRequest" />
       <transfer-guard v-else-if="meta.hasTransferReq" />
@@ -24,7 +25,9 @@ import TransferGuard from "./components/guard/transfer.vue";
 import UnlockGuard from "./components/guard/unlock.vue";
 import WalletGuard from "./components/guard/wallet.vue";
 import MultisigsGuard from "./components/guard/multisigs.vue";
+import ErrorGuard from "./components/guard/error.vue";
 import Modals from "./components/modals/Modals.vue";
+import { EVENTS } from "./defaults";
 
 @Component({
   components: {
@@ -35,10 +38,13 @@ import Modals from "./components/modals/Modals.vue";
     UnlockGuard,
     WalletGuard,
     MultisigsGuard,
+    ErrorGuard,
     Modals
   }
 })
 class App extends Vue {
+  error: Error | null = null;
+
   get layout(): MixinApp.AppLayout {
     return this.$store.state.app.layout;
   }
@@ -73,6 +79,9 @@ class App extends Vue {
   }
 
   async mounted() {
+    this.$root.$on(EVENTS.APPLICATION_ERROR, (error: Error) => {
+      this.error = error;
+    });
     await this.$utils.app.init(this);
   }
 }

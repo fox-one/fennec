@@ -64,7 +64,7 @@ class UserSearch extends Vue {
 
     this.loading = true;
     try {
-      const res = await this.$endpoints.searchUser(this.search);
+      const res = await this.$endpoints.getUser(this.search);
       this.bindUser = res;
     } catch (error) {
       this.$utils.helper.errorToast(this, {

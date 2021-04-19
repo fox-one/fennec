@@ -1,6 +1,7 @@
 import { MutationTypes, AppModulePerfix } from "../store/modules/app/types";
 import { Asset } from "@foxone/mixin-sdk/types";
 import { MixinAsset } from "@foxone/uikit/src/components/FAssetAmountInput/types";
+import Vue from "vue";
 
 export function toast(vue: Vue, data: { message: string; color?: string }) {
   vue.$store.commit(AppModulePerfix + MutationTypes.SET_TOAST, {
@@ -13,7 +14,6 @@ export function errorToast(
   vue: Vue,
   error: { description?: string; message?: string; code?: string | number }
 ) {
-  console.log((error as any).stack);
   const message = error?.description || error?.message;
   const code = "code" in error ? error.code : "";
   toast(vue, { message: `${code} ${message}`, color: "error" });

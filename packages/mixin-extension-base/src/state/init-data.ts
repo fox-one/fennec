@@ -1,5 +1,5 @@
 import { BUILD_IN_MIXIN_ACCOUNT_PROVIDER } from "../constants";
-import { PerferenceStore } from "./types";
+import { PreferenceStore } from "./types";
 
 export const initKeyringData = {
   isUnlocked: false,
@@ -7,19 +7,19 @@ export const initKeyringData = {
   accounts: []
 };
 
-export const initPerferenceData = {
+export const initPreferenceData = {
   completeOnboarding: false,
   seletedAccount: undefined,
   accountProviders: [
     {
-      type: "build-in",
+      type: "built-in",
       value: BUILD_IN_MIXIN_ACCOUNT_PROVIDER
     }
   ]
-} as PerferenceStore;
+} as PreferenceStore;
 
 export const initStoreData = {
   authUrls: {},
   keyring: undefined,
-  preference: initPerferenceData
+  preference: initPreferenceData
 };

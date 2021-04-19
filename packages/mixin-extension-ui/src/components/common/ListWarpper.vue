@@ -7,7 +7,8 @@
       v-else-if="!empty"
       class="empty-hint text-secondary caption text-center pa-5"
     >
-      <slot name="empty">
+      <div v-if="filter">Not found</div>
+      <slot v-else name="empty">
         {{ hint || "Data is empty" }}
       </slot>
     </div>
@@ -25,6 +26,8 @@ class ListWapper extends Vue {
   @Prop({ type: Boolean, default: false }) loading!: boolean;
 
   @Prop({ type: String, default: "" }) hint!: string;
+
+  @Prop({ type: String, default: "" }) filter!: string;
 
   get empty() {
     const len = this.data?.length ?? 0;

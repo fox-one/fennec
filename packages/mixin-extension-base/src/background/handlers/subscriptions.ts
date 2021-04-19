@@ -22,7 +22,6 @@ export function createSubscription<T extends ActionTypesWithSubscriptions>(
 
 export function unsubscribe(id: string) {
   if (subscriptions[id]) {
-    console.log(`unsubsctibe from ${id}`);
     delete subscriptions[id];
   } else {
     console.error(`unable to unsubscribe from ${id}`);

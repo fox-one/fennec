@@ -94,7 +94,7 @@ export function handleResponse<T extends ActionTypes>(
   const handler = handlers[data.id];
 
   if (!handler) {
-    console.log(`Unknown response: ${JSON.stringify(data)}`);
+    // console.log(`Unknown response: ${JSON.stringify(data)}`);
     return;
   }
 

@@ -14,7 +14,11 @@ class Wallet extends Vue {
 
   async mounted() {
     this.loading = true;
-    await this.$utils.app.loadWalletData(this);
+    try {
+      await this.$utils.app.loadWalletData(this);
+    } catch (error) {
+      this.$utils.app.handleError(this, error);
+    }
     this.loading = false;
   }
 }

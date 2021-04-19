@@ -1,33 +1,37 @@
 <template>
-  <f-bottom-sheet v-model="dialog">
-    <template #activator="{ on }">
-      <v-btn small icon v-on="on">
+  <div class="asset-search">
+    <v-text-field
+      v-if="searching"
+      :value="search"
+      dense
+      solo
+      hide-details
+      flat
+      autofocus
+      class="f-bg-greyscale-5"
+      @input="(v) => $emit('change', v)"
+    >
+      <template #prepend-inner>
         <v-icon size="18">
           {{ $icons.mdiMagnify }}
         </v-icon>
-      </v-btn>
-    </template>
-    <template #title> Search asset </template>
-    <template #subheader>
-      <v-text-field
-        v-model="search"
-        dense
-        solo
-        hide-details
-        flat
-        background-color="transparent"
-        placeholder="Search"
-        class="f-bg-greyscale-6"
-      />
-    </template>
-    <div class="px-3">
-      <asset-list :filter="search" />
-    </div>
-  </f-bottom-sheet>
+      </template>
+      <template #append>
+        <v-icon size="18" @click="toggle">
+          {{ $icons.mdiClose }}
+        </v-icon>
+      </template>
+    </v-text-field>
+    <v-btn v-else small icon @click="toggle">
+      <v-icon size="18">
+        {{ $icons.mdiMagnify }}
+      </v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Model } from "vue-property-decorator";
 import AssetList from "./AssetList.vue";
 
 @Component({
@@ -36,9 +40,14 @@ import AssetList from "./AssetList.vue";
   }
 })
 class AssetSearch extends Vue {
-  search = "";
+  @Model("change") search!: string;
 
-  dialog = false;
+  searching = false;
+
+  toggle() {
+    this.$emit("change", "");
+    this.searching = !this.searching;
+  }
 }
 export default AssetSearch;
 </script>

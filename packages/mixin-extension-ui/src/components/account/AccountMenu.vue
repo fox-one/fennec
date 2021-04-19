@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 import { User } from "@foxone/mixin-sdk/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import AccountItem from "../account/AccountItem.vue";
@@ -71,7 +71,7 @@ class AccountMenu extends Vue {
 
   get meta() {
     const keyring: KeyringMemState = this.$store.state.keyring.keyring;
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const selectedAccount = preference.seletedAccount ?? "";
     const accounts = keyring.accounts;
     const currentUserName = this.currentUser?.full_name;

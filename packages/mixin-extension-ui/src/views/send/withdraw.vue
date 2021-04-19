@@ -12,7 +12,7 @@
 
       <v-list-item :ripple="false" class="f-bg-greyscale-6 asset mt-5 rounded">
         <span>
-          <v-img width="32" height="32" :src="meta.icon" />
+          <v-img width="32" height="32" :src="meta.icon" class="d-flex" />
         </span>
         <v-list-content class="ml-3 my-3">
           <v-list-item-title>

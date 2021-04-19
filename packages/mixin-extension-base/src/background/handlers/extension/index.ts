@@ -25,12 +25,14 @@ import {
   UpdateAccountProvidersPayload
 } from "../../types/preference";
 import type { OpenWindowPayload } from "../../types/platform";
+import type { ResetApplicationPayload } from "../../types/app";
 
 import createAuthHandlers from "./auth";
 import createKeyringHandlers from "./keyring";
 import createPreferenceHandlers from "./preference";
 import createWalletHandlers from "./wallet";
 import createPlatformHandlers from "./platform";
+import createAppHandlers from "./app";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -50,7 +52,8 @@ export default function (state: State) {
       ...createKeyringHandlers(state),
       ...createPreferenceHandlers(state),
       ...createWalletHandlers(state),
-      ...createPlatformHandlers(state)
+      ...createPlatformHandlers(state),
+      ...createAppHandlers(state)
     };
 
     switch (action) {
@@ -99,15 +102,15 @@ export default function (state: State) {
 
       // Preference
       case "pri_(preference.subscribe)":
-        return handlers.perferenceSubscribe(id, port);
+        return handlers.preferenceSubscribe(id, port);
 
-      case "pri_(perference.completeOnboarding)":
+      case "pri_(preference.completeOnboarding)":
         return handlers.completeOnboarding();
 
-      case "pri_(perference.selectAccount)":
+      case "pri_(preference.selectAccount)":
         return handlers.selectAccount(payload as SelectAccountPaylod);
 
-      case "pri_(perference.updateAccountProviders)":
+      case "pri_(preference.updateAccountProviders)":
         return handlers.updateAccountProviders(
           payload as UpdateAccountProvidersPayload
         );
@@ -149,6 +152,10 @@ export default function (state: State) {
 
       case "pri_(platform.onWindowClose)":
         return handlers.onWindowClose();
+
+      // App
+      case "pri_(app.resetApplication)":
+        return handlers.resetApplication(payload as ResetApplicationPayload);
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

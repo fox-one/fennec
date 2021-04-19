@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 
 @Component
 class ActionSelectKeystore extends Vue {
@@ -23,7 +23,7 @@ class ActionSelectKeystore extends Vue {
   loading = false;
 
   get meta() {
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const selectedAccount = preference.seletedAccount ?? "";
     return {
       selectedAccount
@@ -32,7 +32,7 @@ class ActionSelectKeystore extends Vue {
 
   async handleSelectAccount() {
     this.loading = true;
-    this.$utils.account.selectAccount(this, this.id);
+    await this.$utils.account.selectAccount(this, this.id);
     this.$emit("completed");
     this.loading = false;
   }

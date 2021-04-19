@@ -1,5 +1,5 @@
 <template>
-  <list-wapper :data="meta.assets">
+  <list-wapper :data="meta.assets" :filter="filter">
     <template #empty>
       <div class="text-center">
         <add-default-assets />

@@ -33,7 +33,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { KeyringMemState } from "@foxone/mixin-extension-base/state/keyring";
-import { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 import AccountItem from "./AccountItem.vue";
 import ActionBackUpKeystore from "./ActionBackupKeystore.vue";
 import ActionSelectKeystore from "./ActionSelectKeystore.vue";
@@ -59,7 +59,7 @@ class AccountList extends Vue {
 
   get meta() {
     const keyring: KeyringMemState = this.$store.state.keyring.keyring;
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const selectedAccount = preference.seletedAccount;
     const currentUserName = this.user?.full_name ?? "";
     return { selectedAccount, accounts: keyring.accounts, currentUserName };

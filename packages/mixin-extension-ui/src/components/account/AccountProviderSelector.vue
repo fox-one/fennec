@@ -38,7 +38,7 @@
 <script lang="ts">
 import {
   AccountProvider,
-  PerferenceStore
+  PreferenceStore
 } from "@foxone/mixin-extension-base/state/types";
 import { Component, Model, Vue } from "vue-property-decorator";
 import AccountProviderAdd from "./AccountProviderAdd.vue";
@@ -56,7 +56,7 @@ class AccountProviderSelector extends Vue {
   dialog = false;
 
   get meta() {
-    const preference: PerferenceStore = this.$store.state.preference.preference;
+    const preference: PreferenceStore = this.$store.state.preference.preference;
     const providers = preference.accountProviders;
     return {
       providers

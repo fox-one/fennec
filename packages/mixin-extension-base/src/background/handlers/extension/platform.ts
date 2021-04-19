@@ -26,7 +26,6 @@ export default function (state: State) {
     },
 
     onWindowClose() {
-      console.log("window closed");
       return true;
     }
   };

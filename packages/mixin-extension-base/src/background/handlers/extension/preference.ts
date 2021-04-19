@@ -5,11 +5,11 @@ import {
 } from "../../types/preference";
 import { createSubscription, unsubscribe } from "../subscriptions";
 
-export default function createPerferenceHandlers(state: State) {
+export default function createPreferenceHandlers(state: State) {
   return {
-    perferenceSubscribe(id: string, port: chrome.runtime.Port) {
+    preferenceSubscribe(id: string, port: chrome.runtime.Port) {
       const cb = createSubscription<"pri_(preference.subscribe)">(id, port);
-      const subscription = state.preference.perferenceSubjection.subscribe(
+      const subscription = state.preference.preferenceSubjection.subscribe(
         (data) => {
           cb(data);
         }

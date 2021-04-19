@@ -11,10 +11,13 @@
     >
       Remove
     </v-btn>
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" max-width="600">
       <v-card>
-        <v-card-title>
-          <span class="error--text"> Warn: Dangerous Action </span>
+        <v-card-title class="error--text">
+          <v-icon color="error" class="mr-1">
+            {{ $icons.mdiAlert }}
+          </v-icon>
+          Warning
         </v-card-title>
         <v-card-text>
           After complete this action, we can't recover you wallet util you

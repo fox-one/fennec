@@ -1,5 +1,5 @@
 import type { Store as VuexStore, CommitOptions, DispatchOptions } from "vuex";
-import type { PerferenceStore } from "@foxone/mixin-extension-base/state/types";
+import type { PreferenceStore } from "@foxone/mixin-extension-base/state/types";
 
 export const PreferenceModulePerfix = "preference/";
 
@@ -8,11 +8,11 @@ export const MutationTypes = {
 } as const;
 
 export type State = {
-  preference: PerferenceStore;
+  preference: PreferenceStore;
 };
 
 export type Mutations = {
-  [MutationTypes.UPDATE_PREFRENCE](s: State, data: PerferenceStore): void;
+  [MutationTypes.UPDATE_PREFRENCE](s: State, data: PreferenceStore): void;
 };
 
 export type Getters = {};

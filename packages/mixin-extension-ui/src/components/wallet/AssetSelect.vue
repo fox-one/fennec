@@ -17,6 +17,7 @@
             :size="32"
             :logo="meta.icon"
             :chain-logo="getAssetChainLogo({ chain_id: meta.chainId })"
+            class="d-flex"
           />
         </template>
       </f-list-item>

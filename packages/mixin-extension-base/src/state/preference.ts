@@ -1,14 +1,14 @@
-import type { Store, PerferenceStore, AccountProvider } from "./types";
+import type { Store, PreferenceStore, AccountProvider } from "./types";
 
 import { BehaviorSubject } from "rxjs";
-import { initPerferenceData } from "./init-data";
+import { initPreferenceData } from "./init-data";
 
-export default class PerferenceState {
+export default class PreferenceState {
   #store: BehaviorSubject<Store>;
 
-  #preference: PerferenceStore = initPerferenceData as PerferenceStore;
+  #preference: PreferenceStore = initPreferenceData as PreferenceStore;
 
-  perferenceSubjection: BehaviorSubject<PerferenceStore> = new BehaviorSubject<PerferenceStore>(
+  preferenceSubjection: BehaviorSubject<PreferenceStore> = new BehaviorSubject<PreferenceStore>(
     this.#preference
   );
 
@@ -18,41 +18,31 @@ export default class PerferenceState {
 
   constructor(opts: { store: BehaviorSubject<Store> }) {
     this.#store = opts.store;
+    this.restore();
+  }
+
+  public completeOnboarding() {
+    return this.persist({ completeOnboarding: true });
+  }
+
+  public setSelectedAccount(clientId: string | undefined) {
+    return this.persist({ seletedAccount: clientId });
+  }
+
+  public setAccountProviders(providers: AccountProvider[]) {
+    return this.persist({ accountProviders: providers });
+  }
+
+  public restore() {
     const preference = this.#store.getValue().preference;
-    this.updatePerference(preference);
     this.#preference = preference;
+    this.preferenceSubjection.next(preference);
   }
 
-  completeOnboarding() {
-    const preference: PerferenceStore = {
-      ...this.#preference,
-      completeOnboarding: true
-    };
-    this.updatePerference(preference);
+  private persist(data: Partial<PreferenceStore>) {
+    const preference = { ...this.#store.getValue().preference, ...data };
+    this.#store.next({ ...this.#store.getValue(), preference });
+    this.restore();
     return true;
-  }
-
-  setSelectedAccount(clientId: string | undefined) {
-    const preference: PerferenceStore = {
-      ...this.#preference,
-      seletedAccount: clientId
-    };
-    this.updatePerference(preference);
-    return true;
-  }
-
-  setAccountProviders(providers: AccountProvider[]) {
-    const preference: PerferenceStore = {
-      ...this.#preference,
-      accountProviders: providers
-    };
-    this.updatePerference(preference);
-    return true;
-  }
-
-  private updatePerference(data: PerferenceStore) {
-    this.#preference = data;
-    this.perferenceSubjection.next(data);
-    this.#store.next({ ...this.#store.getValue(), preference: data });
   }
 }

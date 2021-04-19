@@ -6,7 +6,7 @@ import LcoalStore from "../utils/lcoalstore";
 import AuthState from "./auth";
 import KeyringState from "./keyring";
 import PreferenceState from "./preference";
-import ProviderState from "./provider";
+import AppState from "./app";
 import WalletState from "./wallet";
 import PlatformState from "./platform";
 
@@ -20,7 +20,6 @@ async function initStore() {
 
   const storeSubject = new BehaviorSubject<Store>(store);
   storeSubject.subscribe((data: Store) => {
-    console.log("[store]: store changed", JSON.stringify(data));
     localstore.set(data);
   });
   return storeSubject;
@@ -28,21 +27,20 @@ async function initStore() {
 
 export default async function createState(): Promise<State> {
   const store = await initStore();
-  console.log("[CreateState]: init store", JSON.stringify(store.getValue()));
 
   const platform = new PlatformState();
   const preference = new PreferenceState({ store });
   const auth = new AuthState({ store, platform });
   const keyring = new KeyringState({ store, preference, platform });
-  const provider = new ProviderState({ preference, keyring });
   const wallet = new WalletState({ platform });
+  const app = new AppState({ store, keyring, preference, auth, wallet });
 
   return {
+    app,
     platform,
     auth,
     keyring,
     preference,
-    provider,
     wallet
   };
 }

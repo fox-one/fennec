@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-0">
+  <div>
     <home-appbar />
     <f-panel elevation="none" class="rounded-0">
       <div class="text-center">
@@ -12,18 +12,19 @@
       </div>
       <asset-actions />
     </f-panel>
-
-    <v-layout align-center class="pa-2 caption text--secondary">
-      <v-flex>Assets</v-flex>
-      <asset-search />
-      <asset-add />
-    </v-layout>
-    <div class="pa-2 pt-0">
-      <f-panel class="pa-2 px-0">
-        <asset-list :filter="search" />
-      </f-panel>
-    </div>
-  </v-container>
+    <v-container>
+      <v-layout align-center class="mb-2 caption text--secondary actions">
+        <v-flex>Assets</v-flex>
+        <asset-search v-model="search" />
+        <asset-add class="ml-1" />
+      </v-layout>
+      <div class="pt-0">
+        <f-panel class="pa-2 px-0">
+          <asset-list :filter="search" />
+        </f-panel>
+      </div>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -87,3 +88,9 @@ class HomePage extends Mixins(PageView) {
 }
 export default HomePage;
 </script>
+
+<style lang="scss" scoped>
+.actions {
+  min-height: 38px;
+}
+</style>

@@ -13,9 +13,10 @@ import extension from "extensionizer";
 import { PORT_EXTENSION } from "@foxone/mixin-extension-base/constants";
 import createAuthMessages from "./auth";
 import createKeyringMessages from "./keyring";
-import createPreferenceMessages from "./perference";
+import createPreferenceMessages from "./preference";
 import createWalletMessages from "./wallet";
 import createPlatformMessages from "./platform";
+import createAppMessages from "./app";
 
 interface Handler {
   resolve: (data: any) => void;
@@ -34,8 +35,6 @@ port.onMessage.addListener((data: Message["data"]) => {
   const handler = handlers[data.id];
 
   if (!handler) {
-    console.log(`Unknown response: ${JSON.stringify(data)}`);
-
     return;
   }
 
@@ -77,7 +76,6 @@ export function sendMessage<T extends ActionTypes>(
     handlers[id] = { resolve, reject, subscriber, action };
 
     console.log(`ui : resquest : ${id} ${action} ${JSON.stringify(payload)}`);
-
     port.postMessage({ id, action, payload: payload || {} });
   });
 }
@@ -87,5 +85,6 @@ export default {
   ...createKeyringMessages(sendMessage),
   ...createPreferenceMessages(sendMessage),
   ...createWalletMessages(sendMessage),
-  ...createPlatformMessages(sendMessage)
+  ...createPlatformMessages(sendMessage),
+  ...createAppMessages(sendMessage)
 };
