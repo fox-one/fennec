@@ -2,7 +2,7 @@
   <v-container>
     <f-loading v-if="loading" fullscreen />
     <div v-else class="text-center">
-      <div class="title ma-5 mb-2">转账给</div>
+      <div class="title ma-5 mb-2">Transfer To</div>
       <div class="subtitle-2 text--secondary">Mixin Id: {{ meta.mixinId }}</div>
 
       <f-mixin-asset-logo

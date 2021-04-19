@@ -2,7 +2,7 @@
   <v-container>
     <f-loading v-if="loading" fullscreen />
     <div v-else class="text-center">
-      <div class="title ma-5 mb-2">多重签名交易</div>
+      <div class="title ma-5 mb-2">Multisig Transactions</div>
       <div class="mx-5 mb-2 memo text--secondary">
         {{ meta.memo }}
       </div>
