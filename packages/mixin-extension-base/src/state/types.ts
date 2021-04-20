@@ -32,6 +32,7 @@ export interface PreferenceStore {
 }
 
 export interface Store {
+  version?: number;
   authUrls: Record<string, AuthUrlInfo>;
   keyring: string | undefined;
   preference: PreferenceStore;

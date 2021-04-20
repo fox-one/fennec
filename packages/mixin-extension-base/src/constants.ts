@@ -5,7 +5,7 @@ const PORT_CONTENT = "content";
 const PHISHING_PAGE_REDIRECT = "/phishing";
 
 const BUILD_IN_MIXIN_ACCOUNT_PROVIDER =
-  "https://f1-fennec-asp-api.firesbox.com/api/v1/users";
+  "https://fennec-asp.fox.one/api/v1/users";
 
 const ALLOWED_PATH = ["/", "/import"];
 

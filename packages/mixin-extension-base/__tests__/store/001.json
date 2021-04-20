@@ -1,0 +1,12 @@
+{
+  "authUrls": {},
+  "preference": {
+    "completeOnboarding": false,
+    "accountProviders": [
+      {
+        "type": "built-in",
+        "value": "https://f1-fennec-asp-api.firesbox.com/api/v1/users"
+      }
+    ]
+  }
+}
