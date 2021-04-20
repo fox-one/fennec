@@ -16,7 +16,7 @@
       "conventionalCommits": true
     }
   },
-  "version": "0.1.3-alpha.1",
+  "version": "0.1.3-alpah.2",
   "npmClient": "yarn",
   "useWorkspaces": true
 }

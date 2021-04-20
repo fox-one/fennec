@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3-alpah.2](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpha.1...v0.1.3-alpah.2) (2021-04-20)
+
+
+### Features
+
+* local store migration. update built-in provider ([f7ed518](https://github.com/fox-one/mixin-extension/commit/f7ed5188d6b7b1f27037e25b531ad3edd1453e30))
+
+
+
+
+
 ## [0.1.3-alpha.1](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpha.0...v0.1.3-alpha.1) (2021-04-19)
 
 **Note:** Version bump only for package mixin-light-client
