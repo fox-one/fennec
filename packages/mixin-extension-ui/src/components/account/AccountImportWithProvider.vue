@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { AccountProvider } from "@foxone/mixin-extension-base/state/types";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import AccountProviderSelector from "./AccountProviderSelector.vue";
 
 @Component({
@@ -39,6 +39,10 @@ import AccountProviderSelector from "./AccountProviderSelector.vue";
   }
 })
 class AccountImportWithProvider extends Vue {
+  @Prop({ type: Boolean, default: false }) policiesAccepted!: boolean;
+
+  @Prop({ type: Boolean, default: false }) checkPoliciesAccepted!: boolean;
+
   provider: AccountProvider | null = null;
 
   loading = false;
@@ -52,6 +56,10 @@ class AccountImportWithProvider extends Vue {
   }
 
   async handleCreate() {
+    if (this.checkPoliciesAccepted && !this.policiesAccepted) {
+      this.$emit("checkPolicies");
+      return;
+    }
     this.$utils.account.confirmPassword(this, {
       onSuccess: (password: string) => this.requestCreateAccount(password)
     });

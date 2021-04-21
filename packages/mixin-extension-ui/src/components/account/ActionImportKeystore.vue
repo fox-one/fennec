@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import MixinAccount, {
   MixinAccount as Account
 } from "@foxone/mixin-sdk/keyring";
@@ -50,6 +50,10 @@ import AccountItem from "../account/AccountItem.vue";
   }
 })
 class ImportKeyAction extends Vue {
+  @Prop({ type: Boolean, default: false }) policiesAccepted!: boolean;
+
+  @Prop({ type: Boolean, default: false }) checkPoliciesAccepted!: boolean;
+
   keystore: Account | null = null;
 
   dialog = false;
@@ -74,6 +78,10 @@ class ImportKeyAction extends Vue {
   }
 
   handleSelectFile() {
+    if (this.checkPoliciesAccepted && !this.policiesAccepted) {
+      this.$emit("checkPolicies");
+      return;
+    }
     this.input.click();
   }
 

@@ -17,9 +17,14 @@
           />
         </f-list>
       </f-panel>
-      <p class="text-center text--secondary caption mt-2">
-        {{ meta.version }}
-      </p>
+      <div class="text-center text--secondary caption mt-2">
+        <p class="ma-0">
+          <a :href="meta.POLICY_URL" target="_blank">Privacy Policy</a>
+          <span> · </span>
+          <a :href="meta.TERMS_URL" target="_blank">Terms of Use</a>
+        </p>
+        <p class="ma-0">Version: {{ meta.version }}</p>
+      </div>
     </v-container>
   </div>
 </template>
@@ -30,7 +35,7 @@ import PageView from "../../mixin/page";
 import AccountList from "../../components/account/AccountList.vue";
 import AccountProfile from "../../components/account/AccountProfile.vue";
 import AuthUrls from "../../components/auth/AuthUrlItem.vue";
-import { VERSION } from "../../defaults";
+import { VERSION, POLICY_URL, TERMS_URL } from "../../defaults";
 
 @Component({
   components: {
@@ -46,7 +51,9 @@ class SettingsPage extends Mixins(PageView) {
 
   get meta() {
     return {
-      version: VERSION
+      version: VERSION,
+      POLICY_URL,
+      TERMS_URL
     };
   }
 

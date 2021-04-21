@@ -6,7 +6,7 @@
         Create a bot account from Developer Dashboard
       </div>
       <div class="my-5">
-        <action-import-keystore />
+        <action-import-keystore v-bind="$attrs" v-on="$listeners" />
       </div>
       <div>
         <a class="f-caption">Instructions</a>
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import ActionImportKeystore from "./ActionImportKeystore.vue";
 
 @Component({
