@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpah.3...v0.1.3) (2021-04-21)
+
+**Note:** Version bump only for package mixin-light-client
+
+
+
+
+
 ## [0.1.3-alpah.3](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpah.2...v0.1.3-alpah.3) (2021-04-21)
 
 

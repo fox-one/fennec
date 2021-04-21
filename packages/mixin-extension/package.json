@@ -1,12 +1,12 @@
 {
   "name": "@foxone/mixin-extension",
-  "version": "0.1.3-alpah.3",
+  "version": "0.1.3",
   "description": "Fennec: Mixin Chrome Extension Wallet",
   "author": "zhangqingwu <18656007202@163.com>",
   "homepage": "",
   "dependencies": {
-    "@foxone/mixin-extension-base": "^0.1.3-alpah.3",
-    "@foxone/mixin-extension-ui": "^0.1.3-alpah.3",
+    "@foxone/mixin-extension-base": "^0.1.3",
+    "@foxone/mixin-extension-ui": "^0.1.3",
     "extensionizer": "^1.0.1",
     "webpack": "^5.13.0"
   },
