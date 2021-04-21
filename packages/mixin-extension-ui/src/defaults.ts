@@ -8,6 +8,11 @@ export const POLICY_URL = "https://fox-one.github.io/fennec/policy";
 
 export const TERMS_URL = "https://fox-one.github.io/fennec/terms";
 
+export const DOCS_URL = {
+  INSTRUCTIONS:
+    "https://github.com/fox-one/fennec/blob/main/docs/Import%20from%20existing%20keystore%20/Fennec%20-%20Import%20from%20an%20existing%20keystore.md"
+};
+
 export const EVENTS = {
   CONFIRM_PASSWORD: "CONFIRM_PASSWORD",
   APPLICATION_ERROR: "APPLICATION_ERROR"
