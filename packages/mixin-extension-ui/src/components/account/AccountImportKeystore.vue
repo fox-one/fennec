@@ -9,7 +9,7 @@
         <action-import-keystore v-bind="$attrs" v-on="$listeners" />
       </div>
       <div>
-        <a class="f-caption">Instructions</a>
+        <a :href="href" target="_blank" class="f-caption">Instructions</a>
       </div>
     </div>
   </f-panel>
@@ -18,12 +18,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import ActionImportKeystore from "./ActionImportKeystore.vue";
+import { DOCS_URL } from "../../defaults";
 
 @Component({
   components: {
     ActionImportKeystore
   }
 })
-class AccountImportKeystore extends Vue {}
+class AccountImportKeystore extends Vue {
+  href = DOCS_URL.INSTRUCTIONS;
+}
 export default AccountImportKeystore;
 </script>

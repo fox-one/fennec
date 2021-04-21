@@ -10,7 +10,11 @@ export const TERMS_URL = "https://fox-one.github.io/fennec/terms";
 
 export const DOCS_URL = {
   INSTRUCTIONS:
-    "https://github.com/fox-one/fennec/blob/main/docs/Import%20from%20existing%20keystore%20/Fennec%20-%20Import%20from%20an%20existing%20keystore.md"
+    "https://github.com/fox-one/fennec/blob/main/docs/import_from_existing_keystore/index.md",
+  SWAP_TUTORIAL:
+    "https://github.com/fox-one/fennec/blob/main/docs/tutorial_on_swapping/index.md",
+  MANDATED_ACCOUNT_NOTICE:
+    "https://github.com/fox-one/fennec/blob/main/docs/important_notices_about_mandated_accounts/index.md"
 };
 
 export const EVENTS = {

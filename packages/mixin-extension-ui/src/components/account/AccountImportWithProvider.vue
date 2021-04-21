@@ -22,7 +22,9 @@
         </v-btn>
       </div>
       <div>
-        <a class="f-caption"> Important notices about mandated accounts </a>
+        <a :href="href" target="_blank" class="f-caption">
+          Important notices about mandated accounts
+        </a>
       </div>
     </div>
   </f-panel>
@@ -32,6 +34,7 @@
 import { AccountProvider } from "@foxone/mixin-extension-base/state/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import AccountProviderSelector from "./AccountProviderSelector.vue";
+import { DOCS_URL } from "../../defaults";
 
 @Component({
   components: {
@@ -48,6 +51,8 @@ class AccountImportWithProvider extends Vue {
   loading = false;
 
   name = "Custom Wallet";
+
+  href = DOCS_URL.MANDATED_ACCOUNT_NOTICE;
 
   get meta() {
     return {
