@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3-alpah.3](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpah.2...v0.1.3-alpah.3) (2021-04-21)
+
+
+### Features
+
+* add privacy policies ([5363242](https://github.com/fox-one/mixin-extension/commit/53632423a0598013c915bc72ee7f9fb65cc95ace))
+* update doc links ([31a35da](https://github.com/fox-one/mixin-extension/commit/31a35da5ec70c6738ca7f68d74b408aa9faebe21))
+
+
+
+
+
 ## [0.1.3-alpah.2](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpha.1...v0.1.3-alpah.2) (2021-04-20)
 
 **Note:** Version bump only for package @foxone/mixin-extension-ui

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3-alpah.3](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpah.2...v0.1.3-alpah.3) (2021-04-21)
+
+**Note:** Version bump only for package @foxone/mixin-extension
+
+
+
+
+
 ## [0.1.3-alpah.2](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpha.1...v0.1.3-alpah.2) (2021-04-20)
 
 **Note:** Version bump only for package @foxone/mixin-extension
