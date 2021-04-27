@@ -31,7 +31,7 @@ import type {
 
 import { HttpMethod } from "./types";
 
-function createProvider(provider: ProviderInterface) {
+function createEndpoints(provider: ProviderInterface) {
   return {
     createUser(secret: string, name: string): Promise<User> {
       return provider.send("/users", HttpMethod.POST, {
@@ -190,6 +190,6 @@ function createProvider(provider: ProviderInterface) {
   };
 }
 
-export default createProvider;
+export default createEndpoints;
 
-export type Endpoints = ReturnType<typeof createProvider>;
+export type Endpoints = ReturnType<typeof createEndpoints>;

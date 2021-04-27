@@ -28,13 +28,13 @@ export function generateEd25519SessionKeypair(): KeyPair {
   const keypair = forge.pki.ed25519.generateKeyPair();
   const publicKey = Buffer.from(keypair.publicKey)
     .toString("base64")
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
     .replace(/=+$/, "");
   const privateKey = Buffer.from(keypair.privateKey)
     .toString("base64")
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
     .replace(/=+$/, "");
   return { publicKey, privateKey };
 }
