@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension@0.1.0-alpha.2...@foxone/mixin-extension@0.1.4) (2021-04-27)
+
+
+
+## 0.1.3 (2021-04-21)
+
+
+
+## 0.1.3-alpah.3 (2021-04-21)
+
+
+
+## 0.1.3-alpah.2 (2021-04-20)
+
+
+
+## 0.1.3-alpha.1 (2021-04-19)
+
+
+
+## 0.1.3-alpha.0 (2021-04-19)
+
+
+### Features
+
+* auth guard ui ([737a9c6](https://github.com/fox-one/mixin-extension/commit/737a9c6d7ba6423236d10ea4f857242ec29c8cac))
+* use english word for default ([d3646a0](https://github.com/fox-one/mixin-extension/commit/d3646a06f97ed835bcfac7b603f69ed5ce7a52b5))
+
+
+
+## 0.1.2 (2021-04-15)
+
+
+
+## 0.1.1 (2021-04-15)
+
+
+
+# 0.1.0-alpha.13 (2021-04-14)
+
+
+
+# 0.1.0-alpha.12 (2021-04-14)
+
+
+
+# 0.1.0-alpha.11 (2021-04-14)
+
+
+
+# 0.1.0-alpha.10 (2021-04-14)
+
+
+
+# 0.1.0-alpha.9 (2021-04-14)
+
+
+
+# 0.1.0-alpha.8 (2021-04-13)
+
+
+
+# 0.1.0-alpha.7 (2021-04-13)
+
+
+
+# 0.1.0-alpha.6 (2021-04-13)
+
+
+
+# 0.1.0-alpha.5 (2021-04-13)
+
+
+
+# 0.1.0-alpha.4 (2021-04-13)
+
+
+
+# 0.1.0-alpha.3 (2021-04-13)
+
+
+### Features
+
+* add firefox extension build script ([994132d](https://github.com/fox-one/mixin-extension/commit/994132d489d4f8d7789057975ba5c7e88a346050))
+
+
+
+
+
 ## [0.1.3](https://github.com/fox-one/mixin-extension/compare/v0.1.3-alpah.3...v0.1.3) (2021-04-21)
 
 **Note:** Version bump only for package @foxone/mixin-extension
