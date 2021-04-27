@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const ManifestPlugin = require("webpack-extension-manifest-plugin");
 
-const pkgJson = require("../../lerna.json");
+const pkgJson = require("./package.json");
 const manifest = require("./manifest.json");
 
 const packages = [
