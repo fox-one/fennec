@@ -1,7 +1,7 @@
 {
   "name": "@foxone/mixin-sdk",
   "version": "0.1.4",
-  "description": "Fennec: Mixin Chrome Extension Wallet",
+  "description": "SDK for mixin message API",
   "author": "",
   "main": "build/index.js",
   "files": [
@@ -13,9 +13,6 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "bignumber.js": "^9.0.1",
-    "dayjs": "^1.10.4",
-    "extensionizer": "^1.0.1",
     "int64-buffer": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "node-forge": "^0.10.0"

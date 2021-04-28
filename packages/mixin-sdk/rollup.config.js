@@ -9,14 +9,14 @@ export default {
   input: "src/index.ts",
   output: {
     dir: "build",
-    format: "esm"
+    format: "cjs"
   },
   plugins: [
     nodeResolve({
       preferBuiltins: true,
       extensions: [".ts", ".js"]
     }),
-    typescript(),
+    typescript({}),
     commonjs({ extensions: [".js", ".ts"] }),
     babel({ babelHelpers: "bundled" }),
     json(),
