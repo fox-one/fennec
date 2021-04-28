@@ -5,13 +5,18 @@
   "license": "GPL 3.0",
   "main": "build/index.js",
   "files": [
-    "build"
+    "build",
+    "src"
   ],
   "types": "build/index.d.ts",
   "scripts": {
     "build": "rollup -c"
   },
   "author": "",
+  "dependencies": {
+    "@foxone/mixin-extension-base": "^0.1.8",
+    "@foxone/mixin-sdk": "^0.1.8"
+  },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
