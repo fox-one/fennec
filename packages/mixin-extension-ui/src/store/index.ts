@@ -29,7 +29,7 @@ export default function () {
     actions: {},
     modules,
     plugins: [
-      createLogger(),
+      // createLogger(),
       createPersistedState({ key: "vuex", paths: ["wallet.additionAssets"] })
     ]
   });

@@ -21,16 +21,12 @@ export default async function () {
       : port.sender?.url || port.sender?.tab?.url || "<unknown>";
     const source = `${from} : ${id} : ${action}`;
 
-    // console.log(`[in] ${source}:: ${JSON.stringify(payload)}`);
-
     const promise = isExt
       ? handlers.extension<typeof action>({ id, action, payload, port })
       : handlers.tab({ id, action, payload, port, url: from });
 
     promise
       .then((res) => {
-        // console.log(`[out] ${source}:: ${JSON.stringify(res)}`);
-
         if (!port) {
           throw "Port has been disconnected";
         }
@@ -38,7 +34,6 @@ export default async function () {
         port.postMessage({ id, res });
       })
       .catch((err) => {
-        console.log(`[err] ${source}:: ${err.message}`);
         console.log(err.stack);
         if (port) {
           port.postMessage({ error: err.message, id });

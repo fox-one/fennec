@@ -42,8 +42,6 @@ port.onMessage.addListener((data: Message["data"]) => {
     delete handler[data.id];
   }
 
-  console.log(`ui : response : ${handler.action} ${JSON.stringify(data)}`);
-
   if (data.subscription) {
     handler.subscriber?.(data.subscription);
   } else if (data.error) {
@@ -74,8 +72,6 @@ export function sendMessage<T extends ActionTypes>(
   return new Promise((resolve, reject) => {
     const id = `${Date.now()}.${++idCounter}`;
     handlers[id] = { resolve, reject, subscriber, action };
-
-    console.log(`ui : resquest : ${id} ${action} ${JSON.stringify(payload)}`);
     port.postMessage({ id, action, payload: payload || {} });
   });
 }

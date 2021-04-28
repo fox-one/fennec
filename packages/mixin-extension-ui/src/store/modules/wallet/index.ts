@@ -120,7 +120,7 @@ const actions: ActionTree<State, RootState> & Actions = {
 
     let res = await endpoints.getSnapshots(opts);
     snapshots = snapshots.filter(
-      (x) => !state.snapshots.find((y) => x.snapshot_id === y.snapshot_id)
+      (x) => !res.find((y) => x.snapshot_id === y.snapshot_id)
     );
     res = await Promise.all(
       res.map(
@@ -135,6 +135,7 @@ const actions: ActionTree<State, RootState> & Actions = {
         }
       )
     );
+
     const data = payload.reload ? res : [...snapshots, ...res];
     commit(MutationTypes.SET_SNAPSHOTS, data);
     if (res.length < limit) {

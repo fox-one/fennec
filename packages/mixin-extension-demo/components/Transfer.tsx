@@ -34,8 +34,7 @@ export default defineComponent({
           memo: "test",
           trace_id: uuid()
         };
-        const res = await ctx?.value?.wallet.transfer(payload);
-        console.log(res);
+        await ctx?.value?.wallet.transfer(payload);
       } catch (error) {
         console.log(error);
       }
