@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-base@0.1.4...@foxone/mixin-extension-base@0.1.5) (2021-04-28)
+
+**Note:** Version bump only for package @foxone/mixin-extension-base
+
+
+
+
+
 ## [0.1.4](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-base@0.1.0-alpha.2...@foxone/mixin-extension-base@0.1.4) (2021-04-27)
 
 
