@@ -1,6 +1,7 @@
 {
   "name": "@foxone/mixin-extension-ui",
   "version": "0.1.5",
+  "license": "GPL 3.0",
   "main": "src/index.ts",
   "dependencies": {
     "@foxone/mixin-extension-base": "^0.1.5",

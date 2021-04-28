@@ -11,18 +11,18 @@ import axios, { AxiosInstance } from "axios";
 import DEFAULTS from "../defaults";
 
 export default class HttpProvider implements ProviderInterface {
-  #axios: AxiosInstance;
+  private axios: AxiosInstance;
 
   constructor(
     endpoint: string = DEFAULTS.HTTP_URL,
     headers: Record<string, string> = {}
   ) {
-    this.#axios = axios.create({
+    this.axios = axios.create({
       headers,
       baseURL: endpoint
     });
 
-    this.#axios.interceptors.response.use((response) => {
+    this.axios.interceptors.response.use((response) => {
       if (response.data.error) {
         const { description, code } = response.data.error;
         return Promise.reject(new Error(`${code}: ${description}`));
@@ -40,7 +40,7 @@ export default class HttpProvider implements ProviderInterface {
   }
 
   public get instance() {
-    return this.#axios;
+    return this.axios;
   }
 
   public async connect() {
@@ -74,7 +74,7 @@ export default class HttpProvider implements ProviderInterface {
     body?: Record<string, any>,
     query?: Record<string, string>
   ): Promise<any> {
-    const response = await this.#axios.request({
+    const response = await this.axios.request({
       method,
       url: path,
       data: body,

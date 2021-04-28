@@ -3,6 +3,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "license": "GPL 3.0",
   "scripts": {
     "start": "yarn watch",
     "watch": "cd packages/mixin-extension && webpack --config webpack.config.js --mode development --watch",

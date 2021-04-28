@@ -1,4 +1,4 @@
-import { createEndpoints, encrypts, providers } from "../build";
+import Mixin, { createEndpoints, encrypts, providers } from "../src";
 import RSASession from "./keystore/rsa.json";
 import Ed25519Session from "./keystore/ed25519.json";
 import axios from "axios";
@@ -59,6 +59,18 @@ describe("mixin sdk contents", () => {
     try {
       const res = await endpoints.getAssets();
       expect(Array.isArray(res)).toBe(true);
+      done();
+    } catch (error) {
+      done(error);
+    }
+  });
+
+  test("mixin api should work properly", async (done) => {
+    const mixin = new Mixin();
+    mixin.config(RSASession);
+
+    try {
+      await mixin.endpoints.getAssets();
       done();
     } catch (error) {
       done(error);
