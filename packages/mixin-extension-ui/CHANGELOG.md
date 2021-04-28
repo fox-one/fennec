@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-ui@0.1.7...@foxone/mixin-extension-ui@0.1.8) (2021-04-28)
+
+**Note:** Version bump only for package @foxone/mixin-extension-ui
+
+
+
+
+
 ## [0.1.7](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-ui@0.1.6...@foxone/mixin-extension-ui@0.1.7) (2021-04-28)
 
 **Note:** Version bump only for package @foxone/mixin-extension-ui

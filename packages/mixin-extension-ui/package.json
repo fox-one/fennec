@@ -1,11 +1,11 @@
 {
   "name": "@foxone/mixin-extension-ui",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "GPL 3.0",
   "main": "src/index.ts",
   "dependencies": {
-    "@foxone/mixin-extension-base": "^0.1.7",
-    "@foxone/mixin-sdk": "^0.1.7",
+    "@foxone/mixin-extension-base": "^0.1.8",
+    "@foxone/mixin-sdk": "^0.1.8",
     "@foxone/uikit": "^2.0.51",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
