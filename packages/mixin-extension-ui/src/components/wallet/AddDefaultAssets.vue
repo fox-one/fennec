@@ -29,6 +29,10 @@ class AddDefaultAssets extends Vue {
     }
     this.loading = false;
   }
+
+  mounted() {
+    this.handleAddDefaultAssets();
+  }
 }
 export default AddDefaultAssets;
 </script>

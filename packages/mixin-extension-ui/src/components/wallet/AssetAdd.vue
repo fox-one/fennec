@@ -20,7 +20,11 @@
         class="f-bg-greyscale-6"
       />
     </template>
-    <list-wapper :loading="loading" :data="assets">
+    <list-wapper
+      :loading="loading"
+      :data="assets"
+      hint="search asset then add to list"
+    >
       <v-list>
         <v-list-item v-for="(asset, index) in assets" :key="index">
           <span class="d-flex">

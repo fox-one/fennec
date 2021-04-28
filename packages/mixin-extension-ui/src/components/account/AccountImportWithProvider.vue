@@ -56,7 +56,10 @@ class AccountImportWithProvider extends Vue {
 
   get meta() {
     return {
-      disabled: !this.provider || this.loading
+      disabled:
+        !this.provider ||
+        this.loading ||
+        (this.checkPoliciesAccepted && !this.policiesAccepted)
     };
   }
 

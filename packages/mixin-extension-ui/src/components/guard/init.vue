@@ -1,6 +1,8 @@
 <template>
   <v-container class="mb-5">
-    <account-import-logo />
+    <account-import-logo>
+      <privacy-policies :focus="focus" :accepted.sync="policiesAccepted" />
+    </account-import-logo>
     <account-import-keystore
       :policies-accepted="policiesAccepted"
       check-policies-accepted
@@ -13,7 +15,6 @@
       class="mt-5"
       @checkPolicies="handleCheckPolicies"
     />
-    <privacy-policies :focus="focus" :accepted.sync="policiesAccepted" />
   </v-container>
 </template>
 

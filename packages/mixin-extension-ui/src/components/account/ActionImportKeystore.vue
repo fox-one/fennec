@@ -5,6 +5,7 @@
       depressed
       min-width="200"
       color="primary"
+      :disabled="checkPoliciesAccepted && !policiesAccepted"
       @click="handleSelectFile"
     >
       Import keystore

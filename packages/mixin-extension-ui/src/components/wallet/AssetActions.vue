@@ -10,9 +10,9 @@
       <div class="caption text--secondary">Send</div>
     </div>
 
-    <div class="action-item px-5" @click="handleSwap">
+    <div class="action-item px-5">
       <a
-        :href="FSWAP_URL"
+        :href="swaoUrl"
         target="_blank"
         rel="noopener noreferrer"
         title="4Swap"
@@ -34,7 +34,12 @@ import { FSWAP_URL } from "../../defaults";
 class AssetActions extends Vue {
   @Prop() asset!: Asset | undefined;
 
-  FSWAP_URL = FSWAP_URL;
+  get swaoUrl() {
+    if (this.asset) {
+      return FSWAP_URL + `?input=${this.asset.asset_id}`;
+    }
+    return FSWAP_URL;
+  }
 
   handleDeposit() {
     this.$router.push({
@@ -48,10 +53,6 @@ class AssetActions extends Vue {
       name: "send",
       query: { preset: this.asset?.asset_id ?? "" }
     });
-  }
-
-  handleSwap() {
-    this.$emit("swap");
   }
 }
 export default AssetActions;

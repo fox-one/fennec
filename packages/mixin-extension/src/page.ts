@@ -4,7 +4,7 @@ import {
   enable,
   redirectIfPhishing
 } from "@foxone/mixin-extension-base/inject";
-import { version } from "../../../lerna.json";
+import pkg from "../package.json";
 
 window.addEventListener("message", ({ data, source }) => {
   if (source !== window || data.origin !== "content") {
@@ -21,7 +21,7 @@ window.addEventListener("message", ({ data, source }) => {
 function inject() {
   injectExtension(enable, {
     name: "mixin_ext",
-    version
+    version: pkg.version
   });
 }
 

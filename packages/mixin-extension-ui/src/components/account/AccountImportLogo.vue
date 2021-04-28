@@ -6,6 +6,7 @@
       <p class="f-body-2">
         Please create a Mixin Network Account with one of following ways
       </p>
+      <slot />
     </div>
   </f-panel>
 </template>
