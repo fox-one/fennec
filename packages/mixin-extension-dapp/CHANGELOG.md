@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-dapp@0.1.8...@foxone/mixin-extension-dapp@0.1.9) (2021-04-28)
+
+
+### Bug Fixes
+
+* minor fix ([1f2ee26](https://github.com/fox-one/mixin-extension/commit/1f2ee26fac43ee907b8a8d8b2aedbbc781aefad3))
+
+
+
+
+
 ## [0.1.8](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-dapp@0.1.7...@foxone/mixin-extension-dapp@0.1.8) (2021-04-28)
 
 **Note:** Version bump only for package @foxone/mixin-extension-dapp
