@@ -43,5 +43,6 @@
     "lerna": "^3.20.2",
     "sinon-chrome": "^3.0.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "version": "0.1.7"
 }
