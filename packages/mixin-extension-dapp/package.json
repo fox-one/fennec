@@ -1,10 +1,12 @@
 {
   "name": "@foxone/mixin-extension-dapp",
-  "version": "1.0.0",
+  "version": "0.1.6",
   "description": "Fennec extension bridge",
   "license": "GPL 3.0",
   "main": "build/index.js",
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "types": "build/index.d.ts",
   "scripts": {
     "build": "rollup -c"

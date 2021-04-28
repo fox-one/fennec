@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-sdk@0.1.5...@foxone/mixin-sdk@0.1.6) (2021-04-28)
+
+
+### Features
+
+* update mixin sdk ([d840730](https://github.com/fox-one/mixin-extension/commit/d84073091b8137a37d2e73c5899060d5e1868e63))
+
+
+
+
+
 ## [0.1.5](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-sdk@0.1.4...@foxone/mixin-sdk@0.1.5) (2021-04-28)
 
 
