@@ -1,8 +1,8 @@
-import type {
+import {
   InjectProvider,
   InjectedData
-} from "@foxone/mixin-extension-base/inject/types";
-import { CreateTransferPayload } from "@foxone/mixin-sdk/types";
+} from "@foxone/mixin-extension-base/src/inject/types";
+import { Asset, CreateTransferPayload } from "@foxone/mixin-sdk/src/types";
 import { INJECT_KEY } from "./defaults";
 
 export class Fennec {
@@ -38,11 +38,11 @@ export class Fennec {
     });
   }
 
-  public async getAssets() {
+  public async getAssets(): Promise<Asset[] | undefined> {
     return await this.ctx?.wallet.getAssets();
   }
 
-  public async getAsset(id: string) {
+  public async getAsset(id: string): Promise<Asset | undefined> {
     return await this.ctx?.wallet.getAsset(id);
   }
 

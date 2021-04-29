@@ -10,10 +10,10 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@foxone/mixin-extension-base": ["../mixin-extension-base/src"],
-      "@foxone/mixin-extension-base/*": ["../mixin-extension-base/src/*"],
-      "@foxone/mixin-sdk": ["../mixin-sdk/src"],
-      "@foxone/mixin-sdk/*": ["../mixin-sdk/src/*"],
+      // "@foxone/mixin-extension-base": ["../mixin-extension-base/src"],
+      // "@foxone/mixin-extension-base/*": ["../mixin-extension-base/src/*"],
+      // "@foxone/mixin-sdk": ["../mixin-sdk/src"],
+      // "@foxone/mixin-sdk/*": ["../mixin-sdk/src/*"],
     },
   },
   "include": [

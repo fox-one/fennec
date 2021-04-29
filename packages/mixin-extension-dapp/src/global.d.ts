@@ -1,4 +1,4 @@
-import type { InjectProvider } from "@foxone/mixin-extension-base/inject/types";
+import { InjectProvider } from "@foxone/mixin-extension-base/src/inject/types";
 
 declare global {
   const INJECT_KEY = "mixin_ext";
