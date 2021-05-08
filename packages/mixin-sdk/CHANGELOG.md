@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.10](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-sdk@0.1.8...@foxone/mixin-sdk@0.1.10) (2021-05-08)
+
+**Note:** Version bump only for package @foxone/mixin-sdk
+
+
+
+
+
 ## [0.1.8](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-sdk@0.1.7...@foxone/mixin-sdk@0.1.8) (2021-04-28)
 
 **Note:** Version bump only for package @foxone/mixin-sdk

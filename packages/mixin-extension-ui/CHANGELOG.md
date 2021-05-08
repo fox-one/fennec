@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-ui@0.1.8...@foxone/mixin-extension-ui@0.1.9) (2021-05-08)
+
+
+### Bug Fixes
+
+* fix snapshot precision ([5413e92](https://github.com/fox-one/mixin-extension/commit/5413e926ea9f7c6f185793dc4b774879d3db8ffe))
+
+
+
+
+
 ## [0.1.8](https://github.com/fox-one/mixin-extension/compare/@foxone/mixin-extension-ui@0.1.7...@foxone/mixin-extension-ui@0.1.8) (2021-04-28)
 
 **Note:** Version bump only for package @foxone/mixin-extension-ui
