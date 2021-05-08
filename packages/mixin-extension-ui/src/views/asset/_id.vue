@@ -71,7 +71,7 @@ class AssetDetail extends Mixins(PageView) {
       from: "USD",
       to: "USD"
     });
-    const totalBalanceFormat = format({ n: balance, mp: 8 });
+    const totalBalanceFormat = format({ n: balance, p: 8 });
     const icon = asset?.icon_url ?? "";
     const chainLogo = this.$utils.helper.getChainAssetLogo(
       this,

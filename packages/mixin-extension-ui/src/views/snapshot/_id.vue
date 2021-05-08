@@ -149,7 +149,7 @@ class SnapshotPage extends Mixins(PageView) {
     const createdFiatAmount =
       Math.abs(Number(amount)) * Number(this.createdPrice?.price_usd ?? 0);
     const snapshotMeta = snapshotTypeMetas[this.snapshot?.type ?? ""];
-    const formatAmount = formatNumber({ n: amount });
+    const formatAmount = formatNumber({ n: amount, p: 8 });
     const amountFormat = `${Number(amount) > 0 ? "+" : ""} ${formatAmount}`;
     const fiatFormat = currencyExchange(this, {
       n: fiatAmount,

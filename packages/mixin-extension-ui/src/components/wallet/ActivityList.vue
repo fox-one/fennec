@@ -77,7 +77,7 @@ class ActivityList extends Vue {
       const direction = isFrom ? "From" : "To";
       const amountText = `${
         Number(snapshot.amount) > 0 ? "+" : ""
-      }${formatNumber({ n: snapshot.amount })}`;
+      }${formatNumber({ n: snapshot.amount, p: 8 })}`;
       const amountColor = getValueColor(this, snapshot.amount);
 
       return {
@@ -102,7 +102,7 @@ class ActivityList extends Vue {
       const progress = ((confirmations / threshold) * 100).toFixed();
       const amountText = `${
         Number(transaction.amount) > 0 ? "+" : ""
-      }${formatNumber({ n: transaction.amount })}`;
+      }${formatNumber({ n: transaction.amount, p: 8 })}`;
       const amountColor = getValueColor(this, transaction.amount);
       const amountUSD =
         Number(transaction.amount) * Number(this.asset.price_usd);
