@@ -14,7 +14,6 @@
   },
   "author": "",
   "dependencies": {
-    "@foxone/mixin-extension-base": "^0.1.8",
     "@foxone/mixin-sdk": "^0.1.8"
   },
   "devDependencies": {
