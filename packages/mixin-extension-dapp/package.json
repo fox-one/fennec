@@ -1,6 +1,6 @@
 {
   "name": "@foxone/mixin-extension-dapp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Fennec extension bridge",
   "license": "GPL 3.0",
   "main": "build/index.js",
@@ -14,7 +14,7 @@
   },
   "author": "",
   "dependencies": {
-    "@foxone/mixin-sdk": "^0.2.1"
+    "@foxone/mixin-sdk": "^0.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
