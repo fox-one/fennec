@@ -1,1 +1,2 @@
-__tests__/keystore/
+__tests__/keystore/ed25519.json
+__tests__/keystore/rsa.json
