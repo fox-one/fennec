@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/fox-one/mixin-extension/compare/v0.2.2...v0.2.3) (2021-05-09)
+
+
+### Features
+
+* update icon ([bfeecf8](https://github.com/fox-one/mixin-extension/commit/bfeecf82643f90836273fb793f54991a02c0cd2b))
+
+
+
+
+
 ## [0.2.2](https://github.com/fox-one/mixin-extension/compare/v0.2.1...v0.2.2) (2021-05-08)
 
 **Note:** Version bump only for package @foxone/mixin-extension
