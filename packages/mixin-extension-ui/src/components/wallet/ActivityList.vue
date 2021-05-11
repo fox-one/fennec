@@ -73,11 +73,9 @@ class ActivityList extends Vue {
         from: "USD",
         to: "USD"
       });
-      const isFrom = Number(snapshot.amount) > 0;
-      const direction = isFrom ? "From" : "To";
-      const amountText = `${
-        Number(snapshot.amount) > 0 ? "+" : ""
-      }${formatNumber({ n: snapshot.amount, p: 8 })}`;
+      const direction = Number(snapshot.amount) > 0 ? "From" : "To";
+      const amountText = `${Number(snapshot.amount) > 0 ? "+" : ""}
+      ${formatNumber({ n: snapshot.amount, p: 8 })}`;
       const amountColor = getValueColor(this, snapshot.amount);
 
       return {
@@ -86,7 +84,7 @@ class ActivityList extends Vue {
         symbol: this.asset.symbol,
         icon: source.icon,
         text: source.text,
-        time: formatTime({ t: snapshot.created_at, p: "MMM DD, YYYY" }),
+        time: formatTime({ t: snapshot.created_at, p: "YYYY-MM-DD HH:mm:ss" }),
         opponent: snapshot.opponent_id || snapshot.sender,
         created_at: snapshot.created_at,
         amountColor,
@@ -117,7 +115,10 @@ class ActivityList extends Vue {
         symbol: this.asset.symbol,
         sender: transaction.sender,
         created_at: transaction.created_at,
-        time: formatTime({ t: transaction.created_at, p: "MMM DD, YYYY" }),
+        time: formatTime({
+          t: transaction.created_at,
+          p: "YYYY-MM-DD HH:mm:ss"
+        }),
         text: `${confirmations}/${threshold} Confirmations`,
         progress,
         amountColor,

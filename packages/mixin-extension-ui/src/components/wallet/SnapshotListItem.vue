@@ -12,7 +12,9 @@
           <span>
             {{ snapshot.time }}
           </span>
-          <span> {{ snapshot.direction }} {{ snapshot.opponent }} </span>
+          <span>
+            {{ snapshot.direction }} {{ opponentName || snapshot.opponent }}
+          </span>
         </div>
       </v-list-item-subtitle>
     </v-list-item-content>
@@ -35,13 +37,33 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import {
+  WalletModulePerfix,
+  ActionTypes
+} from "../../store/modules/wallet/types";
 
 @Component
 class SnapshotListItem extends Vue {
   @Prop() snapshot;
 
+  opponentName = "";
+
+  mounted() {
+    this.requestOpponentName();
+  }
+
   handleToSnapshot(snapshot) {
     this.$router.push({ name: "snapshot-id", params: { id: snapshot.id } });
+  }
+
+  async requestOpponentName() {
+    try {
+      const user = await this.$store.dispatch(
+        WalletModulePerfix + ActionTypes.LOAD_USER,
+        { id: this.snapshot?.opponent }
+      );
+      this.opponentName = user.full_name;
+    } catch (error) {}
   }
 }
 export default SnapshotListItem;

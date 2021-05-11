@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex, { ModuleTree, createLogger } from "vuex";
+import Vuex, { ModuleTree } from "vuex";
 import { RootState } from "./types";
 import createPersistedState from "vuex-persistedstate";
 import app from "./modules/app";
