@@ -69,7 +69,8 @@ Not ready yet.
 
 ## 3. Use fennec
 
-[4swap](https://4swap.org) supports Fennec. Visit https://app.4swap.org, tap "Connect wallet" button to use Fennec in 4swap.
+- [4swap](https://4swap.org): Visit https://app.4swap.org, tap "Connect wallet" button to use Fennec in 4swap.
+- [Mixcoin](https://mixcoin.one)(Chinese): tap "连接钱包" link to use Fennec.
 
 ## 4. Interact with your Mixin dApp
 
