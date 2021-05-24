@@ -14,6 +14,12 @@
 //     const body = forge.util.decode64(keypair.publicKey).toString();
 //     const publicKey = forge.pki.publicKeyFromAsn1(forge.asn1.fromDer(body));
 
+describe("mixin sdk contents", () => {
+  test("OK", () => {
+    //
+  });
+});
+
 //     const md = forge.md.sha1.create();
 //     md.update("sign this", "utf8");
 //     const signature = privateKey.sign(md);

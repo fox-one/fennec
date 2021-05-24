@@ -24,6 +24,8 @@
       "@foxone/mixin-extension-inject/*": ["packages/mixin-extension-inject/src/*"],
       "@foxone/mixin-sdk": ["packages/mixin-sdk/src"],
       "@foxone/mixin-sdk/*": ["packages/mixin-sdk/src/*"],
+      "@foxone/mixin-extension-dapp": ["packages/mixin-extension-dapp/src"],
+      "@foxone/mixin-extension-dapp/*": ["packages/mixin-extension-dapp/src/*"],
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true

@@ -2,13 +2,13 @@ import {
   InjectProvider,
   InjectedData
 } from "@foxone/mixin-extension-base/src/inject/types";
-import { Asset, CreateTransferPayload } from "@foxone/mixin-sdk/src/types";
+// import { Asset, CreateTransferPayload } from "@foxone/mixin-sdk/src/types";
 import { INJECT_KEY } from "./defaults";
 
-export class Fennec {
-  private ext: InjectProvider | null = null;
+export default class Fennec {
+  ext: InjectProvider | null = null;
 
-  private ctx: InjectedData | null = null;
+  ctx: InjectedData | null = null;
 
   connected = false;
 
@@ -32,25 +32,25 @@ export class Fennec {
     this.connected = true;
   }
 
-  public async signToken(payload: any) {
-    return await this.ctx?.wallet.signToken({
-      payload
-    });
-  }
+  // public async signToken(payload: any) {
+  //   return await this.ctx?.wallet.signToken({
+  //     payload
+  //   });
+  // }
 
-  public async getAssets(): Promise<Asset[] | undefined> {
-    return await this.ctx?.wallet.getAssets();
-  }
+  // public async getAssets(): Promise<Asset[] | undefined> {
+  //   return await this.ctx?.wallet.getAssets();
+  // }
 
-  public async getAsset(id: string): Promise<Asset | undefined> {
-    return await this.ctx?.wallet.getAsset(id);
-  }
+  // public async getAsset(id: string): Promise<Asset | undefined> {
+  //   return await this.ctx?.wallet.getAsset(id);
+  // }
 
-  public async transfer(payload: CreateTransferPayload) {
-    return this.ctx?.wallet.transfer(payload);
-  }
+  // public async transfer(payload: CreateTransferPayload) {
+  //   return this.ctx?.wallet.transfer(payload);
+  // }
 
-  public async multisigsPayment(payload: { code: string }) {
-    return this.ctx?.wallet.multisigsPayment(payload);
-  }
+  // public async multisigsPayment(payload: { code: string }) {
+  //   return this.ctx?.wallet.multisigsPayment(payload);
+  // }
 }

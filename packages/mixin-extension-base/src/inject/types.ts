@@ -1,4 +1,5 @@
 import {
+  User,
   Asset,
   CreateTransferPayload,
   RawTransactionRequest
@@ -49,6 +50,7 @@ export interface InjectedAccount {
 
 export interface InjectedAccounts {
   get(): Promise<InjectedAccount[]>;
+  current(): Promise<User>;
 }
 
 export interface InjectedWallet {

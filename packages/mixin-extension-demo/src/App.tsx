@@ -1,4 +1,3 @@
-import type { InjectedData } from "@foxone/mixin-extension-base/src/inject/types";
 import { computed, defineComponent, ref } from "vue";
 import ConnectExt from "../components/ConnectExt";
 import GetAccount from "../components/GetAccount";
@@ -6,12 +5,12 @@ import GetAsset from "../components/GetAsset";
 import Transfer from "../components/Transfer";
 import SignToken from "../components/SignToken";
 import Multisigs from "../components/Multisigs";
+import Fennec from "@foxone/mixin-extension-dapp";
 
 export default defineComponent(() => {
-  const ctx = ref<null | InjectedData>(null);
-  const setCtx = (v: InjectedData) => (ctx.value = v);
+  const fennec = new Fennec();
 
-  const connected = computed(() => Boolean(ctx.value));
+  const connected = computed(() => Boolean(fennec.connected));
 
   return () => (
     <section class="section">
@@ -20,32 +19,28 @@ export default defineComponent(() => {
         <div class="mt-5">
           <div>
             <div class="label">Connect wallet</div>
-            <ConnectExt
-              ctx={ctx}
-              connected={connected.value}
-              onUpdateCtx={setCtx}
-            />
+            <ConnectExt fennec={fennec} connected={connected.value} />
           </div>
           <div class="actions mt-5">
             <div class="label">Get Account</div>
-            <GetAccount ctx={ctx.value} connected={connected.value} />
+            <GetAccount fennec={fennec} connected={connected.value} />
           </div>
-          <div class="actions mt-5">
+          {/* <div class="actions mt-5">
             <div class="label">Get Asset</div>
-            <GetAsset ctx={ctx.value} connected={connected.value} />
+            <GetAsset fennec={fennec} connected={connected.value} />
           </div>
           <div class="action mt-5">
             <div class="label">Transfer</div>
-            <Transfer ctx={ctx.value} connected={connected.value} />
+            <Transfer fennec={fennec} connected={connected.value} />
           </div>
           <div class="action mt-5">
             <div class="label">Multisigs</div>
-            <Multisigs ctx={ctx.value} connected={connected.value} />
+            <Multisigs fennec={fennec} connected={connected.value} />
           </div>
           <div class="action mt-5">
             <div class="label">Sign Token</div>
-            <SignToken ctx={ctx.value} connected={connected.value} />
-          </div>
+            <SignToken fennec={fennec} connected={connected.value} />
+          </div> */}
         </div>
       </div>
     </section>

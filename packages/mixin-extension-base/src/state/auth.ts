@@ -200,6 +200,7 @@ export default class AuthState {
 
   private persist(data: Record<string, AuthUrlInfo>) {
     this.#store.next({ ...this.#store.getValue(), authUrls: data });
+    this.restore();
   }
 
   private updateAuthRequestsSubject() {

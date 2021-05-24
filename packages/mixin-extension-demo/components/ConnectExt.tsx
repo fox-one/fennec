@@ -1,13 +1,12 @@
+import Fennec from "@foxone/mixin-extension-dapp";
 import { computed, defineComponent, reactive, ref, toRefs } from "vue";
 
 export default defineComponent({
   name: "ConnectExt",
 
   props: {
-    ext: Object,
-    ctx: Object,
-    connected: Boolean,
-    onUpdateCtx: Function
+    fennec: Fennec,
+    connected: Boolean
   },
 
   setup(props, { emit }) {
@@ -21,9 +20,7 @@ export default defineComponent({
     const connect = async () => {
       loading.value = true;
       try {
-        const ext = (window as any).__MIXIN__?.mixin_ext;
-        const ctx = await ext?.enable("Mixin Client Demo");
-        emit("update-ctx", ctx);
+        props.fennec?.connect("Mixin Client Demo");
       } catch (error) {
         alert(error.message);
       }

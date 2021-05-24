@@ -3,6 +3,12 @@
 // import Ed25519Session from "./keystore/ed25519.json";
 // import axios from "axios";
 
+describe("mixin sdk contents", () => {
+  test("OK", () => {
+    //
+  });
+});
+
 // describe("mixin sdk contents", () => {
 //   test("encrypts should be exported", () => {
 //     expect(typeof encrypts.generateEd25519SessionKeypair).toBe("function");

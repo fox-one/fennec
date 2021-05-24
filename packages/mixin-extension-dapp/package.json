@@ -3,16 +3,8 @@
   "version": "0.2.2",
   "description": "Fennec extension bridge",
   "license": "GPL 3.0",
-  "main": "build/index.js",
-  "files": [
-    "build",
-    "src"
-  ],
-  "types": "build/index.d.ts",
-  "scripts": {
-    "build": "rollup -c"
-  },
   "author": "",
+  "main": "src/index.ts",
   "dependencies": {
     "@foxone/mixin-sdk": "^0.2.2"
   },

@@ -3,9 +3,10 @@
   "version": "0.2.1",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/fennec/"
+    "build": "vite build --base=/fennec/ "
   },
   "dependencies": {
+    "@foxone/mixin-extension-dapp": "^0.2.2",
     "axios": "^0.21.1",
     "bulma": "^0.9.1",
     "uuid": "^8.3.2",

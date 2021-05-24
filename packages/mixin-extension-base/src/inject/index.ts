@@ -79,7 +79,7 @@ export async function enable(origin: string): Promise<InjectedData> {
   await sendMessage("pub_(accounts.ensureUnlocked)");
 
   return {
-    accounts: new Accounts(sendMessage),
+    accounts: new Accounts(sendMessage, endpoints),
     wallet: new Wallet(sendMessage, endpoints)
   };
 }
