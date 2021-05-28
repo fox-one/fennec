@@ -63,7 +63,6 @@ class App extends Vue {
     const initing = this.$store.state.app.initing;
     const keyring = this.$store.state.keyring.keyring;
     const inited = keyring.initialized;
-    const accounts = keyring.accounts;
     const locked = !keyring.isUnlocked;
     const hasAuthRequest = this.$store.state.auth.authorizeRequests.length > 0;
     const hasTransferReq =
@@ -78,13 +77,17 @@ class App extends Vue {
       hasAuthRequest,
       hasTransferReq,
       hasMultisigsTransactionReq,
-      showInitGuard: !inited || accounts.length === 0
+      showInitGuard: !inited
     };
   }
 
   async mounted() {
     this.$root.$on(EVENTS.APPLICATION_ERROR, (error: Error) => {
-      if (error.message.startsWith("[code:01]")) return;
+      if (error.message.startsWith("[code:01]")) {
+        this.$router.push({ name: "import" });
+
+        return;
+      }
 
       this.error = error;
     });

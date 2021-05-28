@@ -153,7 +153,7 @@ export default class KeyringState {
       throw new Error("No stored keyring");
     }
 
-    return this.#keyring.signAuthorizeToken(clientId, data, method, uri);
+    return this.#keyring.signAuthorizeToken(clientId, method, uri, data);
   }
 
   public async signClientToken({

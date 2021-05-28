@@ -14,7 +14,7 @@
   "version": "0.1.8",
   "dependencies": {
     "@foxone/dev": "^0.1.4",
-    "@foxone/mixin-api": "^0.1.4",
+    "@foxone/mixin-api": "^0.1.5",
     "@foxone/utils": "^0.1.2"
   },
   "devDependencies": {

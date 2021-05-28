@@ -1,36 +1,26 @@
-import type {
-  InjectedAccount,
-  InjectedData
-} from "@foxone/fennec-base/src/inject/types";
-import Fennec from "@foxone/fennec-dapp";
+import type { InjectedAccount } from "@foxone/fennec-base/src/inject/types";
+import Fennec from "@foxone/fennec-dapp/src";
 import { User } from "@foxone/mixin-api/types";
-import {
-  computed,
-  defineComponent,
-  ref,
-  toRefs,
-  PropType,
-  reactive
-} from "vue";
+import { computed, defineComponent, ref, toRefs, inject, reactive } from "vue";
 
 export default defineComponent({
   name: "GetAccount",
 
   props: {
-    connected: Boolean,
-    fennec: Fennec
+    connected: Boolean
   },
 
   setup(props) {
     const { connected } = toRefs(props);
+    const fennec = inject<Fennec>("fennec");
     const loading = ref(false);
     const accounts = ref<InjectedAccount[]>([]);
     const me = ref<User | null>(null);
 
     const getAccount = async () => {
       loading.value = true;
-      const res = await props.fennec?.ctx?.accounts.get();
-      const current = await props.fennec?.ctx?.accounts.current();
+      const res = await fennec?.ctx?.accounts.get();
+      const current = await fennec?.ctx?.accounts.current();
 
       if (res) {
         accounts.value = res;
@@ -48,8 +38,7 @@ export default defineComponent({
         classes: `${loading.value ? "is-loading" : ""}`,
         accounts: accounts.value
           ? JSON.stringify(accounts.value)
-          : "No Accounts Data",
-        me: me.value
+          : "No Accounts Data"
       });
     });
 
@@ -67,7 +56,7 @@ export default defineComponent({
             GetAccount
           </button>
           <p class="my-3">{meta.value.accounts}</p>
-          <p class="my-3">{meta.value.me}</p>
+          <p class="my-3">{JSON.stringify(me.value)}</p>
         </>
       );
     };

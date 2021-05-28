@@ -88,21 +88,26 @@ export function loadKeyringFromBackground(vm: Vue): Promise<boolean> {
 }
 
 export async function loadWalletData(vm: Vue): Promise<void> {
-  const inited = vm.$store.state.keyring.keyring.initialized;
-  const locked = !vm.$store.state.keyring.keyring.isUnlocked;
-  const selectedAccount = vm.$store.state.preference.preference.seletedAccount;
+  try {
+    const inited = vm.$store.state.keyring.keyring.initialized;
+    const locked = !vm.$store.state.keyring.keyring.isUnlocked;
+    const selectedAccount =
+      vm.$store.state.preference.preference.seletedAccount;
 
-  if (!inited || locked) return;
+    if (!inited || locked) return;
 
-  await Promise.all([
-    vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ASSETS),
-    vm.$store.dispatch(
-      WalletModulePerfix + WalletActionTypes.LOAD_EXCHANGE_RATES
-    ),
-    vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ME, {
-      id: selectedAccount
-    })
-  ]);
+    await Promise.all([
+      vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ASSETS),
+      vm.$store.dispatch(
+        WalletModulePerfix + WalletActionTypes.LOAD_EXCHANGE_RATES
+      ),
+      vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ME, {
+        id: selectedAccount
+      })
+    ]);
+  } catch (error) {
+    handleError(vm, error);
+  }
 }
 
 let timer: any;
@@ -114,14 +119,7 @@ export function startWalletTimer(vm: Vue): number | undefined {
   if (!inited || locked) return;
 
   timer = setInterval(() => {
-    loadWalletData(vm).then(
-      () => {
-        // ignore
-      },
-      () => {
-        // ignore
-      }
-    );
+    loadWalletData(vm);
   }, 3000);
 
   return timer;

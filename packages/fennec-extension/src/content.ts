@@ -5,15 +5,11 @@ const port = extension.runtime.connect({ name: "content" });
 
 // send any messages from the extension back to the page
 port.onMessage.addListener((data) => {
-  console.log("post message to window");
-
   window.postMessage({ ...data, origin: "content" }, "*");
 });
 
 // all messages from the page, pass them to the extension
 window.addEventListener("message", ({ data, source }: Message) => {
-  console.log("post message to port", data);
-
   if (source !== window || data.origin !== "page") {
     return;
   }

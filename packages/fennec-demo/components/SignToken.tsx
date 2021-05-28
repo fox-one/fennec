@@ -5,9 +5,11 @@ import {
   toRefs,
   ref,
   computed,
-  reactive
+  reactive,
+  inject
 } from "vue";
 import axios from "axios";
+import Fennec from "@foxone/fennec-dapp";
 
 export function getMixinProfile(token: string) {
   return axios.get("https://mixin-api.zeromesh.net/me", {
@@ -26,15 +28,15 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { connected, ctx } = toRefs(props);
+    const { connected } = toRefs(props);
+    const fennec = inject<Fennec>("fennec");
     const loading = ref(false);
     const token = ref("");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const profile = ref<any>({});
 
     const getToken = async () => {
       loading.value = true;
-      const respToken = await ctx?.value?.wallet.signToken({
+      const respToken = await fennec?.ctx?.wallet.signToken({
         payload: { from: "demo" }
       });
 

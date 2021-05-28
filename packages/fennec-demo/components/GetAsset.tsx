@@ -1,4 +1,5 @@
 import { InjectedData } from "@foxone/fennec-base/src/inject/types";
+import Fennec from "@foxone/fennec-dapp";
 import { Asset } from "@foxone/mixin-api/types";
 import {
   defineComponent,
@@ -6,7 +7,8 @@ import {
   toRefs,
   ref,
   computed,
-  reactive
+  reactive,
+  inject
 } from "vue";
 
 const btc = "c6d0c728-2624-429b-8e0d-d9d19b6592fa";
@@ -15,20 +17,18 @@ export default defineComponent({
   name: "GetAsset",
 
   props: {
-    connected: Boolean,
-    ctx: {
-      type: Object as PropType<InjectedData | null>
-    }
+    connected: Boolean
   },
 
   setup(props) {
-    const { connected, ctx } = toRefs(props);
+    const { connected } = toRefs(props);
+    const fennec = inject<Fennec>("fennec");
     const loading = ref(false);
     const asset = ref<Asset | null>(null);
 
     const getAsset = async () => {
       loading.value = true;
-      const res = await ctx?.value?.wallet.getAsset(btc);
+      const res = await fennec?.ctx?.wallet.getAsset(btc);
 
       if (res) {
         asset.value = res;

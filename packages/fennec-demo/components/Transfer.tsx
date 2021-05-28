@@ -1,20 +1,18 @@
-import type { InjectedData } from "@foxone/fennec-base/src/inject/types";
 import { CreateTransferPayload } from "@foxone/mixin-api/types";
-import { defineComponent, PropType, toRefs, ref, computed } from "vue";
+import { defineComponent, PropType, toRefs, ref, computed, inject } from "vue";
 import { v4 as uuid } from "uuid";
+import Fennec from "@foxone/fennec-dapp";
 
 export default defineComponent({
   name: "Transfer",
 
   props: {
-    connected: Boolean,
-    ctx: {
-      type: Object as PropType<InjectedData | null>
-    }
+    connected: Boolean
   },
 
   setup(props) {
-    const { connected, ctx } = toRefs(props);
+    const { connected } = toRefs(props);
+    const fennec = inject<Fennec>("fennec");
     const loading = ref(false);
 
     const meta = computed(() => {
@@ -36,7 +34,7 @@ export default defineComponent({
           trace_id: uuid()
         };
 
-        await ctx?.value?.wallet.transfer(payload);
+        await fennec?.ctx?.wallet.transfer(payload);
       } catch (error) {
         console.log(error);
       }

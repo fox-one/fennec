@@ -1,37 +1,18 @@
-import Fennec from "@foxone/fennec-dapp";
+import Fennec from "@foxone/fennec-dapp/src";
 import { computed, defineComponent, reactive, ref, toRefs } from "vue";
 
 export default defineComponent({
   name: "ConnectExt",
 
   props: {
-    connected: Boolean,
-    fennec: Fennec
+    connected: Boolean
   },
+
+  emits: ["toggle"],
 
   setup(props, { emit }) {
     const { connected } = toRefs(props);
     const loading = ref(false);
-
-    const toggleConnect = () => {
-      connected.value ? disconnect() : connect();
-    };
-
-    const connect = async () => {
-      loading.value = true;
-
-      try {
-        props.fennec?.connect("Mixin Client Demo");
-      } catch (error) {
-        alert(error.message);
-      }
-
-      loading.value = false;
-    };
-
-    const disconnect = async () => {
-      emit("update-ctx", null);
-    };
 
     const meta = computed(() => {
       return reactive({
@@ -44,7 +25,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <button class={meta.value.classes} onClick={toggleConnect}>
+        <button class={meta.value.classes} onClick={() => emit("toggle")}>
           {meta.value.text}
         </button>
       </>

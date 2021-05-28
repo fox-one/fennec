@@ -22,7 +22,7 @@
         depressed
         min-width="200"
         color="primary"
-        class="mb-3"
+        class="my-3"
         :loading="approving"
         :disabled="processing"
         @click="handleApproveRequest"
@@ -35,6 +35,7 @@
         depressed
         min-width="200"
         color="error"
+        class="my-3"
         :loadiing="rejecting"
         :disabled="processing"
         @click="handleRejectRequest"

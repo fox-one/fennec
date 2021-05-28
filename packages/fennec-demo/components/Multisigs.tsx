@@ -1,8 +1,9 @@
 import type { InjectedData } from "@foxone/fennec-base/src/inject/types";
+import Fennec from "@foxone/fennec-dapp";
 import { RawTransactionRequest } from "@foxone/mixin-api/types";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
-import { defineComponent, PropType, toRefs, ref, computed } from "vue";
+import { defineComponent, PropType, toRefs, ref, computed, inject } from "vue";
 
 export function payment(transaction: RawTransactionRequest) {
   return axios.post("https://mixin-api.zeromesh.net/payment", transaction);
@@ -12,21 +13,18 @@ export default defineComponent({
   name: "Multisgis",
 
   props: {
-    connected: Boolean,
-    ctx: {
-      type: Object as PropType<InjectedData | null>
-    }
+    connected: Boolean
   },
 
   setup(props) {
-    const { connected, ctx } = toRefs(props);
+    const { connected } = toRefs(props);
+    const fennec = inject<Fennec>("fennec");
     const loading = ref(false);
     const receivers = ref(
       "0cc43c5e-4258-4ece-b0ff-d8e719b1d469,17ac525b-5e12-44b0-8f51-5beb8aa1a129"
     );
     const threshold = ref(1);
 
-    const meta = computed(() => {});
     const handleReceiversChange = (e: any) =>
       (receivers.value = e.target.value);
     const handleThresholdChange = (e: any) =>
@@ -45,11 +43,11 @@ export default defineComponent({
       };
 
       // TODO: add resp types
-      const resp: any = await ctx?.value?.wallet.multisigsGenerate({
+      const resp: any = await fennec?.ctx?.wallet.multisigsGenerate({
         transaction: data
       });
 
-      await ctx?.value?.wallet.multisigsPayment({ code: resp.code_id });
+      await fennec?.ctx?.wallet.multisigsPayment({ code: resp.code_id });
     };
 
     return () => {

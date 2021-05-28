@@ -1,16 +1,47 @@
-import { computed, defineComponent } from "vue";
+import { defineComponent, reactive, provide } from "vue";
 import ConnectExt from "../components/ConnectExt";
 import GetAccount from "../components/GetAccount";
-// import GetAsset from "../components/GetAsset";
-// import Transfer from "../components/Transfer";
-// import SignToken from "../components/SignToken";
-// import Multisigs from "../components/Multisigs";
-import Fennec from "@foxone/fennec-dapp";
+import GetAsset from "../components/GetAsset";
+import Transfer from "../components/Transfer";
+import SignToken from "../components/SignToken";
+import Multisigs from "../components/Multisigs";
+import Fennec from "@foxone/fennec-dapp/src";
+
+function useFennec(fennec: Fennec, name: string) {
+  const state = reactive({
+    connected: false,
+    available: fennec.available,
+    connecting: false
+  });
+
+  const toggle = async () => {
+    if (fennec.connected) {
+      fennec.disconnect();
+    } else {
+      state.connecting = true;
+      try {
+        await fennec.connect(name);
+      } catch (error) {
+        state.connecting = false;
+        alert(error);
+      }
+      state.connecting = false;
+    }
+
+    state.connected = fennec.connected;
+  };
+
+  return {
+    toggle,
+    state
+  };
+}
 
 export default defineComponent(() => {
   const fennec = new Fennec();
+  const { state, toggle } = useFennec(fennec, "Fennec Demo");
 
-  const connected = computed(() => Boolean(fennec.connected));
+  provide("fennec", fennec);
 
   return () => (
     <section class="section">
@@ -19,28 +50,28 @@ export default defineComponent(() => {
         <div class="mt-5">
           <div>
             <div class="label">Connect wallet</div>
-            <ConnectExt fennec={fennec} connected={connected.value} />
+            <ConnectExt connected={state.connected} onToggle={() => toggle()} />
           </div>
           <div class="actions mt-5">
             <div class="label">Get Account</div>
-            <GetAccount fennec={fennec} connected={connected.value} />
+            <GetAccount connected={state.connected} />
           </div>
-          {/* <div class="actions mt-5">
+          <div class="actions mt-5">
             <div class="label">Get Asset</div>
-            <GetAsset fennec={fennec} connected={connected.value} />
+            <GetAsset connected={state.connected} />
           </div>
           <div class="action mt-5">
             <div class="label">Transfer</div>
-            <Transfer fennec={fennec} connected={connected.value} />
+            <Transfer connected={state.connected} />
           </div>
           <div class="action mt-5">
             <div class="label">Multisigs</div>
-            <Multisigs fennec={fennec} connected={connected.value} />
+            <Multisigs connected={state.connected} />
           </div>
           <div class="action mt-5">
             <div class="label">Sign Token</div>
-            <SignToken fennec={fennec} connected={connected.value} />
-          </div> */}
+            <SignToken connected={state.connected} />
+          </div>
         </div>
       </div>
     </section>

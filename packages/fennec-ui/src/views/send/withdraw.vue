@@ -117,7 +117,7 @@ class WithdrawPage extends Mixins(PageView) {
     const symbol = this.asset?.symbol ?? "";
     const chainIcon = this.$utils.helper.getChainAssetLogo(this, chain);
     const fee = this.address?.fee ?? "";
-    const feeAsset = getAssetById(this.asset?.asset_id ?? "");
+    const feeAsset = getAssetById(this.asset?.chain_id ?? "");
     const feeAssetSymbol = feeAsset?.symbol ?? "";
 
     return {
@@ -188,7 +188,7 @@ class WithdrawPage extends Mixins(PageView) {
 
       this.handleToSnapshot(res);
     } catch (error) {
-      this.$utils.helper.toast(this, error);
+      this.$utils.helper.errorToast(this, error);
     }
 
     this.sending = false;

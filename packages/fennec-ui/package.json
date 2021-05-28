@@ -2,7 +2,7 @@
   "name": "@foxone/fennec-ui",
   "version": "0.2.2",
   "license": "GPL 3.0",
-  "main": "src/index.ts",
+  "main": "index.js",
   "dependencies": {
     "@foxone/fennec-base": "^0.2.2",
     "@foxone/mixin-api": "^0.1.4",

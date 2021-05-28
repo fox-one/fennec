@@ -1800,6 +1800,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@foxone/mixin-api@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@foxone/mixin-api@npm:0.1.5"
+  dependencies:
+    axios: ^0.21.1
+    browser-passworder: ^2.0.3
+    int64-buffer: ^1.0.0
+    jsonwebtoken: ^8.5.1
+    node-forge: ^0.10.0
+  checksum: 5c3a923bf7af10d636925c45c74338324559c9ff4686994aa385c6b728bf2c8be566a65bff98c438f88f2e89aac1783e83033882a82aab4d15d2a1d9138de8af
+  languageName: node
+  linkType: hard
+
 "@foxone/uikit@npm:^2.0.51":
   version: 2.0.59
   resolution: "@foxone/uikit@npm:2.0.59"
@@ -13932,7 +13945,7 @@ resolve@^2.0.0-next.3:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@foxone/dev": ^0.1.4
-    "@foxone/mixin-api": ^0.1.4
+    "@foxone/mixin-api": ^0.1.5
     "@foxone/utils": ^0.1.2
     "@types/jest": ^26.0.23
     "@types/node": ^15.6.1
