@@ -9,7 +9,8 @@ class MessagingFake {
 
   get onMessage(): any {
     return {
-      addListener: (cb: (...params: unknown[]) => unknown) => this.listeners.push(cb)
+      addListener: (cb: (...params: unknown[]) => unknown) =>
+        this.listeners.push(cb)
     };
   }
 

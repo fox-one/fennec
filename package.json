@@ -6,43 +6,22 @@
   "license": "GPL 3.0",
   "scripts": {
     "start": "yarn watch",
-    "watch": "cd packages/mixin-extension && webpack --config webpack.config.js --mode development --watch",
-    "build": "cd packages/mixin-extension && webpack --config webpack.config.js --mode production",
-    "lint": "eslint --ext .js,.ts,.vue,.tsx ./packages/*/src",
-    "prettier:fix": "prettier --write \"**/*.ts\" \"**/*.vue\" --ignore-path=.gitignore",
-    "test": "jest",
-    "precommit": "yarn lint"
+    "watch": "cd packages/fennec-extension && yarn foxone-exec-webpack --config webpack.config.js --mode development --watch",
+    "build": "cd packages/fennec-extension && webpack --config webpack.config.js --mode production",
+    "lint": "foxone-dev-run-lint",
+    "test": "foxone-dev-run-test --coverage"
+  },
+  "version": "0.1.8",
+  "dependencies": {
+    "@foxone/dev": "^0.1.4",
+    "@foxone/mixin-api": "^0.1.4",
+    "@foxone/utils": "^0.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
-    "@babel/plugin-proposal-numeric-separator": "^7.12.7",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
-    "@babel/plugin-proposal-private-methods": "^7.12.1",
-    "@babel/plugin-syntax-bigint": "^7.8.3",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-syntax-import-meta": "^7.10.4",
-    "@babel/plugin-syntax-top-level-await": "^7.12.1",
-    "@babel/plugin-transform-regenerator": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/preset-typescript": "^7.12.7",
-    "@babel/register": "^7.12.10",
-    "@babel/runtime": "^7.12.5",
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.1",
     "@types/sinon-chrome": "^2.2.10",
-    "babel-jest": "^26.6.3",
-    "browser-resolve": "^2.0.0",
-    "husky": "^6.0.0",
-    "jest": "^26.6.3",
-    "jest-circus": "^26.6.3",
-    "jest-config": "^26.6.3",
-    "jest-jasmine2": "^26.6.3",
-    "lerna": "^3.20.2",
-    "sinon-chrome": "^3.0.1"
-  },
-  "dependencies": {},
-  "version": "0.1.8"
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@vue/eslint-config-typescript": "^7.0.0"
+  }
 }

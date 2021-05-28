@@ -14,26 +14,17 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@foxone/mixin-extension": ["packages/mixin-extension/src"],
-      "@foxone/mixin-extension/*": ["packages/mixin-extension/src/*"],
-      "@foxone/mixin-extension-base": ["packages/mixin-extension-base/src"],
-      "@foxone/mixin-extension-base/*": ["packages/mixin-extension-base/src/*"],
-      "@foxone/mixin-extension-ui": ["packages/mixin-extension-ui/src"],
-      "@foxone/mixin-extension-ui/*": ["packages/mixin-extension-ui/src/*"],
-      "@foxone/mixin-extension-inject": ["packages/mixin-extension-inject/src"],
-      "@foxone/mixin-extension-inject/*": ["packages/mixin-extension-inject/src/*"],
-      "@foxone/mixin-sdk": ["packages/mixin-sdk/src"],
-      "@foxone/mixin-sdk/*": ["packages/mixin-sdk/src/*"],
-      "@foxone/mixin-extension-dapp": ["packages/mixin-extension-dapp/src"],
-      "@foxone/mixin-extension-dapp/*": ["packages/mixin-extension-dapp/src/*"],
+      "@foxone/fennec-base": ["packages/fennec-base/src"],
+      "@foxone/fennec-base/*": ["packages/fennec-base/src/*"],
+      "@foxone/fennec-ui": ["packages/fennec-ui/src"],
+      "@foxone/fennec-ui/*": ["packages/fennec-ui/src/*"],
+      "@foxone/fennec-inject": ["packages/fennec-inject/src"],
+      "@foxone/fennec-inject/*": ["packages/fennec-inject/src/*"],
+      "@foxone/fennec-dapp": ["packages/fennec-dapp/src"],
+      "@foxone/fennec-dapp/*": ["packages/fennec-dapp/src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true
   },
-  "exclude": [
-    "node_modules",
-    "build/**/*",
-    "**/build/*",
-    "**/build/**/*"
-  ],
+  "exclude": ["node_modules", "build/**/*", "**/build/*", "**/build/**/*"]
 }
