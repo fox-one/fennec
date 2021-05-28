@@ -5,9 +5,24 @@
         <v-icon size="64" color="error">{{ $icons.mdiAlert }}</v-icon>
       </div>
       <div class="my-5 title red--text">{{ error.message }}</div>
-      <f-tip class="rounded error-stack" type="text">
-        <div class="error-stack">{{ error.stack }}</div>
-      </f-tip>
+
+      <div>
+        <f-tip class="rounded error-stack" type="text">
+          <div class="error-stack">{{ error.stack }}</div>
+        </f-tip>
+      </div>
+
+      <v-btn
+        rounded
+        depressed
+        min-width="200"
+        class="my-5"
+        color="primary"
+        @click="handleReload"
+      >
+        Reload
+      </v-btn>
+
       <action-backup-all-keystore>
         <template #activator="{ on }">
           <v-btn
@@ -15,7 +30,7 @@
             depressed
             min-width="200"
             color="primary"
-            class="my-5"
+            class="mb-5"
             v-on="on"
           >
             BackUp All Keystore
@@ -41,6 +56,10 @@ import ResetApplication from "../particle/ResetApplication.vue";
 })
 class ErrorGuard extends Vue {
   @Prop() error!: Error | null;
+
+  handleReload() {
+    window.location.reload();
+  }
 }
 export default ErrorGuard;
 </script>

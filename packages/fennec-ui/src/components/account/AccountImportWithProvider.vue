@@ -1,9 +1,9 @@
 <template>
   <f-panel>
-    <div class="f-caption">Approach 2</div>
+    <div class="f-caption">Approach 1</div>
     <div class="text-center">
       <div class="f-body-1 font-weight-bold mt-3">
-        Create a mandated account from Account Service Providers
+        Create a hosted account from Account Service Providers
       </div>
       <div class="my-5">
         <account-provider-selector v-model="provider" />
@@ -50,7 +50,7 @@ class AccountImportWithProvider extends Vue {
 
   loading = false;
 
-  name = "Custom Wallet";
+  name = "My Wallet";
 
   href = DOCS_URL.MANDATED_ACCOUNT_NOTICE;
 

@@ -3,7 +3,7 @@
     <account-item
       v-for="(item, index) in meta.accounts"
       :id="item"
-      :key="index"
+      :key="index + '_' + item.id"
       :current="meta.selectedAccount"
       @click.native="handleClick(item)"
     />

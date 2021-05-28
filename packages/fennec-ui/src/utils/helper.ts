@@ -64,5 +64,5 @@ export function convertToListAsset(vm: Vue, asset: Asset): MixinAsset {
 }
 
 export function isPopup(): boolean {
-  return window.innerWidth <= 500;
+  return /popup\.html/.test(window.location.href);
 }

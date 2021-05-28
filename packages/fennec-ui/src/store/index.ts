@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex, { ModuleTree, Store } from "vuex";
+import Vuex, { ModuleTree, Store, createLogger } from "vuex";
 import { RootState } from "./types";
 import createPersistedState from "vuex-persistedstate";
 import app from "./modules/app";
@@ -28,6 +28,7 @@ export default function (): Store<RootState> {
     modules,
     mutations: {},
     plugins: [
+      createLogger(),
       createPersistedState({ key: "vuex", paths: ["wallet.additionAssets"] })
     ],
     state: {}

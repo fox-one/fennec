@@ -1,9 +1,9 @@
 <template>
   <f-panel>
-    <div class="f-caption">Approach 1</div>
+    <div class="f-caption">Approach 2</div>
     <div class="text-center">
       <div class="f-body-1 font-weight-bold mt-3">
-        Create a bot account from Developer Dashboard
+        Import a bot account from Mixin Developer Dashboard
       </div>
       <div class="my-5">
         <action-import-keystore v-bind="$attrs" v-on="$listeners" />

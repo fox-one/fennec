@@ -31,7 +31,7 @@
           color="primary"
           @click="handleImport"
         >
-          Import Account
+          Create/Import Accounts
         </v-btn>
         <v-btn
           rounded
@@ -41,7 +41,7 @@
           class="mt-3"
           @click="handleToBackup"
         >
-          Backup Account
+          Backup Accounts
         </v-btn>
       </div>
     </f-bottom-sheet>

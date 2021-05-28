@@ -134,8 +134,6 @@ export function handleError(vm: Vue, error: Error): void {
 export async function init(vm: Vue): Promise<void> {
   vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, true);
 
-  console.log("initing");
-
   try {
     await loadAuthorizeRequestsFromBackground(vm);
     await loadPreferenceFromBackground(vm);
@@ -143,9 +141,7 @@ export async function init(vm: Vue): Promise<void> {
     await loadTransferReqsFromBackground(vm);
     await loadMultisigsTransactionReqsFormBackground(vm);
     await loadWalletData(vm);
-
-    console.log("inited");
-    startWalletTimer(vm);
+    // startWalletTimer(vm);
   } catch (error) {
     handleError(vm, error);
   }

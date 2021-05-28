@@ -45,7 +45,7 @@ export default function (state: State) {
       const selectedAccount = state.preference.preference.seletedAccount;
 
       if (!selectedAccount) {
-        throw new Error("No selected account");
+        throw new Error("[code:01] No selected account");
       }
 
       return state.keyring.getEncryptedPin(selectedAccount, password);
@@ -59,7 +59,7 @@ export default function (state: State) {
       const selectedAccount = state.preference.preference.seletedAccount;
 
       if (!selectedAccount) {
-        throw new Error("No selected account");
+        throw new Error("[code:01] No selected account");
       }
 
       const payload = {

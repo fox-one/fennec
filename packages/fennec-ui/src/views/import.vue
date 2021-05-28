@@ -2,8 +2,8 @@
   <v-container class="pa-0">
     <account-import-logo class="rounded-0" />
     <div class="pa-3">
-      <account-import-keystore class="pa-5" />
       <account-import-with-provider class="mt-5" />
+      <account-import-keystore class="pa-5 mt-5" />
     </div>
   </v-container>
 </template>
@@ -24,7 +24,7 @@ import PageView from "../mixin/page";
 })
 class ImportPage extends Mixins(PageView) {
   get title() {
-    return "Import Account";
+    return "Create/Import Account";
   }
 
   mounted() {

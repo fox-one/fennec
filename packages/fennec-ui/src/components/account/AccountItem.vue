@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { User } from "@foxone/mixin-api/types";
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import ArrowRight from "../icons/ArrowRight.vue";
 import AccountAvatar from "../account/AccountAvatar.vue";
 
@@ -57,6 +57,7 @@ class AccountItem extends Vue {
     this.requestAccount();
   }
 
+  @Watch("id")
   async requestAccount() {
     try {
       this.user = await this.$utils.account.getUser(this, this.id);

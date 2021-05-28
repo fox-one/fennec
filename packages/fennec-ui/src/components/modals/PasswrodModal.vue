@@ -20,9 +20,11 @@
           Create Password
         </v-card-title>
         <v-card-text class="px-0">
-          <f-tip type="error" class="mt-5">
-            Password is the only way to unlock and backup your wallet, please
-            make sure to keep it safe.
+          <f-tip type="error" class="mt-5 rounded">
+            The password is the only way to unlock and backup your wallet, and
+            will be used to manage <span class="font-weight-bold">ALL</span> of
+            your wallet addresses. Please be sure to remember it and keep it
+            safe.
           </f-tip>
           <create-password-form
             class="mt-3"

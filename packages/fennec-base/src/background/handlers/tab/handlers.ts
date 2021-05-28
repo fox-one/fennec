@@ -63,7 +63,7 @@ export default function createHandlers(state: State) {
       const selectedAccount = state.preference.preference.seletedAccount;
 
       if (!selectedAccount) {
-        throw new Error("No selected account");
+        throw new Error("[code:01] No selected account");
       }
 
       const payload = {
@@ -80,7 +80,7 @@ export default function createHandlers(state: State) {
       const selectedAccount = state.preference.preference.seletedAccount;
 
       if (!selectedAccount) {
-        throw new Error("No selected account");
+        throw new Error("[code:01] No selected account");
       }
 
       return state.keyring.signClientToken({

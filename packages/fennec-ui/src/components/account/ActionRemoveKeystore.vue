@@ -20,9 +20,9 @@
           Warning
         </v-card-title>
         <v-card-text>
-          After complete this action, we can't recover you wallet util you
-          provide keystore file. Make sure to save keystore file before delete
-          any account!
+          After completing this action, we can't recover you wallet until you
+          provide the keystore file. Be sure to save keystore file before
+          deleting any account!
           <v-checkbox
             v-model="checkbox"
             hide-details

@@ -1,12 +1,20 @@
 <template>
   <v-container>
-    <f-tip type="error" class="rounded">
+    <f-tip type="error" class="rounded tips">
       <span>Notice:</span>
+      <br />
       <br />
       Keystore file is the <span class="font-weight-bold">ONLY</span> way to
       access your assets in Mixin Network.
       <br />
-      Please backup your keystore file and keep it safe.
+      <br />
+      Please backup your keystore file and keep it safe.If you lost it, you
+      won't be able to log back into your wallet once you log out. There is NO
+      means to recover it.
+      <br />
+      <br />
+      If someone else has your keystore file, they will be able to access your
+      wallet. Your assets will be subjected to risks of being stolen.
     </f-tip>
 
     <f-panel class="pa-0 mt-5">
@@ -81,3 +89,9 @@ class BackUpPage extends Mixins(PageView) {
 }
 export default BackUpPage;
 </script>
+
+<style lang="scss" scoped>
+.tips {
+  word-break: break-word;
+}
+</style>

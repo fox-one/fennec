@@ -8,7 +8,7 @@
               {{ provider.value }}
             </div>
             <div class="type f-caption text--secondary">
-              {{ provider.type }}
+              {{ provider.providerTypeText }}
             </div>
           </v-flex>
           <v-icon>
@@ -59,8 +59,12 @@ class AccountProviderSelector extends Vue {
     const preference: PreferenceStore = this.$store.state.preference.preference;
     const providers = preference.accountProviders;
 
+    const providerTypeText =
+      this.provider?.type === "built-in" ? "Built-in Host" : "Custom";
+
     return {
-      providers
+      providers,
+      providerTypeText
     };
   }
 

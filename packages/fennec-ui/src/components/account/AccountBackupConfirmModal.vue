@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
     <template #activator="{ on }">
-      <v-btn rounded text small block color="error" class="mt-5" v-on="on">
-        I have saved keystore files, back to home
+      <v-btn rounded outlined block color="error" class="mt-5" v-on="on">
+        I have saved keystore files
       </v-btn>
     </template>
     <v-card>
@@ -13,8 +13,13 @@
         Warning
       </v-card-title>
       <v-card-text>
-        Make sure you have save your keystore files store safe and private. If
-        not you might lost your wallet in unpredicted accident.
+        This is so important that we thought it's not too much to emphasize once
+        again:
+        <br />
+        <br />
+        Please make sure you have saved your keystore files to somewhere safe
+        and private. If not, you might lose access to your assets. And there is
+        absolutely NO WAY to recover.
         <v-checkbox
           v-model="checkbox"
           hide-details
@@ -25,13 +30,14 @@
         >
           <template #label>
             <span class="error--text">
-              I'm sure to have kept these keystores safe
+              I confirm I'm aware and have kept the keystore files safe
             </span>
           </template>
         </v-checkbox>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
+        <v-btn text @click="handleCancel"> Cancel </v-btn>
         <v-btn text color="primary" :disabled="!checkbox" @click="handleNext">
           Next
         </v-btn>
@@ -51,6 +57,10 @@ class AccountBackupConfirmModal extends Vue {
 
   handleNext() {
     this.$router.push({ name: "home" });
+  }
+
+  handleCancel() {
+    this.dialog = false;
   }
 }
 export default AccountBackupConfirmModal;

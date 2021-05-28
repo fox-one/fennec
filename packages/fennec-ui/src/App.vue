@@ -3,7 +3,7 @@
     <f-loading v-if="meta.initing" loading color="primary" fullscreen />
     <template v-else>
       <modals />
-      <init-guard v-if="!meta.inited" />
+      <init-guard v-if="meta.showInitGuard" />
       <error-guard v-else-if="error" :error="error" />
       <unlock-guard v-else-if="meta.locked" />
       <auth-guard v-else-if="meta.hasAuthRequest" />
@@ -61,8 +61,10 @@ class App extends Vue {
 
   get meta() {
     const initing = this.$store.state.app.initing;
-    const inited = this.$store.state.keyring.keyring.initialized;
-    const locked = !this.$store.state.keyring.keyring.isUnlocked;
+    const keyring = this.$store.state.keyring.keyring;
+    const inited = keyring.initialized;
+    const accounts = keyring.accounts;
+    const locked = !keyring.isUnlocked;
     const hasAuthRequest = this.$store.state.auth.authorizeRequests.length > 0;
     const hasTransferReq =
       this.$store.state.transfer.transferRequests.length > 0;
@@ -75,12 +77,15 @@ class App extends Vue {
       locked,
       hasAuthRequest,
       hasTransferReq,
-      hasMultisigsTransactionReq
+      hasMultisigsTransactionReq,
+      showInitGuard: !inited || accounts.length === 0
     };
   }
 
   async mounted() {
     this.$root.$on(EVENTS.APPLICATION_ERROR, (error: Error) => {
+      if (error.message.startsWith("[code:01]")) return;
+
       this.error = error;
     });
     await this.$utils.app.init(this);

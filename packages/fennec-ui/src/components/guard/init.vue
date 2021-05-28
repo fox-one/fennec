@@ -3,13 +3,15 @@
     <account-import-logo>
       <privacy-policies :focus="focus" :accepted.sync="policiesAccepted" />
     </account-import-logo>
-    <account-import-keystore
+
+    <account-import-with-provider
       :policies-accepted="policiesAccepted"
       check-policies-accepted
       class="mt-5"
       @checkPolicies="handleCheckPolicies"
     />
-    <account-import-with-provider
+
+    <account-import-keystore
       :policies-accepted="policiesAccepted"
       check-policies-accepted
       class="mt-5"
