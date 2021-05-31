@@ -14,8 +14,6 @@
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true,
-    "noImplicitAny": false,
-    "resolveJsonModule": true,
     "noUnusedLocals": false
   },
   "exclude": ["node_modules", "**/build/**/*"]
