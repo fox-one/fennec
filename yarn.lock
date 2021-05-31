@@ -15636,17 +15636,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@^3.9.5, typescript@^3.9.7, typescript@~3.9.3":
-  version: 3.9.9
-  resolution: "typescript@npm:3.9.9"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 22bbe953faa34903587f3bd8fb6c343d754745d4177e49da523a2a3b814fe5eaf60d9b23c2d401d038a08a5ac2d8094b268ba75adee840cc2358fb5a866624ab
-  languageName: node
-  linkType: hard
-
-"typescript@^4.0.3, typescript@^4.1.3, typescript@^4.2.4":
+typescript@^4.2.4:
   version: 4.2.4
   resolution: "typescript@npm:4.2.4"
   bin:
@@ -15656,17 +15646,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.9.5#builtin<compat/typescript>, typescript@patch:typescript@^3.9.7#builtin<compat/typescript>, typescript@patch:typescript@~3.9.3#builtin<compat/typescript>":
-  version: 3.9.9
-  resolution: "typescript@patch:typescript@npm%3A3.9.9#builtin<compat/typescript>::version=3.9.9&hash=a45b0e"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 05a113f2ec0d0fc3263335c230d2eb7b94d851e51b5766f63b88b611127d08782ce41132eb32b9d3d434de8340f698f7ec2f72ebb4d33c3b2976b27de1f47ace
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.0.3#builtin<compat/typescript>, typescript@patch:typescript@^4.1.3#builtin<compat/typescript>, typescript@patch:typescript@^4.2.4#builtin<compat/typescript>":
+"typescript@patch:typescript@^4.2.4#builtin<compat/typescript>":
   version: 4.2.4
   resolution: "typescript@patch:typescript@npm%3A4.2.4#builtin<compat/typescript>::version=4.2.4&hash=a45b0e"
   bin:

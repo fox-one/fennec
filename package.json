@@ -5,13 +5,16 @@
   ],
   "license": "GPL 3.0",
   "scripts": {
-    "start": "yarn watch",
-    "watch": "cd packages/fennec-extension && yarn foxone-exec-webpack --config webpack.config.js --mode development --watch",
+    "start": "cd packages/fennec-extension && yarn foxone-exec-webpack --config webpack.config.js --mode development --watch",
     "build": "cd packages/fennec-extension && webpack --config webpack.config.js --mode production",
+    "build:release": "foxone-ci-ghact-build --skip-beta",
     "lint": "foxone-dev-run-lint",
     "test": "foxone-dev-run-test --coverage"
   },
-  "version": "0.1.8",
+  "resolutions": {
+    "typescript": "^4.2.4"
+  },
+  "version": "0.2.2",
   "dependencies": {
     "@foxone/dev": "^0.1.4",
     "@foxone/mixin-api": "^0.1.5",

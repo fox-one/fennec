@@ -1,7 +1,7 @@
 {
   "name": "@foxone/fennec-base",
   "version": "0.2.2",
-  "description": "Fennec: Mixin Chrome Extension Wallet",
+  "description": "Fennec: Mixin Browser Wallet",
   "license": "GPL 3.0",
   "main": "index.js",
   "author": "Fox.ONE",
