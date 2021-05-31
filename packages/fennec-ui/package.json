@@ -7,7 +7,7 @@
     "@foxone/fennec-base": "^0.2.4-0",
     "@foxone/mixin-api": "^0.1.4",
     "@foxone/uikit": "^2.0.51",
-    "@foxone/utils": "^0.1.7",
+    "@foxone/utils": "^0.2.1",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
     "core-js": "^3.6.5",
