@@ -7,7 +7,7 @@
   "scripts": {
     "start": "cd packages/fennec-extension && yarn foxone-exec-webpack --config webpack.config.js --mode development --watch",
     "build": "foxone-dev-build-ts",
-    "build:release": "foxone-ci-ghact-build --skip-beta",
+    "build:release": "foxone-ci-ghact-build",
     "lint": "foxone-dev-run-lint",
     "test": "foxone-dev-run-test --coverage"
   },
