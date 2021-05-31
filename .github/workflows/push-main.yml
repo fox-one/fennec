@@ -29,6 +29,6 @@ jobs:
   dummy:
     runs-on: ubuntu-latest
     steps:
-      - name: dummy
-        run: |
-          echo "Dummy skip step"
+    - name: dummy
+      run: |
+        echo "Dummy skip step"
