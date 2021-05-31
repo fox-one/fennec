@@ -4,5 +4,8 @@
   "description": "Fennec extension bridge",
   "license": "GPL 3.0",
   "author": "",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "@foxone/fennec-base": "workspace:packages/fennec-base"
+  }
 }

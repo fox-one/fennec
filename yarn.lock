@@ -1693,6 +1693,8 @@ __metadata:
 "@foxone/fennec-dapp@^0.3.0, @foxone/fennec-dapp@workspace:packages/fennec-dapp":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-dapp@workspace:packages/fennec-dapp"
+  dependencies:
+    "@foxone/fennec-base": "workspace:packages/fennec-base"
   languageName: unknown
   linkType: soft
 

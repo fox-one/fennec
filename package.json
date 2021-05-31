@@ -4,6 +4,8 @@
     "packages/*"
   ],
   "license": "GPL 3.0",
+  "author": "Fox.ONE",
+  "repository": "https://github.com/fox-one/fennec",
   "scripts": {
     "start": "cd packages/fennec-extension && yarn foxone-exec-webpack --config webpack.config.js --mode development --watch",
     "build": "foxone-dev-build-ts",
