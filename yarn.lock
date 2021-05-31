@@ -1487,9 +1487,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@foxone/dev@npm:^0.1.2":
-  version: 0.1.11
-  resolution: "@foxone/dev@npm:0.1.11"
+"@foxone/dev@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@foxone/dev@npm:0.2.1"
   dependencies:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
@@ -1576,100 +1576,7 @@ __metadata:
     foxone-exec-prettier: scripts/foxone-exec-prettier
     foxone-exec-tsc: scripts/foxone-exec-tsc.cjs
     foxone-exec-webpack: scripts/foxone-exec-webpack.cjs
-  checksum: d62516c5a54a95bf3ae37744c69de52c3131757b39a310a6c4555b7e7cfff6cec5e02c8cb9a5a2a6fa0dfabaab352aa6c44eb7d3ac3d596fa090dbabd0c401e5
-  languageName: node
-  linkType: hard
-
-"@foxone/dev@npm:^0.1.8":
-  version: 0.1.8
-  resolution: "@foxone/dev@npm:0.1.8"
-  dependencies:
-    "@babel/cli": ^7.13.16
-    "@babel/core": ^7.13.16
-    "@babel/plugin-proposal-class-properties": ^7.13.0
-    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.13.8
-    "@babel/plugin-proposal-numeric-separator": ^7.12.13
-    "@babel/plugin-proposal-object-rest-spread": ^7.13.8
-    "@babel/plugin-proposal-optional-chaining": ^7.13.12
-    "@babel/plugin-proposal-private-methods": ^7.13.0
-    "@babel/plugin-syntax-bigint": ^7.8.3
-    "@babel/plugin-syntax-dynamic-import": ^7.8.3
-    "@babel/plugin-syntax-import-meta": ^7.10.4
-    "@babel/plugin-syntax-top-level-await": ^7.12.13
-    "@babel/plugin-transform-regenerator": ^7.13.15
-    "@babel/plugin-transform-runtime": ^7.13.15
-    "@babel/preset-env": ^7.13.15
-    "@babel/preset-react": ^7.13.13
-    "@babel/preset-typescript": ^7.13.0
-    "@babel/register": ^7.13.16
-    "@babel/runtime": ^7.13.17
-    "@rushstack/eslint-patch": ^1.0.6
-    "@typescript-eslint/eslint-plugin": 4.22.0
-    "@typescript-eslint/parser": 4.22.0
-    "@vue/eslint-config-prettier": ^6.0.0
-    "@vue/eslint-config-typescript": ^7.0.0
-    babel-jest: ^26.6.3
-    babel-plugin-module-extension-resolver: ^1.0.0-rc.2
-    babel-plugin-module-resolver: ^4.1.0
-    babel-plugin-styled-components: ^1.12.0
-    browserslist: ^4.16.5
-    chalk: ^4.1.1
-    coveralls: ^3.1.0
-    eslint: ^7.27.0
-    eslint-config-prettier: ^8.3.0
-    eslint-config-standard: ^16.0.2
-    eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-header: ^3.1.1
-    eslint-plugin-import: ^2.22.1
-    eslint-plugin-node: ^11.1.0
-    eslint-plugin-prettier: ^3.4.0
-    eslint-plugin-promise: ^5.1.0
-    eslint-plugin-react: ^7.23.2
-    eslint-plugin-react-hooks: ^4.2.0
-    eslint-plugin-simple-import-sort: ^7.0.0
-    eslint-plugin-sort-destructure-keys: ^1.3.5
-    eslint-plugin-vue: ^7.9.0
-    fs-extra: ^9.1.0
-    gh-pages: ^3.1.0
-    gh-release: ^5.0.0
-    glob: ^7.1.6
-    glob2base: ^0.0.12
-    jest: ^26.6.3
-    jest-cli: ^26.6.3
-    jest-config: ^26.6.3
-    jest-haste-map: ^26.6.2
-    jest-resolve: ^26.6.2
-    madge: ^4.0.2
-    minimatch: ^3.0.4
-    mkdirp: ^1.0.4
-    prettier: ^2.2.1
-    rimraf: ^3.0.2
-    typescript: ^4.2.4
-    yargs: ^16.2.0
-  peerDependencies:
-    "@vue/eslint-config-prettier": ^6.0.0
-    "@vue/eslint-config-typescript": ^7.0.0
-  bin:
-    foxone-ci-ghact-build: scripts/foxone-ci-ghact-build.cjs
-    foxone-ci-ghact-docs: scripts/foxone-ci-ghact-docs.cjs
-    foxone-ci-ghpages-force: scripts/foxone-ci-ghpages-force.cjs
-    foxone-dev-build-docs: scripts/foxone-dev-build-docs.cjs
-    foxone-dev-build-ts: scripts/foxone-dev-build-ts.cjs
-    foxone-dev-circular: scripts/foxone-dev-circular.cjs
-    foxone-dev-clean-build: scripts/foxone-dev-clean-build.cjs
-    foxone-dev-copy-to: scripts/foxone-dev-copy-to.cjs
-    foxone-dev-run-lint: scripts/foxone-dev-run-lint.cjs
-    foxone-dev-run-prettier: scripts/foxone-dev-run-prettier.cjs
-    foxone-dev-run-test: scripts/foxone-dev-run-test.cjs
-    foxone-dev-version: scripts/foxone-dev-version.cjs
-    foxone-dev-yarn-only: scripts/foxone-dev-yarn-only.cjs
-    foxone-exec-eslint: scripts/foxone-exec-eslint.cjs
-    foxone-exec-ghpages: scripts/foxone-exec-ghpages.cjs
-    foxone-exec-ghrelease: scripts/foxone-exec-ghrelease.cjs
-    foxone-exec-prettier: scripts/foxone-exec-prettier
-    foxone-exec-tsc: scripts/foxone-exec-tsc.cjs
-    foxone-exec-webpack: scripts/foxone-exec-webpack.cjs
-  checksum: 54043a61f7ebdcfcdd3f628857afd3c961dee639ff20660fc9a66c4ca5f2ff4f09e6973f2dda3784d50b95dea26e9739715471fe122b570366127cf4a85cd51c
+  checksum: e92cec78bfb6ab288c0ba64ffbea28ca9cc13cc9880815d50649671bb5b7df7efba9ccf6fbee77667db80a7026437e0aa92c3e35082c4f5e0a3b1fd485da1667
   languageName: node
   linkType: hard
 
@@ -1722,7 +1629,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-extension@workspace:packages/fennec-extension"
   dependencies:
-    "@foxone/dev": ^0.1.2
+    "@foxone/dev": ^0.2.1
     "@foxone/fennec-base": ^0.3.1
     "@foxone/fennec-ui": ^0.3.1
     babel-loader: ^8.2.2
@@ -13957,7 +13864,7 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@foxone/dev": ^0.1.8
+    "@foxone/dev": ^0.2.1
     "@foxone/mixin-api": ^0.1.5
     "@foxone/utils": ^0.1.2
     "@types/jest": ^26.0.23

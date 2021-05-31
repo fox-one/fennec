@@ -6,7 +6,7 @@
   "license": "GPL 3.0",
   "homepage": "",
   "dependencies": {
-    "@foxone/dev": "^0.1.2",
+    "@foxone/dev": "^0.2.1",
     "@foxone/fennec-base": "^0.3.1",
     "@foxone/fennec-ui": "^0.3.1",
     "extensionizer": "^1.0.1"
