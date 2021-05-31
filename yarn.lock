@@ -1673,7 +1673,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@foxone/fennec-base@^0.2.4-0, @foxone/fennec-base@workspace:packages/fennec-base":
+"@foxone/fennec-base@^0.2.4-1, @foxone/fennec-base@workspace:packages/fennec-base":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-base@workspace:packages/fennec-base"
   dependencies:
@@ -1690,7 +1690,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@foxone/fennec-dapp@^0.2.4-0, @foxone/fennec-dapp@workspace:packages/fennec-dapp":
+"@foxone/fennec-dapp@^0.2.4-1, @foxone/fennec-dapp@workspace:packages/fennec-dapp":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-dapp@workspace:packages/fennec-dapp"
   languageName: unknown
@@ -1700,7 +1700,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-demo@workspace:packages/fennec-demo"
   dependencies:
-    "@foxone/fennec-dapp": ^0.2.4-0
+    "@foxone/fennec-dapp": ^0.2.4-1
     "@types/uuid": ^8.3.0
     "@vitejs/plugin-vue": ^1.0.4
     "@vitejs/plugin-vue-jsx": ^1.0.2
@@ -1721,8 +1721,8 @@ __metadata:
   resolution: "@foxone/fennec-extension@workspace:packages/fennec-extension"
   dependencies:
     "@foxone/dev": ^0.1.2
-    "@foxone/fennec-base": ^0.2.4-0
-    "@foxone/fennec-ui": ^0.2.4-0
+    "@foxone/fennec-base": ^0.2.4-1
+    "@foxone/fennec-ui": ^0.2.4-1
     babel-loader: ^8.2.2
     browser-resolve: ^2.0.0
     buffer: ^6.0.3
@@ -1752,11 +1752,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@foxone/fennec-ui@^0.2.4-0, @foxone/fennec-ui@workspace:packages/fennec-ui":
+"@foxone/fennec-ui@^0.2.4-1, @foxone/fennec-ui@workspace:packages/fennec-ui":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-ui@workspace:packages/fennec-ui"
   dependencies:
-    "@foxone/fennec-base": ^0.2.4-0
+    "@foxone/fennec-base": ^0.2.4-1
     "@foxone/mixin-api": ^0.1.4
     "@foxone/uikit": ^2.0.51
     "@foxone/utils": ^0.2.1
