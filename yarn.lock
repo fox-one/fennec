@@ -1670,7 +1670,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@foxone/fennec-base@^0.2.2, @foxone/fennec-base@workspace:packages/fennec-base":
+"@foxone/fennec-base@^0.2.3, @foxone/fennec-base@workspace:packages/fennec-base":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-base@workspace:packages/fennec-base"
   dependencies:
@@ -1687,7 +1687,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@foxone/fennec-dapp@^0.2.2, @foxone/fennec-dapp@workspace:packages/fennec-dapp":
+"@foxone/fennec-dapp@^0.2.3, @foxone/fennec-dapp@workspace:packages/fennec-dapp":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-dapp@workspace:packages/fennec-dapp"
   languageName: unknown
@@ -1697,7 +1697,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-demo@workspace:packages/fennec-demo"
   dependencies:
-    "@foxone/fennec-dapp": ^0.2.2
+    "@foxone/fennec-dapp": ^0.2.3
+    "@types/uuid": ^8.3.0
     "@vitejs/plugin-vue": ^1.0.4
     "@vitejs/plugin-vue-jsx": ^1.0.2
     "@vue/compiler-sfc": ^3.0.5
@@ -1717,8 +1718,8 @@ __metadata:
   resolution: "@foxone/fennec-extension@workspace:packages/fennec-extension"
   dependencies:
     "@foxone/dev": ^0.1.2
-    "@foxone/fennec-base": ^0.2.2
-    "@foxone/fennec-ui": ^0.2.2
+    "@foxone/fennec-base": ^0.2.3
+    "@foxone/fennec-ui": ^0.2.3
     babel-loader: ^8.2.2
     browser-resolve: ^2.0.0
     buffer: ^6.0.3
@@ -1748,11 +1749,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@foxone/fennec-ui@^0.2.2, @foxone/fennec-ui@workspace:packages/fennec-ui":
+"@foxone/fennec-ui@^0.2.3, @foxone/fennec-ui@workspace:packages/fennec-ui":
   version: 0.0.0-use.local
   resolution: "@foxone/fennec-ui@workspace:packages/fennec-ui"
   dependencies:
-    "@foxone/fennec-base": ^0.2.2
+    "@foxone/fennec-base": ^0.2.3
     "@foxone/mixin-api": ^0.1.4
     "@foxone/uikit": ^2.0.51
     "@foxone/utils": ^0.1.7
@@ -2749,6 +2750,13 @@ __metadata:
   dependencies:
     source-map: ^0.6.1
   checksum: 1815a3628aeed41212ae411728267a29e99a309f0cff4d84f90bc7188125be0996d81ca4e7c747751f598749edad426a4c1fe9d78df2110022ca24455d45ca43
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@types/uuid@npm:8.3.0"
+  checksum: 620985aed8fdb4aed153daca5235f4303457a67a4d181efac0021712eabd9edd7e88895f79730c0e651effde7633b1b61e49a81519ac8d4e75019d2ac9b6412f
   languageName: node
   linkType: hard
 

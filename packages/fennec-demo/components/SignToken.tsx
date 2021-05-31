@@ -9,7 +9,7 @@ import {
   inject
 } from "vue";
 import axios from "axios";
-import Fennec from "@foxone/fennec-dapp";
+import Fennec from "@foxone/fennec-dapp/src";
 
 export function getMixinProfile(token: string) {
   return axios.get("https://mixin-api.zeromesh.net/me", {
@@ -23,6 +23,7 @@ export default defineComponent({
   props: {
     connected: Boolean,
     ctx: {
+      default: null,
       type: Object as PropType<InjectedData | null>
     }
   },

@@ -1,17 +1,6 @@
 {
+  "extends": "@foxone/dev/config/tsconfig.base.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "noImplicitAny": false,
-    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@foxone/fennec-base": ["packages/fennec-base/src"],
@@ -24,7 +13,9 @@
       "@foxone/fennec-dapp/*": ["packages/fennec-dapp/src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "build/**/*", "**/build/*", "**/build/**/*"]
 }

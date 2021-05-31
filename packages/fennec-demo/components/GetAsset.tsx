@@ -1,15 +1,6 @@
-import { InjectedData } from "@foxone/fennec-base/src/inject/types";
-import Fennec from "@foxone/fennec-dapp";
+import Fennec from "@foxone/fennec-dapp/src";
 import { Asset } from "@foxone/mixin-api/types";
-import {
-  defineComponent,
-  PropType,
-  toRefs,
-  ref,
-  computed,
-  reactive,
-  inject
-} from "vue";
+import { defineComponent, toRefs, ref, computed, reactive, inject } from "vue";
 
 const btc = "c6d0c728-2624-429b-8e0d-d9d19b6592fa";
 

@@ -1,4 +1,3 @@
-import Fennec from "@foxone/fennec-dapp/src";
 import { computed, defineComponent, reactive, ref, toRefs } from "vue";
 
 export default defineComponent({
@@ -8,6 +7,7 @@ export default defineComponent({
     connected: Boolean
   },
 
+  // eslint-disable-next-line sort-keys
   emits: ["toggle"],
 
   setup(props, { emit }) {

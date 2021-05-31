@@ -10,8 +10,7 @@ module.exports = {
     "**/build/*",
     "**/public/*",
     "**/coverage/*",
-    "**/node_modules/*",
-    "**/fennec-demo/*"
+    "**/node_modules/*"
   ],
   parserOptions: {
     ...base.parserOptions,

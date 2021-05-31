@@ -1,9 +1,8 @@
-import type { InjectedData } from "@foxone/fennec-base/src/inject/types";
-import Fennec from "@foxone/fennec-dapp";
+import Fennec from "@foxone/fennec-dapp/src";
 import { RawTransactionRequest } from "@foxone/mixin-api/types";
 import axios from "axios";
 import { v4 as uuid } from "uuid";
-import { defineComponent, PropType, toRefs, ref, computed, inject } from "vue";
+import { defineComponent, toRefs, ref, inject } from "vue";
 
 export function payment(transaction: RawTransactionRequest) {
   return axios.post("https://mixin-api.zeromesh.net/payment", transaction);
@@ -19,7 +18,6 @@ export default defineComponent({
   setup(props) {
     const { connected } = toRefs(props);
     const fennec = inject<Fennec>("fennec");
-    const loading = ref(false);
     const receivers = ref(
       "0cc43c5e-4258-4ece-b0ff-d8e719b1d469,17ac525b-5e12-44b0-8f51-5beb8aa1a129"
     );
@@ -32,13 +30,13 @@ export default defineComponent({
 
     const requestPayment = async () => {
       const data: RawTransactionRequest = {
-        asset_id: "965e5c6e-434c-3fa9-b780-c50f43cd955c", // CNB
         amount: "100",
+        asset_id: "965e5c6e-434c-3fa9-b780-c50f43cd955c", // CNB
+        memo: "test",
         opponent_multisig: {
           receivers: receivers.value.split(","),
           threshold: threshold.value
         },
-        memo: "test",
         trace_id: uuid()
       };
 

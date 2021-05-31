@@ -9,8 +9,8 @@ import Fennec from "@foxone/fennec-dapp/src";
 
 function useFennec(fennec: Fennec, name: string) {
   const state = reactive({
-    connected: false,
     available: fennec.available,
+    connected: false,
     connecting: false
   });
 
@@ -19,12 +19,14 @@ function useFennec(fennec: Fennec, name: string) {
       fennec.disconnect();
     } else {
       state.connecting = true;
+
       try {
         await fennec.connect(name);
       } catch (error) {
         state.connecting = false;
         alert(error);
       }
+
       state.connecting = false;
     }
 
@@ -32,8 +34,8 @@ function useFennec(fennec: Fennec, name: string) {
   };
 
   return {
-    toggle,
-    state
+    state,
+    toggle
   };
 }
 

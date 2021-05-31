@@ -35,10 +35,10 @@ export default defineComponent({
 
     const meta = computed(() => {
       return reactive({
-        classes: `${loading.value ? "is-loading" : ""}`,
         accounts: accounts.value
           ? JSON.stringify(accounts.value)
-          : "No Accounts Data"
+          : "No Accounts Data",
+        classes: `${loading.value ? "is-loading" : ""}`
       });
     });
 

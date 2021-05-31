@@ -1,10 +1,10 @@
 {
   "name": "@foxone/fennec-ui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "GPL 3.0",
   "main": "index.js",
   "dependencies": {
-    "@foxone/fennec-base": "^0.2.2",
+    "@foxone/fennec-base": "^0.2.3",
     "@foxone/mixin-api": "^0.1.4",
     "@foxone/uikit": "^2.0.51",
     "@foxone/utils": "^0.1.7",

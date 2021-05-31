@@ -1,7 +1,7 @@
 import { CreateTransferPayload } from "@foxone/mixin-api/types";
-import { defineComponent, PropType, toRefs, ref, computed, inject } from "vue";
+import { defineComponent, toRefs, ref, computed, inject } from "vue";
 import { v4 as uuid } from "uuid";
-import Fennec from "@foxone/fennec-dapp";
+import Fennec from "@foxone/fennec-dapp/src";
 
 export default defineComponent({
   name: "Transfer",
