@@ -1759,7 +1759,7 @@ __metadata:
     "@foxone/fennec-base": ^0.2.4-0
     "@foxone/mixin-api": ^0.1.4
     "@foxone/uikit": ^2.0.51
-    "@foxone/utils": ^0.1.7
+    "@foxone/utils": ^0.2.1
     "@mdi/js": ^5.9.55
     "@vue/composition-api": ^1.0.0-rc.3
     bignumber.js: ^9.0.0
@@ -1843,13 +1843,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@foxone/utils@npm:^0.1.7":
-  version: 0.1.7
-  resolution: "@foxone/utils@npm:0.1.7"
+"@foxone/utils@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@foxone/utils@npm:0.2.1"
   dependencies:
     axios: ^0.21.1
     dayjs: ^1.10.4
-  checksum: c968e5d01805a039be848c9d00618322aa964d30dd2d7c8c26facd3446c750b1d61e056dd3be77503c9f8bd7e471a79cc38384babc815dad1db765cfe0ac0dda
+  checksum: f77a90a07a40c3ef2b28cefae2eaff77a5c2a8c1248690f07dc7cab62b6480a9fb29593f87dcd06db4a3bb77658f7828336b183dd67612451c7f90885380b6cf
   languageName: node
   linkType: hard
 
