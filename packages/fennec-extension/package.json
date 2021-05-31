@@ -1,14 +1,14 @@
 {
   "name": "@foxone/fennec-extension",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Fennec: Mixin Browser Wallet",
   "author": "Fox.ONE",
   "license": "GPL 3.0",
   "homepage": "",
   "dependencies": {
     "@foxone/dev": "^0.1.2",
-    "@foxone/fennec-base": "^0.3.0",
-    "@foxone/fennec-ui": "^0.3.0",
+    "@foxone/fennec-base": "^0.3.1",
+    "@foxone/fennec-ui": "^0.3.1",
     "extensionizer": "^1.0.1"
   },
   "devDependencies": {
