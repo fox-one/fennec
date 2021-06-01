@@ -16,7 +16,7 @@
   "resolutions": {
     "typescript": "^4.2.4"
   },
-  "version": "0.3.2-1",
+  "version": "0.3.2",
   "dependencies": {
     "@foxone/dev": "^0.2.1",
     "@foxone/mixin-api": "^0.1.5",
