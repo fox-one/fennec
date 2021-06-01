@@ -125,7 +125,9 @@ module.exports = {
     new FileManagerPlugin({
       events: {
         onEnd: {
-          archive: [{ source: "./build", destination: "../../fennec.zip" }]
+          archive: [
+            { source: "./build", destination: "../../fennec-extension.zip" }
+          ]
         }
       }
     })
