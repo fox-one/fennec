@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 const path = require("path");
 const webpack = require("webpack");
 
@@ -6,6 +7,7 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const ManifestPlugin = require("webpack-extension-manifest-plugin");
+const FileManagerPlugin = require("filemanager-webpack-plugin");
 
 const pkgJson = require("./package.json");
 const manifest = require("./manifest.json");
@@ -119,7 +121,14 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
-    new ProgressBarPlugin()
+    new ProgressBarPlugin(),
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          archive: [{ source: "./build", destination: "../../fennec.zip" }]
+        }
+      }
+    })
   ],
 
   resolve: {
