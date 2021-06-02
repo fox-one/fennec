@@ -2,65 +2,29 @@
   <v-container>
     <f-loading v-if="loading" :loading="loading" fullscreen />
     <f-panel v-else>
-      <div class="f-caption my-3">Deposit</div>
       <asset-select v-model="asset" />
 
-      <div v-if="meta.tag" class="caption text--secondary mt-5">
-        Step 1: Copy Address
-      </div>
-      <div v-if="meta.destination" class="mb-5 mt-1">
-        <div class="f-caption my-3">Address</div>
-        <v-layout>
-          <v-flex class="destination">
-            <div class="mr-5 f-body-2">{{ meta.destination }}</div>
-            <div class="my-3">
-              <v-btn
-                v-clipboard:copy="meta.destination"
-                v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
-                v-clipboard:error="() => $utils.helper.onCopyFail(this)"
-                small
-                depressed
-                rounded
-                color="primary"
-              >
-                Copy
-              </v-btn>
-            </div>
-          </v-flex>
-          <div class="qr-code">
-            <asset-qr-code :value="meta.destination" :asset="asset" />
-          </div>
-        </v-layout>
-      </div>
+      <v-layout justify-center>
+        <f-button-tabs v-model="index" class="mt-10">
+          <template #tabs>
+            <v-btn
+              v-for="(item, index) in meta.tabs"
+              :key="index"
+              :value="index"
+              :ripple="false"
+            >
+              <span>{{ item.text }}</span>
+            </v-btn>
+          </template>
+        </f-button-tabs>
+      </v-layout>
 
-      <div v-if="meta.tag" class="caption text--secondary">
-        Step 2: Copy Memo
-      </div>
-      <div v-if="meta.tag" class="mb-5 mt-1">
-        <div class="f-caption my-3">Memo</div>
-        <v-layout>
-          <v-flex class="tag">
-            <div class="mr-5 f-body-2">{{ meta.tag }}</div>
-            <div class="my-3">
-              <v-btn
-                v-clipboard:copy="meta.tag"
-                v-clipboard:success="() => $utils.helper.onCopySuccess(this)"
-                v-clipboard:error="() => $utils.helper.onCopyFail(this)"
-                small
-                depressed
-                rounded
-                color="primary"
-              >
-                Copy
-              </v-btn>
-            </div>
-          </v-flex>
-          <div class="qr-code">
-            <asset-qr-code :value="meta.tag" :asset="asset" />
-          </div>
-        </v-layout>
-      </div>
-      <deposit-warn-modal v-if="asset" :asset="asset" />
+      <template v-if="asset">
+        <deposit-by-address v-if="index === 0" :asset="asset" />
+        <deposit-by-transfer v-else :asset="asset" />
+
+        <deposit-warn-modal :asset="asset" />
+      </template>
     </f-panel>
   </v-container>
 </template>
@@ -69,21 +33,25 @@
 import { Component, Mixins } from "vue-property-decorator";
 import { Asset } from "@foxone/mixin-api/types";
 import PageView from "../mixin/page";
-import AssetSelect from "../components/wallet/AssetSelect.vue";
-import AssetQRCode from "../components/wallet/AssetQRCode.vue";
+import DepositByAddress from "../components/wallet/DepositByAddress.vue";
+import DepositByTransfer from "../components/wallet/DepositByTransfer.vue";
 import DepositWarnModal from "../components/wallet/DepositWarnModal.vue";
+import AssetSelect from "../components/wallet/AssetSelect.vue";
 
 @Component({
   components: {
-    AssetSelect,
+    DepositByAddress,
+    DepositByTransfer,
     DepositWarnModal,
-    "asset-qr-code": AssetQRCode
+    AssetSelect
   }
 })
 class DepositPage extends Mixins(PageView) {
   asset: Asset | null = null;
 
   loading = false;
+
+  index = 0;
 
   get appbar() {
     return {
@@ -95,21 +63,27 @@ class DepositPage extends Mixins(PageView) {
     return "Deposit";
   }
 
-  get meta() {
-    return {
-      destination: this.asset?.destination ?? "",
-      tag: this.asset?.tag ?? "",
-      symbol: this.asset?.symbol ?? "",
-      confirmations: this.asset?.destination ?? ""
-    };
-  }
-
   get preset() {
     return this.$route.query.preset;
   }
 
   get assets(): Asset[] {
     return this.$store.state.wallet.assets;
+  }
+
+  get meta() {
+    const tabs = [
+      {
+        text: "Address",
+        value: "address"
+      },
+      {
+        text: "QRCode",
+        value: "qrcode"
+      }
+    ];
+
+    return { tabs };
   }
 
   mounted() {
@@ -136,21 +110,3 @@ class DepositPage extends Mixins(PageView) {
 }
 export default DepositPage;
 </script>
-
-<style lang="scss" scoped>
-.destination {
-  font-size: 16px;
-  line-height: 1.2;
-  word-break: break-all;
-}
-
-.qr-code {
-  min-width: 80px;
-}
-
-.tag,
-.destination {
-  max-width: calc(100% - 130px);
-  word-break: break-all;
-}
-</style>

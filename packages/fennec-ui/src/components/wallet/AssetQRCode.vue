@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="address-code-wrapper">
-    <f-qr-code :text="value" />
+    <f-qr-code :text="value" v-bind="$attrs" />
     <f-mixin-asset-logo
       :size="32"
       :logo="logo"
