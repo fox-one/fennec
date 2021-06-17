@@ -1,6 +1,7 @@
 import { defineComponent, reactive, provide } from "vue";
 import ConnectExt from "../components/ConnectExt";
 import GetAccount from "../components/GetAccount";
+import SubscribeAccounts from "../components/SubscribeAccounts";
 import GetAsset from "../components/GetAsset";
 import Transfer from "../components/Transfer";
 import SignToken from "../components/SignToken";
@@ -57,6 +58,10 @@ export default defineComponent(() => {
           <div class="actions mt-5">
             <div class="label">Get Account</div>
             <GetAccount connected={state.connected} />
+          </div>
+          <div class="actions mt-5">
+            <div class="label">Subscribe Accounts</div>
+            <SubscribeAccounts connected={state.connected} />
           </div>
           <div class="actions mt-5">
             <div class="label">Get Asset</div>

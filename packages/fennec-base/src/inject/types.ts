@@ -48,9 +48,15 @@ export interface InjectedAccount {
   clientId: string;
 }
 
+export interface AccountsSubInfo {
+  current: string | undefined;
+  accounts: string[];
+}
+
 export interface InjectedAccounts {
   get(): Promise<InjectedAccount[]>;
   current(): Promise<User>;
+  subscribe(cb: (data: AccountsSubInfo) => void): Promise<boolean>;
 }
 
 export interface InjectedWallet {

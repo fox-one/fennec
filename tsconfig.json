@@ -7,8 +7,6 @@
       "@foxone/fennec-base/*": ["packages/fennec-base/src/*"],
       "@foxone/fennec-ui": ["packages/fennec-ui/src"],
       "@foxone/fennec-ui/*": ["packages/fennec-ui/src/*"],
-      "@foxone/fennec-inject": ["packages/fennec-inject/src"],
-      "@foxone/fennec-inject/*": ["packages/fennec-inject/src/*"],
       "@foxone/fennec-dapp": ["packages/fennec-dapp/src"],
       "@foxone/fennec-dapp/*": ["packages/fennec-dapp/src/*"]
     },

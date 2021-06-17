@@ -1,3 +1,5 @@
+import createHandlers from "./handlers";
+
 import type { ActionTypes, ActionPayloads, ActionResponses } from "../../types";
 import type { AuthTabPayload } from "../../types/auth";
 import type { State } from "../../../state/types";
@@ -7,8 +9,6 @@ import type {
   SignClientTokenPayload
 } from "../../types/wallet";
 import type { CreateTransferPayload } from "@foxone/mixin-api/types";
-
-import createHandlers from "./handlers";
 
 export type ActionParams<T extends ActionTypes> = {
   id: string;
@@ -22,7 +22,7 @@ export default function (state: State) {
   return async function <T extends ActionTypes>(
     params: ActionParams<T>
   ): Promise<ActionResponses[keyof ActionResponses]> {
-    const { action, payload, url } = params;
+    const { action, id, payload, port, url } = params;
     const handlers = createHandlers(state);
 
     if (action === "pub_(phishing.redirectIfDenied)") {
@@ -38,6 +38,9 @@ export default function (state: State) {
 
       case "pub_(accounts.list)":
         return handlers.accountsList();
+
+      case "pub_(accounts.subscribe)":
+        return handlers.accountsSubscribe(id, port);
 
       case "pub_(keyring.signAuthorizeToken)":
         return handlers.signAuthorizeToken(

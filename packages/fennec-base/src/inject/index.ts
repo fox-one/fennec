@@ -61,6 +61,7 @@ export function sendMessage<T extends ActionTypes>(
   });
 }
 
+// mixin endpoints
 const provider = new HttpProvider();
 const endpoints = createEndpoint(provider);
 

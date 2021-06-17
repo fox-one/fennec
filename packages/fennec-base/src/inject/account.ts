@@ -1,4 +1,4 @@
-import type { SendMessage, InjectedAccount } from "./types";
+import type { SendMessage, InjectedAccount, AccountsSubInfo } from "./types";
 import type { Endpoints } from "@foxone/mixin-api/endpoints";
 
 let sendMessage: SendMessage;
@@ -16,5 +16,9 @@ export default class Accounts {
 
   public async current() {
     return await endpoints.getMe();
+  }
+
+  public async subscribe(cb: (data: AccountsSubInfo) => void) {
+    return await sendMessage("pub_(accounts.subscribe)", null, cb);
   }
 }

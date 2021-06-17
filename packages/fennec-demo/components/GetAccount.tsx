@@ -1,7 +1,8 @@
-import type { InjectedAccount } from "@foxone/fennec-base/src/inject/types";
-import Fennec from "@foxone/fennec-dapp/src";
-import { User } from "@foxone/mixin-api/types";
 import { computed, defineComponent, ref, toRefs, inject, reactive } from "vue";
+
+import type { InjectedAccount } from "@foxone/fennec-base/src/inject/types";
+import type Fennec from "@foxone/fennec-dapp/src";
+import type { User } from "@foxone/mixin-api/types";
 
 export default defineComponent({
   name: "GetAccount",

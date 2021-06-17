@@ -1,15 +1,16 @@
-import type { AuthTabPayload } from "../../types/auth";
-import type { State } from "../../../state/types";
-
 import extension from "extensionizer";
 import { PHISHING_PAGE_REDIRECT } from "../../../constants";
-import { SignAuthorizeTokenPayload } from "../../types/keyring";
-import {
+import { unix } from "@foxone/mixin-api/encrypt";
+import { createSubscription, unsubscribe } from "../subscriptions";
+
+import type { AuthTabPayload } from "../../types/auth";
+import type { State } from "../../../state/types";
+import type { CreateTransferPayload } from "@foxone/mixin-api/types";
+import type { SignAuthorizeTokenPayload } from "../../types/keyring";
+import type {
   MultiSigsPaymentPayload,
   SignClientTokenPayload
 } from "../../types/wallet";
-import { unix } from "@foxone/mixin-api/encrypt";
-import { CreateTransferPayload } from "@foxone/mixin-api/types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function checkIfDenied(url: string) {
@@ -31,6 +32,30 @@ export default function createHandlers(state: State) {
   return {
     accountsList() {
       return state.keyring.getAccounts();
+    },
+
+    accountsSubscribe(id: string, port: chrome.runtime.Port) {
+      const cb = createSubscription<"pub_(accounts.subscribe)">(id, port);
+
+      const handler = () => {
+        const accounts = state.keyring.getAccounts();
+        const current = state.preference.preference.seletedAccount;
+
+        cb({ accounts, current });
+      };
+
+      const preferenceSubscription =
+        state.preference.preferenceSubjection.subscribe(handler);
+      const keyringSubscription =
+        state.keyring.keyringMemStateSubject.subscribe(handler);
+
+      port.onDisconnect.addListener(() => {
+        unsubscribe(id);
+        preferenceSubscription.unsubscribe();
+        keyringSubscription.unsubscribe();
+      });
+
+      return true;
     },
 
     authorize(payload: AuthTabPayload, url: string): Promise<boolean> {

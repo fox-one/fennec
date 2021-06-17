@@ -1,4 +1,4 @@
-import type { InjectedAccount } from "../../inject/types";
+import type { InjectedAccount, AccountsSubInfo } from "../../inject/types";
 import type { AuthUrlInfo } from "../../state/auth";
 
 export interface ApproveAuthPayload {
@@ -25,6 +25,7 @@ export interface UpdateAuthUrlPayload {
 }
 
 export interface AuthActionSignatures {
+  // [ requestPayload, responseResult, subscriptionResponseResult ]
   "pri_(authorize.requests)": [null, boolean, AuthRequests[]];
   "pri_(authorize.list)": [null, Record<string, AuthUrlInfo>];
   "pri_(authorize.reject)": [RejectAuthPayload, boolean];
@@ -35,5 +36,6 @@ export interface AuthActionSignatures {
   "pub_(authorize.tab)": [AuthTabPayload, null];
   "pub_(accounts.ensureUnlocked)": [null, boolean];
   "pub_(accounts.list)": [null, InjectedAccount[]];
+  "pub_(accounts.subscribe)": [null, boolean, AccountsSubInfo];
   "pub_(phishing.redirectIfDenied)": [null, boolean];
 }

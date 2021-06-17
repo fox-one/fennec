@@ -7,7 +7,6 @@ export default defineComponent({
     connected: Boolean
   },
 
-  // eslint-disable-next-line sort-keys
   emits: ["toggle"],
 
   setup(props, { emit }) {
