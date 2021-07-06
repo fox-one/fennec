@@ -82,7 +82,7 @@ export async function createAccountFromProvider(
   const randomPin = Math.floor(Math.random() * 1e6).toString();
   const encryptedPin = signEncryptedPin(
     randomPin,
-    pinToken,
+    cipherType === "rsa" ? pinToken : pinTokenBase64,
     sessionId,
     keyPair.privateKey
   );

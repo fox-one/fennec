@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@foxone/fennec-base": "^0.3.5",
-    "@foxone/mixin-api": "^0.1.4",
+    "@foxone/mixin-api": "^0.1.5",
     "@foxone/uikit": "^2.0.51",
     "@foxone/utils": "^0.2.1",
     "@vue/composition-api": "^1.0.0-rc.3",

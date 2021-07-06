@@ -1667,7 +1667,7 @@ __metadata:
   resolution: "@foxone/fennec-ui@workspace:packages/fennec-ui"
   dependencies:
     "@foxone/fennec-base": ^0.3.5
-    "@foxone/mixin-api": ^0.1.4
+    "@foxone/mixin-api": ^0.1.5
     "@foxone/uikit": ^2.0.51
     "@foxone/utils": ^0.2.1
     "@mdi/js": ^5.9.55
@@ -1700,19 +1700,6 @@ __metadata:
     vuex-persistedstate: ^3.0.1
   languageName: unknown
   linkType: soft
-
-"@foxone/mixin-api@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "@foxone/mixin-api@npm:0.1.4"
-  dependencies:
-    axios: ^0.21.1
-    browser-passworder: ^2.0.3
-    int64-buffer: ^1.0.0
-    jsonwebtoken: ^8.5.1
-    node-forge: ^0.10.0
-  checksum: 77595d244189bbc3715698d155de6131b6514d8045cb1d359106476a1b8a0cd2a1d5e75735cce5ceb8b085868f1fcd259d5a51c699086fbe8f7ed9e42a377187
-  languageName: node
-  linkType: hard
 
 "@foxone/mixin-api@npm:^0.1.5":
   version: 0.1.5
