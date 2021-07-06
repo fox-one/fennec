@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.7
+- fix account import error
+- accounts subscribe
+
 ## 0.3.4
 
 - workflow release files fix
