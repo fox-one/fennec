@@ -1,7 +1,4 @@
-import {
-  InjectProvider,
-  InjectedData
-} from "@foxone/fennec-base/src/inject/types";
+import { InjectProvider, InjectedData } from "@foxone/fennec-base/inject/types";
 import { INJECT_KEY } from "./defaults";
 
 export default class Fennec {
