@@ -2,35 +2,29 @@ import { InjectProvider, InjectedData } from "@foxone/fennec-base/inject/types";
 import { INJECT_KEY } from "./defaults";
 
 export default class Fennec {
-  ext: InjectProvider | null = null;
-
-  ctx: InjectedData | null = null;
+  ctx: InjectedData | undefined;
 
   connected = false;
 
-  constructor() {
-    if (typeof window !== "undefined") {
-      const ext = window?.__MIXIN__?.[INJECT_KEY] ?? null;
-
-      this.ext = ext;
-    }
+  getExt(): InjectProvider | undefined {
+    return window?.__MIXIN__?.[INJECT_KEY];
   }
 
-  public get available() {
-    return Boolean(this.ext);
+  public isAvailable() {
+    return Boolean(this.getExt());
   }
 
   public async connect(origin: string) {
-    if (!this.ext) {
+    if (!this.getExt()) {
       throw new Error("Browser Extension is not installed");
     }
 
-    this.ctx = await this.ext.enable(origin);
+    this.ctx = await this.getExt()?.enable(origin);
     this.connected = true;
   }
 
   public disconnect() {
-    this.ctx = null;
+    this.ctx = undefined;
     this.connected = false;
   }
 }
