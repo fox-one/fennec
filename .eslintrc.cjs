@@ -14,10 +14,13 @@ module.exports = {
   ],
   parserOptions: {
     ...base.parserOptions,
-    project: ["./tsconfig.json"]
+    project: ["./tsconfig.eslint.json"]
   },
   rules: {
     ...base.rules,
+    "vue/valid-v-slot": "off",
+    "no-undef": "off",
+    "sort-keys": "off",
     "@typescript-eslint/no-floating-promises": "off"
   }
 };

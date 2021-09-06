@@ -1,89 +1,55 @@
 <template>
   <div>
-    <home-appbar />
-    <f-panel elevation="none" class="rounded-0">
-      <div class="text-center">
-        <f-mixin-asset-logo :size="48" :logo="meta.btcIcon" />
-        <div>
-          <span class="f-headline">{{ meta.totalBTCFormat }}</span>
-          <span class="f-body-2">BTC</span>
-        </div>
-        <div class="f-body-2 text--secondary">{{ meta.totalUSDFormat }}</div>
-      </div>
-      <asset-actions />
+    <total-amount />
+
+    <asset-actions class="mt-6" />
+
+    <f-panel padding="0" class="mt-8 details">
+      <tabs v-model="category" :tabs="tabs" />
+      <asset-table v-show="category === 0" />
+      <activity-table-home v-show="category === 1" />
     </f-panel>
-    <v-container>
-      <v-layout align-center class="mb-2 caption text--secondary actions">
-        <v-flex>Assets</v-flex>
-        <asset-search v-model="search" />
-        <asset-add class="ml-1" />
-      </v-layout>
-      <div class="pt-0">
-        <f-panel class="pa-2 px-0">
-          <asset-list :filter="search" />
-        </f-panel>
-      </div>
-    </v-container>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../mixin/page";
-import { GetterKeys, WalletModulePerfix } from "../store/modules/wallet/types";
-import AssetActions from "../components/wallet/AssetActions.vue";
-import AssetAdd from "../components/wallet/AssetAdd.vue";
-import AssetList from "../components/wallet/AssetList.vue";
-import AssetSearch from "../components/wallet/AssetSearch.vue";
-import HomeAppbar from "../components/particle/HomeAppbar.vue";
-import { BTC_ASSET_ID } from "../defaults";
+import AssetActions from "../components/asset/AssetActions.vue";
+import TotalAmount from "../components/home/TotalAmount.vue";
+import AssetTable from "../components/asset/AssetTable.vue";
+import ActivityTableHome from "../components/activity/ActivityTableHome.vue";
+import { Sync } from "vuex-pathify";
 
 @Component({
   components: {
+    TotalAmount,
     AssetActions,
-    AssetAdd,
-    AssetList,
-    AssetSearch,
-    HomeAppbar
+    AssetTable,
+    ActivityTableHome
   }
 })
 class HomePage extends Mixins(PageView) {
+  @Sync("page/home@category") category!: number;
+
   search = "";
 
   get title() {
-    return "";
+    return "Home";
   }
 
   get appbar() {
     return {
-      back: false,
-      show: false
+      back: false
     };
   }
 
   get meta() {
-    const getters = this.$store.getters;
-    const currencyExchange = this.$utils.currency.currencyExchange;
-    const format = this.$utils.number.format;
+    return {};
+  }
 
-    const totalUSD = getters[WalletModulePerfix + GetterKeys.TOTAL_USD];
-    const totalBTC = getters[WalletModulePerfix + GetterKeys.TOTAL_BTC];
-    const getAssetById =
-      getters[WalletModulePerfix + GetterKeys.GET_ASSET_BY_ID];
-    const btc = getAssetById(BTC_ASSET_ID);
-
-    const totalUSDFormat = currencyExchange(this, {
-      n: totalUSD,
-      from: "USD",
-      to: "USD"
-    });
-    const totalBTCFormat = format({ n: totalBTC, mp: 8 });
-
-    return {
-      btcIcon: btc?.icon_url ?? "",
-      totalUSDFormat,
-      totalBTCFormat
-    };
+  get tabs() {
+    return [{ text: "Assets" }, { text: "Activity" }];
   }
 }
 export default HomePage;
@@ -92,5 +58,9 @@ export default HomePage;
 <style lang="scss" scoped>
 .actions {
   min-height: 38px;
+}
+
+.details {
+  overflow: hidden;
 }
 </style>

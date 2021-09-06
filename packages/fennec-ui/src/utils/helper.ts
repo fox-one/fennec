@@ -1,68 +1,50 @@
-import type { Asset } from "@foxone/mixin-api/types";
-import type { MixinAsset } from "@foxone/uikit/src/components/FAssetAmountInput/types";
-
-import { MutationTypes, AppModulePerfix } from "../store/modules/app/types";
 import Vue from "vue";
+import axios from "axios";
+import cheerio from "cheerio";
 import utils from "@foxone/utils";
 
-export function toast(
-  vue: Vue,
-  data: { message: string; color?: string }
-): void {
-  vue.$store.commit(AppModulePerfix + MutationTypes.SET_TOAST, {
-    show: true,
-    ...data
-  });
-}
-
 export function errorToast(
-  vue: Vue,
+  vm: Vue,
   error: { description?: string; message?: string; code?: string | number }
 ): void {
   const message = error?.description || error?.message || "";
   const code = error.code || "";
 
-  toast(vue, { color: "error", message: `${code} ${message}` });
-}
-
-export function getChainAsset(vm: Vue, id: string): Asset | undefined {
-  const assets = vm.$store.state.wallet.assets as Asset[];
-
-  return assets.find((x) => id === x.asset_id);
-}
-
-export function getChainAssetLogo(vm: Vue, id: string): string {
-  return getChainAsset(vm, id)?.icon_url ?? "";
+  vm.$uikit.toast.error({ message: `${code} ${message}` });
 }
 
 export function onCopySuccess(vm: Vue): void {
-  toast(vm, {
-    color: "info",
-    message: "Copied"
-  });
+  vm.$uikit.toast.success({ message: "Copied" });
 }
 
 export function onCopyFail(vm: Vue): void {
-  toast(vm, {
-    color: "error",
-    message: "Copy failed"
-  });
+  vm.$uikit.toast.error({ message: "Copy failed" });
+}
+
+export function isPopup(): boolean {
+  return (
+    /popup\.html/.test(window.location.href) ||
+    /notification\.html/.test(window.location.href)
+  );
+}
+
+export async function getLinkIcon(host) {
+  const resp = await axios.get(`https://${host}`);
+  const $ = cheerio.load(resp.data);
+  const href = $("link[rel=icon]").attr("href");
+
+  if (!href) {
+    return "";
+  }
+
+  const icon =
+    href.startsWith("http") || href.startsWith("data:")
+      ? href
+      : `https://${host}${href}`;
+
+  return icon;
 }
 
 export const debounce = utils.helper.debounce;
 
 export const throttle = utils.helper.throttle;
-
-export function convertToListAsset(vm: Vue, asset: Asset): MixinAsset {
-  return {
-    chainLogo: asset && getChainAssetLogo(vm, asset.chain_id),
-    id: asset.asset_id,
-    logo: asset.icon_url,
-    name: asset.name,
-    symbol: asset.symbol
-  };
-}
-
-export function isPopup(): boolean {
-  return /popup\.html/.test(window.location.href);
-}

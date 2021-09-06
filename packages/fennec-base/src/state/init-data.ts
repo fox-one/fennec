@@ -15,7 +15,7 @@ export const initPreferenceData = {
     }
   ],
   completeOnboarding: false,
-  seletedAccount: undefined
+  selectedAccount: undefined
 } as PreferenceStore;
 
 export const initStoreData = {

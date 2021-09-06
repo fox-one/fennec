@@ -29,7 +29,20 @@ export default function (state: State) {
         throw new Error(`Not Allowed to open the url: ${url}`);
       }
 
-      chrome.tabs.create({ url });
+      chrome.windows.getCurrent(({ id }) => {
+        chrome.tabs.query(
+          { windowId: id, url: extension.extension.getURL("index.html") },
+          (tabs) => {
+            const tab = tabs[0];
+
+            if (tab && tab.id) {
+              chrome.tabs.update(tab.id, { active: true });
+            } else {
+              chrome.tabs.create({ url });
+            }
+          }
+        );
+      });
 
       return true;
     }

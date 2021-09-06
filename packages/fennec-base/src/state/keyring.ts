@@ -80,6 +80,7 @@ export default class KeyringState {
     }
 
     await this.#keyring.restore(this.stored, password);
+
     this.updateAccounts();
     this.setUnLocked();
 
@@ -103,6 +104,7 @@ export default class KeyringState {
 
     await this.persist(newStored, password);
     await this.#keyring.restore(this.stored, password);
+
     this.updateAccounts();
     this.setUnLocked();
 
@@ -220,12 +222,12 @@ export default class KeyringState {
 
   private updateAccounts() {
     const accounts = this.#keyring?.accounts ?? [];
-    const seletedAccount = this.#preference.preference.seletedAccount;
+    const selectedAccount = this.#preference.preference.selectedAccount;
 
     if (accounts.length === 0) {
       this.#preference.setSelectedAccount(undefined);
     } else {
-      const found = accounts.find((x) => x.client_id === seletedAccount);
+      const found = accounts.find((x) => x.client_id === selectedAccount);
 
       if (!found) {
         this.#preference.setSelectedAccount(accounts[0]?.client_id);

@@ -28,12 +28,10 @@
 <script lang="ts">
 import { User } from "@foxone/mixin-api/types";
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
-import ArrowRight from "../icons/ArrowRight.vue";
 import AccountAvatar from "../account/AccountAvatar.vue";
 
 @Component({
   components: {
-    ArrowRight,
     AccountAvatar
   }
 })

@@ -1,16 +1,9 @@
 <template>
   <div>
     <slot name="activator" :on="{ click: handleBackUp }" :loading="loading">
-      <v-btn
-        rounded
-        block
-        depressed
-        color="primary"
-        :loading="loading"
-        @click="handleBackUp"
-      >
+      <f-button block color="primary" :loading="loading" @click="handleBackUp">
         Backup
-      </v-btn>
+      </f-button>
     </slot>
   </div>
 </template>

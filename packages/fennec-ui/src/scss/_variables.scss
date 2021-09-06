@@ -1,19 +1,22 @@
-$body-font-family: Helvetica "SF Pro Text", "Roboto", Arial, Helvetica,
-  sans-serif;
+@import "~@foxone/uikit/src/styles/variables/_index.scss";
 
-$font-weights: (
-  "thin": 100,
-  "light": 300,
-  "regular": 400,
-  "medium": 500,
-  "bold": 600,
-  "black": 900
+$body-font-family: "Inter", Roboto, Oxygen, "Helvetica Neue", "PingFang SC",
+  sans-serif;
+$border-radius-root: 16px;
+$data-table-regular-row-height: 56px;
+
+$material-dark: (
+  "background": #393453,
+  "cards": #474264,
+  "text-fields": (
+    "filled": #474264,
+    "filled-hover": #5d587b
+  ),
+  "bottom-sheet": #474264
 );
 
-$container-padding-x: 16px;
-
-$material-light: (
-  "text-fields": (
-    "filled": #f5f5f5
-  )
+$container-max-widths: (
+  "md": 960px,
+  "lg": 960px,
+  "xl": 960px
 );

@@ -3,5 +3,5 @@ export interface ResetApplicationPayload {
 }
 
 export interface AppActionSignatures {
-  "pri_(app.resetApplication)": [ResetApplicationPayload, null];
+  "pri_(app.resetApplication)": [null, null];
 }

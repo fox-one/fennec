@@ -1,21 +1,16 @@
-.v-application {
-  .v-main,
-  .v-toolbar {
-    transition: none !important;
-  }
-
-  .f-bottom-sheet {
-    overflow: auto;
-  }
+span,
+div,
+p,
+a {
+  user-select: none;
 }
 
-.theme--light.v-application {
-  background-color: #f8f8f8 !important;
-  background: #f8f8f8 !important;
+a {
+  text-decoration: none;
 }
 
-.theme--light.v-divider {
-  border-color: rgba(0, 0, 0, 0.06);
+body {
+  font-size: 16px;
 }
 
 /* Chrome, Safari, Edge, Opera */

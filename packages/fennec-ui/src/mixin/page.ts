@@ -1,30 +1,59 @@
-import type { AppBarState } from "../types";
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { AppModulePerfix, MutationTypes } from "../store/modules/app/types";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { EVENTS } from "../defaults";
+import { GlobalMutations } from "../store/types";
 
 @Component
 class PageView extends Vue {
+  isCover = false;
+
   get title(): string {
     return "";
   }
 
   get layout(): string {
-    return "default-layout";
+    const smAndDown = this.$vuetify.breakpoint.smAndDown;
+
+    if (this.isCover) {
+      return "cover";
+    }
+
+    return smAndDown ? "popup" : "desktop";
   }
 
-  get appbar(): Partial<AppBarState> {
+  get appbar(): any {
     return {};
   }
 
-  setProperties(): void {
-    const appbar = { ...this.appbar, title: this.title };
-
-    this.$store.commit(AppModulePerfix + MutationTypes.SET_APPBAR, appbar);
-    this.$store.commit(AppModulePerfix + MutationTypes.SET_LAYOUT, this.layout);
+  get titleNode(): any {
+    return null;
   }
 
-  created(): void {
+  get tailNode(): any {
+    return null;
+  }
+
+  get isDesktop() {
+    return !this.$vuetify.breakpoint.smAndDown;
+  }
+
+  @Watch("isDesktop")
+  handleLayoutChange() {
+    this.setProperties();
+  }
+
+  setProperties(): void {
+    const appbar = { title: this.title, ...this.appbar };
+
+    this.$store.commit(GlobalMutations.SET_APPBAR, appbar);
+    this.$store.commit(GlobalMutations.SET_LAYOUT, this.layout);
+
+    this.$root.$emit(EVENTS.SET_NAV_TITLE, this.titleNode);
+    this.$root.$emit(EVENTS.SET_NAV_TAIL, this.tailNode);
+
+    console.log("emit events set nav tail");
+  }
+
+  mounted(): void {
     this.setProperties();
   }
 }

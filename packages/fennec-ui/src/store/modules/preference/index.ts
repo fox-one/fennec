@@ -1,24 +1,16 @@
-import type { State } from "./types";
-import type { Module, MutationTree } from "vuex/types/index";
-
-import { MutationTypes } from "./types";
 import { initPreferenceData } from "@foxone/fennec-base/state/init-data";
-import { RootState } from "../../types";
+import { make } from "vuex-pathify";
 
-const state: State = {
+const state: State.Preferencestate = {
   preference: initPreferenceData
 };
 
-const mutations: MutationTree<State> = {
-  [MutationTypes.UPDATE_PREFRENCE](state, data) {
-    state.preference = data;
-  }
+const mutations = {
+  ...make.mutations(state)
 };
 
-const module: Module<State, RootState> = {
+export default {
   mutations,
   namespaced: true,
   state
 };
-
-export default module;

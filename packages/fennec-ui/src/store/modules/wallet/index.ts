@@ -1,55 +1,50 @@
-import { ActionTree, MutationTree, GetterTree, Module } from "vuex/types/index";
+import { GetterTree } from "vuex/types/index";
 import { RootState } from "../../types";
-import {
-  State,
-  Mutations,
-  Actions,
-  ActionTypes,
-  MutationTypes,
-  GetterKeys
-} from "./types";
+import { ActionTypes, MutationTypes, GetterTypes } from "./types";
 import endpoints from "../../../endpoints";
-import {
-  Snapshot,
-  SnapshotQueryParams,
-  ExternalTransactionParams
-} from "@foxone/mixin-api/types";
+import { make } from "vuex-pathify";
+import { User } from "@foxone/mixin-api/types";
 
-const state: State = {
+const state: State.WalletState = {
   additionAssets: [],
   assets: [],
   exchangeRates: [],
   me: null,
-  snapshots: [],
-  snapshotsLoaded: false,
-  transactions: [],
   users: []
 };
 
-const getters: GetterTree<State, RootState> = {
-  [GetterKeys.TOTAL_USD](state) {
-    return state.assets.reduce((total, asset) => {
+const getters: GetterTree<State.WalletState, RootState> = {
+  [GetterTypes.TOTAL_USD](state) {
+    return state.assets.reduce((total: number, asset) => {
       return total + Number(asset.price_usd) * Number(asset.balance);
     }, 0);
   },
-  [GetterKeys.TOTAL_BTC](state) {
-    return state.assets.reduce((total, asset) => {
+  [GetterTypes.TOTAL_BTC](state) {
+    return state.assets.reduce((total: number, asset) => {
       return total + Number(asset.price_btc) * Number(asset.balance);
     }, 0);
   },
-  [GetterKeys.GET_ASSET_BY_ID](state) {
+  [GetterTypes.GET_ASSET_BY_ID](state) {
     return (id: string) => {
       return state.assets.find((x) => x.asset_id === id);
     };
   },
-  [GetterKeys.GET_MERGED_ASSETS](state) {
+  [GetterTypes.GET_MERGED_ASSETS](state) {
     return [...state.assets, ...state.additionAssets];
+  },
+  [GetterTypes.GET_USER_BY_ID](state) {
+    return (id: string) => {
+      return state.users.find((x: User) => x.user_id === id);
+    };
   }
 };
 
-const mutations: MutationTree<State> & Mutations = {
-  [MutationTypes.SET_ASSETS](state, data) {
-    state.assets = data;
+const mutations = {
+  ...make.mutations(state),
+  [MutationTypes.SET_ASSET](state, asset) {
+    const assets = state.assets.filter((x) => x.asset_id !== asset.asset_id);
+
+    state.asssets = [...assets, asset];
   },
   [MutationTypes.ADD_ADDITION_ASSET](state, asset) {
     const assets = [...state.assets, ...state.additionAssets];
@@ -64,32 +59,37 @@ const mutations: MutationTree<State> & Mutations = {
       (x) => x.asset_id !== asset.asset_id
     );
   },
-  [MutationTypes.SET_EXCHANGE_RATE](state, data) {
-    state.exchangeRates = data;
-  },
-  [MutationTypes.SET_SNAPSHOTS](state, data) {
-    state.snapshots = data;
-  },
-  [MutationTypes.SET_SNAPSHOTS_LOADED](state, value) {
-    state.snapshotsLoaded = value;
-  },
-  [MutationTypes.SET_TRANSACTIONS](state, data) {
-    state.transactions = data;
-  },
   [MutationTypes.SET_USERS](state, user) {
-    if (!state.users.find((x) => x.user_id === user.user_id)) {
-      state.users = [...state.users, user];
+    const index = state.users.findIndex((x) => x.user_id === user.user_id);
+
+    if (index > -1) {
+      state.users.splice(index, 1);
     }
+
+    if (state.users.length >= 50) {
+      state.users.pop();
+    }
+
+    state.users.unshift(user);
   },
-  [MutationTypes.SET_ME](state, user) {
-    state.me = user;
+  [MutationTypes.RESET_WALLET](state) {
+    state.assets = [];
+    state.me = null;
   }
 };
 
-const actions: ActionTree<State, RootState> & Actions = {
-  async [ActionTypes.LOAD_ASSETS]({ commit, state }) {
+const actions = {
+  async [ActionTypes.LOAD_ASSET]({ commit }, id) {
+    const asset = await endpoints.getAsset(id);
+
+    console.log("ActionTypes.LOAD_ASSET", asset);
+
+    commit(MutationTypes.SET_ASSET, asset);
+  },
+  async [ActionTypes.LOAD_ASSETS]({ commit, dispatch, state }) {
     const assets = await endpoints.getAssets();
 
+    commit(MutationTypes.SET_ASSETS, assets);
     assets.forEach((x) => {
       const found = state.additionAssets.find((y) => y.asset_id === x.asset_id);
 
@@ -97,86 +97,23 @@ const actions: ActionTree<State, RootState> & Actions = {
         commit(MutationTypes.REMVOE_ADDITION_ASSET, x);
       }
     });
-    commit(MutationTypes.SET_ASSETS, assets);
+
+    [...state.additionAssets, ...assets].forEach((x) => {
+      if (x.asset_id !== x.chain_id && !x.destination && !x.tag) {
+        dispatch(ActionTypes.LOAD_ASSET, x.chain_id);
+      }
+    });
   },
 
   async [ActionTypes.LOAD_EXCHANGE_RATES]({ commit }) {
     const rates = await endpoints.getExchangeRates();
 
-    commit(MutationTypes.SET_EXCHANGE_RATE, rates);
-  },
-
-  async [ActionTypes.LOAD_SNAPSHOTS]({ commit, dispatch, state }, payload) {
-    const limit = 20;
-    let snapshots = state.snapshots;
-    let offset = "";
-
-    if (!payload.reload) {
-      const last = snapshots[snapshots.length - 1];
-
-      offset = last?.created_at ?? "";
-    }
-
-    const opts: SnapshotQueryParams = {
-      asset: payload.asset,
-      limit,
-      offset
-    };
-
-    let res = await endpoints.getSnapshots(opts);
-
-    snapshots = snapshots.filter(
-      (x) => !res.find((y) => x.snapshot_id === y.snapshot_id)
-    );
-    res = await Promise.all(
-      res.map(async (x): Promise<Snapshot> => {
-        if (x.opponent_id) {
-          const user = await dispatch(ActionTypes.LOAD_USER, {
-            id: x.opponent_id
-          });
-
-          return { ...x, opponent: user.full_name };
-        }
-
-        return x;
-      })
-    );
-
-    const data = payload.reload ? res : [...snapshots, ...res];
-
-    commit(MutationTypes.SET_SNAPSHOTS, data);
-
-    if (res.length < limit) {
-      commit(MutationTypes.SET_SNAPSHOTS_LOADED, true);
-    } else {
-      commit(MutationTypes.SET_SNAPSHOTS_LOADED, false);
-    }
-  },
-
-  async [ActionTypes.LOAD_TRANSACTIONS]({ commit }, payload) {
-    const transactions = state.transactions;
-    let offset = "";
-
-    if (!payload.reload) {
-      const last = transactions[transactions.length - 1];
-
-      offset = last?.created_at;
-    }
-
-    const opts: ExternalTransactionParams = {
-      destination: payload.destination,
-      limit: 100,
-      offset,
-      tag: payload.tag
-    };
-    const res = await endpoints.getExternalTransactions(opts);
-    const data = payload.reload ? res : [...transactions, ...res];
-
-    commit(MutationTypes.SET_TRANSACTIONS, data);
+    commit(MutationTypes.SET_EXCHANGE_RATES, rates);
   },
 
   async [ActionTypes.LOAD_USER]({ commit, state }, { force, id }) {
     if (!id) return;
+
     const users = state.users;
     const user = users.find((x) => x.user_id === id);
 
@@ -184,27 +121,20 @@ const actions: ActionTree<State, RootState> & Actions = {
       return user;
     }
 
-    const res = await endpoints.getUser(id);
-
-    commit("SET_USERS", res);
-
-    return res;
+    commit("SET_USERS", await endpoints.getUser(id));
   },
 
   async [ActionTypes.LOAD_ME]({ commit }, { id }) {
     if (!id) return;
-    const res = await endpoints.getUser(id);
 
-    commit("SET_ME", res);
+    commit("SET_ME", await endpoints.getUser(id));
   }
 };
 
-const module: Module<State, RootState> = {
+export default {
   actions,
   getters,
   mutations,
   namespaced: true,
   state
 };
-
-export default module;

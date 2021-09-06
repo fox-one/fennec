@@ -1,10 +1,10 @@
-import type { User } from "@foxone/mixin-api/types";
-import type { AccountProvider } from "@foxone/fennec-base/state/types";
+import Vue from "vue";
 
-import { ActionTypes, WalletModulePerfix } from "../store/modules/wallet/types";
 import axios from "axios";
 import HttpProvider from "@foxone/mixin-api/provider/http";
 import createEndpoint from "@foxone/mixin-api/endpoints";
+import { GlobalActions, GlobalMutations } from "../store/types";
+import { EVENTS } from "../defaults";
 import {
   signAuthenticationToken,
   signEncryptedPin,
@@ -12,9 +12,8 @@ import {
   generateRSASessionKeyPair,
   KeyPair
 } from "@foxone/mixin-api/encrypt";
-import { EVENTS } from "../defaults";
 
-import Vue from "vue";
+import type { User } from "@foxone/mixin-api/types";
 
 export async function selectAccount(vm: Vue, id: string): Promise<void> {
   const selectedAccount = vm.$store.state.preference.preference.selectedAccount;
@@ -23,8 +22,28 @@ export async function selectAccount(vm: Vue, id: string): Promise<void> {
     return;
   }
 
-  await vm.$messages.selectAccount(id);
-  await vm.$utils.app.loadWalletData(vm);
+  vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, true);
+
+  try {
+    await vm.$messages.selectAccount(id);
+    await vm.$utils.app.loadWalletData(vm);
+  } catch (error) {
+    //
+  }
+
+  vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, false);
+}
+
+export async function loadAccounts(vm: Vue): Promise<void> {
+  vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, true);
+
+  try {
+    await vm.$store.dispatch(GlobalActions.LOAD_PROFILES);
+  } catch (error) {
+    //
+  }
+
+  vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, false);
 }
 
 export async function getUser(
@@ -32,10 +51,7 @@ export async function getUser(
   id: string,
   force = false
 ): Promise<User> {
-  return await vm.$store.dispatch(WalletModulePerfix + ActionTypes.LOAD_USER, {
-    force,
-    id
-  });
+  return await vm.$store.dispatch(GlobalActions.LOAD_USER, { force, id });
 }
 
 export function confirmPassword(
@@ -52,7 +68,7 @@ export async function createAccountFromProvider(
   vm: Vue,
   password: string,
   opts: {
-    provider: AccountProvider;
+    provider: string;
     walletName: string;
     cipherType: "rsa" | "ed25519";
   }
@@ -66,7 +82,7 @@ export async function createAccountFromProvider(
     keyPair = generateEd25519SessionKeypair();
   }
 
-  const resp = await axios.post(provider.value, {
+  const resp = await axios.post(provider, {
     full_name: walletName,
     session_secret: keyPair.publicKey
   });

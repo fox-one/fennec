@@ -6,7 +6,7 @@
   "short_name": "Fennec",
   "default_locale": "en",
   "manifest_version": 2,
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "tabs"],
   "background": {
     "scripts": ["background.js"],
     "persistent": true
@@ -15,11 +15,13 @@
     "default_title": "Fennec: Mixin Chrome Extension Wallet",
     "default_popup": "popup.html"
   },
-  "content_scripts": [{
-    "js": ["content.js"],
-    "matches": ["http://*/*", "https://*/*"],
-    "run_at": "document_start"
-  }],
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["http://*/*", "https://*/*"],
+      "run_at": "document_start"
+    }
+  ],
   "icons": {
     "16": "icons/16.png",
     "19": "icons/19.png",
@@ -27,5 +29,6 @@
     "48": "icons/48.png",
     "128": "icons/128.png"
   },
-  "web_accessible_resources": ["page.js"]
+  "web_accessible_resources": ["page.js"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' http://localhost:8098; object-src 'self'"
 }

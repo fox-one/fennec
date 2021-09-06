@@ -1,48 +1,31 @@
 <template>
-  <v-container>
-    <f-loading v-if="loading" :loading="loading" fullscreen />
-    <f-panel v-else>
+  <div class="deposit-page">
+    <f-loading v-if="loading" :loading="loading" class="pa-5" />
+    <template v-else>
       <asset-select v-model="asset" />
 
-      <v-layout justify-center>
-        <f-button-tabs v-model="index" class="mt-10">
-          <template #tabs>
-            <v-btn
-              v-for="(item, index) in meta.tabs"
-              :key="index"
-              :value="index"
-              :ripple="false"
-            >
-              <span>{{ item.text }}</span>
-            </v-btn>
-          </template>
-        </f-button-tabs>
-      </v-layout>
-
       <template v-if="asset">
-        <deposit-by-address v-if="index === 0" :asset="asset" />
-        <deposit-by-transfer v-else :asset="asset" />
+        <deposit-methods :asset="asset" />
 
-        <deposit-warn-modal :asset="asset" />
+        <deposit-warn :asset="asset" />
       </template>
-    </f-panel>
-  </v-container>
+    </template>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import { Asset } from "@foxone/mixin-api/types";
 import PageView from "../mixin/page";
-import DepositByAddress from "../components/wallet/DepositByAddress.vue";
-import DepositByTransfer from "../components/wallet/DepositByTransfer.vue";
-import DepositWarnModal from "../components/wallet/DepositWarnModal.vue";
-import AssetSelect from "../components/wallet/AssetSelect.vue";
+import DepositWarn from "../components/deposit/DepositWarn.vue";
+import DepositMethods from "../components/deposit/DepositMethods.vue";
+import AssetSelect from "../components/asset/AssetSelect.vue";
+import { GlobalGetters } from "../store/types";
 
 @Component({
   components: {
-    DepositByAddress,
-    DepositByTransfer,
-    DepositWarnModal,
+    DepositMethods,
+    DepositWarn,
     AssetSelect
   }
 })
@@ -51,8 +34,6 @@ class DepositPage extends Mixins(PageView) {
 
   loading = false;
 
-  index = 0;
-
   get appbar() {
     return {
       back: true
@@ -60,7 +41,7 @@ class DepositPage extends Mixins(PageView) {
   }
 
   get title() {
-    return "Deposit";
+    return "Receive";
   }
 
   get preset() {
@@ -72,18 +53,9 @@ class DepositPage extends Mixins(PageView) {
   }
 
   get meta() {
-    const tabs = [
-      {
-        text: "Address",
-        value: "address"
-      },
-      {
-        text: "QRCode",
-        value: "qrcode"
-      }
-    ];
-
-    return { tabs };
+    return {
+      isDesktop: !this.$vuetify.breakpoint.smAndDown
+    };
   }
 
   mounted() {
@@ -91,14 +63,18 @@ class DepositPage extends Mixins(PageView) {
   }
 
   async setInitAsset() {
-    if (!this.preset) {
+    const getters = this.$store.getters;
+    const assets: Asset[] = getters[GlobalGetters.GET_MERGED_ASSETS];
+    const id = this.preset || assets[0]?.asset_id;
+
+    if (!id) {
       return;
     }
 
     this.loading = true;
 
     try {
-      const res = await this.$endpoints.getAsset(this.preset as string);
+      const res = await this.$endpoints.getAsset(id as string);
 
       this.asset = res;
     } catch (error) {
@@ -110,3 +86,9 @@ class DepositPage extends Mixins(PageView) {
 }
 export default DepositPage;
 </script>
+
+<style lang="scss" scoped>
+.deposit-page {
+  padding-bottom: 140px;
+}
+</style>

@@ -1,96 +1,113 @@
 <template>
   <v-app id="app" class="app">
-    <f-loading v-if="meta.initing" loading color="primary" fullscreen />
+    <f-loading v-if="meta.loading" loading color="primary" fullscreen />
     <template v-else>
+      <component :is="layoutComponent" :error="error" />
       <modals />
-      <init-guard v-if="meta.showInitGuard" />
-      <error-guard v-else-if="error" :error="error" />
-      <unlock-guard v-else-if="meta.locked" />
-      <auth-guard v-else-if="meta.hasAuthRequest" />
-      <transfer-guard v-else-if="meta.hasTransferReq" />
-      <multisigs-guard v-else-if="meta.hasMultisigsTransactionReq" />
-      <component :is="layoutComponent" v-else>
-        <wallet-guard />
-      </component>
     </template>
   </v-app>
 </template>
 
 <script lang="ts">
-import type { AppLayout } from "./types";
-import { Component, Vue } from "vue-property-decorator";
-import DefaultLayout from "./layouts/default/Index.vue";
-import AuthGuard from "./components/guard/auth.vue";
-import InitGuard from "./components/guard/init.vue";
-import TransferGuard from "./components/guard/transfer.vue";
-import UnlockGuard from "./components/guard/unlock.vue";
-import WalletGuard from "./components/guard/wallet.vue";
-import MultisigsGuard from "./components/guard/multisigs.vue";
-import ErrorGuard from "./components/guard/error.vue";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import CoverLayout from "./layouts/cover/Index.vue";
+import PopupLayout from "./layouts/popup/Index.vue";
+import DesktopLayout from "./layouts/desktop/Index.vue";
+import DesktopOpenLayout from "./layouts/desktop/Open.vue";
+import ReactLayout from "./layouts/react/Index.vue";
+import ErrorLayout from "./layouts/error/Index.vue";
 import Modals from "./components/modals/Modals.vue";
 import { EVENTS } from "./defaults";
 
 @Component({
   components: {
-    DefaultLayout,
-    AuthGuard,
-    InitGuard,
-    TransferGuard,
-    UnlockGuard,
-    WalletGuard,
-    MultisigsGuard,
-    ErrorGuard,
+    ErrorLayout,
+    ReactLayout,
+    CoverLayout,
+    PopupLayout,
+    DesktopLayout,
+    DesktopOpenLayout,
     Modals
   }
 })
 class App extends Vue {
   error: Error | null = null;
 
-  get layout(): AppLayout {
+  get layout(): State.AppLayout {
     return this.$store.state.app.layout;
   }
 
   get layoutComponent() {
+    const hasReactions = this.$utils.app.hasReactions(this);
+
+    if (this.error) {
+      return "error-layout";
+    }
+
+    if (hasReactions) {
+      return "react-layout";
+    }
+
     switch (this.layout) {
-      case "default":
-        return "default-layout";
+      case "cover":
+        return "cover-layout";
+      case "popup":
+        return "popup-layout";
+      case "desktop":
+        return "desktop-layout";
+      case "desktop-open":
+        return "desktop-open-layout";
       default:
-        return "default-layout";
+        return "desktop-layout";
     }
   }
 
   get meta() {
+    const preference = this.$store.state.preference.preference;
+    const selectedAccount = preference.selectedAccount;
     const initing = this.$store.state.app.initing;
-    const keyring = this.$store.state.keyring.keyring;
-    const inited = keyring.initialized;
-    const locked = !keyring.isUnlocked;
-    const hasAuthRequest = this.$store.state.auth.authorizeRequests.length > 0;
-    const hasTransferReq =
-      this.$store.state.transfer.transferRequests.length > 0;
-    const hasMultisigsTransactionReq =
-      this.$store.state.multisigs.transactionRequests.length > 0;
+    const keyring = this.$store.state.keyring;
+    const keyringLoading = keyring.loading;
+    const isUnlocked = keyring.keyring.isUnlocked;
+    const accounts = keyring.keyring.accounts.length;
+    const loading = initing || keyringLoading;
 
     return {
-      initing,
-      inited,
-      locked,
-      hasAuthRequest,
-      hasTransferReq,
-      hasMultisigsTransactionReq,
-      showInitGuard: !inited
+      isUnlocked,
+      accounts,
+      selectedAccount,
+      loading
     };
+  }
+
+  @Watch("meta.isUnlocked")
+  @Watch("meta.accounts")
+  handleKeyringChange() {
+    if (this.meta.isUnlocked && this.meta.accounts > 0) {
+      this.$utils.app.loadWalletData(this);
+    }
+  }
+
+  @Watch("meta.selectedAccount")
+  handleAccountChange(value) {
+    if (value) {
+      this.$utils.app.loadWalletData(this);
+    } else {
+      this.$router.push({ name: "account-import" });
+    }
   }
 
   async mounted() {
     this.$root.$on(EVENTS.APPLICATION_ERROR, (error: Error) => {
       if (error.message.startsWith("[code:01]")) {
-        this.$router.push({ name: "import" });
+        this.$router.push({ name: "account-init" });
 
         return;
       }
 
       this.error = error;
     });
+
     await this.$utils.app.init(this);
   }
 }

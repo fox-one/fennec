@@ -1,12 +1,12 @@
 <template>
-  <v-form v-model="valid" class="form">
+  <v-form v-model="valid" class="form mt-3">
     <f-input
       v-model.trim="password"
       label="Password"
       type="password"
       :hide-details="false"
       :rules="rules.password"
-      class="mt-10"
+      class="mb-1"
     />
 
     <f-input
@@ -15,19 +15,15 @@
       type="password"
       :hide-details="false"
       :rules="rules.confirmPassword"
+      class="mb-1"
     />
 
-    <v-btn
-      rounded
-      depressed
-      min-width="200"
-      color="primary"
-      class="mt-10"
-      :disabled="!valid"
-      @click="handleSubmit"
-    >
-      Create
-    </v-btn>
+    <v-layout justify-space-around>
+      <f-button text color="label" @click="handleCancel"> Cancel </f-button>
+      <f-button text :disabled="!valid" color="primary" @click="handleSubmit">
+        Confirm
+      </f-button>
+    </v-layout>
   </v-form>
 </template>
 
@@ -54,6 +50,10 @@ class CreatePasswordForm extends Vue {
         (v: string) => v === this.password || "password is not the same"
       ]
     };
+  }
+
+  handleCancel() {
+    this.$emit("cancel");
   }
 
   handleSubmit() {

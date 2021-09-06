@@ -168,7 +168,7 @@ export default class AuthState {
     const entry = this.#authUrls[stripUrl(url)];
 
     if (!entry) {
-      throw new Error(`The source ${url} has not been enabled yet`);
+      throw new Error(`Thesource ${url} has not been enabled yet`);
     }
 
     if (!entry.isAllowed) {

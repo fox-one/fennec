@@ -4,6 +4,7 @@ const webpack = require("webpack");
 
 const CopyPlugin = require("copy-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const { VuetifyLoaderPlugin } = require("vuetify-loader");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const ManifestPlugin = require("webpack-extension-manifest-plugin");
@@ -17,10 +18,6 @@ const packages = ["fennec-extension", "fennec-base", "fennec-ui"];
 module.exports = {
   context: __dirname,
   devtool: false,
-  externals: {
-    vue: "Vue",
-    vuetify: "Vuetify"
-  },
   module: {
     rules: [
       {
@@ -54,19 +51,36 @@ module.exports = {
         use: ["vue-style-loader", "css-loader"]
       },
       {
-        test: /\.s(c|a)ss$/,
+        test: /\.sass$/,
         use: [
           "vue-style-loader",
           "css-loader",
           {
             loader: "sass-loader",
-            // Requires sass-loader@^8.0.0
             options: {
               implementation: require("sass"),
               sassOptions: {
-                prependData:
-                  "@import '@foxone/fennec-ui/src/scss/_variables.scss';"
-              }
+                indentedSyntax: true
+              },
+              additionalData: "@import '@foxone/fennec-ui/scss/_variables.scss'"
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "vue-style-loader",
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+              sassOptions: {
+                indentedSyntax: false
+              },
+              additionalData:
+                "@import '@foxone/fennec-ui/scss/_variables.scss';"
             }
           }
         ]
@@ -120,6 +134,7 @@ module.exports = {
       }
     }),
     new VueLoaderPlugin(),
+    new VuetifyLoaderPlugin(),
     new CleanWebpackPlugin(),
     new ProgressBarPlugin(),
     new FileManagerPlugin({

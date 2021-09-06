@@ -25,7 +25,7 @@ export default class PreferenceState {
   }
 
   public setSelectedAccount(clientId: string | undefined) {
-    return this.persist({ seletedAccount: clientId });
+    return this.persist({ selectedAccount: clientId });
   }
 
   public setAccountProviders(providers: AccountProvider[]) {

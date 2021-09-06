@@ -1,9 +1,9 @@
 import BigNumber from "bignumber.js";
 
 const COLORS = {
-  GRAY: "#959595",
-  GREEN: "#009621",
-  RED: "#E23A3A",
+  GRAY: "#78738F",
+  GREEN: "#2CC94E",
+  RED: "#F44C4C",
   WARNING: "#FFC107"
 } as const;
 

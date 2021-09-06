@@ -1,40 +1,32 @@
-import { Module, MutationTree, ActionTree } from "vuex";
-import { Mutations, State, Actions, ActionTypes, MutationTypes } from "./types";
-import { RootState } from "../../types";
+import { ActionTypes, MutationTypes } from "./types";
+import { make } from "vuex-pathify";
 
-const state: State = {
+export const initSettings: any = {
+  colorStyle: "green_down_red_up",
+  currency: "USD",
+  dark: false,
+  provider: ""
+};
+
+const state: State.AppState = {
   appbar: {
     back: false,
     show: true,
     title: ""
   },
 
+  breadcrumbs: [],
+
   initing: true,
 
-  layout: "default",
+  layout: "desktop",
 
-  paying: {
-    timer: null,
-    visible: false
-  },
-
-  settings: {
-    colorStyle: "green_down_red_up",
-    currency: "usd",
-    dark: false
-  },
-
-  toast: {
-    color: "info",
-    message: "",
-    show: false
-  }
+  settings: initSettings
 };
 
-const mutations: MutationTree<State> & Mutations = {
-  [MutationTypes.SET_INITING](state, value) {
-    state.initing = value;
-  },
+const mutations = {
+  ...make.mutations(state),
+
   [MutationTypes.SET_APPBAR](state, data) {
     const defaultValue = {
       back: true,
@@ -45,31 +37,25 @@ const mutations: MutationTree<State> & Mutations = {
 
     state.appbar = { ...defaultValue, ...data };
   },
-  [MutationTypes.SET_LAYOUT](state, data) {
-    state.layout = data;
-  },
-  [MutationTypes.SET_APP_SETINGS](state, data) {
+
+  [MutationTypes.SET_SETINGS](state, data) {
     state.settings = { ...state.settings, ...data };
   },
-  [MutationTypes.SET_TOAST](state, data) {
-    state.toast = data;
-  },
-  [MutationTypes.SET_PAYING](state, data) {
-    state.paying = data;
+
+  [MutationTypes.RESET_APP](state) {
+    state.settings = initSettings;
   }
 };
 
-const actions: ActionTree<State, RootState> & Actions = {
+const actions = {
   [ActionTypes.GET_COUTNER]({ commit }) {
     commit(MutationTypes.SET_APPBAR, { title: "" });
   }
 };
 
-const module: Module<State, RootState> = {
+export default {
   actions,
   mutations,
   namespaced: true,
   state
 };
-
-export default module;

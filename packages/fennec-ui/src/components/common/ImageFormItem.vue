@@ -1,25 +1,19 @@
 <template>
-  <div>
-    <v-file-input
+  <div class="image-form-item">
+    <input
+      ref="input"
+      type="file"
+      class="input"
       accept="image/png, image/jpeg, image/jpg, image/svg"
-      :loading="loading"
-      :clear-icon="$icons.mdiClose"
-      :rule="rules"
-      :value="file"
-      :label="$attrs.label"
-      filled
-      hide-details
-      class="f-input image-input"
       @change="handleFileChange"
     />
-    <div v-if="value" class="mt-2">
-      <v-img
-        :src="value"
-        class="rounded"
-        height="80"
-        width="80"
-        @load="handleAttachmentLoaded"
-      />
+
+    <v-avatar size="48" class="image">
+      <v-img :src="avatar" @load="handleAttachmentLoaded" />
+    </v-avatar>
+
+    <div class="image-edit-action" @click="handleClickImage">
+      <v-icon>$FIconEdit</v-icon>
     </div>
   </div>
 </template>
@@ -35,8 +29,8 @@ class ImgaeFormItem extends Vue {
 
   file: File | null = null;
 
-  get rules() {
-    return [(v) => v.size < 2 * 1024 * 1024 || "Max size is 2M"];
+  get avatar() {
+    return this.value || require("../../assets/images/default-avatar.png");
   }
 
   mounted() {
@@ -44,12 +38,27 @@ class ImgaeFormItem extends Vue {
     this.file = new File([], this.value);
   }
 
+  handleClickImage() {
+    const input = this.$refs.input as any;
+
+    input.click();
+  }
+
   handleAttachmentLoaded() {
     this.loading = false;
   }
 
-  handleFileChange(file) {
+  handleFileChange(e) {
+    const file = e.target.files[0];
+
     if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      this.$uikit.toast.error({ message: "Max size is 2M" });
+
+      return;
+    }
+
     this.loading = true;
     this.file = file;
     const reader = new FileReader();
@@ -66,11 +75,37 @@ export default ImgaeFormItem;
 </script>
 
 <style lang="scss" scoped>
-.image-input {
-  ::v-deep {
-    .v-input__prepend-outer {
-      display: none !important;
+.image-form-item {
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    .image-edit-action {
+      visibility: visible;
     }
   }
+
+  .image-edit-action {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    right: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(57, 52, 83, 0.8);
+    backdrop-filter: blur(24px);
+    border-radius: 50px;
+    visibility: hidden;
+  }
+}
+
+.input {
+  display: none;
+}
+
+.image {
+  cursor: pointer;
 }
 </style>

@@ -3,55 +3,23 @@ import {
   RawTransactionReq,
   TransferReq
 } from "@foxone/fennec-base/state/wallet";
-import {
-  MutationTypes as AuthMutationTypes,
-  AuthModulePerfix
-} from "../store/modules/auth/types";
-import {
-  MutationTypes as AppMutationTypes,
-  AppModulePerfix
-} from "../store/modules/app/types";
-import {
-  MutationTypes as PreferenceMutationTypes,
-  PreferenceModulePerfix
-} from "../store/modules/preference/types";
-import {
-  MutationTypes as KeyringMutationTypes,
-  KeyringModulePerfix
-} from "../store/modules/keyring/types";
-import {
-  ActionTypes as WalletActionTypes,
-  WalletModulePerfix
-} from "../store/modules/wallet/types";
-import {
-  MutationTypes as TransferMutationTypes,
-  TransferModulePerfix
-} from "../store/modules/transfer/types";
-import {
-  MutationTypes as MultisigsMutationTypes,
-  MultisigsModulePerfix
-} from "../store/modules/multisigs/types";
+import { GlobalMutations, GlobalActions } from "../store/types";
 import { EVENTS } from "../defaults";
+import { useGuard } from "../router/guard";
 
 export async function loadAuthorizeRequestsFromBackground(
   vm: Vue
 ): Promise<boolean> {
   return vm.$messages.subscribeAuthorizeRequests(
     (requests: AuthorizeRequest[]) => {
-      vm.$store.commit(
-        AuthModulePerfix + AuthMutationTypes.UPDATE_AUTHORIZE_URLS,
-        requests
-      );
+      vm.$store.commit(GlobalMutations.SET_AUTHORIZE_REQUESTS, requests);
     }
   );
 }
 
 export function loadTransferReqsFromBackground(vm: Vue): Promise<boolean> {
   return vm.$messages.subscribeTransferReq((reqs: TransferReq[]) => {
-    vm.$store.commit(
-      TransferModulePerfix + TransferMutationTypes.UPDATE_TRANSFER_URLS,
-      reqs
-    );
+    vm.$store.commit(GlobalMutations.SET_TRANSFER_REQUESTS, reqs);
   });
 }
 
@@ -60,50 +28,54 @@ export function loadMultisigsTransactionReqsFormBackground(
 ): Promise<boolean> {
   return vm.$messages.subscribeMultisigsTransactionReq(
     (reqs: RawTransactionReq[]) => {
-      vm.$store.commit(
-        MultisigsModulePerfix +
-          MultisigsMutationTypes.UPDATE_MULTISIGS_TRANSACTIONS,
-        reqs
-      );
+      vm.$store.commit(GlobalMutations.SET_TRANSACTION_REQUESTS, reqs);
     }
   );
 }
 
 export function loadPreferenceFromBackground(vm: Vue): Promise<boolean> {
   return vm.$messages.subscribePreferenceState((state) => {
-    vm.$store.commit(
-      PreferenceModulePerfix + PreferenceMutationTypes.UPDATE_PREFRENCE,
-      state
-    );
+    vm.$store.commit(GlobalMutations.SET_PREFERENCE, state);
   });
 }
 
 export function loadKeyringFromBackground(vm: Vue): Promise<boolean> {
   return vm.$messages.subscribeKeyingState((state) => {
-    vm.$store.commit(
-      KeyringModulePerfix + KeyringMutationTypes.UPDATE_KEYRING_STATE,
-      state
-    );
+    vm.$store.commit(GlobalMutations.SET_KEYRING, state);
   });
 }
 
-export async function loadWalletData(vm: Vue): Promise<void> {
+export function resetWalletData(vm: Vue) {
+  vm.$store.commit(GlobalMutations.RESET_WALLET);
+  vm.$store.commit(GlobalMutations.RESET_PROFILES);
+}
+
+export function resetApplicationData(vm: Vue) {
+  resetWalletData(vm);
+  vm.$store.commit(GlobalMutations.RESET_PAGE_STATE);
+  vm.$store.commit(GlobalMutations.RESET_APP);
+}
+
+export async function loadWalletData(vm: Vue, refresh = false): Promise<void> {
   try {
     const inited = vm.$store.state.keyring.keyring.initialized;
     const locked = !vm.$store.state.keyring.keyring.isUnlocked;
     const selectedAccount =
-      vm.$store.state.preference.preference.seletedAccount;
+      vm.$store.state.preference.preference.selectedAccount;
 
-    if (!inited || locked) return;
+    if (!inited || locked || !selectedAccount) {
+      resetWalletData(vm);
+
+      return;
+    }
+
+    startWalletTimer(vm);
 
     await Promise.all([
-      vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ASSETS),
-      vm.$store.dispatch(
-        WalletModulePerfix + WalletActionTypes.LOAD_EXCHANGE_RATES
-      ),
-      vm.$store.dispatch(WalletModulePerfix + WalletActionTypes.LOAD_ME, {
-        id: selectedAccount
-      })
+      !refresh && vm.$utils.account.loadAccounts(vm),
+      vm.$store.dispatch(GlobalActions.LOAD_ASSETS),
+      vm.$store.dispatch(GlobalActions.LOAD_EXCHANGE_RATES),
+      vm.$store.dispatch(GlobalActions.LOAD_ME, { id: selectedAccount })
     ]);
   } catch (error) {
     handleError(vm, error);
@@ -112,25 +84,41 @@ export async function loadWalletData(vm: Vue): Promise<void> {
 
 let timer: any;
 
-export function startWalletTimer(vm: Vue): number | undefined {
+export function startWalletTimer(vm: Vue) {
   const inited = vm.$store.state.keyring.keyring.initialized;
   const locked = !vm.$store.state.keyring.keyring.isUnlocked;
 
   if (!inited || locked) return;
 
-  timer = setInterval(() => {
-    loadWalletData(vm);
-  }, 3000);
+  clearInterval(timer);
 
-  return timer;
+  timer = setInterval(() => {
+    loadWalletData(vm, true);
+  }, 5000);
 }
 
-export function handleError(vm: Vue, error: Error): void {
+export function handleError(vm: Vue, error: Error | unknown): void {
   vm.$root.$emit(EVENTS.APPLICATION_ERROR, error);
 }
 
+export function hasReactions(vm: Vue) {
+  const keyring = vm.$store.state.keyring.keyring;
+  const inited = keyring.initialized;
+  const isUnlocked = keyring.isUnlocked;
+  const hasAuthRequest = vm.$store.state.auth.authorizeRequests.length > 0;
+  const hasTransferReq = vm.$store.state.transfer.transferRequests.length > 0;
+  const hasMultisigsTransactionReq =
+    vm.$store.state.multisigs.transactionRequests.length > 0;
+
+  return (
+    inited &&
+    isUnlocked &&
+    (hasAuthRequest || hasTransferReq || hasMultisigsTransactionReq)
+  );
+}
+
 export async function init(vm: Vue): Promise<void> {
-  vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, true);
+  vm.$store.commit(GlobalMutations.SET_INITING, true);
 
   try {
     await loadAuthorizeRequestsFromBackground(vm);
@@ -139,10 +127,11 @@ export async function init(vm: Vue): Promise<void> {
     await loadTransferReqsFromBackground(vm);
     await loadMultisigsTransactionReqsFormBackground(vm);
     await loadWalletData(vm);
-    // startWalletTimer(vm);
   } catch (error) {
     handleError(vm, error);
   }
 
-  vm.$store.commit(AppModulePerfix + AppMutationTypes.SET_INITING, false);
+  useGuard(vm);
+
+  vm.$store.commit(GlobalMutations.SET_INITING, false);
 }

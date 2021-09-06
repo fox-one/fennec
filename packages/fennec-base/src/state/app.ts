@@ -5,7 +5,6 @@ import type KeyringState from "./keyring";
 import type WalletState from "./wallet";
 import { BehaviorSubject } from "rxjs";
 import { initStoreData } from "./init-data";
-import MixinKeyring from "@foxone/mixin-api/keyring";
 
 export default class AppState {
   #store: BehaviorSubject<Store>;
@@ -32,11 +31,7 @@ export default class AppState {
     this.#wallet = opts.wallet;
   }
 
-  async resetApplication(password: string) {
-    await MixinKeyring.decryptFromStored(
-      this.#store.getValue().keyring,
-      password
-    );
+  resetApplication() {
     this.#store.next(initStoreData);
     this.#keyring.refresh();
     this.#preference.restore();

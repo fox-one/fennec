@@ -1,13 +1,16 @@
-import type { KeyringMemState } from "@foxone/fennec-base/state/keyring";
+export const prefix = "keyring/";
 
-export const KeyringModulePerfix = "keyring/";
+export const GetterTypes = {
+  CURRENT_PROFILE: "CURRENT_PROFILE"
+};
 
 export const MutationTypes = {
-  UPDATE_KEYRING_STATE: "UPDATE_KEYRING_STATE"
+  SET_KEYRING: "SET_KEYRING",
+  SET_PROFILES: "SET_PROFILES",
+  SET_KEYRING_LOADING: "SET_KEYRING_LOADING",
+  RESET_PROFILES: "RESET_PROFILES"
 } as const;
 
-export type State = { keyring: KeyringMemState };
-
-export type Mutations = {
-  [MutationTypes.UPDATE_KEYRING_STATE](s: State, v: KeyringMemState): void;
-};
+export const ActionTypes = {
+  LOAD_PROFILES: "LOAD_PROFILES"
+} as const;

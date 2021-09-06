@@ -1,19 +1,17 @@
 <template>
-  <f-bottom-sheet v-model="dialog">
+  <f-bottom-sheet v-model="dialog" :title="title">
     <template #activator="{ on }">
       <div class="receivers" v-on="on">
         <account-avatar
           v-for="(url, index) in urls"
           :key="index"
           :url="url"
-          size="32"
+          size="24"
           class="receiver"
         />
       </div>
     </template>
-    <template #title>
-      <slot name="title" />
-    </template>
+
     <v-list-item v-for="(item, index) in users" :key="index">
       <v-list-item-avatar>
         <v-img :src="item.avatar_url" />
@@ -43,6 +41,8 @@ class AccountAvatars extends Vue {
 
   @Prop() users!: User[];
 
+  @Prop() title!: string;
+
   dialog = false;
 }
 export default AccountAvatars;
@@ -57,7 +57,7 @@ export default AccountAvatars;
       margin-left: 0px;
     }
 
-    margin-left: -10px;
+    margin-left: -4px;
   }
 }
 </style>

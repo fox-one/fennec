@@ -1,11 +1,5 @@
-import type { TransferReq } from "@foxone/fennec-base/state/wallet";
-
-export const TransferModulePerfix = "transfer/";
+export const prefix = "transfer/";
 
 export const MutationTypes = {
-  UPDATE_TRANSFER_URLS: "UPDATE_TRANSFER_URLS"
+  SET_TRANSFER_REQUESTS: "SET_TRANSFER_REQUESTS"
 } as const;
-
-export type State = {
-  transferRequests: TransferReq[];
-};

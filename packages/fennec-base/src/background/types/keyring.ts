@@ -20,6 +20,7 @@ export interface SignAuthorizeTokenPayload {
   method: string;
   data: string;
   uri: string;
+  clientId?: string;
 }
 
 export interface EncryptPinPayload {
@@ -50,6 +51,7 @@ export interface KeyringActionSignatures {
   "pri_(keyring.subscribe)": [null, boolean, KeyringMemState];
   "pri_(keyring.createAccount)": [CreateAccountPayload, string[]];
   "pri_(keyring.unlock)": [UnlockKeyringPayload, boolean];
+  "pri_(keyring.lock)": [null, boolean];
   "pri_(keyring.signAuthorizeToken)": [SignAuthorizeTokenPayload, string];
   "pri_(kerying.encryptPin)": [EncryptPinPayload, string];
   "pri_(keyring.getEncryptedPin)": [GetEncryptedPinPayload, string];

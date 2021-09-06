@@ -1,60 +1,41 @@
 <template>
   <div>
-    <v-btn
-      rounded
-      depressed
-      min-width="200"
-      color="primary"
-      :disabled="checkPoliciesAccepted && !policiesAccepted"
-      @click="handleSelectFile"
-    >
+    <f-button min-width="200" color="primary" @click="handleSelectFile">
       Import keystore
-    </v-btn>
+    </f-button>
     <input ref="input" type="file" class="input" @change="handleInputChange" />
-    <f-bottom-sheet v-model="dialog">
-      <template #title> Confirm Import? </template>
-      <account-item v-if="keystore" :id="keystore.client_id">
-        <template #action>
-          <div></div>
-        </template>
-      </account-item>
-      <div class="pa-5">
-        <v-btn block depressed rounded color="primary" @click="handleConfirm">
-          Import
-        </v-btn>
-        <v-btn
-          block
-          outlined
-          depressed
-          rounded
-          color="error"
-          class="mt-3"
-          @click="handleCancel"
-        >
-          Cancel
-        </v-btn>
+    <f-bottom-sheet
+      v-model="dialog"
+      title="Confirm Import?"
+      wapper-in-desktop="dialog"
+      :dialog-props="{ maxWidth: 360 }"
+    >
+      <div class="px-5">
+        <div class="label-1">Client ID</div>
+        <div class="mt-2 account-field">
+          {{ keystore && keystore.client_id }}
+        </div>
       </div>
+
+      <v-layout justify-space-around class="mt-5">
+        <f-button text color="label" @click="handleCancel"> Cancel </f-button>
+
+        <f-button text color="primary" @click="handleConfirm">
+          Import
+        </f-button>
+      </v-layout>
     </f-bottom-sheet>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import MixinAccount, {
   MixinAccount as Account
 } from "@foxone/mixin-api/keyring";
-import AccountItem from "../account/AccountItem.vue";
 
-@Component({
-  components: {
-    AccountItem
-  }
-})
+@Component
 class ImportKeyAction extends Vue {
-  @Prop({ type: Boolean, default: false }) policiesAccepted!: boolean;
-
-  @Prop({ type: Boolean, default: false }) checkPoliciesAccepted!: boolean;
-
   keystore: Account | null = null;
 
   dialog = false;
@@ -79,12 +60,6 @@ class ImportKeyAction extends Vue {
   }
 
   handleSelectFile() {
-    if (this.checkPoliciesAccepted && !this.policiesAccepted) {
-      this.$emit("checkPolicies");
-
-      return;
-    }
-
     this.input.click();
   }
 
@@ -117,9 +92,11 @@ class ImportKeyAction extends Vue {
 
   handleImportSuccess() {
     this.$router.push({ name: "backup" });
+    this.$uikit.toast.success({ message: "Import Successfully" });
   }
 
   handleCancel() {
+    (this.$refs.input as any).value = "";
     this.keystore = null;
     this.dialog = false;
   }
@@ -147,5 +124,10 @@ export default ImportKeyAction;
   visibility: hidden;
   height: 0;
   width: 0;
+}
+
+.account-field {
+  word-break: break-all;
+  font-size: 14px;
 }
 </style>

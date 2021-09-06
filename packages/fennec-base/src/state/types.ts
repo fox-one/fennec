@@ -28,7 +28,7 @@ export interface AccountProvider {
 
 export interface PreferenceStore {
   completeOnboarding: boolean;
-  seletedAccount: undefined | string;
+  selectedAccount: undefined | string;
   accountProviders: AccountProvider[];
 }
 

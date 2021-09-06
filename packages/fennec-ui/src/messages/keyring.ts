@@ -37,6 +37,10 @@ export default function (sendMessage: SendMessage) {
 
     tryUnlockKeyring(password: string) {
       return sendMessage("pri_(keyring.unlock)", { password });
+    },
+
+    lockKeyring() {
+      return sendMessage("pri_(keyring.lock)");
     }
   };
 }

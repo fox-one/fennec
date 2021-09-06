@@ -39,7 +39,7 @@ export default function createHandlers(state: State) {
 
       const handler = () => {
         const accounts = state.keyring.getAccounts();
-        const current = state.preference.preference.seletedAccount;
+        const current = state.preference.preference.selectedAccount;
 
         cb({ accounts, current });
       };
@@ -85,7 +85,7 @@ export default function createHandlers(state: State) {
     },
 
     signAuthorizeToken({ data, method, uri }: SignAuthorizeTokenPayload) {
-      const selectedAccount = state.preference.preference.seletedAccount;
+      const selectedAccount = state.preference.preference.selectedAccount;
 
       if (!selectedAccount) {
         throw new Error("[code:01] No selected account");
@@ -102,7 +102,7 @@ export default function createHandlers(state: State) {
     },
 
     signClientToken(payload: SignClientTokenPayload) {
-      const selectedAccount = state.preference.preference.seletedAccount;
+      const selectedAccount = state.preference.preference.selectedAccount;
 
       if (!selectedAccount) {
         throw new Error("[code:01] No selected account");

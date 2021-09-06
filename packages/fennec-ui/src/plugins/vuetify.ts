@@ -1,43 +1,34 @@
-import en from "vuetify/es5/locale/en";
-import zh from "vuetify/es5/locale/zh-Hans";
-import ja from "vuetify/es5/locale/ja";
-import uikitEn from "@foxone/uikit/src/locales/en";
-import uikitJa from "@foxone/uikit/src/locales/ja";
-import uikitZh from "@foxone/uikit/src/locales/zh-Hans";
+import UIKit from "@foxone/uikit";
+import icons from "../utils/icons";
 
-export default {
-  lang: {
-    locales: {
-      en: {
-        ...en,
-        ...uikitEn
-      },
-      ja: {
-        ...ja,
-        ...uikitJa
-      },
-      zh: {
-        ...zh,
-        ...uikitZh
-      }
-    }
+import { mergeDeep } from "vuetify/lib/util/helpers";
+
+const options = {
+  icons: {
+    values: icons
   },
   theme: {
-    dark: false,
-    options: {
-      customProperties: true
-    },
+    dark: true,
     themes: {
       dark: {
-        accent: "#169CFE",
-        primary: "#1EA0FF",
-        secondary: "#81BEEA"
-      },
-      light: {
-        accent: "#169CFE",
-        primary: "#1EA0FF",
-        secondary: "#003d69"
+        bg_card: "#474264",
+        bg_hover: "#5D587B",
+        bg: "#393453",
+        label: "#BBB7CC",
+        text_2: "#78738F",
+        primary: "#FA7A4F",
+        secondary: "#BBB7CC",
+        white: "#FFFFFF",
+        // error & warning
+        error: "#f44c4c",
+        success: "#2CC94E",
+        warning: "#F58721",
+        info: "#0f65c7"
       }
     }
   }
 };
+
+mergeDeep(UIKit.preset, options);
+
+export default mergeDeep(UIKit.preset, options);

@@ -15,6 +15,6 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-class AccountImport extends Vue {}
-export default AccountImport;
+class AccountImportLogo extends Vue {}
+export default AccountImportLogo;
 </script>

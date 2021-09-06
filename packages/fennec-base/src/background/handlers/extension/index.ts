@@ -25,7 +25,6 @@ import {
   UpdateAccountProvidersPayload
 } from "../../types/preference";
 import type { OpenWindowPayload } from "../../types/platform";
-import type { ResetApplicationPayload } from "../../types/app";
 
 import createAuthHandlers from "./auth";
 import createKeyringHandlers from "./keyring";
@@ -82,6 +81,9 @@ export default function (state: State) {
 
       case "pri_(keyring.unlock)":
         return handlers.tryUnlockKeyring(payload as UnlockKeyringPayload);
+
+      case "pri_(keyring.lock)":
+        return handlers.lockKeyring();
 
       case "pri_(keyring.signAuthorizeToken)":
         return handlers.signAuthorizeToken(
@@ -155,7 +157,7 @@ export default function (state: State) {
 
       // App
       case "pri_(app.resetApplication)":
-        return handlers.resetApplication(payload as ResetApplicationPayload);
+        return handlers.resetApplication();
 
       default:
         throw new Error(`Unable to handle message of type ${action}`);

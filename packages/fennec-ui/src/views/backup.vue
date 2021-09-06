@@ -1,71 +1,43 @@
 <template>
-  <v-container>
-    <f-tip type="error" class="rounded tips">
-      <span>Notice:</span>
-      <br />
-      <br />
-      Keystore file is the <span class="font-weight-bold">ONLY</span> way to
-      access your assets in Mixin Network.
-      <br />
-      <br />
-      Please backup your keystore file and keep it safe.If you lost it, you
-      won't be able to log back into your wallet once you log out. There is NO
-      means to recover it.
-      <br />
-      <br />
-      If someone else has your keystore file, they will be able to access your
-      wallet. Your assets will be subjected to risks of being stolen.
-    </f-tip>
+  <div>
+    <warning>
+      <div>
+        Keystore file is the <span class="font-weight-bold">ONLY</span> way to
+        access your assets in Mixin Network.
+        <br />
+        <br />
+        Please backup your keystore file and keep it safe.If you lost it, you
+        won't be able to log back into your wallet once you log out. There is NO
+        means to recover it.
+        <br />
+        <br />
+        If someone else has your keystore file, they will be able to access your
+        wallet. Your assets will be subjected to risks of being stolen.
+      </div>
+    </warning>
 
-    <f-panel class="pa-0 mt-5">
-      <account-item
-        v-for="(account, index) in meta.accounts"
-        :id="account"
-        :key="index"
-      >
-        <template #action>
-          <action-backup-keystore :id="account">
-            <template #activator="{ on, loading }">
-              <v-btn
-                icon
-                depressed
-                x-small
-                color="primary"
-                :loading="loading"
-                v-on="on"
-              >
-                <v-icon>
-                  {{ $icons.mdiDownloadOutline }}
-                </v-icon>
-              </v-btn>
-            </template>
-          </action-backup-keystore>
-        </template>
-      </account-item>
-    </f-panel>
+    <account-backup-list class="mt-8" />
 
-    <action-backup-all-keystore />
+    <div class="text-center mt-8">
+      <action-backup-all-keystore />
 
-    <account-backup-confirm-modal />
-  </v-container>
+      <f-button text class="mt-4" @click="handleBackUpConfirm">
+        I have backuped
+      </f-button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Mixins } from "vue-property-decorator";
 import PageView from "../mixin/page";
-import { KeyringMemState } from "@foxone/fennec-base/state/keyring";
-import { PreferenceStore } from "@foxone/fennec-base/state/types";
-import AccountItem from "../components/account/AccountItem.vue";
-import ActionBackupKeystore from "../components/account/ActionBackupKeystore.vue";
 import ActionBackupAllKeystore from "../components/account/ActionBackupAllKeystore.vue";
-import AccountBackupConfirmModal from "../components/account/AccountBackupConfirmModal.vue";
+import AccountBackupList from "../components/account/AccountBackupList.vue";
 
 @Component({
   components: {
-    AccountItem,
-    ActionBackupKeystore,
-    ActionBackupAllKeystore,
-    AccountBackupConfirmModal
+    AccountBackupList,
+    ActionBackupAllKeystore
   }
 })
 class BackUpPage extends Mixins(PageView) {
@@ -79,19 +51,11 @@ class BackUpPage extends Mixins(PageView) {
     };
   }
 
-  get meta() {
-    const keyring: KeyringMemState = this.$store.state.keyring.keyring;
-    const preference: PreferenceStore = this.$store.state.preference.preference;
-    const selectedAccount = preference.seletedAccount;
-
-    return { selectedAccount, accounts: keyring.accounts };
+  handleBackUpConfirm() {
+    this.$router.push({ name: "backup-confirm" });
   }
 }
 export default BackUpPage;
 </script>
 
-<style lang="scss" scoped>
-.tips {
-  word-break: break-word;
-}
-</style>
+<style lang="scss" scoped></style>

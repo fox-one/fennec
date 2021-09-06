@@ -11,8 +11,10 @@
       "@foxone/fennec-dapp/*": ["packages/fennec-dapp/src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "types": ["webpack-env", "vuetify", "chrome", "jest"],
     "skipLibCheck": true,
     "noUnusedLocals": false
   },
+  "include": ["packages/fennec-ui/**/*.d.ts", "**/*.ts"],
   "exclude": ["node_modules", "**/build/**/*"]
 }

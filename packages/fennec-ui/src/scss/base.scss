@@ -1,0 +1,130 @@
+.title-1 {
+  font-size: 25px;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.title-2 {
+  font-size: 18px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.text-1 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.text-2 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.text-3 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.text-4 {
+  font-size: 12px;
+}
+
+.label-1 {
+  font-size: 14px;
+  color: var(--v-label-base);
+}
+
+.theme--dark.f-bottom-sheet {
+  background-color: #474264 !important;
+}
+
+.f-input.v-text-field--filled {
+  border-radius: 16px;
+  font-weight: 500;
+}
+
+.v-card__text,
+.f-bottom-sheet {
+  .f-input.v-text-field--filled .v-input__slot {
+    background-color: var(--v-bg-base);
+  }
+}
+
+.v-select,
+.v-textarea {
+  &.v-text-field--filled {
+    font-size: 16px;
+
+    & > .v-input__control > .v-input__slot {
+      overflow: hidden;
+      font-weight: 500;
+      border-radius: 16px !important;
+
+      &:before,
+      &:after {
+        content: none;
+      }
+    }
+  }
+}
+
+.f-table {
+  tr {
+    background: none !important;
+  }
+
+  td {
+    font-size: 13px !important;
+  }
+
+  thead th {
+    color: #78738f !important;
+    background-color: #433e60 !important;
+    height: 32px !important;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    box-shadow: none !important;
+  }
+
+  tr:not(:last-child) {
+    td:not(.v-data-table__mobile-row),
+    th:not(.v-data-table__mobile-row) {
+      border-bottom: thin solid rgba(255, 255, 255, 0.05) !important;
+    }
+  }
+}
+
+.f-bottom-sheet.v-bottom-sheet.v-dialog {
+  border-top-left-radius: 16px !important;
+  border-top-right-radius: 16px !important;
+}
+
+.v-overlay--active {
+  .v-overlay__scrim {
+    background: rgba(57, 52, 83, 0.8) !important;
+    backdrop-filter: blur(24px) !important;
+    opacity: 1 !important;
+  }
+}
+
+.f-bottom-sheet__close {
+  z-index: 1;
+}
+
+.v-text-field .v-input__append-inner {
+  padding-left: 0 !important;
+}
+
+.v-application .theme--dark.f-input--switch.v-input--switch.v-input--is-dirty {
+  .v-input--switch__thumb {
+    color: #fff !important;
+  }
+
+  .v-input--switch__track {
+    color: #fa7a4f !important;
+  }
+}
+
+.f-number {
+  font-feature-settings: "salt" on;
+}

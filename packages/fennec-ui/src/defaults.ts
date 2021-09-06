@@ -16,12 +16,17 @@ export const DOCS_URL = {
   MANDATED_ACCOUNT_NOTICE:
     "https://github.com/fox-one/fennec/blob/main/docs/important_notices_about_mandated_accounts/index.md",
   SWAP_TUTORIAL:
-    "https://github.com/fox-one/fennec/blob/main/docs/tutorial_on_swapping/index.md"
+    "https://github.com/fox-one/fennec/blob/main/docs/tutorial_on_swapping/index.md",
+  GITHUB: "https://github.com/fox-one/fennec",
+  TWITTER: "https://twitter.com/FoxOneTeam"
 };
 
 export const EVENTS = {
   APPLICATION_ERROR: "APPLICATION_ERROR",
-  CONFIRM_PASSWORD: "CONFIRM_PASSWORD"
+  CONFIRM_PASSWORD: "CONFIRM_PASSWORD",
+  SET_NAV_TITLE: "SET_NAV_TITLE",
+  SET_NAV_TAIL: "SET_NAV_TAIL",
+  CHECK_PRIVACY_TERMS: "CHECK_PRIVACY_TERMS"
 };
 
 export const BTC_ASSET_ID = "c6d0c728-2624-429b-8e0d-d9d19b6592fa";

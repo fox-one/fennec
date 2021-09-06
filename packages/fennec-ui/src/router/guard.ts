@@ -1,51 +1,45 @@
-import VueRouter from "vue-router";
+import { publics, lockfrees } from "./routes";
 
-export function initializeGuard(store) {
-  return !store.state.keyring.keyring.initialized;
-}
+function getRedirectLocation(store, route) {
+  const isPublic = publics.find((x) => x.name === route.name);
+  const isLockfree = lockfrees.find((x) => x.name === route.name);
 
-export function appLockedGuard(store) {
-  return !store.state.keyring.keyring.isUnlocked;
-}
+  const keyring = store.state.keyring.keyring;
+  const inited = keyring.initialized;
+  const locked = !keyring.isUnlocked;
+  const accounts = keyring.accounts;
 
-export function authorizeRequestGuard(store) {
-  const authorizeRequests = store.state.auth.authorizeRequests;
-
-  return authorizeRequests.length > 0;
-}
-
-export function transferRequestGuard(store) {
-  const transferRequests = store.state.transfer.transferRequests;
-
-  return transferRequests.length > 0;
-}
-
-export default function (store, router: VueRouter) {
-  router.beforeEach((to, _from, next) => {
-    if (initializeGuard(store)) {
-      to.name === "init" ? next() : next("init");
-
-      return;
+  if (!isPublic) {
+    if (!inited) {
+      return { name: "account-init" };
     }
 
-    if (authorizeRequestGuard(store)) {
-      to.name === "authorize" ? next() : next("authorize");
-
-      return;
+    if (!isLockfree && locked) {
+      return { name: "unlock" };
     }
 
-    if (appLockedGuard(store)) {
-      to.name === "unlock" ? next() : next("unlock");
-
-      return;
+    if (!locked && accounts.length === 0) {
+      return { name: "account-init" };
     }
+  }
 
-    if (transferRequestGuard(store)) {
-      to.name === "send-request" ? next() : next("send-request");
+  return;
+}
 
-      return;
-    }
+export function checkCurrentRouter(vm: Vue) {
+  const location = getRedirectLocation(vm.$store, vm.$route);
 
-    next();
+  if (location) {
+    vm.$router.push(location);
+  }
+}
+
+export function useGuard(vm: Vue) {
+  checkCurrentRouter(vm);
+
+  vm.$router.beforeEach((to, _from, next) => {
+    const location = getRedirectLocation(vm.$store, to);
+
+    location ? next(location) : next();
   });
 }

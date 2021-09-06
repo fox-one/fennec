@@ -45,7 +45,7 @@ class AmountInputWithFiat extends Vue {
   useFiat = false;
 
   get meta() {
-    const format = this.$utils.number.toPercision;
+    const format = this.$utils.number.format;
     const price = Number(this.asset?.price_usd ?? 0);
     let value = Number(this.inputValue || "0");
 
@@ -64,14 +64,14 @@ class AmountInputWithFiat extends Vue {
       assetAmount = price
         ? format({
             n: value / price,
-            p: this.percision
+            dp: this.percision
           })
         : "0";
     } else {
       assetAmount = value.toString();
       fiatAmount = format({
         n: value * price,
-        p: FIAT_PERCISION
+        dp: FIAT_PERCISION
       });
     }
 
@@ -87,7 +87,7 @@ class AmountInputWithFiat extends Vue {
 
   handleInput(value) {
     const percision = this.useFiat ? FIAT_PERCISION : this.percision;
-    let v = this.$utils.number.toPercision({ n: value, p: percision });
+    let v = this.$utils.number.toPrecision({ n: value, dp: percision });
 
     if (isNaN(Number(v))) {
       v = "";

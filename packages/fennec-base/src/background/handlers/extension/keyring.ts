@@ -42,7 +42,7 @@ export default function (state: State) {
     },
 
     getEncryptedPin({ password }: GetEncryptedPinPayload) {
-      const selectedAccount = state.preference.preference.seletedAccount;
+      const selectedAccount = state.preference.preference.selectedAccount;
 
       if (!selectedAccount) {
         throw new Error("[code:01] No selected account");
@@ -55,15 +55,24 @@ export default function (state: State) {
       return state.keyring.removeAccount(clientId, password);
     },
 
-    signAuthorizeToken({ data, method, uri }: SignAuthorizeTokenPayload) {
-      const selectedAccount = state.preference.preference.seletedAccount;
+    signAuthorizeToken({
+      clientId,
+      data,
+      method,
+      uri
+    }: SignAuthorizeTokenPayload) {
+      let id = clientId;
 
-      if (!selectedAccount) {
-        throw new Error("[code:01] No selected account");
+      if (!id) {
+        id = state.preference.preference.selectedAccount;
+
+        if (!id) {
+          throw new Error("[code:01] No selected account");
+        }
       }
 
       const payload = {
-        clientId: selectedAccount,
+        clientId: id,
         data,
         method: method.toUpperCase(),
         uri
@@ -74,6 +83,12 @@ export default function (state: State) {
 
     tryUnlockKeyring({ password }: UnlockKeyringPayload) {
       return state.keyring.unlock(password);
+    },
+
+    lockKeyring() {
+      state.keyring.setLocked();
+
+      return true;
     }
   };
 }

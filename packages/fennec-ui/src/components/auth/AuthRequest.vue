@@ -1,87 +1,53 @@
 <template>
-  <f-panel class="text-center">
-    <div class="mb-2">
-      <v-icon size="48" color="error">
-        {{ $icons.mdiAlert }}
-      </v-icon>
-    </div>
-    <div class="error--text f-title-1">Authorize</div>
-    <div class="f-body-2 text--secondary my-5">
+  <div class="text-center">
+    <div class="title-1 hidden-sm-and-down">Authorize</div>
+
+    <div class="my-5 text-1">
       An application, self-identifying as
       <span class="font-weight-bold text--primary">{{ meta.origin }}</span> is
       requesting access from
-      <a :href="meta.url" class="text--underlined">{{ meta.url }}</a>
     </div>
-    <f-tip type="warning" class="rounded">
+
+    <div class="bg_card text-left rounded pa-4">
+      <v-layout>
+        <v-layout align-center class="font-weight-bold">
+          <v-avatar v-if="icon" size="24" class="mr-4">
+            <v-img :src="icon" />
+          </v-avatar>
+          <span>{{ meta.origin }}</span>
+        </v-layout>
+        <v-icon>$IconLink</v-icon>
+      </v-layout>
+      <div class="label-1 mt-3">{{ meta.url }}</div>
+    </div>
+
+    <div class="error--text mt-8">
       Only approve this request if you trust the application. Approving gives
       the application access to the addresses of your accounts.
-    </f-tip>
-    <div class="my-5">
-      <v-btn
-        rounded
-        depressed
-        min-width="200"
+    </div>
+
+    <div class="mt-8 actions">
+      <f-button
+        color="white"
+        min-width="120"
+        class="black--text mr-3"
+        :loadiing="rejecting"
+        :disabled="processing"
+        @click="handleRejectRequest"
+      >
+        Reject
+      </f-button>
+      <f-button
         color="primary"
-        class="my-3"
+        min-width="120"
         :loading="approving"
         :disabled="processing"
         @click="handleApproveRequest"
       >
         Approve
-      </v-btn>
-      <v-btn
-        rounded
-        outlined
-        depressed
-        min-width="200"
-        color="error"
-        class="my-3"
-        :loadiing="rejecting"
-        :disabled="processing"
-        @click="handleRejectRequest"
-      >
-        Reject
-      </v-btn>
+      </f-button>
     </div>
-  </f-panel>
-  <!-- 
-  <v-alert
-    dense
-    outlined
-    border="left"
-    type="info"
-    :icon="$icons.mdiInformation"
-  >
-    <div class="f-body-2">
-      An application, self-identifying as
-      <span class="font-weight-bold">{{ meta.origin }}</span> is requesting
-      access from
-      <a :href="meta.url" class="text--underlined">{{ meta.url }}</a>
-    </div>
-    <v-layout class="mt-1">
-      <v-spacer />
-      <v-btn
-        small
-        text
-        color="primary"
-        :loading="approving"
-        :disabled="processing"
-        @click="handleApproveRequest"
-      >
-        Allow
-      </v-btn>
-      <v-btn
-        small
-        text
-        color="error"
-        :loadiing="rejecting"
-        :disabled="processing"
-        @click="handleRejectRequest"
-      >
-        Reject
-      </v-btn>
-    </v-layout>
-  </v-alert> -->
+  </div>
 </template>
 
 <script lang="ts">
@@ -95,6 +61,8 @@ class AuthRequest extends Vue {
   approving = false;
 
   rejecting = false;
+
+  icon = "";
 
   get processing() {
     return this.approving || this.rejecting;
@@ -110,12 +78,22 @@ class AuthRequest extends Vue {
     };
   }
 
+  async mounted() {
+    try {
+      const url = new URL(this.meta.url);
+
+      this.icon = await this.$utils.helper.getLinkIcon(url.host);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async handleApproveRequest() {
     this.approving = true;
 
     try {
       await this.$messages.approveAuthRequest(this.request.id);
-      this.$utils.helper.toast(this, { message: "Approved", color: "success" });
+      this.$uikit.toast.success({ message: "Approved", color: "success" });
       await this.handleRedirect();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
@@ -129,7 +107,7 @@ class AuthRequest extends Vue {
 
     try {
       await this.$messages.rejectAuthRequest(this.request.id);
-      this.$utils.helper.toast(this, { message: "Rejected", color: "success" });
+      this.$uikit.toast.error({ message: "Rejected", color: "success" });
       await this.handleRedirect();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
@@ -145,3 +123,22 @@ class AuthRequest extends Vue {
 }
 export default AuthRequest;
 </script>
+
+<style lang="scss" scoped>
+.error--text {
+  font-size: 12px;
+}
+
+.title-1 {
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+
+  .f-btn {
+    flex: 1;
+    max-width: 50%;
+  }
+}
+</style>

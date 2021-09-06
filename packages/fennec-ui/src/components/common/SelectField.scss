@@ -1,0 +1,22 @@
+.v-input.select-field {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  padding: 0 12px;
+  cursor: pointer;
+  background-color: var(--v-bg_card-base);
+
+  &:hover {
+    background-color: var(--v-bg_hover-base);
+  }
+
+  &.v-input--is-disabled {
+    opacity: 0.5;
+  }
+
+  .select-field--control {
+    flex: 1;
+    font-weight: 500;
+  }
+}

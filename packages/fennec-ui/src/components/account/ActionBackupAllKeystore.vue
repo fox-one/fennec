@@ -1,16 +1,9 @@
 <template>
   <div>
     <slot name="activator" :on="{ click: handleBackupAll }">
-      <v-btn
-        block
-        rounded
-        depressed
-        color="primary"
-        class="mt-5"
-        @click="handleBackupAll"
-      >
+      <f-button color="primary" @click="handleBackupAll">
         Backup All keystore
-      </v-btn>
+      </f-button>
     </slot>
   </div>
 </template>

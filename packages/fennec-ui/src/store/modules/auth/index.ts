@@ -1,21 +1,15 @@
-import type { MutationTree, Module } from "vuex";
-import type { RootState } from "../../types";
-import { State, MutationTypes } from "./types";
+import { make } from "vuex-pathify";
 
-const state: State = {
+const state: State.AuthState = {
   authorizeRequests: []
 };
 
-const mutations: MutationTree<State> = {
-  [MutationTypes.UPDATE_AUTHORIZE_URLS](state, data) {
-    state.authorizeRequests = data;
-  }
+const mutations = {
+  ...make.mutations(state)
 };
 
-const module: Module<State, RootState> = {
+export default {
   mutations,
   namespaced: true,
   state
 };
-
-export default module;

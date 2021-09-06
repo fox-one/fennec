@@ -1,43 +1,53 @@
 <template>
   <div>
-    <v-btn
-      rounded
-      block
-      depressed
-      color="error"
-      class="mt-3"
+    <slot
+      name="activator"
+      :on="{ click: handleConfirmRemove }"
       :loading="loading"
-      @click="handleConfirmRemove"
     >
-      Remove
-    </v-btn>
-    <v-dialog v-model="dialog" max-width="600">
+      <f-button
+        rounded
+        block
+        depressed
+        color="error"
+        class="mt-3"
+        :loading="loading"
+        @click="handleConfirmRemove"
+      >
+        Remove
+      </f-button>
+    </slot>
+
+    <v-dialog v-model="dialog" max-width="328">
       <v-card>
-        <v-card-title class="error--text">
-          <v-icon color="error" class="mr-1">
-            {{ $icons.mdiAlert }}
-          </v-icon>
-          Warning
+        <v-card-title class="text-center error--text title-2">
+          Are you sure you want to remove the account?
         </v-card-title>
-        <v-card-text>
-          After completing this action, we can't recover you wallet until you
-          provide the keystore file. Be sure to save keystore file before
-          deleting any account!
-          <v-checkbox
-            v-model="checkbox"
-            hide-details
-            dense
-            label="I have known the risk"
-            :off-icon="$icons.mdiCheckboxBlankCircleOutline"
-            :on-icon="$icons.mdiCheckboxMarkedCircle"
-          />
+
+        <v-card-text class="label-1 mt-4">
+          After completing this action, we
+          <span class="error--text text-uppercase">can't recover</span> you
+          wallet until you provide the keystore file. Be sure to save keystore
+          file before deleting any account!
+
+          <check-box-field :value.sync="checkbox" class="mx-n4 mt-3">
+            <template #label>
+              <div class="text-1">I have known the risk</div>
+            </template>
+          </check-box-field>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn text @click="handleCancel">Cancel</v-btn>
-          <v-btn text color="error" :disabled="!checkbox" @click="handleRemove">
-            Delete
-          </v-btn>
+
+        <v-card-actions class="justify-space-around">
+          <f-button text @click="handleCancel">Cancel</f-button>
+          <f-button
+            text
+            color="error"
+            :loading="loading"
+            :disabled="!checkbox"
+            @click="handleRemove"
+          >
+            Remove
+          </f-button>
         </v-card-actions>
       </v-card>
     </v-dialog>

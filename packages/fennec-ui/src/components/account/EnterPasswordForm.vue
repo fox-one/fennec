@@ -9,27 +9,23 @@
       @keypress.native.enter="handleSubmit"
     />
 
-    <v-btn
-      rounded
-      depressed
-      min-width="200"
+    <f-button
       color="primary"
-      class="mt-10"
+      class="mt-1"
       :loading="loading"
       :disabled="!valid"
       @click="handleSubmit"
     >
-      {{ label || "Unlock" }}
-    </v-btn>
+      {{ label }}
+    </f-button>
   </v-form>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Mixins } from "vue-property-decorator";
-import PageView from "../../mixin/page";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-class EnterPasswordForm extends Mixins(PageView) {
+class EnterPasswordForm extends Vue {
   @Prop() label!: string;
 
   loading = false;
