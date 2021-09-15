@@ -10,7 +10,7 @@ import Fennec from "@foxone/fennec-dapp/src";
 
 function useFennec(fennec: Fennec, name: string) {
   const state = reactive({
-    available: fennec.available,
+    available: fennec.isAvailable(),
     connected: false,
     connecting: false
   });
