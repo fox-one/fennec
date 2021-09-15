@@ -4,6 +4,6 @@ describe("mixin extension fennec dappf", () => {
   it("fennec should be init properly", () => {
     const fennec = new Fennec();
 
-    expect(fennec.available).toBe(false);
+    expect(fennec.isAvailable()).toBe(false);
   });
 });
