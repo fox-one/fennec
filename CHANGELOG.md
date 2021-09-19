@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.3.8
+- fix deposit warning
+- update dapp impletation
+
 ## 0.3.7
 - fix account import error
 - accounts subscribe
