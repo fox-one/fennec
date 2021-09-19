@@ -61,7 +61,7 @@ class DepositWarnModal extends Vue {
       title: `${name} Deposit`,
       logo: icon_url,
       chainLogo: chainAsset && chainAsset.icon_url,
-      tip: this.getTip(asset_id, name),
+      tip: this.getTip(chain_id, name),
       confirmations: `Deposit will arrive after at least ${confirmations} block confirmations`,
       getAttention: this.getAttention(asset_id, name),
       timerText: (this.seconds > 0 && `(${this.seconds}S)`) || ""
