@@ -62,7 +62,7 @@ Email: info@4swap.org
 
 Discord: https://discord.com/invite/cdXXBxsK3M
 
-Mixin 4swap Global Community at Mixin ID: (to be added)  
+Mixin 4swap Global Community at Mixin ID: 7000103925
 
 
 
