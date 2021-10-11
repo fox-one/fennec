@@ -4,7 +4,7 @@ export const VERSION = "v" + pkg.version;
 
 export const MIXIN_DOWNLOAD_URL = "https://mixin.one/messenger";
 
-export const FSWAP_URL = "https://f1-4swap-mtg.firesbox.com/#/swap";
+export const FSWAP_URL = "https://app.4swap.org/#/swap";
 
 export const POLICY_URL = "https://fox-one.github.io/fennec/policy";
 
