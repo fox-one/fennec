@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.2
+
+- update 4swap url
+
 ## 0.4.1
 
 - new ui design
