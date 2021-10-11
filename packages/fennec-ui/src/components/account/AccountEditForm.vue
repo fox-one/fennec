@@ -2,8 +2,10 @@
   <v-form>
     <v-layout>
       <v-flex>
-        <div class="label-1">Mixin ID</div>
-        <div class="text-2">{{ meta.mixinId }}</div>
+        <div v-show="meta.showMixinId">
+          <div class="label-1">Mixin ID</div>
+          <div class="text-2">{{ meta.mixinId }}</div>
+        </div>
       </v-flex>
 
       <image-form-item v-model="form.avatar" />
@@ -73,8 +75,10 @@ class AccountEditForm extends Vue {
 
   get meta() {
     const profile = this.profile;
+    const mixinId = profile.identity_number;
+    const showMixinId = profile.identity_number !== "0";
 
-    return { mixinId: profile.identity_number, id: profile.user_id };
+    return { mixinId, showMixinId, id: profile.user_id };
   }
 
   @Watch("user", { immediate: true })
