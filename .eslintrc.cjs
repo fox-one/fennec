@@ -2,6 +2,7 @@ const base = require("@foxone/dev/config/eslint.cjs");
 
 module.exports = {
   ...base,
+  root: true,
   ignorePatterns: [
     ".eslintrc.cjs",
     ".github/**",
@@ -19,6 +20,7 @@ module.exports = {
   rules: {
     ...base.rules,
     "vue/valid-v-slot": "off",
+    "vue/no-v-html": "off",
     "no-undef": "off",
     "sort-keys": "off",
     "@typescript-eslint/no-floating-promises": "off"
