@@ -2,7 +2,8 @@
 
 Fennec is an opensource browser extension wallet for Mixin Network.
 
-<img width="374" alt="screenshot" src="https://user-images.githubusercontent.com/67439/114180680-7b160580-997b-11eb-9639-91eb0cf79611.png">
+
+![](https://lh3.googleusercontent.com/6yvEm05DlmLsipLv_87p7lxk_INfedElWcv2L5YkB6k-pGDKBCax7EINAdveOjtH7zKq3aV6ZvRN0BjXv_l4mC5l=w640-h400-e365-rj-sc0x00ffffff)
 
 ## 0. Supported browsers
 
