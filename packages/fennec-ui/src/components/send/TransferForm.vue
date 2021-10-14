@@ -82,10 +82,6 @@ class TransferForm extends Vue {
 
   @Watch("bindForm.asset", { deep: true })
   handleAssetChange() {
-    this.bindForm.amount = "";
-    this.bindForm.opponent = "";
-    this.bindForm.memo = "";
-
     this.$router.replace({
       name: "send-transfer",
       query: { preset: this.bindForm?.asset?.asset_id ?? "" }

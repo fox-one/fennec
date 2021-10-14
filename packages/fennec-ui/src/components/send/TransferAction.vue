@@ -12,6 +12,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { CreateTransferPayload } from "@foxone/mixin-api/types";
+import { GlobalMutations } from "../../store/types";
 
 @Component
 class TransferAction extends Vue {
@@ -38,6 +39,13 @@ class TransferAction extends Vue {
       this.$uikit.toast.success({ message: "Send Successfully" });
       this.handleToSnapshot(transfer);
       this.$utils.asset.updateAsset(this, this.payload.asset_id);
+
+      if (this.payload.opponent_id) {
+        this.$store.commit(
+          GlobalMutations.UPDATE_SEND_CONTACTS,
+          this.payload.opponent_id
+        );
+      }
 
       this.$emit("success");
     } catch (error) {

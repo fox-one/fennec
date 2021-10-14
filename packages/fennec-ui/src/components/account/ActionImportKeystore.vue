@@ -11,6 +11,16 @@
       :dialog-props="{ maxWidth: 360 }"
     >
       <div class="px-5">
+        <div class="label-1">Name</div>
+        <div class="mt-2 account-field">
+          <span class="mr-2">
+            <account-avatar
+              :url="profile && profile.avatar_url"
+              class="d-flex"
+            />
+          </span>
+          <span>{{ profile && profile.full_name }}</span>
+        </div>
         <div class="label-1">Client ID</div>
         <div class="mt-2 account-field">
           {{ keystore && keystore.client_id }}
@@ -33,10 +43,18 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import MixinAccount, {
   MixinAccount as Account
 } from "@foxone/mixin-api/keyring";
+import { User } from "@foxone/mixin-api/types";
+import AccountAvatar from "../account/AccountAvatar.vue";
 
-@Component
+@Component({
+  components: {
+    AccountAvatar
+  }
+})
 class ImportKeyAction extends Vue {
   keystore: Account | null = null;
+
+  profile: User | null = null;
 
   dialog = false;
 
@@ -73,15 +91,28 @@ class ImportKeyAction extends Vue {
     reader.readAsText(file);
   }
 
-  handleLoadFile(e) {
+  async handleLoadFile(e) {
     const result = e.target?.result?.toString() ?? "";
 
     try {
       const keystore = JSON.parse(result);
 
       if (MixinAccount.checkAccount(keystore)) {
-        this.keystore = keystore;
-        this.dialog = true;
+        const endpoints = this.$utils.account.getHttpEndpoints({
+          userId: keystore.client_id,
+          sessionId: keystore.session_id,
+          privateKey: keystore.private_key
+        });
+
+        try {
+          const profile = await endpoints.getMe();
+
+          this.profile = profile;
+          this.keystore = keystore;
+          this.dialog = true;
+        } catch (error) {
+          throw new Error("Cannot access your profile with provide keystore");
+        }
       } else {
         throw new Error("Keystore file is not valid");
       }
@@ -129,5 +160,8 @@ export default ImportKeyAction;
 .account-field {
   word-break: break-all;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
 }
 </style>

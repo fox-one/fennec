@@ -41,6 +41,10 @@ const mutations = {
     state.send.contacts = temp;
   },
 
+  [MutationTypes.REMOVE_SEND_CONTACTS](state, id) {
+    state.send.contacts = state.send.contacts.filter((x) => x !== id);
+  },
+
   [MutationTypes.SET_SNAPSHOT_DETAIL](state, value) {
     state.snapshot.detail = value;
   },

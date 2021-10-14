@@ -41,6 +41,13 @@ class AccountOverview extends Mixins(PageView) {
   }
 
   handleToImport() {
+    if (this.$utils.helper.isPopup()) {
+      this.$messages.openWindow("/account/import");
+      window.close();
+
+      return;
+    }
+
     this.$router.push({ name: "account-import" });
   }
 

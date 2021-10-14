@@ -12,7 +12,12 @@
       </template>
     </f-input>
 
-    <user-item v-if="user" :id="id" @click.native="handleSelect" />
+    <user-item
+      v-if="user"
+      :id="id"
+      :clearable="false"
+      @click.native="handleSelect"
+    />
   </div>
 </template>
 
@@ -21,7 +26,6 @@ import { User } from "@foxone/mixin-api/types";
 import { Component, Vue } from "vue-property-decorator";
 import UserItem from "./UserItem.vue";
 import { Sync } from "vuex-pathify";
-import { GlobalMutations } from "@foxone/fennec-ui/store/types";
 
 @Component({
   components: {
@@ -47,13 +51,6 @@ class UserSearch extends Vue {
   async requestSearchUser() {
     try {
       this.user = await this.$endpoints.getUser(this.search);
-
-      if (this.user.user_id) {
-        this.$store.commit(
-          GlobalMutations.UPDATE_SEND_CONTACTS,
-          this.user.user_id
-        );
-      }
     } catch (error) {
       this.user = null;
     }

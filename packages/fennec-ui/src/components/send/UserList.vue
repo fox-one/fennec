@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="label-1 mb-4">Contacts</div>
+    <div v-if="!empty" class="label-1 mb-4">Contacts</div>
 
     <user-item
       v-for="(id, index) in contacts"
@@ -8,6 +8,10 @@
       :key="index"
       @click.native="handleSelect(id)"
     />
+
+    <div v-if="empty" class="append">
+      <span class="label-1 my-5">No Contacts</span>
+    </div>
   </div>
 </template>
 
@@ -24,6 +28,10 @@ import { Sync } from "vuex-pathify";
 class UserList extends Vue {
   @Sync("page/send@transferForm") form;
 
+  get empty() {
+    return this.contacts.length === 0;
+  }
+
   get contacts() {
     return this.$store.state.page.send.contacts;
   }
@@ -35,3 +43,13 @@ class UserList extends Vue {
 }
 export default UserList;
 </script>
+
+<style lang="scss" scoped>
+.append {
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+</style>

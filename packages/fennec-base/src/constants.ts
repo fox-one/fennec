@@ -6,7 +6,7 @@ const PHISHING_PAGE_REDIRECT = "/phishing";
 
 const BUILD_IN_MIXIN_ACCOUNT_PROVIDER = "https://fennec-asp.fox.one/users";
 
-const ALLOWED_PATH = ["/", "/import"];
+const ALLOWED_PATH = ["/", "/account/import"];
 
 export {
   ALLOWED_PATH,

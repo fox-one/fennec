@@ -102,23 +102,11 @@ export async function createAccountFromProvider(
     sessionId,
     keyPair.privateKey
   );
-  const http = new HttpProvider();
-  const endpoints = createEndpoint(http);
 
-  http.instance.interceptors.request.use((config) => {
-    const url = axios.getUri(config);
-    const token = signAuthenticationToken(
-      userId,
-      sessionId,
-      keyPair.privateKey,
-      config.method?.toUpperCase() ?? "",
-      url,
-      config.data ?? ""
-    );
-
-    config.headers = { ...config.headers, Authorization: `Bearer ${token}` };
-
-    return config;
+  const endpoints = getHttpEndpoints({
+    userId,
+    sessionId,
+    privateKey: keyPair.privateKey
   });
 
   await endpoints.updatePin("", encryptedPin);
@@ -132,4 +120,31 @@ export async function createAccountFromProvider(
     }),
     password
   );
+}
+
+export function getHttpEndpoints(opts: {
+  userId: string;
+  sessionId: string;
+  privateKey: string;
+}) {
+  const http = new HttpProvider();
+  const endpoints = createEndpoint(http);
+
+  http.instance.interceptors.request.use((config) => {
+    const url = axios.getUri(config);
+    const token = signAuthenticationToken(
+      opts.userId,
+      opts.sessionId,
+      opts.privateKey,
+      config.method?.toUpperCase() ?? "",
+      url,
+      config.data ?? ""
+    );
+
+    config.headers = { ...config.headers, Authorization: `Bearer ${token}` };
+
+    return config;
+  });
+
+  return endpoints;
 }
