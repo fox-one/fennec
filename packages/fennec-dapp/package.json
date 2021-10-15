@@ -1,11 +1,11 @@
 {
   "name": "@foxone/fennec-dapp",
-  "version": "0.4.4",
+  "version": "0.4.5-0",
   "description": "Fennec extension bridge",
   "license": "GPL 3.0",
   "author": "",
   "main": "index.js",
   "dependencies": {
-    "@foxone/fennec-base": "0.4.4"
+    "@foxone/fennec-base": "0.4.5-0"
   }
 }
