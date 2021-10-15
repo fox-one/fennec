@@ -55,6 +55,23 @@ const mutations = {
     }
   },
 
+  [MutationTypes.REMOVE_PAGE_DATA](state) {
+    Vue.set(state.send, "transferForm", {
+      asset: null,
+      amount: "",
+      opponent: "",
+      memo: ""
+    });
+    Vue.set(state.send, "withdrawForm", {
+      asset: null,
+      amount: "",
+      address_id: ""
+    });
+    Vue.set(state, "snapshot", {
+      detail: null
+    });
+  },
+
   ...make.mutations(state)
 };
 

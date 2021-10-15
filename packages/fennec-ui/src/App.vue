@@ -18,6 +18,7 @@ import ReactLayout from "./layouts/react/Index.vue";
 import ErrorLayout from "./layouts/error/Index.vue";
 import Modals from "./components/modals/Modals.vue";
 import { EVENTS } from "./defaults";
+import { GlobalMutations } from "./store/types";
 
 @Component({
   components: {
@@ -89,9 +90,10 @@ class App extends Vue {
   }
 
   @Watch("meta.selectedAccount")
-  handleAccountChange(value) {
+  async handleAccountChange(value) {
     if (value) {
-      this.$utils.app.loadWalletData(this);
+      await this.$utils.app.loadWalletData(this);
+      this.$store.commit(GlobalMutations.REMOVE_PAGE_DATA);
     } else {
       this.$router.push({ name: "account-import" });
     }
