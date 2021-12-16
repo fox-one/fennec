@@ -25,7 +25,7 @@ class AddressEdit extends Mixins(PageView) {
   address: Address | null = null;
 
   get title() {
-    return "Address Edit";
+    return this.$t("address.edit");
   }
 
   get addressId() {

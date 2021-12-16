@@ -1,8 +1,6 @@
 <template>
   <div>
-    <warning
-      text="Make sure your provider is reliable, otherwise you might suffer unpredictable loss."
-    />
+    <warning :text="$t('provider.add.warning')" />
 
     <account-provider-form class="mt-8" />
   </div>
@@ -20,7 +18,7 @@ import AccountProviderForm from "../../components/account/AccountProviderForm.vu
 })
 class AccountProviderAdd extends Mixins(PageView) {
   get title() {
-    return "Add Provider";
+    return this.$t("provider.add");
   }
 
   get appbar() {

@@ -1,6 +1,8 @@
 <template>
   <div class="mt-8">
-    <div class="label-1">Address</div>
+    <div class="label-1">
+      {{ $t("address") }}
+    </div>
     <v-row class="ma-0">
       <v-col cols="6" class="pl-0">
         <destination-qr-code v-bind="$attrs" />

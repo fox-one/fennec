@@ -2,7 +2,9 @@
   <div class="transfer">
     <f-loading v-if="loading" fullscreen />
     <div v-else class="text-center">
-      <div class="title-1 page-title mb-8 hidden-sm-and-down">Transfer To</div>
+      <div class="title-1 page-title mb-8 hidden-sm-and-down">
+        {{ $t("transfer.to") }}
+      </div>
 
       <asset-logo :size="32" :asset="asset" />
 
@@ -17,12 +19,12 @@
 
       <f-panel class="mt-8 text-left details">
         <div>
-          <span class="label-1">Memo:</span>
+          <span class="label-1">{{ $t("memo") }}:</span>
           <span class="">{{ meta.memo }}</span>
         </div>
 
         <div class="mt-3">
-          <span class="label-1">Mixin ID:</span>
+          <span class="label-1">{{ $t("mixin.id") }}:</span>
           <span class="">{{ meta.mixinId }}</span>
         </div>
       </f-panel>
@@ -36,7 +38,7 @@
           :disabled="meta.disabled"
           @click="handleReject"
         >
-          Reject
+          {{ $t("reject") }}
         </f-button>
         <f-button
           color="primary"
@@ -45,7 +47,7 @@
           :disabled="meta.disabled"
           @click="handlePay"
         >
-          Pay
+          {{ $t("pay") }}
         </f-button>
       </div>
     </div>
@@ -149,7 +151,9 @@ class TransferGuard extends Vue {
       this.handleToSnapshot(transfer.snapshot_id);
       this.$utils.asset.updateAsset(this, this.asset?.asset_id ?? "");
 
-      this.$uikit.toast.success({ message: "Transfer successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.transfer.successfully") as string
+      });
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

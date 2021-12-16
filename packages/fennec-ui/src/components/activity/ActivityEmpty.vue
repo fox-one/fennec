@@ -1,6 +1,8 @@
 <template>
   <div v-show="!loading && show" class="empty-no-result">
-    <span class="label-1 my-5">No Activity</span>
+    <span class="label-1 my-5">
+      {{ $t("no.activity") }}
+    </span>
   </div>
 </template>
 

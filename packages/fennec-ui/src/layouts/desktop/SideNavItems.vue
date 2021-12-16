@@ -33,12 +33,12 @@ class SideNavItems extends Vue {
     let items = [
       {
         icon: "$IconAddBold",
-        text: "Create Account",
+        text: this.$t("account.create"),
         path: "account-create"
       },
       {
         icon: "$FIconImport4PBold",
-        text: "Import Account",
+        text: this.$t("account.import"),
         path: "account-import"
       }
     ];
@@ -48,7 +48,7 @@ class SideNavItems extends Vue {
         ...items,
         {
           icon: "$FIconSetting4PFill",
-          text: "Setting",
+          text: this.$t("setting"),
           path: "setting"
         }
       ];

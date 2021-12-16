@@ -7,9 +7,9 @@
       v-else-if="!empty"
       class="empty-hint text-secondary caption text-center pa-5"
     >
-      <div v-if="filter">Not found</div>
+      <div v-if="filter">{{ $t("not.found") }}</div>
       <slot v-else name="empty">
-        {{ hint || "Data is empty" }}
+        {{ hint || $t("data.empty") }}
       </slot>
     </div>
     <slot v-else />

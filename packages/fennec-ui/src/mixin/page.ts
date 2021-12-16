@@ -1,12 +1,14 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { EVENTS } from "../defaults";
 import { GlobalMutations } from "../store/types";
+import { getLocale } from "@foxone/utils/helper";
+import dayjs from "dayjs";
 
 @Component
 class PageView extends Vue {
   isCover = false;
 
-  get title(): string {
+  get title(): any {
     return "";
   }
 
@@ -41,6 +43,15 @@ class PageView extends Vue {
     this.setProperties();
   }
 
+  setLang() {
+    const locale = getLocale();
+
+    this.$i18n.locale = locale;
+    this.$vuetify.lang.current = locale;
+
+    dayjs.locale(locale);
+  }
+
   setProperties(): void {
     const appbar = { title: this.title, ...this.appbar };
 
@@ -50,7 +61,7 @@ class PageView extends Vue {
     this.$root.$emit(EVENTS.SET_NAV_TITLE, this.titleNode);
     this.$root.$emit(EVENTS.SET_NAV_TAIL, this.tailNode);
 
-    console.log("emit events set nav tail");
+    this.setLang();
   }
 
   mounted(): void {

@@ -30,7 +30,7 @@ class TransferPage extends Mixins(PageView) {
   @Sync("page/send@transferForm") form;
 
   get title() {
-    return "Send";
+    return this.$t("send");
   }
 
   get preset() {

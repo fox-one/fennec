@@ -5,7 +5,9 @@
     <asset-actions :asset="meta.asset" class="mt-8" />
 
     <f-panel padding="0" class="mt-8 overflow-hidden">
-      <div class="detail-title">Activity</div>
+      <div class="detail-title">
+        {{ $t("activity") }}
+      </div>
       <f-divider class="hidden-md-and-up" />
       <activity-table-detail :asset="meta.asset" />
     </f-panel>
@@ -31,7 +33,7 @@ import { GlobalGetters } from "../../store/types";
 })
 class AssetDetail extends Mixins(PageView) {
   get title() {
-    return "Asset Details";
+    return this.$t("asset.details");
   }
 
   get id() {

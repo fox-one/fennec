@@ -44,7 +44,9 @@ class AssetAddItem extends Vue {
       const res = await this.$endpoints.getAsset(this.asset.asset_id);
 
       this.$store.commit(GlobalMutations.ADD_ADDITION_ASSET, res);
-      this.$uikit.toast.success({ message: "Added Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("asset.added.successfully") as string
+      });
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

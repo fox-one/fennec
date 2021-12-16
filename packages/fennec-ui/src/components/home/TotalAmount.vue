@@ -1,16 +1,6 @@
 <template>
   <div class="total-amount" :class="classes">
-    <div class="d-inline title-1 mr-4 f-number" v-html="html">
-      <!-- <span class="symbol primary--text">
-        {{ meta.symbol }}
-      </span>
-      <span class="f-number">
-        {{ meta.totalFiat }}
-      </span> -->
-    </div>
-    <!-- <span class="label-1 f-number">
-      <span>≈ {{ meta.totalBTCText }} BTC</span>
-    </span> -->
+    <div class="d-inline title-1 mr-4 f-number" v-html="html"></div>
   </div>
 </template>
 
@@ -26,27 +16,18 @@ class TotalAmount extends Vue {
 
   get meta() {
     const getters = this.$store.getters;
-    const toFiat = this.$utils.currency.toFiat;
-    const symbol = this.$utils.currency.getSymbol(this);
-    const format = this.$utils.number.format;
-
     const totalUSD = getters[GlobalGetters.TOTAL_USD];
-    const totalBTC = getters[GlobalGetters.TOTAL_BTC];
 
-    const totalFiat = toFiat(this, { n: totalUSD, intl: false });
-    const totalBTCText = format({ n: totalBTC, dp: 8 });
-
-    return {
-      symbol,
-      totalUSD,
-      totalFiat,
-      totalBTCText
-    };
+    return { totalUSD };
   }
 
   get html() {
-    const parts = this.$utils.currency.currencyIntl.formatToParts(
-      +this.meta.totalFiat
+    const parts: any = this.$utils.currency.toFiat(
+      this,
+      {
+        n: +this.meta.totalUSD
+      },
+      true
     );
 
     return parts.reduce((str, part) => {

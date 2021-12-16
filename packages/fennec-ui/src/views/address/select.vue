@@ -3,7 +3,7 @@
     <f-loading v-if="loading" :loading="loading" fullscreen />
     <div v-else>
       <action-field icon="$FIconAdd" @click.native="handleCreateAddress">
-        New {{ meta.symbol }} Address
+        {{ $t("address.new.symbol", { symbol: meta.symbol }) }}
       </action-field>
 
       <address-list :asset-id="assetId" class="mt-5" />
@@ -27,7 +27,7 @@ class AddressSelect extends Mixins(PageView) {
   loading = false;
 
   get title() {
-    return "Address";
+    return this.$t("address");
   }
 
   get assetId() {

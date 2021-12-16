@@ -1,7 +1,7 @@
 <template>
   <input-field
-    label="Forgot password?"
-    hint="If you has backed keystores, you could reset application and then import these keystore file"
+    :label="$t('password.forgot')"
+    :hint="$t('password.forgot.hint')"
     class="mt-8"
   >
     <action-reset-application>
@@ -12,7 +12,9 @@
           class="error"
           @click.native="on.click"
         >
-          <span>Reset Application</span>
+          <span>
+            {{ $t("reset.application") }}
+          </span>
         </action-field>
       </template>
     </action-reset-application>

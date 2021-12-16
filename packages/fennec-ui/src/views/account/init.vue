@@ -10,14 +10,16 @@
     </div>
 
     <div class="text-1 text-center my-8">
-      Please create a Mixin Network Account with one of the following ways
+      {{ $t("account.init.hint") }}
     </div>
 
     <privacy-policies :accepted.sync="accepted" />
 
     <f-button block color="primary" class="my-8" @click="handleToCreate">
       <v-icon size="16">$IconAddBold</v-icon>
-      <span class="ml-2">Create Account</span>
+      <span class="ml-2">
+        {{ $t("account.create") }}
+      </span>
     </f-button>
 
     <f-button
@@ -27,7 +29,9 @@
       @click="handleToImport"
     >
       <v-icon size="16">$FIconImport4PBold</v-icon>
-      <span class="ml-2">Import Account</span>
+      <span class="ml-2">
+        {{ $t("account.import") }}
+      </span>
     </f-button>
   </div>
 </template>

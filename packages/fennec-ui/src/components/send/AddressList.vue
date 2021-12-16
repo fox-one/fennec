@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="label-1">Addresses</div>
+    <div class="label-1">
+      {{ $t("addresses") }}
+    </div>
 
     <div class="mt-3">
       <f-loading v-if="loading" />

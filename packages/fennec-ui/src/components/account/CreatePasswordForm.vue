@@ -2,7 +2,7 @@
   <v-form v-model="valid" class="form mt-3">
     <f-input
       v-model.trim="password"
-      label="Password"
+      :label="$t('password')"
       type="password"
       :hide-details="false"
       :rules="rules.password"
@@ -11,7 +11,7 @@
 
     <f-input
       v-model.trim="confirmPassword"
-      label="Confirm password"
+      :label="$t('password.confirm')"
       type="password"
       :hide-details="false"
       :rules="rules.confirmPassword"
@@ -19,9 +19,11 @@
     />
 
     <v-layout justify-space-around>
-      <f-button text color="label" @click="handleCancel"> Cancel </f-button>
+      <f-button text color="label" @click="handleCancel">
+        {{ $t("cancel") }}
+      </f-button>
       <f-button text :disabled="!valid" color="primary" @click="handleSubmit">
-        Confirm
+        {{ $t("confirm") }}
       </f-button>
     </v-layout>
   </v-form>
@@ -42,12 +44,13 @@ class CreatePasswordForm extends Vue {
     return {
       password: [
         (v: string) =>
-          v.length >= 6 || "password should has at least 6 letters",
+          v.length >= 6 || this.$t("message.password.letters.least"),
         (v: string) =>
-          v.length <= 18 || "password should has at last 18 letters"
+          v.length <= 18 || this.$t("message.password.letters.last")
       ],
       confirmPassword: [
-        (v: string) => v === this.password || "password is not the same"
+        (v: string) =>
+          v === this.password || this.$t("message.password.not.same")
       ]
     };
   }

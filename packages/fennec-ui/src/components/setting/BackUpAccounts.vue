@@ -8,7 +8,7 @@
           class="mb-3"
           @click.native="on.click"
         >
-          <span>Backup</span>
+          <span>{{ $t("backup") }}</span>
         </action-field>
       </template>
     </action-back-up-all-keystore>

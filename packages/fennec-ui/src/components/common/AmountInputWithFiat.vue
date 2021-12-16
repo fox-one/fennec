@@ -3,7 +3,7 @@
     <f-input
       ref="input"
       type="number"
-      label="Amount"
+      :label="$t('amount')"
       :value="inputValue"
       @input="handleInput"
     >

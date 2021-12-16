@@ -20,7 +20,7 @@ import UserList from "../../components/send/UserList.vue";
 })
 class ContactsPage extends Mixins(PageView) {
   get title() {
-    return "Select Contacts";
+    return this.$t("select.contacts");
   }
 }
 export default ContactsPage;

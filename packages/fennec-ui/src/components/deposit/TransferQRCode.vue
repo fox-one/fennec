@@ -10,9 +10,11 @@
           />
         </span>
         <div @click="handleToMixin">
-          <div class="label-1">Scan QRCode with</div>
+          <div class="label-1">{{ $t("scan.qr") }}</div>
           <div>
-            <span class="font-weight-bold">Mixin Messenger</span>
+            <span class="font-weight-bold">
+              {{ $t("mixin.messenger") }}
+            </span>
             <v-icon>$FIconUpRight</v-icon>
           </div>
         </div>

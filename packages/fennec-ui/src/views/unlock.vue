@@ -7,13 +7,17 @@
       :src="require('../assets/images/icon-locked.png')"
     />
 
-    <div class="my-8 text-1">Need password to unlock</div>
+    <div class="my-8 text-1">
+      {{ $t("password.need.unlock") }}
+    </div>
 
     <enter-password-form label="Unlock" />
 
     <f-button small text class="help" @click="handleToHelp">
       <v-icon size="16">$FIconHelp3PFill</v-icon>
-      <span class="ml-2">Need help ?</span>
+      <span class="ml-2">
+        {{ $t("need.help") }}
+      </span>
     </f-button>
   </div>
 </template>

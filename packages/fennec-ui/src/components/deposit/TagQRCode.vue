@@ -1,6 +1,8 @@
 <template>
   <qr-code-field v-if="text" :text="text">
-    <template #title> Step 2 : Copy Memo </template>
+    <template #title>
+      {{ $t("deposit.step2.title") }}
+    </template>
     <template #foot>
       <v-layout align-center>
         <v-flex class="text mr-4">

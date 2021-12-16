@@ -40,14 +40,14 @@ class SendMethodModal extends Vue {
   items = [
     {
       icon: require("../../assets/images/icon-mixin.png"),
-      name: "Contact",
-      desc: "Mixin Messenger contact",
+      name: this.$t("contact"),
+      desc: this.$t("contact.desc"),
       value: "contact"
     },
     {
       icon: require("../../assets/images/icon-address.png"),
-      name: "Address",
-      desc: "Specific Address",
+      name: this.$t("address"),
+      desc: this.$t("address.desc"),
       value: "address"
     }
   ];

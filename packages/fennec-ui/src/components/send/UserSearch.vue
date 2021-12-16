@@ -3,7 +3,7 @@
     <f-input
       v-model="search"
       clearable
-      placeholder="Search with Mixin ID"
+      :placeholder="$t('search.user.id')"
       @blur="requestSearchUser"
       @keypress.enter="requestSearchUser"
     >

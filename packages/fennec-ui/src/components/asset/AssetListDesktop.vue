@@ -57,11 +57,16 @@ class AssetListDesktop extends Vue {
 
   get headers() {
     return [
-      { text: "Asset", value: "id", align: "start", sortable: false },
-      { text: "Value Now", value: "amount", sortable: false },
-      { text: "Price", value: "price", sortable: false, align: "right" },
+      { text: this.$t("asset"), value: "id", align: "start", sortable: false },
+      { text: this.$t("value.now"), value: "amount", sortable: false },
       {
-        text: "Impact of price",
+        text: this.$t("price"),
+        value: "price",
+        sortable: false,
+        align: "right"
+      },
+      {
+        text: this.$t("impact.price"),
         value: "change",
         sortable: false,
         align: "right"

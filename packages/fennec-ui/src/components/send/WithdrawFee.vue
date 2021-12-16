@@ -2,7 +2,11 @@
   <warning v-if="meta.show">
     <div>
       {{
-        `A transaction fee of ${meta.fee} ${meta.feeAssetSymbol} is required for withdrawing ${meta.symbol}`
+        $t("fee.withdraw", {
+          fee: meta.fee,
+          feeAssetSymbol: meta.feeAssetSymbol,
+          symbol: meta.symbol
+        })
       }}
     </div>
   </warning>

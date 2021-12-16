@@ -1,17 +1,19 @@
 <template>
   <div>
     <f-button min-width="200" color="primary" @click="handleSelectFile">
-      Import keystore
+      {{ $t("import.keystore") }}
     </f-button>
     <input ref="input" type="file" class="input" @change="handleInputChange" />
     <f-bottom-sheet
       v-model="dialog"
-      title="Confirm Import?"
       wapper-in-desktop="dialog"
+      :title="$t('confirm.import')"
       :dialog-props="{ maxWidth: 360 }"
     >
       <div class="px-5">
-        <div class="label-1">Name</div>
+        <div class="label-1">
+          {{ $t("name") }}
+        </div>
         <div class="mt-2 account-field">
           <span class="mr-2">
             <account-avatar
@@ -21,17 +23,21 @@
           </span>
           <span>{{ profile && profile.full_name }}</span>
         </div>
-        <div class="label-1">Client ID</div>
+        <div class="label-1">
+          {{ $t("client.id") }}
+        </div>
         <div class="mt-2 account-field">
           {{ keystore && keystore.client_id }}
         </div>
       </div>
 
       <v-layout justify-space-around class="mt-5">
-        <f-button text color="label" @click="handleCancel"> Cancel </f-button>
+        <f-button text color="label" @click="handleCancel">
+          {{ $t("cancel") }}
+        </f-button>
 
         <f-button text color="primary" @click="handleConfirm">
-          Import
+          {{ $t("import") }}
         </f-button>
       </v-layout>
     </f-bottom-sheet>
@@ -111,10 +117,10 @@ class ImportKeyAction extends Vue {
           this.keystore = keystore;
           this.dialog = true;
         } catch (error) {
-          throw new Error("Cannot access your profile with provide keystore");
+          throw new Error(this.$t("error.cannot.access.keystore") as string);
         }
       } else {
-        throw new Error("Keystore file is not valid");
+        throw new Error(this.$t("error.keystore.invalid") as string);
       }
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
@@ -123,7 +129,9 @@ class ImportKeyAction extends Vue {
 
   handleImportSuccess() {
     this.$router.push({ name: "backup" });
-    this.$uikit.toast.success({ message: "Import Successfully" });
+    this.$uikit.toast.success({
+      message: this.$t("message.import.successfully") as string
+    });
   }
 
   handleCancel() {

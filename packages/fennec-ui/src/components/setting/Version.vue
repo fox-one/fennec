@@ -2,14 +2,14 @@
   <div class="text-center text-4 mt-16">
     <p class="ma-0">
       <a :href="meta.POLICY_URL" target="_blank" class="white--text">
-        Privacy Policy
+        {{ $t("privacy.policy") }}
       </a>
       <span> · </span>
       <a :href="meta.TERMS_URL" target="_blank" class="white--text">
-        Terms of Use
+        {{ $t("terms.use") }}
       </a>
     </p>
-    <p class="ma-0 label--text mt-2">Version: {{ meta.version }}</p>
+    <p class="ma-0 label--text mt-2">{{ $t("version") }}: {{ meta.version }}</p>
   </div>
 </template>
 

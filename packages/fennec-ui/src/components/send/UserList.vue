@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="!empty" class="label-1 mb-4">Contacts</div>
+    <div v-if="!empty" class="label-1 mb-4">
+      {{ $t("contacts") }}
+    </div>
 
     <user-item
       v-for="(id, index) in contacts"
@@ -10,7 +12,9 @@
     />
 
     <div v-if="empty" class="append">
-      <span class="label-1 my-5">No Contacts</span>
+      <span class="label-1 my-5">
+        {{ $t("contacts.empty") }}
+      </span>
     </div>
   </div>
 </template>

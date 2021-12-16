@@ -1,6 +1,6 @@
 <template>
   <page-warning ref="warning" color="#BBB7CC">
-    For first deposit to a new address, please try a small amount!
+    {{ $t("deposit.warning") }}
     <br />
     <br />
     {{ meta.tip }}
@@ -34,11 +34,11 @@ class DepositWarnModal extends Vue {
     const chainAsset = this.mergedAssets.find((x) => x.asset_id === chain_id);
 
     return {
-      title: `${name} Deposit`,
+      title: this.$t("deposit.title", { name }),
       logo: icon_url,
       chainLogo: chainAsset && chainAsset.icon_url,
       tip: this.getTip(chain_id, name),
-      confirmations: `Deposit will arrive after at least ${confirmations} block confirmations`,
+      confirmations: this.$t("deposit.confirmations", { confirmations }),
       getAttention: this.getAttention(asset_id, name)
     };
   }
@@ -53,24 +53,24 @@ class DepositWarnModal extends Vue {
   getAttention(id, name) {
     switch (id) {
       case EOS_ASSET_ID:
-        return `Attention: Please try a small amount for the first deposit. Both a Memo and an Address are required to successfully deposit your ${name}.`;
+        return this.$t("deposit.attention.eos", { name });
       default:
-        return "For first deposit to a new address, please try a small amount!";
+        return this.$t("deposit.attention.try");
     }
   }
 
   getTip(id, name) {
     switch (id) {
       case BTC_ASSET_ID:
-        return "This address only supports BTC and Omni USDT.";
+        return this.$t("deposit.tip.btc");
       case EOS_ASSET_ID:
-        return "This address supports all base on EOS tokens, such as EOS, IQ, BLACK, OCT, KARMA, etc.";
+        return this.$t("deposit.tip.eos");
       case ETHEREUM_ASSET_ID:
-        return "This address supports all ERC-20 tokens, such as ETH, XIN, TUSD, HT, LOOM, LEO, etc.";
+        return this.$t("deposit.tip.eth");
       case TRON_ASSET_ID:
-        return "This address supports all TRC-10 and TRC-20 tokens, such as TRX, BTT, USDT-TRON, etc.";
+        return this.$t("deposit.tip.tron");
       default:
-        return `This address only supports ${name}.`;
+        return this.$t("deposit.tip.default", { name });
     }
   }
 }

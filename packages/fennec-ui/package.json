@@ -8,7 +8,7 @@
     "@foxone/icons": "3.0.1-28",
     "@foxone/mixin-api": "^0.1.5",
     "@foxone/uikit": "3.0.1-28",
-    "@foxone/utils": "^0.2.12",
+    "@foxone/utils": "^0.2.19",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
     "cheerio": "^1.0.0-rc.10",

@@ -1,11 +1,15 @@
 <template>
   <div v-show="show">
     <div v-if="!!filter" class="empty-no-result">
-      <span class="label-1">No Result</span>
+      <span class="label-1">
+        {{ $t("no.result") }}
+      </span>
     </div>
     <div v-else class="empty-no-result">
       <v-img :src="require('../../assets/images/no-assets.png')" />
-      <span class="label-1 my-5">No Assets</span>
+      <span class="label-1 my-5">
+        {{ $t("no.assets") }}
+      </span>
     </div>
   </div>
 </template>

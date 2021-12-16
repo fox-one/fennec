@@ -21,7 +21,7 @@
   "dependencies": {
     "@foxone/dev": "^0.2.18",
     "@foxone/mixin-api": "^0.1.5",
-    "@foxone/utils": "^0.1.2"
+    "@foxone/utils": "^0.2.18"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

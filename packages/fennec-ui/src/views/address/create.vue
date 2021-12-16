@@ -18,7 +18,7 @@ import AddressForm from "../../components/send/AddressForm.vue";
 })
 class AddressCreate extends Mixins(PageView) {
   get title() {
-    return `Create ${this.meta.symbol} Address`;
+    return this.$t("create.address.symbol", { symbol: this.meta.symbol });
   }
 
   get assetId() {

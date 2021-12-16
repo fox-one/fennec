@@ -17,13 +17,13 @@
       color="primary"
       @click="handleReload"
     >
-      Reload
+      {{ $t("reload") }}
     </f-button>
 
     <action-backup-all-keystore>
       <template #activator="{ on }">
         <f-button min-width="240" color="primary" class="mb-5" v-on="on">
-          Backup All Keystore
+          {{ $t("backup.all.keystore") }}
         </f-button>
       </template>
     </action-backup-all-keystore>

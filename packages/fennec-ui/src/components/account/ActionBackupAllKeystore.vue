@@ -2,7 +2,7 @@
   <div>
     <slot name="activator" :on="{ click: handleBackupAll }">
       <f-button color="primary" @click="handleBackupAll">
-        Backup All keystore
+        {{ $t("backup.all.keystore") }}
       </f-button>
     </slot>
   </div>

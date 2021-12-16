@@ -2,7 +2,7 @@
   <div>
     <slot name="activator" :on="{ click: handleBackUp }" :loading="loading">
       <f-button block color="primary" :loading="loading" @click="handleBackUp">
-        Backup
+        {{ $t("backup") }}
       </f-button>
     </slot>
   </div>

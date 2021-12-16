@@ -3,7 +3,7 @@
     v-model="bindSearch"
     hide-details
     clearable
-    placeholder="Search"
+    :placeholder="$t('search')"
     :class="classes"
   >
   </search-input>

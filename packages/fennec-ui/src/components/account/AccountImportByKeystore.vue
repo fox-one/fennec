@@ -2,7 +2,7 @@
   <f-panel>
     <div class="text-center">
       <div class="mt-3 text-2">
-        Import a bot account from Mixin Developer Dashboard
+        {{ $t("import.from.dashborad") }}
       </div>
       <div class="mt-6 mb-3">
         <action-import-keystore v-bind="$attrs" v-on="$listeners" />

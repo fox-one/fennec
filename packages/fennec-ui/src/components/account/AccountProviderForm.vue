@@ -1,10 +1,10 @@
 <template>
   <v-form v-model="valid">
-    <input-field label="Provider Address">
+    <input-field :label="$t('provider.address')">
       <v-textarea
         v-model="provider"
         filled
-        placeholder="Input..."
+        :placeholder="$t('input')"
         :rules="rules.value"
       />
     </input-field>
@@ -16,7 +16,7 @@
         :min-width="200"
         @click="handleSubmit"
       >
-        Submit
+        {{ $t("submit") }}
       </f-button>
     </div>
   </v-form>
@@ -38,7 +38,7 @@ class AccountProviderForm extends Vue {
 
   get rules() {
     return {
-      value: [(v) => !!v || "Provider URL is required"]
+      value: [(v) => !!v || this.$t("message.provider.url.require")]
     };
   }
 
@@ -72,7 +72,9 @@ class AccountProviderForm extends Vue {
       Vue.set(providers, index, { type: "custom", value: this.provider });
       await this.$messages.updateAccountProviders(providers);
 
-      this.$uikit.toast.success({ message: "Edit Provider Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.edit.provider.successfully") as string
+      });
       this.$router.back();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
@@ -90,7 +92,9 @@ class AccountProviderForm extends Vue {
         { type: "custom", value: this.provider }
       ]);
 
-      this.$uikit.toast.success({ message: "Add Provider Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.add.provider.successfully") as string
+      });
       this.$router.back();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

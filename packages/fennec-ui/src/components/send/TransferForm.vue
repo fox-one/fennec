@@ -1,6 +1,6 @@
 <template>
   <v-form v-model="valid">
-    <input-field label="Sending Assets">
+    <input-field :label="$t('sending.asset')">
       <asset-amount-input
         v-model="bindForm.amount"
         :asset.sync="bindForm.asset"
@@ -8,7 +8,7 @@
       />
     </input-field>
 
-    <input-field label="Send To" class="mt-5">
+    <input-field :label="$t('send.to')" class="mt-5">
       <contact-field
         :id="bindForm.opponent"
         :rules="rules.opponent"
@@ -16,8 +16,8 @@
       />
     </input-field>
 
-    <input-field label="Memo" class="mt-5">
-      <f-input v-model="bindForm.memo" placeholder="Optional" />
+    <input-field :label="$t('memo')" class="mt-5">
+      <f-input v-model="bindForm.memo" :placeholder="$t('optional')" />
     </input-field>
 
     <div class="text-center mt-5">
@@ -54,17 +54,17 @@ class TransferForm extends Vue {
       asset: [
         () => {
           if (!this.bindForm.amount || !this.bindForm.asset) {
-            return "Asset and Amount is required";
+            return this.$t("message.asset.or.amount.require");
           }
 
           if (+this.bindForm.amount <= 0) {
-            return "Amount is not valid";
+            return this.$t("message.amount.invalid");
           }
 
           return true;
         }
       ],
-      opponent: [(v) => !!v || "Opponent is required"]
+      opponent: [(v) => !!v || this.$t("message.opponent.require")]
     };
   }
 

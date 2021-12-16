@@ -65,24 +65,24 @@ class ActivityListDesktop extends Vue {
   get headers() {
     return [
       {
-        text: "Transaction Type",
+        text: this.$t("transaction.type"),
         value: "text",
         align: "start",
         sortable: false
       },
       {
-        text: "Amount",
+        text: this.$t("amount"),
         value: "amount",
         sortable: false
       },
       {
-        text: "Value Now",
+        text: this.$t("value.now"),
         value: "amountFiat",
         sortable: false,
         align: "right"
       },
       {
-        text: "Date",
+        text: this.$t("date"),
         value: "createdAtText",
         sortable: false,
         align: "right"

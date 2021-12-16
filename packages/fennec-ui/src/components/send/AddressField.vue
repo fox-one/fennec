@@ -10,7 +10,9 @@
       <div v-if="!!id">
         {{ address && address.label }}
       </div>
-      <div v-else class="label-1">Select From Address</div>
+      <div v-else class="label-1">
+        {{ $t("select.from.address") }}
+      </div>
     </div>
   </select-field>
 </template>

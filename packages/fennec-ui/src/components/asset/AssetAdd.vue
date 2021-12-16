@@ -1,6 +1,8 @@
 <template>
   <div class="asset-add">
-    <span v-if="!meta.smAndDown" class="mr-2">Add Asset</span>
+    <span v-if="!meta.smAndDown" class="mr-2">
+      {{ $t("asset.add") }}
+    </span>
     <v-btn small icon>
       <v-icon size="20"> $FIconAdd </v-icon>
     </v-btn>

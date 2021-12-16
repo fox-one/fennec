@@ -1,16 +1,20 @@
 <template>
   <v-form v-model="valid">
-    <input-field label="Host Provider">
+    <input-field :label="$t('host.provider')">
       <account-provider-field v-model="provider" />
     </input-field>
 
-    <input-field label="Wallet Name" class="mt-8">
-      <f-input v-model="name" placeholder="Wallet Name" :rules="rules.name" />
+    <input-field :label="$t('wallet.name')" class="mt-8">
+      <f-input
+        v-model="name"
+        :placeholder="$t('wallet.name')"
+        :rules="rules.name"
+      />
     </input-field>
 
     <paragraph-item
-      title="Important notices about mandated accounts"
-      text="After you have created an account using the account service provider, please be sure to set a strong password and backup the keystore you just created to a safe place. If you lost your keystore, Fennec won't be able to help you recover it. You will forever lose the access to your assets."
+      :title="$t('import.by.provider.notice.title')"
+      :text="$t('import.by.provider.notice.text')"
     />
 
     <div class="text-center mt-8">
@@ -21,7 +25,7 @@
         :disabled="meta.disabled"
         @click="handleCreate"
       >
-        Create Account
+        {{ $t("account.create") }}
       </f-button>
     </div>
   </v-form>
@@ -54,7 +58,7 @@ class AccountImportWithProvider extends Vue {
 
   get rules() {
     return {
-      name: [(v) => !!v || "Please give a default name for your wallet"]
+      name: [(v) => !!v || this.$t("message.wallet.name.require")]
     };
   }
 

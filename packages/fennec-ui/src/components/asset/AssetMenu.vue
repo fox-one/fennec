@@ -17,7 +17,9 @@
         class="error"
         @click.native="handleRemove"
       >
-        <div class="mr-6">Remove Asset</div>
+        <div class="mr-6">
+          {{ $t("remove.asset") }}
+        </div>
       </action-field>
     </div>
   </v-menu>

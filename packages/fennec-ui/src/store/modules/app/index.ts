@@ -5,7 +5,8 @@ export const initSettings: any = {
   colorStyle: "green_down_red_up",
   currency: "USD",
   dark: false,
-  provider: ""
+  provider: "",
+  hideSmallAssets: false
 };
 
 const state: State.AppState = {

@@ -1,7 +1,7 @@
 <template>
   <input-field
-    label="Contact Fox.ONE support"
-    hint="If you encounter a problem you can't solve, or have a better suggestion for a product, please feel free to contact us"
+    :label="$t('contact.support')"
+    :hint="$t('contact.support.hint')"
     class="mt-8"
   >
     <div class="bg_card rounded overflow-hidden">

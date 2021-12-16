@@ -5,7 +5,9 @@
         <v-icon color="bg">$FIconArrowDownBold</v-icon>
       </v-btn>
 
-      <div class="action-text">Receive</div>
+      <div class="action-text">
+        {{ $t("receive") }}
+      </div>
     </div>
 
     <send-method-modal :asset="asset">
@@ -15,7 +17,9 @@
             <v-icon color="bg" class="icon-up">$FIconArrowDownBold</v-icon>
           </v-btn>
 
-          <div class="action-text">Send</div>
+          <div class="action-text">
+            {{ $t("send") }}
+          </div>
         </div>
       </template>
     </send-method-modal>
@@ -25,7 +29,9 @@
         <v-icon color="bg">$FIconConvertDirectionBold</v-icon>
       </v-btn>
 
-      <div class="action-text">Swap</div>
+      <div class="action-text">
+        {{ $t("swap") }}
+      </div>
     </div>
   </div>
 </template>

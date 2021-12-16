@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <f-tip type="warning" class="mb-5">
-      Only approve this request if you trust the application. Approving gives
-      the application access to the addresses of your accounts.
+      {{ $t("auth.tip") }}
     </f-tip>
     <auth-request
       v-for="(request, index) in requests"
@@ -25,7 +24,7 @@ import AuthRequest from "../components/auth/AuthRequest.vue";
 })
 class AuthorizePage extends Mixins(PageView) {
   get title() {
-    return "AuthRequests";
+    return this.$t("auth.requests");
   }
 
   get appbar() {

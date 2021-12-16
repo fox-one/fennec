@@ -73,48 +73,53 @@ class SnapshotDetails extends Vue {
 
     return [
       {
-        title: "Confirming",
+        title: this.$t("confirming"),
         value: meta,
         show: !!progress,
         component: "snapshot-progress"
       },
-      { title: "Value Now", value: amountFiat, show: true },
+      { title: this.$t("value.now"), value: amountFiat, show: true },
       {
-        title: "Value Then",
+        title: this.$t("value.then"),
         value: amountFiatThen,
         show: Boolean(this.createdPrice)
       },
       {
-        title: "From",
+        title: this.$t("from"),
         value: opponent_id,
         show: showFrom,
         component: "snapshot-opponent"
       },
       {
-        title: "To",
+        title: this.$t("to"),
         value: opponent_id,
         show: showTo,
         component: "snapshot-opponent"
       },
-      { title: "Sender", value: sender, show: showSender },
-      { title: "Receiver", value: receiver, show: showReceiver },
-      { title: "Memo", value: memo, show: Boolean(memo), copyable: true },
-      { title: "Date", value: createdAtText, show: true },
+      { title: this.$t("sender"), value: sender, show: showSender },
+      { title: this.$t("receiver"), value: receiver, show: showReceiver },
+      {
+        title: this.$t("memo"),
+        value: memo,
+        show: Boolean(memo),
+        copyable: true
+      },
+      { title: this.$t("date"), value: createdAtText, show: true },
       { title: "Transaction Type", value: text, show: true },
       {
-        title: "Snapshot Id",
+        title: this.$t("snapshot.id"),
         value: snapshot_id,
         show: !!snapshot_id,
         copyable: true
       },
       {
-        title: "Transaction Id",
+        title: this.$t("transaction.id"),
         value: transaction_id,
         show: !!transaction_id,
         copyable: true
       },
       {
-        title: "Transaction Hash",
+        title: this.$t("transaction.hash"),
         value: transaction_hash,
         show: Boolean(transaction_hash),
         copyable: true

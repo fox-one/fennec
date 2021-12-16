@@ -1,17 +1,20 @@
 <template>
   <v-form v-model="valid">
-    <input-field
-      label="Address Note"
-      hint="Give the address a label for easy recognition"
-    >
-      <f-input v-model="form.label" placeholder="Enter Address Note" />
+    <input-field :label="$t('address.note')" :hint="$t('address.note.hint')">
+      <f-input
+        v-model="form.label"
+        :placeholder="$t('address.note.placeholder')"
+      />
     </input-field>
 
-    <input-field label="Address" :hint="`Address to receive ${meta.symbol}`">
+    <input-field
+      :label="$t('address')"
+      :hint="$t('address.hint', { symbol: meta.symbol })"
+    >
       <v-textarea
         v-model="form.destination"
         filled
-        placeholder="Enter Address"
+        :placeholder="$t('address.placeholder')"
       />
     </input-field>
 
@@ -24,7 +27,7 @@
         @click="handleToggleTag"
       >
         <v-flex>
-          If there is an address label, digital ID or remarks, you can use Memo
+          {{ $t("address.use.memo") }}
         </v-flex>
         <span class="icon">
           <v-btn icon small>
@@ -34,12 +37,12 @@
       </v-layout>
 
       <v-expand-transition>
-        <input-field
-          v-if="expand"
-          label="Memo"
-          hint="Address label, digital ID or remarks"
-        >
-          <v-textarea v-model="form.tag" filled placeholder="Enter Memo" />
+        <input-field v-if="expand" :label="$t('memo')" :hint="$t('memo.hint')">
+          <v-textarea
+            v-model="form.tag"
+            filled
+            :placeholder="$t('memo.placeholder')"
+          />
         </input-field>
       </v-expand-transition>
 
@@ -53,7 +56,7 @@
         color="primary"
         @click="handleSave"
       >
-        Save
+        {{ $t("save") }}
       </f-button>
     </div>
   </v-form>
@@ -89,8 +92,8 @@ class AddressForm extends Vue {
 
   get rules() {
     return {
-      label: [(v) => !!v || "Label is required"],
-      destination: [(v) => !!v || "Address is required"]
+      label: [(v) => !!v || this.$t("message.label.required")],
+      destination: [(v) => !!v || this.$t("message.address.required")]
     };
   }
 
@@ -135,7 +138,9 @@ class AddressForm extends Vue {
         asset_id: this.asset?.asset_id ?? "",
         pin
       });
-      this.$uikit.toast.success({ message: "Saved successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.saved.successfully") as string
+      });
       this.$router.back();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

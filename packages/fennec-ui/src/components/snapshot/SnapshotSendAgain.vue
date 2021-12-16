@@ -1,6 +1,8 @@
 <template>
   <div v-if="show" class="text-center">
-    <f-button color="primary" @click="handleSendAgain"> Send Again </f-button>
+    <f-button color="primary" @click="handleSendAgain">
+      {{ $t("send.again") }}
+    </f-button>
   </div>
 </template>
 

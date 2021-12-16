@@ -51,7 +51,9 @@ class AccountProviderList extends Vue {
         this.provider = this.meta.providers?.[0]?.value || "";
       }
 
-      this.$uikit.toast.success({ message: "Remove Provider Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.remove.provider.successfully") as string
+      });
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

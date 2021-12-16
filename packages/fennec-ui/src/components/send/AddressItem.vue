@@ -80,7 +80,9 @@ class AddressItem extends Vue {
         this.form.address_id = "";
       }
 
-      this.$uikit.toast.success({ message: "Deleted Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.delete.successfully") as string
+      });
       this.$emit("reload");
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

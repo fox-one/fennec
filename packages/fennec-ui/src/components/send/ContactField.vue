@@ -7,7 +7,9 @@
   >
     <div>
       <user-avatar v-if="Boolean(id)" :id="id" />
-      <div v-else class="label-1">Select From Contacts</div>
+      <div v-else class="label-1">
+        {{ $t("select.from.contacts") }}
+      </div>
     </div>
   </select-field>
 </template>

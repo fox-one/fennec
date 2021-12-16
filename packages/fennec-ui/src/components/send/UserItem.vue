@@ -8,7 +8,7 @@
 
     <v-flex class="ml-4">
       <div class="font-weight-bold">{{ meta.name }}</div>
-      <div class="label-1">Mixin ID: {{ meta.mixinId }}</div>
+      <div class="label-1">{{ $t("mixin.id") }}: {{ meta.mixinId }}</div>
     </v-flex>
 
     <v-btn v-if="clearable" icon small @click.stop="handleRemoveContact">

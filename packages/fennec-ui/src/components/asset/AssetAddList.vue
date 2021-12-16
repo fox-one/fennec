@@ -14,7 +14,9 @@
       </div>
 
       <div v-else class="append">
-        <span class="label-1 my-5">No Result</span>
+        <span class="label-1 my-5">
+          {{ $t("no.result") }}
+        </span>
       </div>
     </div>
   </div>

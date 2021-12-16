@@ -16,7 +16,7 @@ import AccountProviderList from "../../components/account/AccountProviderList.vu
 })
 class AccountProviderPage extends Mixins(PageView) {
   get title() {
-    return "Custom Providers";
+    return this.$t("custom.providers");
   }
 
   get appbar() {

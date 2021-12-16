@@ -3,10 +3,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 import utils from "@foxone/utils";
 
-export function errorToast(
-  vm: Vue,
-  error: { description?: string; message?: string; code?: string | number }
-): void {
+export function errorToast(vm: Vue, error: any): void {
   const message = error?.description || error?.message || "";
   const code = error.code || "";
 

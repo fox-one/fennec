@@ -2,17 +2,13 @@
   <div>
     <warning>
       <div>
-        Keystore file is the <span class="font-weight-bold">ONLY</span> way to
-        access your assets in Mixin Network.
+        {{ $t("back.warn1") }}
         <br />
         <br />
-        Please backup your keystore file and keep it safe.If you lost it, you
-        won't be able to log back into your wallet once you log out. There is NO
-        means to recover it.
+        {{ $t("back.warn2") }}
         <br />
         <br />
-        If someone else has your keystore file, they will be able to access your
-        wallet. Your assets will be subjected to risks of being stolen.
+        {{ $t("back.warn3") }}
       </div>
     </warning>
 
@@ -22,7 +18,7 @@
       <action-backup-all-keystore />
 
       <f-button text class="mt-4" @click="handleBackUpConfirm">
-        I have backuped
+        {{ $t("i.have.backup") }}
       </f-button>
     </div>
   </div>
@@ -42,7 +38,7 @@ import AccountBackupList from "../components/account/AccountBackupList.vue";
 })
 class BackUpPage extends Mixins(PageView) {
   get title() {
-    return "BackUp";
+    return this.$t("backup");
   }
 
   get appbar() {

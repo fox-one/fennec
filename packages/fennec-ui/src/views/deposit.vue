@@ -41,7 +41,7 @@ class DepositPage extends Mixins(PageView) {
   }
 
   get title() {
-    return "Receive";
+    return this.$t("receive");
   }
 
   get preset() {

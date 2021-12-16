@@ -2,7 +2,7 @@
   <v-form v-model="valid" class="form">
     <f-input
       v-model.trim="password"
-      label="your password"
+      :label="$t('your.password')"
       type="password"
       class="text--center"
       :rules="rules.password"
@@ -36,7 +36,7 @@ class EnterPasswordForm extends Vue {
 
   get rules() {
     return {
-      password: [(v) => !!v || "password is required"]
+      password: [(v) => !!v || this.$t("message.password.require")]
     };
   }
 

@@ -26,7 +26,7 @@
     <activity-empty :items="activities" />
 
     <table-pagination
-      no-more-data-text="No More Activity"
+      :no-more-data-text="$t('no.more.activity')"
       v-bind="$attrs"
       v-on="$listeners"
     />

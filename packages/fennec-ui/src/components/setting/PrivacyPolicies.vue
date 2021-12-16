@@ -3,23 +3,23 @@
     <check-box-field :value.sync="bindAccepted">
       <template #label>
         <p class="ma-0">
-          Accept
+          {{ $t("accept") }}
           <a
             :href="meta.POLICY_URL"
             target="_blank"
             class="white--text font-weight-bold"
             @click.stop
           >
-            Fennec Privacy Policy
+            {{ $t("fennec.privacy.policy") }}
           </a>
-          and
+          {{ $t("and") }}
           <a
             :href="meta.TERMS_URL"
             target="_blank"
             class="white--text font-weight-bold"
             @click.stop
           >
-            Fennec Terms of Use
+            {{ $t("fennec.terms.use") }}
           </a>
         </p>
       </template>

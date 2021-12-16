@@ -1,6 +1,6 @@
 <template>
   <v-form v-model="valid">
-    <input-field label="Sending Assets">
+    <input-field :label="$t('sending.asset')">
       <asset-amount-input
         v-model="bindForm.amount"
         :asset.sync="bindForm.asset"
@@ -8,7 +8,7 @@
       />
     </input-field>
 
-    <input-field label="Send To">
+    <input-field :label="$t('send.to')">
       <address-field
         :id.sync="bindForm.address_id"
         :clearable="false"
@@ -25,7 +25,7 @@
         color="primary"
         @click="handleSend"
       >
-        Send
+        {{ $t("send") }}
       </f-button>
     </div>
   </v-form>
@@ -58,17 +58,17 @@ class WithdrawForm extends Vue {
       asset: [
         () => {
           if (!this.bindForm.amount || !this.bindForm.asset) {
-            return "Asset and Amount is required";
+            return this.$t("message.asset.or.amount.require");
           }
 
           if (+this.bindForm.amount <= 0) {
-            return "Amount is not valid";
+            return this.$t("message.amount.invalid");
           }
 
           return true;
         }
       ],
-      address: [(v) => !!v || "Address is required"]
+      address: [(v) => !!v || this.$t("message.address.require")]
     };
   }
 
@@ -115,7 +115,9 @@ class WithdrawForm extends Vue {
 
       const resp = await this.$endpoints.withdraw(opts);
 
-      this.$uikit.toast.success({ message: "Send Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.send.successfully") as string
+      });
       this.handleToSnapshot(resp);
       this.handleSuccess();
       this.$utils.asset.updateAsset(this, this.bindForm.asset.asset_id);

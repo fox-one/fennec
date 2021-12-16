@@ -12,7 +12,7 @@ import AccountImportByProvider from "../../components/account/AccountImportByPro
 })
 class AccountCreatePage extends Mixins(PageView) {
   get title() {
-    return "Create Account";
+    return this.$t("account.create");
   }
 
   get appbar() {

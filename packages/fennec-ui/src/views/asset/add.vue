@@ -28,7 +28,7 @@ class AssetAdd extends Mixins(PageView) {
   assets: Asset[] = [];
 
   get title() {
-    return "Asset Add";
+    return this.$t("asset.add");
   }
 
   get meta() {

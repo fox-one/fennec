@@ -10,32 +10,34 @@
           min-width="240"
           v-on="on"
         >
-          Reset Application
+          {{ $t("reset.application") }}
         </f-button>
       </slot>
     </template>
 
     <v-card>
       <v-card-title class="text-center error--text title-2">
-        Are you sure you want to reset application?
+        {{ $t("confirm.reset.application") }}
       </v-card-title>
 
       <v-card-text class="label-1 mt-4">
-        You must know what you are to do. This action will clear all the
-        personal data in this merchine includes keystore files.
+        {{ $t("confirm.reset.application.text1") }}
         <br />
-        Make sure you have a effective backup, otherwise you might lose your
-        wallet!
+        {{ $t("confirm.reset.application.text2") }}
 
         <check-box-field :value.sync="checkbox" class="mx-n4 mt-3">
           <template #label>
-            <div class="text-1">I have known the risk</div>
+            <div class="text-1">
+              {{ $t("tip.risk.known") }}
+            </div>
           </template>
         </check-box-field>
       </v-card-text>
 
       <v-card-actions class="justify-space-around">
-        <f-button text @click="handleCancel">Cancel</f-button>
+        <f-button text @click="handleCancel">
+          {{ $t("cancel") }}
+        </f-button>
         <f-button
           text
           color="error"
@@ -43,7 +45,7 @@
           :disabled="!checkbox"
           @click="handleResetApplication"
         >
-          Reset
+          {{ $t("reset") }}
         </f-button>
       </v-card-actions>
     </v-card>

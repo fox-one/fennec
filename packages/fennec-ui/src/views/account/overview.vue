@@ -4,10 +4,10 @@
 
     <f-panel :padding="0" class="mt-4">
       <action-field icon="$FIconAdd" @click.native="handleToCreate">
-        <span>Create Account</span>
+        <span>{{ $t("account.create") }}</span>
       </action-field>
       <action-field icon="$FIconImport" @click.native="handleToImport">
-        <span>Import Account</span>
+        <span>{{ $t("account.import") }}</span>
       </action-field>
     </f-panel>
 
@@ -16,7 +16,7 @@
       class="mt-4"
       @click.native="handleToSetting"
     >
-      <span>Setting</span>
+      <span>{{ $t("setting") }}</span>
     </action-field>
   </div>
 </template>
@@ -33,7 +33,7 @@ import AccountOverviewList from "../../components/account/AccountOverviewList.vu
 })
 class AccountOverview extends Mixins(PageView) {
   get title() {
-    return "My Account";
+    return this.$t("account.my");
   }
 
   handleToCreate() {

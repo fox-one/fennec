@@ -3,7 +3,6 @@ import App from "./App.vue";
 import createStore from "./store";
 import createRouter from "./router";
 import usePlugins from "./plugins";
-import { watch as currencyWatcher } from "./utils/currency";
 
 import "./scss/index.scss";
 
@@ -12,7 +11,7 @@ export default function initializeUi(container: string) {
   const store = createStore();
   const router = createRouter();
 
-  const vm = new Vue({
+  new Vue({
     el: container,
     i18n,
     render: (h) => h(App),
@@ -20,6 +19,4 @@ export default function initializeUi(container: string) {
     store,
     vuetify
   });
-
-  currencyWatcher(vm);
 }

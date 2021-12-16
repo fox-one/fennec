@@ -57,12 +57,13 @@ class AssetTable extends Vue {
 
   get items(): TableItem[] {
     const toFiat = this.$utils.currency.toFiat;
+    const hideSmallAssets = this.$store.state.app.settings.hideSmallAssets;
 
-    return this.meta.assets.map((asset) => {
+    const items = this.meta.assets.map((asset) => {
       const amount = Number(asset.price_usd) * Number(asset.balance);
       const price = Number(asset.price_usd);
-      const amountText = toFiat(this, { n: amount });
-      const priceText = toFiat(this, { n: price });
+      const amountText = toFiat(this, { n: amount }) as string;
+      const priceText = toFiat(this, { n: price }) as string;
 
       return {
         ...asset,
@@ -73,8 +74,17 @@ class AssetTable extends Vue {
         symbol: asset.symbol,
         amount: amountText,
         price: priceText,
+        amountValue: amount,
         priceChange: asset.change_usd
       };
+    });
+
+    if (!hideSmallAssets) {
+      return items;
+    }
+
+    return items.filter((x) => {
+      return x.amountValue >= 0.01;
     });
   }
 }

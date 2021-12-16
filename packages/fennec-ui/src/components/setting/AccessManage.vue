@@ -1,5 +1,5 @@
 <template>
-  <input-field v-if="show" label="Manage Website Access" class="mb-8">
+  <input-field v-if="show" :label="$t('manage.website.access')" class="mb-8">
     <access-manage-item
       v-for="(auth, index) in authes"
       :key="index"

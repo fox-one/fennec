@@ -3,7 +3,7 @@
     <f-loading v-if="loading" fullscreen />
     <div v-else class="text-center">
       <div class="title-1 page-title mb-8 hidden-sm-and-down">
-        Multisig Transactions
+        {{ $t("multisi.transaction") }}
       </div>
 
       <asset-logo :size="64" :asset="asset" />
@@ -47,7 +47,7 @@
           :disabled="meta.disabled"
           @click="handleReject"
         >
-          Reject
+          {{ $t("reject") }}
         </f-button>
         <f-button
           color="primary"
@@ -56,7 +56,7 @@
           :disabled="meta.disabled"
           @click="handlePay"
         >
-          Pay
+          {{ $t(pay) }}
         </f-button>
       </div>
     </div>

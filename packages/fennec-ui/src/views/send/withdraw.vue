@@ -36,7 +36,7 @@ class WithdrawPage extends Mixins(PageView) {
   address: Address | null = null;
 
   get title() {
-    return "Send";
+    return this.$t("send");
   }
 
   get preset() {

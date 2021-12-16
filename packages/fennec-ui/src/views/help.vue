@@ -20,7 +20,7 @@ import ForgetPassword from "../components/setting/ForgetPassword.vue";
 })
 class HelpPage extends Mixins(PageView) {
   get title() {
-    return "Help";
+    return this.$t("help");
   }
 
   get layout() {

@@ -14,7 +14,9 @@ class ActivityTextFieldDesktop extends Vue {
     let display = text;
 
     if (component === "transaction") {
-      display = `Confirming...(${confirmations}/${threshold})`;
+      display = this.$t("transaction.confirming", {
+        text: `${confirmations}/${threshold}`
+      });
     }
 
     return display;

@@ -20,7 +20,7 @@ class AccountEditPage extends Mixins(PageView) {
   form = {};
 
   get title() {
-    return "Account Setting";
+    return this.$t("account.setting");
   }
 
   get meta() {

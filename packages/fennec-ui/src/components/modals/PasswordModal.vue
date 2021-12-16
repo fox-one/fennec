@@ -9,7 +9,7 @@
     <div v-if="dialog">
       <v-card v-if="meta.inited" flat class="pb-0 pt-5 px-4" :class="classes">
         <v-card-title class="justify-center mb-8 pa-0">
-          Confirm Password
+          {{ $t("password.confirm") }}
         </v-card-title>
         <v-card-text class="pa-0">
           <enter-password-form
@@ -22,12 +22,9 @@
       </v-card>
 
       <v-card v-else flat class="pb-0 px-4" :class="classes">
-        <warning
-          text="The password is the only way to unlock and backup your wallet."
-          class="password-warning"
-        />
+        <warning :text="$t('password.warning')" class="password-warning" />
         <v-card-title class="justify-center mb-8 pa-0">
-          Create Password
+          {{ $t("password.create") }}
         </v-card-title>
         <v-card-text class="pa-0">
           <create-password-form

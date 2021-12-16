@@ -56,7 +56,7 @@ class AssetSelect extends Vue {
   search = "";
 
   get title() {
-    return this.$vuetify.breakpoint.smAndDown ? "Select asset" : "";
+    return this.$vuetify.breakpoint.smAndDown ? this.$t("select.asset") : "";
   }
 
   get assets(): Asset[] {

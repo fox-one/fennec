@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex>
         <div v-show="meta.showMixinId">
-          <div class="label-1">Mixin ID</div>
+          <div class="label-1">{{ $t("mixin.id") }}</div>
           <div class="text-2">{{ meta.mixinId }}</div>
         </div>
       </v-flex>
@@ -11,11 +11,11 @@
       <image-form-item v-model="form.avatar" />
     </v-layout>
 
-    <input-field label="Wallet Name" class="mt-8">
-      <f-input v-model="form.name" placeholder="Input..." />
+    <input-field :label="$t('wallet.name')" class="mt-8">
+      <f-input v-model="form.name" :placeholder="$t('input')" />
     </input-field>
 
-    <div class="label-1 mb-3">More</div>
+    <div class="label-1 mb-3">{{ $t("more") }}</div>
 
     <action-back-up-keystore :id="meta.id">
       <template #activator="{ on, loading }">
@@ -25,7 +25,7 @@
           class="mb-3"
           @click.native="on.click"
         >
-          <span>Backup</span>
+          <span>{{ $t("backup") }}</span>
         </action-field>
       </template>
     </action-back-up-keystore>
@@ -38,14 +38,14 @@
           class="error"
           @click.native="on.click"
         >
-          <span>Remove Account</span>
+          <span>{{ $t("account.remove") }}</span>
         </action-field>
       </template>
     </action-remove-keystore>
 
     <div class="text-center mt-8">
       <f-button :loading="loading" color="primary" @click="handleSubmit">
-        Save
+        {{ $t("save") }}
       </f-button>
     </div>
   </v-form>
@@ -107,7 +107,9 @@ class AccountEditForm extends Vue {
         full_name: this.form.name
       });
 
-      this.$uikit.toast.success({ message: "Updated Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("updated.successfully") as string
+      });
       this.$utils.account.loadAccounts(this);
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

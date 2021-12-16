@@ -54,7 +54,9 @@ class ImgaeFormItem extends Vue {
     if (!file) return;
 
     if (file.size > 2 * 1024 * 1024) {
-      this.$uikit.toast.error({ message: "Max size is 2M" });
+      this.$uikit.toast.error({
+        message: this.$t("message.image.max.size") as string
+      });
 
       return;
     }

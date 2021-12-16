@@ -3,7 +3,9 @@
     <account-import-by-keystore />
 
     <div class="text-center my-4">
-      <a :href="href" target="_blank" class="label-1"> Instructions </a>
+      <a :href="href" target="_blank" class="label-1">
+        {{ $t("instructions") }}
+      </a>
     </div>
   </div>
 </template>
@@ -23,7 +25,7 @@ class AccountImportPage extends Mixins(PageView) {
   href = DOCS_URL.INSTRUCTIONS;
 
   get title() {
-    return "Import Account";
+    return this.$t("account.import");
   }
 
   get appbar() {

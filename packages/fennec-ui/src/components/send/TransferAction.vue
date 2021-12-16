@@ -5,7 +5,7 @@
     color="primary"
     @click="handleTransfer"
   >
-    Send
+    {{ $t("send") }}
   </f-button>
 </template>
 
@@ -36,7 +36,9 @@ class TransferAction extends Vue {
       const opts: CreateTransferPayload = { ...this.payload, pin };
       const transfer = await this.$endpoints.transfer(opts);
 
-      this.$uikit.toast.success({ message: "Send Successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.send.successfully") as string
+      });
       this.handleToSnapshot(transfer);
       this.$utils.asset.updateAsset(this, this.payload.asset_id);
 

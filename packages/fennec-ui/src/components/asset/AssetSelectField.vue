@@ -31,7 +31,7 @@ class AssetSelectField extends Vue {
 
   get meta() {
     return {
-      symbol: this.asset?.symbol ?? "Select asset",
+      symbol: this.asset?.symbol ?? this.$t("select.asset"),
       name: this.asset?.name ?? "",
       icon: this.asset?.icon_url,
       chainId: this.asset?.chain_id

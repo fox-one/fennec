@@ -2,25 +2,22 @@
   <div>
     <warning>
       <div>
-        This is so important that we thought it's not too much to emphasize once
-        again:
+        {{ $t("back.confirm.warn1") }}
         <br />
         <br />
-        Please make sure you have saved your keystore files to somewhere safe
-        and private. If not, you might lose access to your assets. And there is
-        absolutely NO WAY to recover.
+        {{ $t("back.confirm.warn2") }}
       </div>
     </warning>
 
     <check-box-field :value.sync="checked" class="mt-8">
       <template #label>
-        I confirm I’m aware and have kept the keystore files safe
+        {{ $t("back.confirm.safe") }}
       </template>
     </check-box-field>
 
     <div class="text-center mt-8">
       <f-button :disabled="!checked" color="primary" @click="handleToHome">
-        Next
+        {{ $t("next") }}
       </f-button>
     </div>
   </div>
@@ -35,7 +32,7 @@ class BackupConfirmPage extends Mixins(PageView) {
   checked = false;
 
   get title() {
-    return "BackUp Confirm";
+    return this.$t("backup.confirm");
   }
 
   get appbar() {

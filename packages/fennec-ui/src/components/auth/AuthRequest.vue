@@ -3,9 +3,9 @@
     <div class="title-1 hidden-sm-and-down">Authorize</div>
 
     <div class="my-5 text-1">
-      An application, self-identifying as
+      {{ $t("auth.request.title1") }}
       <span class="font-weight-bold text--primary">{{ meta.origin }}</span> is
-      requesting access from
+      {{ $t("auth.request.title2") }}
     </div>
 
     <div class="bg_card text-left rounded pa-4">
@@ -22,8 +22,7 @@
     </div>
 
     <div class="error--text mt-8">
-      Only approve this request if you trust the application. Approving gives
-      the application access to the addresses of your accounts.
+      {{ $t("auth.request.warning") }}
     </div>
 
     <div class="mt-8 actions">
@@ -35,7 +34,7 @@
         :disabled="processing"
         @click="handleRejectRequest"
       >
-        Reject
+        {{ $t("reject") }}
       </f-button>
       <f-button
         color="primary"
@@ -44,7 +43,7 @@
         :disabled="processing"
         @click="handleApproveRequest"
       >
-        Approve
+        {{ $t("approve") }}
       </f-button>
     </div>
   </div>
@@ -93,7 +92,10 @@ class AuthRequest extends Vue {
 
     try {
       await this.$messages.approveAuthRequest(this.request.id);
-      this.$uikit.toast.success({ message: "Approved", color: "success" });
+      this.$uikit.toast.success({
+        message: this.$t("message.approved") as string,
+        color: "success"
+      });
       await this.handleRedirect();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
@@ -107,7 +109,10 @@ class AuthRequest extends Vue {
 
     try {
       await this.$messages.rejectAuthRequest(this.request.id);
-      this.$uikit.toast.error({ message: "Rejected", color: "success" });
+      this.$uikit.toast.error({
+        message: this.$t("message.rejected") as string,
+        color: "success"
+      });
       await this.handleRedirect();
     } catch (error) {
       this.$utils.helper.errorToast(this, error);

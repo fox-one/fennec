@@ -35,7 +35,7 @@ class HomePage extends Mixins(PageView) {
   search = "";
 
   get title() {
-    return "Home";
+    return this.$t("home");
   }
 
   get appbar() {
@@ -49,7 +49,7 @@ class HomePage extends Mixins(PageView) {
   }
 
   get tabs() {
-    return [{ text: "Assets" }, { text: "Activity" }];
+    return [{ text: this.$t("assets") }, { text: this.$t("activity") }];
   }
 }
 export default HomePage;
