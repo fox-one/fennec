@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { Ticker } from "@foxone/mixin-api/types";
+import { NetworkTicker } from "@foxone/mixin-api/types";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import SnapshotOpponent from "./SnapshotOpponent.vue";
 import SnapshotProgress from "./SnapshotProgress.vue";
@@ -37,7 +37,7 @@ import { SnapshotMeta } from "../../utils/activity";
 class SnapshotDetails extends Vue {
   @Prop() snapshot!: SnapshotMeta;
 
-  @Prop() createdPrice: Ticker | null = null;
+  @Prop() createdPrice: NetworkTicker | null = null;
 
   get classes() {
     const smAndDown = this.$vuetify.breakpoint.smAndDown;

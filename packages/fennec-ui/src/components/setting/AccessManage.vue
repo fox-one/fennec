@@ -1,10 +1,12 @@
 <template>
   <input-field v-if="show" :label="$t('manage.website.access')" class="mb-8">
-    <access-manage-item
-      v-for="(auth, index) in authes"
-      :key="index"
-      :auth="auth"
-    />
+    <div class="access-items">
+      <access-manage-item
+        v-for="(auth, index) in authes"
+        :key="index"
+        :auth="auth"
+      />
+    </div>
   </input-field>
 </template>
 
@@ -45,3 +47,10 @@ class AccessManage extends Vue {
 }
 export default AccessManage;
 </script>
+
+<style lang="scss" scoped>
+.access-items {
+  max-height: 300px;
+  overflow: auto;
+}
+</style>

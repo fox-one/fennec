@@ -4,7 +4,7 @@
       <action-lock />
 
       <v-flex class="text-center">
-        <top-nav-account />
+        <account-chip @click.native="handleClick" />
       </v-flex>
 
       <action-maximize />
@@ -16,15 +16,19 @@
 import { Component, Vue } from "vue-property-decorator";
 import ActionMaximize from "../../components/common/ActionMaximize.vue";
 import ActionLock from "../../components/account/ActionLock.vue";
-import TopNavAccount from "./TopNavAccount.vue";
+import AccountChip from "../../components/account/AccountChip.vue";
 
 @Component({
   components: {
     ActionLock,
-    TopNavAccount,
+    AccountChip,
     ActionMaximize
   }
 })
-class TopNavHome extends Vue {}
+class TopNavHome extends Vue {
+  handleClick() {
+    this.$router.push({ name: "account-overview" });
+  }
+}
 export default TopNavHome;
 </script>

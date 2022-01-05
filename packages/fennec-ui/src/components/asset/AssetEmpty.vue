@@ -10,14 +10,24 @@
       <span class="label-1 my-5">
         {{ $t("no.assets") }}
       </span>
+
+      <add-default-assets v-if="noWalletAssets" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import AddDefaultAssets from "./AddDefaultAssets.vue";
+import { GlobalGetters } from "../../store/types";
 
-@Component
+import { Asset } from "@foxone/mixin-api/types";
+
+@Component({
+  components: {
+    AddDefaultAssets
+  }
+})
 class AssetEmpty extends Vue {
   @Prop() filter!: string;
 
@@ -25,6 +35,12 @@ class AssetEmpty extends Vue {
 
   get show() {
     return this.items.length === 0;
+  }
+
+  get noWalletAssets() {
+    let assets: Asset[] = this.$store.getters[GlobalGetters.GET_MERGED_ASSETS];
+
+    return assets.length === 0;
   }
 }
 export default AssetEmpty;

@@ -82,8 +82,6 @@ const actions = {
   async [ActionTypes.LOAD_ASSET]({ commit }, id) {
     const asset = await endpoints.getAsset(id);
 
-    console.log("ActionTypes.LOAD_ASSET", asset);
-
     commit(MutationTypes.SET_ASSET, asset);
   },
   async [ActionTypes.LOAD_ASSETS]({ commit, dispatch, state }) {

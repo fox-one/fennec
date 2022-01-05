@@ -19,9 +19,6 @@ export default async function () {
     const from = isExt
       ? "extension"
       : port.sender?.url || port.sender?.tab?.url || "<unknown>";
-    const source = `${from}: ${id}: ${JSON.stringify(data)}`;
-
-    console.log(`[in] ${source}`);
 
     const promise = isExt
       ? handlers.extension<typeof action>({ action, id, payload, port })
@@ -33,22 +30,9 @@ export default async function () {
           throw new Error("Port has been disconnected");
         }
 
-        console.log(
-          `[out] ${from}: ${id}: ${JSON.stringify(data)} => ${JSON.stringify(
-            res
-          )}`
-        );
-
         port.postMessage({ id, res });
       })
       .catch((err) => {
-        console.log(
-          `[error] ${from}: ${id}: ${JSON.stringify(data)} => ${JSON.stringify(
-            err
-          )}`
-        );
-        console.log(err.stack);
-
         if (port) {
           port.postMessage({ error: err.message, id });
         }

@@ -38,9 +38,9 @@ class ReactLayout extends Vue {
 
   get items() {
     return [
-      { component: "auth-react", title: "Authorize" },
-      { component: "transfer-react", title: "Transfer" },
-      { component: "multisigs-react", title: "Multisig Transactions" }
+      { component: "auth-react", title: this.$t("authorize") },
+      { component: "transfer-react", title: this.$t("transfer") },
+      { component: "multisigs-react", title: this.$t("multisig.transactions") }
     ];
   }
 

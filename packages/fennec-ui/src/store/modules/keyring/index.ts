@@ -42,8 +42,6 @@ const actions = {
       });
       const profiles = await Promise.all(actions);
 
-      console.log(actions, profiles);
-
       commit(MutationTypes.SET_PROFILES, profiles);
     }
   }

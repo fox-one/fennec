@@ -28,7 +28,7 @@ export async function selectAccount(vm: Vue, id: string): Promise<void> {
     await vm.$messages.selectAccount(id);
     await vm.$utils.app.loadWalletData(vm);
   } catch (error) {
-    //
+    // ignore
   }
 
   vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, false);
@@ -40,7 +40,7 @@ export async function loadAccounts(vm: Vue): Promise<void> {
   try {
     await vm.$store.dispatch(GlobalActions.LOAD_PROFILES);
   } catch (error) {
-    //
+    // ignore
   }
 
   vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, false);

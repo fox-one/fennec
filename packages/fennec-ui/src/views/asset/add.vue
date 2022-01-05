@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Mixins, Watch } from "vue-property-decorator";
-import { Asset } from "@foxone/mixin-api/types";
+import { NetworkTopAsset } from "@foxone/mixin-api/types";
 import PageView from "../../mixin/page";
 import AssetSearch from "../../components/asset/AssetSearch.vue";
 import AssetAddList from "../../components/asset/AssetAddList.vue";
@@ -25,7 +25,7 @@ class AssetAdd extends Mixins(PageView) {
 
   loading = false;
 
-  assets: Asset[] = [];
+  assets: NetworkTopAsset[] = [];
 
   get title() {
     return this.$t("asset.add");

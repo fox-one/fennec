@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { GlobalActions, GlobalMutations } from "../../store/types";
-import { Asset, Ticker } from "@foxone/mixin-api/types";
+import { Asset, NetworkTicker } from "@foxone/mixin-api/types";
 import { Component, Mixins, Watch } from "vue-property-decorator";
 import PageView from "../../mixin/page";
 import SnapshotAmount from "../../components/snapshot/SnapshotAmount.vue";
@@ -43,7 +43,7 @@ class SnapshotPage extends Mixins(PageView) {
 
   snapshot: SnapshotMeta | null = null;
 
-  createdPrice: Ticker | null = null;
+  createdPrice: NetworkTicker | null = null;
 
   get title(): any {
     return this.meta.text;

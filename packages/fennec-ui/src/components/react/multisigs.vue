@@ -56,7 +56,7 @@
           :disabled="meta.disabled"
           @click="handlePay"
         >
-          {{ $t(pay) }}
+          {{ $t("pay") }}
         </f-button>
       </div>
     </div>

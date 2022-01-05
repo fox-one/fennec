@@ -1,5 +1,5 @@
 <template>
-  <v-chip color="bg_card" class="account" @click="handleClick">
+  <v-chip color="bg_card" class="account">
     <v-avatar left>
       <v-img :src="meta.avatar" />
     </v-avatar>
@@ -9,16 +9,16 @@
 </template>
 
 <script lang="ts">
-import { GlobalGetters } from "@foxone/fennec-ui/store/types";
 import { Component, Vue } from "vue-property-decorator";
-import AccountAvatar from "../../components/account/AccountAvatar.vue";
+import { GlobalGetters } from "../../store/types";
+import AccountAvatar from "./AccountAvatar.vue";
 
 @Component({
   components: {
     AccountAvatar
   }
 })
-class TopNavAccount extends Vue {
+class AccountChip extends Vue {
   get meta() {
     const currentProfile = this.$store.getters[GlobalGetters.CURRENT_PROFILE];
     const avatar = currentProfile?.avatar_url ?? "";
@@ -29,17 +29,6 @@ class TopNavAccount extends Vue {
       name
     };
   }
-
-  handleClick() {
-    this.$router.push({ name: "account-overview" });
-  }
 }
-export default TopNavAccount;
+export default AccountChip;
 </script>
-
-<style lang="scss" scoped>
-.account {
-  cursor: pointer;
-  font-weight: 500;
-}
-</style>

@@ -18,7 +18,7 @@
       class="mb-1"
     />
 
-    <v-layout justify-space-around>
+    <v-layout justify-space-around class="pb-2">
       <f-button text color="label" @click="handleCancel">
         {{ $t("cancel") }}
       </f-button>

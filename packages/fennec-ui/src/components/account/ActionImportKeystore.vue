@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <v-layout justify-space-around class="mt-5">
+      <v-layout justify-space-around class="mt-5 pb-2">
         <f-button text color="label" @click="handleCancel">
           {{ $t("cancel") }}
         </f-button>

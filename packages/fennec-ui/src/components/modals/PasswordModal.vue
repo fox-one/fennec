@@ -13,7 +13,7 @@
         </v-card-title>
         <v-card-text class="pa-0">
           <enter-password-form
-            :label="'Submit'"
+            :label="$t('submit')"
             @completed="handleCompleted"
             @failed="handleFailed"
             @cancel="handleCanceled"
@@ -117,6 +117,7 @@ export default ConfirmPassowordModal;
   position: absolute;
   top: 0px;
   left: 0px;
+  right: 0;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }

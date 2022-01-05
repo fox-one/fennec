@@ -11,7 +11,7 @@
       {{ $t("password.need.unlock") }}
     </div>
 
-    <enter-password-form label="Unlock" />
+    <enter-password-form :label="$t('unlock')" />
 
     <f-button small text class="help" @click="handleToHelp">
       <v-icon size="16">$FIconHelp3PFill</v-icon>

@@ -5,9 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "@foxone/fennec-base": "^0.4.5-2",
-    "@foxone/icons": "3.0.1-28",
+    "@foxone/icons": "beta",
     "@foxone/mixin-api": "^0.1.5",
-    "@foxone/uikit": "3.0.1-28",
+    "@foxone/uikit": "beta",
     "@foxone/utils": "^0.2.19",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
