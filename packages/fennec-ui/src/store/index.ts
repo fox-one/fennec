@@ -44,6 +44,7 @@ export default function (): Store<RootState> {
           "wallet.additionAssets",
           "wallet.users",
           "page.send.contacts",
+          "page.home.category",
           "page.home.accepted",
           "page.snapshot.detail"
         ]

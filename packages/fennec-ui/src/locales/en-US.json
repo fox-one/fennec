@@ -1,5 +1,6 @@
 {
   "accept": "Accept",
+  "account": "Account",
   "account.create": "Create Account",
   "account.import": "Import Account",
   "account.import.subtitle": "Please create a Mixin Network Account with one of following ways",
@@ -148,6 +149,8 @@
   "provider.edit": "Edit Provider",
   "receive": "Receive",
   "receiver": "Receiver",
+  "receivers": "Receivers",
+  "message.pay.successfully": "Pay successfully",
   "reject": "Reject",
   "reload": "Reload",
   "remove": "Remove",

@@ -73,6 +73,7 @@ export default InformationItem;
 
   .information-title {
     color: var(--v-label-base);
+    white-space: nowrap;
   }
 
   .information-value {

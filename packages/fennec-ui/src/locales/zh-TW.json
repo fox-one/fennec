@@ -1,5 +1,6 @@
 {
   "accept": "接受",
+  "account": "Account",
   "account.create": "創建賬戶",
   "account.import": "進入賬戶",
   "account.import.subtitle": "請通過以下方式創建一個Mixin網絡賬戶",
@@ -148,6 +149,8 @@
   "provider.edit": "編輯供應商",
   "receive": "接收",
   "receiver": "收件人",
+  "receivers": "Receivers",
+  "message.pay.successfully": "Pay successfully",
   "reject": "拒絕",
   "reload": "重新載入",
   "remove": "刪除",
@@ -184,5 +187,13 @@
   "value.then": "Value Then",
   "version": "版本",
   "wallet.name": "錢包名稱",
-  "your.password": "您的密碼"
+  "your.password": "您的密碼",
+  "unlock": "Unlock",
+  "add.default.assets": "Add Default Assets",
+  "symbol": "Symbol",
+  "chain": "Chain",
+  "asset.key": "Asset Key",
+  "authorize": "Authorize",
+  "transfer": "Transfer",
+  "multisig.transactions": "Multisig Transactions"
 }

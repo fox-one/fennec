@@ -1,5 +1,6 @@
 {
   "accept": "수락",
+  "account": "Account",
   "account.create": "계정 만들기",
   "account.import": "계정 가져오기",
   "account.import.subtitle": "다음 방법 중 하나로 Mixin 네트워크 계정을 만드십시오.",
@@ -148,6 +149,8 @@
   "provider.edit": "공급자 편집",
   "receive": "받기",
   "receiver": "받는 사람",
+  "receivers": "Receivers",
+  "message.pay.successfully": "Pay successfully",
   "reject": "거부",
   "reload": "새로고침",
   "remove": "삭제",
@@ -184,5 +187,13 @@
   "value.then": "Value Then",
   "version": "버전",
   "wallet.name": "지갑 이름",
-  "your.password": "비밀번호:"
+  "your.password": "비밀번호:",
+  "unlock": "Unlock",
+  "add.default.assets": "Add Default Assets",
+  "symbol": "Symbol",
+  "chain": "Chain",
+  "asset.key": "Asset Key",
+  "authorize": "Authorize",
+  "transfer": "Transfer",
+  "multisig.transactions": "Multisig Transactions"
 }

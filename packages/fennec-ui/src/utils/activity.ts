@@ -14,6 +14,7 @@ export function getSnapshotMeta(vm: Vue, snapshot: Snapshot) {
   const source = snapshotTypeMetas[snapshot.type];
 
   const asset: Asset = getAssetById(snapshot.asset_id);
+
   const chainLogo = getChainAssetLogo(vm, asset?.chain_id ?? "");
   const symbol = asset?.symbol ?? "";
   const price = asset?.price_usd ?? 0;

@@ -93,8 +93,7 @@ class AuthRequest extends Vue {
     try {
       await this.$messages.approveAuthRequest(this.request.id);
       this.$uikit.toast.success({
-        message: this.$t("message.approved") as string,
-        color: "success"
+        message: this.$t("message.approved") as string
       });
       await this.handleRedirect();
     } catch (error) {
@@ -110,8 +109,7 @@ class AuthRequest extends Vue {
     try {
       await this.$messages.rejectAuthRequest(this.request.id);
       this.$uikit.toast.error({
-        message: this.$t("message.rejected") as string,
-        color: "success"
+        message: this.$t("message.rejected") as string
       });
       await this.handleRedirect();
     } catch (error) {

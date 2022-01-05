@@ -12,7 +12,12 @@
       <v-layout align-center>
         <v-flex class="font-weight-bold">{{ meta.name }}</v-flex>
 
-        <v-btn v-show="meta.isActive" icon small @click.stop="handleToEdit">
+        <v-btn
+          v-show="canEdit && meta.isActive"
+          icon
+          small
+          @click.stop="handleToEdit"
+        >
           <v-icon>$FIconEdit</v-icon>
         </v-btn>
       </v-layout>
@@ -32,6 +37,8 @@ import AccountAvatar from "../../components/account/AccountAvatar.vue";
 })
 class AccountOverviewItem extends Vue {
   @Prop() profile!: User;
+
+  @Prop({ type: Boolean, default: false }) canEdit!: boolean;
 
   get classes() {
     return { "account--active": this.meta.isActive };

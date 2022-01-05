@@ -11,7 +11,7 @@
         <v-card-title class="justify-center mb-8 pa-0">
           {{ $t("password.confirm") }}
         </v-card-title>
-        <v-card-text class="pa-0">
+        <v-card-text class="pa-0 pb-4">
           <enter-password-form
             :label="$t('submit')"
             @completed="handleCompleted"
@@ -26,7 +26,7 @@
         <v-card-title class="justify-center mb-8 pa-0">
           {{ $t("password.create") }}
         </v-card-title>
-        <v-card-text class="pa-0">
+        <v-card-text class="pa-0 pb-4">
           <create-password-form
             @completed="handleCompleted"
             @failed="handleFailed"

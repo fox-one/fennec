@@ -4,12 +4,13 @@
       v-for="(item, index) in items"
       :key="index"
       :profile="item"
+      :can-edit="canEdit"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import AccountOverviewItem from "./AccountOverviewItem.vue";
 
 @Component({
@@ -18,6 +19,8 @@ import AccountOverviewItem from "./AccountOverviewItem.vue";
   }
 })
 class AccountOverviewList extends Vue {
+  @Prop({ default: false, type: Boolean }) canEdit;
+
   get items() {
     const profiles = this.$store.state.keyring.profiles;
 

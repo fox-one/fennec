@@ -5,7 +5,7 @@
     <asset-actions class="mt-6" />
 
     <f-panel padding="0" class="mt-8 details">
-      <tabs v-model="category" :tabs="tabs" />
+      <home-tabs v-model="category" />
       <asset-table v-show="category === 0" />
       <activity-table-home v-show="category === 1" />
     </f-panel>
@@ -19,6 +19,7 @@ import AssetActions from "../components/asset/AssetActions.vue";
 import TotalAmount from "../components/home/TotalAmount.vue";
 import AssetTable from "../components/asset/AssetTable.vue";
 import ActivityTableHome from "../components/activity/ActivityTableHome.vue";
+import HomeTabs from "../components/home/HomeTabs.vue";
 import { Sync } from "vuex-pathify";
 
 @Component({
@@ -26,7 +27,8 @@ import { Sync } from "vuex-pathify";
     TotalAmount,
     AssetActions,
     AssetTable,
-    ActivityTableHome
+    ActivityTableHome,
+    HomeTabs
   }
 })
 class HomePage extends Mixins(PageView) {

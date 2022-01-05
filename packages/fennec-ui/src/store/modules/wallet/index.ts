@@ -44,7 +44,7 @@ const mutations = {
   [MutationTypes.SET_ASSET](state, asset) {
     const assets = state.assets.filter((x) => x.asset_id !== asset.asset_id);
 
-    state.asssets = [...assets, asset];
+    state.assets = [...assets, asset];
   },
   [MutationTypes.ADD_ADDITION_ASSET](state, asset) {
     const assets = [...state.assets, ...state.additionAssets];

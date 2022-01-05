@@ -14,10 +14,10 @@
 
     <v-list-item v-for="(item, index) in users" :key="index">
       <v-list-item-avatar>
-        <v-img :src="item.avatar_url" />
+        <v-img :src="item && item.avatar_url" />
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title> {{ item.full_name }} </v-list-item-title>
+        <v-list-item-title> {{ item && item.full_name }} </v-list-item-title>
         <v-list-item-subtitle class="caption">
           {{ item.identity_number }}
         </v-list-item-subtitle>

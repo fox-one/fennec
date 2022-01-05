@@ -18,9 +18,11 @@
       </div>
 
       <f-panel class="mt-8 text-left details">
-        <div>
+        <div class="detail-item">
           <span class="label-1">{{ $t("memo") }}:</span>
-          <span class="">{{ meta.memo }}</span>
+          <span class="detail-value">
+            {{ meta.memo }}
+          </span>
         </div>
 
         <div class="mt-3">
@@ -219,6 +221,15 @@ export default TransferGuard;
 
 .details {
   font-size: 12px;
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .detail-value {
+    word-break: break-all;
+  }
 }
 
 .actions {

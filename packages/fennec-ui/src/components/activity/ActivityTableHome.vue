@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+import { EVENTS } from "@foxone/fennec-ui/defaults";
 import { GlobalActions } from "@foxone/fennec-ui/store/types";
 import { Component, Vue, ProvideReactive, Watch } from "vue-property-decorator";
 import ActivityTable from "./ActivityTable.vue";
@@ -36,7 +37,13 @@ class ActivityTableHome extends Vue {
   }
 
   mounted() {
-    this.loadData(true);
+    if (this.empty) {
+      this.loadData(true);
+    }
+
+    this.$root.$on(EVENTS.REFRESH_ACTIVITY, () => {
+      this.loadData(true);
+    });
   }
 
   handleNext() {

@@ -45,6 +45,8 @@ class SnapshotPage extends Mixins(PageView) {
 
   createdPrice: NetworkTicker | null = null;
 
+  asset: Asset | null = null;
+
   get title(): any {
     return this.meta.text;
   }
@@ -94,8 +96,13 @@ class SnapshotPage extends Mixins(PageView) {
 
     try {
       const snapshot = await this.$endpoints.getSnapshot(this.id);
+      const snapshotMeta = getSnapshotMeta(this, snapshot);
 
-      this.snapshot = getSnapshotMeta(this, snapshot);
+      if (!snapshotMeta.asset) {
+        snapshotMeta.asset = await this.$endpoints.getAsset(snapshot.asset_id);
+      }
+
+      this.snapshot = snapshotMeta;
       this.$store.dispatch(GlobalActions.LOAD_USER, {
         id: this.snapshot?.opponent_id
       });

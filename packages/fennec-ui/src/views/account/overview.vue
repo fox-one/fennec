@@ -1,6 +1,6 @@
 <template>
   <div>
-    <account-overview-list />
+    <account-overview-list :can-edit="true" />
 
     <f-panel :padding="0" class="mt-4">
       <action-field icon="$FIconAdd" @click.native="handleToCreate">

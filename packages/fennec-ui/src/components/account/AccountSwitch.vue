@@ -1,10 +1,18 @@
 <template>
   <f-bottom-sheet v-model="dialog" wapper-in-desktop="dialog">
     <template #activator="{ on }">
-      <account-chip @click.native="on.click" />
+      <slot name="activator" :on="on">
+        <account-chip @click.native="on.click" />
+      </slot>
     </template>
 
-    <account-overview-list />
+    <div class="accounts">
+      <div class="px-4 py-6">
+        <div class="text-1 text-center mb-8">{{ $t("account.my") }}</div>
+
+        <account-overview-list />
+      </div>
+    </div>
   </f-bottom-sheet>
 </template>
 
@@ -19,6 +27,8 @@ import AccountOverviewList from "./AccountOverviewList.vue";
     AccountOverviewList
   }
 })
-class AccountSwitch extends Vue {}
+class AccountSwitch extends Vue {
+  dialog = false;
+}
 export default AccountSwitch;
 </script>

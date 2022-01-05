@@ -19,12 +19,14 @@
 
       <f-panel class="mt-8 text-left details">
         <div class="detail-item">
-          <span class="label-1">Memo:</span>
-          <span class="detail-value">{{ meta.memo }}</span>
+          <span class="label-1">{{ $t("memo") }}:</span>
+          <span class="detail-value">
+            {{ meta.memo }}
+          </span>
         </div>
 
         <div class="mt-3 detail-item">
-          <span class="label-1">Receiver:</span>
+          <span class="label-1">{{ $t("receiver") }}:</span>
 
           <div class="avatars">
             <account-avatar :size="24" :url="meta.mineIcon" />
@@ -37,6 +39,19 @@
           </div>
         </div>
       </f-panel>
+
+      <account-switch>
+        <template #activator="{ on }">
+          <f-panel class="mt-4 text-left details" v-on="on">
+            <div class="detail-item d-flex">
+              <span class="label-1">{{ $t("account") }}:</span>
+              <span class="detail-value">{{ meta.name }}</span>
+              <v-spacer />
+              <v-icon size="16">$FIconChevronRight</v-icon>
+            </div>
+          </f-panel>
+        </template>
+      </account-switch>
 
       <div class="mt-8 actions">
         <f-button
@@ -69,12 +84,15 @@ import { Asset, User } from "@foxone/mixin-api/types";
 import { Component, Vue } from "vue-property-decorator";
 import AccountAvatar from "../account/AccountAvatar.vue";
 import AccountAvatars from "../account/AccountAvatars.vue";
+import AccountSwitch from "../account/AccountSwitch.vue";
 import AssetLogo from "../asset/AssetLogo.vue";
+import { GlobalGetters } from "../../store/types";
 
 @Component({
   components: {
     AccountAvatar,
     AccountAvatars,
+    AccountSwitch,
     AssetLogo
   }
 })
@@ -113,7 +131,10 @@ class MultisigsGuard extends Vue {
     const disabled = this.paying || this.rejecting;
     const threshold = this.transactionReq?.payload.threshold;
     const total = this.users.length;
-    const title = `Receivers (${threshold}/${total})`;
+    const title = `${this.$t("receivers")} (${threshold}/${total})`;
+
+    const currentProfile = this.$store.getters[GlobalGetters.CURRENT_PROFILE];
+    const name = currentProfile?.full_name ?? "";
 
     return {
       title,
@@ -127,7 +148,8 @@ class MultisigsGuard extends Vue {
       receiversIcons,
       disabled,
       threshold,
-      total
+      total,
+      name
     };
   }
 
@@ -193,7 +215,9 @@ class MultisigsGuard extends Vue {
       this.handleToSnapshot(resp.snapshot_id);
 
       this.$utils.asset.updateAsset(this, this.asset?.asset_id ?? "");
-      this.$uikit.toast.success({ message: "Pay successfully" });
+      this.$uikit.toast.success({
+        message: this.$t("message.pay.successfully") as string
+      });
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
