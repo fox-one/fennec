@@ -12,7 +12,7 @@
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Fennec: Mixin Chrome Extension Wallet",
+    "default_title": "Fennec",
     "default_popup": "popup.html"
   },
   "content_scripts": [

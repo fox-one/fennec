@@ -2,7 +2,6 @@
 
 Fennec is an opensource browser extension wallet for Mixin Network.
 
-
 ![](https://lh3.googleusercontent.com/6yvEm05DlmLsipLv_87p7lxk_INfedElWcv2L5YkB6k-pGDKBCax7EINAdveOjtH7zKq3aV6ZvRN0BjXv_l4mC5l=w640-h400-e365-rj-sc0x00ffffff)
 
 ## 0. Supported browsers
@@ -71,9 +70,9 @@ If you are using Chrome, follow the 2nd step in "Install manually" section. If y
 1. Official provider
    - Open Fennec, create account with default provider
 2. Private provider with fennec-asp
-   - Build [fennec-asp](https://github.com/fox-one/fennec) on your machine
-   - Run server:  `./builds/fennec server --config xxx --port 9000`
-   - Get provider address by append `/users` to server.  e.g. `http://192.168.0.1:9000/users`
+   - Build [fennec-asp](https://github.com/fox-one/fennec-asp) on your machine
+   - Run server: `./builds/fennec server --config xxx --port 9000`
+   - Get provider address by append `/users` to server. e.g. `http://192.168.0.1:9000/users`
    - Add the address to Fennec - "Create Account - Custom Provider - Add Provider"
    - Create Account - please make sure the server keep running while creating account
 

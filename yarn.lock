@@ -1705,9 +1705,9 @@ __metadata:
   dependencies:
     "@foxone/fennec-base": ^0.4.5-2
     "@foxone/icons": beta
-    "@foxone/mixin-api": ^0.1.5
+    "@foxone/mixin-api": ^0.1.6
     "@foxone/uikit": beta
-    "@foxone/utils": ^0.2.19
+    "@foxone/utils": ^0.2.21
     "@mdi/js": ^5.9.55
     "@vue/composition-api": ^1.0.0-rc.3
     bignumber.js: ^9.0.0
@@ -1769,6 +1769,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@foxone/mixin-api@npm:^0.1.6":
+  version: 0.1.6
+  resolution: "@foxone/mixin-api@npm:0.1.6"
+  dependencies:
+    axios: ^0.21.1
+    browser-passworder: ^2.0.3
+    int64-buffer: ^1.0.0
+    jsonwebtoken: ^8.5.1
+    node-forge: ^0.10.0
+  checksum: ce9ffaebb732fd4d140013d6214cbd0a4c9498b6f6a249409670a1ea954a7b797b3dd16039fe939a789ea84cd77993c29ea248b8c26ff6384d804d4743af53a1
+  languageName: node
+  linkType: hard
+
 "@foxone/uikit@npm:3.0.1-51, @foxone/uikit@npm:beta":
   version: 3.0.1-51
   resolution: "@foxone/uikit@npm:3.0.1-51"
@@ -1798,14 +1811,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@foxone/utils@npm:^0.2.19":
-  version: 0.2.19
-  resolution: "@foxone/utils@npm:0.2.19"
+"@foxone/utils@npm:^0.2.21":
+  version: 0.2.21
+  resolution: "@foxone/utils@npm:0.2.21"
   dependencies:
     axios: ^0.21.1
     bignumber.js: ^9.0.1
     dayjs: ^1.10.4
-  checksum: e5ddc8de1da3ba8890f676aa907c01be07e0e3016a396f68130035cc73d13cbb6574758c26066b6b25dda32bbc059956d1eb4069cd99d0e9b23962d084f33517
+  checksum: 9f9d143227a1ee1ea5961d9d3b03a4b10fdeca8584a5858510b6b5e0854825300e3e9b2c5aebc60207019b81c77726c3af6acd93731c205456b17e1ba4048e4f
   languageName: node
   linkType: hard
 
