@@ -31,6 +31,19 @@
         </div>
       </f-panel>
 
+      <account-switch>
+        <template #activator="{ on }">
+          <f-panel class="mt-4 text-left details" v-on="on">
+            <div class="detail-item d-flex">
+              <span class="label-1">{{ $t("account") }}:</span>
+              <span class="detail-value">{{ meta.name }}</span>
+              <v-spacer />
+              <v-icon size="16">$FIconChevronRight</v-icon>
+            </div>
+          </f-panel>
+        </template>
+      </account-switch>
+
       <div class="mt-8 actions">
         <f-button
           color="white"
@@ -61,10 +74,13 @@ import { TransferReq } from "@foxone/fennec-base/state/wallet";
 import { User, Asset, CreateTransferPayload } from "@foxone/mixin-api/types";
 import { Component, Vue } from "vue-property-decorator";
 import AssetLogo from "../asset/AssetLogo.vue";
+import AccountSwitch from "../account/AccountSwitch.vue";
+import { GlobalGetters } from "../../store/types";
 
 @Component({
   components: {
-    AssetLogo
+    AssetLogo,
+    AccountSwitch
   }
 })
 class TransferGuard extends Vue {
@@ -91,6 +107,9 @@ class TransferGuard extends Vue {
     const amountText = format({ n: amount, dp: 8 });
     const fiatAmountText = toFiat(this, { n: +amount * +price });
 
+    const currentProfile = this.$store.getters[GlobalGetters.CURRENT_PROFILE];
+    const name = currentProfile?.full_name ?? "";
+
     return {
       requests,
       assetSymbol,
@@ -103,7 +122,8 @@ class TransferGuard extends Vue {
       mixinId: this.user?.identity_number,
       assetIcon: this.asset?.icon_url,
       assetName: this.asset?.name,
-      memo: this.request?.payload?.memo
+      memo: this.request?.payload?.memo,
+      name
     };
   }
 

@@ -4,7 +4,7 @@
       <f-loading color="white" size="18" width="2" class="loading" />
     </template>
     <template v-else>
-      <v-icon>{{ icon }}</v-icon>
+      <v-icon :size="iconSize">{{ icon }}</v-icon>
       <v-flex class="ml-4">
         <slot />
       </v-flex>
@@ -19,6 +19,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 class ActionField extends Vue {
   @Prop() icon!: string;
 
+  @Prop({ type: [Number, String], default: 24 }) iconSize!: number;
+
   @Prop({ type: Boolean, default: false }) loading!: boolean;
 }
 export default ActionField;
@@ -31,7 +33,7 @@ export default ActionField;
   cursor: pointer;
   align-items: center;
   padding: 0 12px;
-  font-weight: 600;
+  font-weight: 500;
 
   &:hover {
     background: var(--v-bg_hover-base);

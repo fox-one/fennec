@@ -9,7 +9,7 @@
       <slot name="activator" :on="on" />
     </template>
 
-    <div class="px-4">
+    <div class="px-4 pb-4">
       <send-method-item
         v-for="(item, index) in items"
         :key="index"

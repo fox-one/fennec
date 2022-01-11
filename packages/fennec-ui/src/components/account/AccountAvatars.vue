@@ -19,7 +19,7 @@
       <v-list-item-content>
         <v-list-item-title> {{ item && item.full_name }} </v-list-item-title>
         <v-list-item-subtitle class="caption">
-          {{ item.identity_number }}
+          {{ item && item.identity_number }}
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>

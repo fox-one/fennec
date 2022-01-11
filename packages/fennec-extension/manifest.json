@@ -12,7 +12,7 @@
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Fennec",
+    "default_title": "Fennec: Mixin Browser Wallet",
     "default_popup": "popup.html"
   },
   "content_scripts": [

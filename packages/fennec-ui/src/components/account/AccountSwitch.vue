@@ -10,7 +10,9 @@
       <div class="px-4 py-6">
         <div class="text-1 text-center mb-8">{{ $t("account.my") }}</div>
 
-        <account-overview-list />
+        <div class="accounts-list">
+          <account-overview-list />
+        </div>
       </div>
     </div>
   </f-bottom-sheet>
@@ -32,3 +34,10 @@ class AccountSwitch extends Vue {
 }
 export default AccountSwitch;
 </script>
+
+<style lang="scss" scoped>
+.accounts-list {
+  max-height: 60vh;
+  overflow: auto;
+}
+</style>

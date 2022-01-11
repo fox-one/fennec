@@ -10,12 +10,17 @@
     slider-size="2"
     @change="(v) => $emit('change', v)"
   >
-    <v-tab v-for="(tab, index) in tabs" :key="index" :ripple="false">
+    <v-tab
+      v-for="(tab, index) in tabs"
+      :key="index"
+      :ripple="false"
+      class="tab-content"
+    >
       <span>{{ tab.text }}</span>
 
-      <v-btn v-if="index === 1" icon small class="ml-2" @click="handleRefresh">
-        <v-icon>$FIconRestore</v-icon>
-      </v-btn>
+      <v-icon v-if="index === 1" size="16" class="ml-1" @click="handleRefresh">
+        $FIconRefresh4PBold
+      </v-icon>
     </v-tab>
 
     <f-divider class="tab-divider" />
@@ -48,5 +53,11 @@ export default Tabs;
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.tab-content {
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 </style>

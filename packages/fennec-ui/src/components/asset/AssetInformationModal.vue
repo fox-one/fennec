@@ -1,13 +1,16 @@
 <template>
-  <f-bottom-sheet v-model="dialog" wapper-in-desktop="dialog">
+  <f-bottom-sheet
+    v-model="dialog"
+    wapper-in-desktop="dialog"
+    :dialog-props="{ maxWidth: 327 }"
+  >
     <template #activator="{ on }">
       <slot name="activator" :on="on" />
     </template>
 
     <div class="pa-4">
-      <div class="information-title title-1">
-        <asset-logo :asset="asset" :size="32" />
-        <span class="ml-2">{{ meta.name }}</span>
+      <div class="dialog-title">
+        {{ $t("info") }}
       </div>
 
       <div class="mt-8">
@@ -17,6 +20,8 @@
           :title="item.title"
           :value="item.value"
         />
+
+        <div class="asset-warning">{{ $t("asset.key.warning") }}</div>
       </div>
     </div>
   </f-bottom-sheet>
@@ -25,7 +30,7 @@
 <script lang="ts">
 import { GlobalGetters } from "@foxone/fennec-ui/store/types";
 import { Asset } from "@foxone/mixin-api/types";
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import AssetLogo from "./AssetLogo.vue";
 
 @Component({
@@ -53,14 +58,48 @@ class AssetInformationModal extends Vue {
       name: this.asset?.name ?? ""
     };
   }
+
+  @Watch("dialog")
+  handleDialogChange(value) {
+    if (value) {
+      this.$emit("show");
+    }
+  }
 }
 export default AssetInformationModal;
 </script>
 
 <style lang="scss" scoped>
-.information-title {
+.dialog-title {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.information-item {
+  flex-direction: row !important;
+
+  ::v-deep {
+    .information-title {
+      max-width: 80px;
+      min-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 16px;
+    }
+
+    .information-value {
+      text-align: left;
+      margin-top: 0 !important;
+    }
+  }
+}
+
+.asset-warning {
+  color: var(--v-warning-base);
+  font-size: 12px;
+  padding-left: 98px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <input-field label="Wallet" class="mb-8">
     <v-layout align-center class="bg_card rounded pa-4 mb-4">
-      <v-flex>Hide Small Assets</v-flex>
+      <v-flex class="text-2">{{ $t("hide.small.assets") }}</v-flex>
       <f-switch v-model="hideSmallAssets" hide-details />
     </v-layout>
   </input-field>

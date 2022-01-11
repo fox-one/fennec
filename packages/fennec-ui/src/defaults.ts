@@ -18,7 +18,7 @@ export const DOCS_URL = {
   SWAP_TUTORIAL:
     "https://github.com/fox-one/fennec/blob/main/docs/tutorial_on_swapping/index.md",
   GITHUB: "https://github.com/fox-one/fennec",
-  TWITTER: "https://twitter.com/FoxOneTeam"
+  TWITTER: "https://twitter.com/pando_im"
 };
 
 export const EVENTS = {

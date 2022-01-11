@@ -34,7 +34,10 @@ const ficons = [
   "FIconCheck",
   "FIconArrowDownBold",
   "FIconConvertDirectionBold",
-  "FIconWarningFill"
+  "FIconWarningFill",
+  "FIconRefresh4PBold",
+  "FIconInfo4P",
+  "FIconTrash4P"
 ].reduce((m, k) => ({ ...m, [k]: { component: FIcons[k] } }), {});
 
 const icons = [
@@ -46,7 +49,8 @@ const icons = [
   "IconLink",
   "IconLinkTo",
   "IconAddBold",
-  "IconGithub"
+  "IconGithub",
+  "IconInfo"
 ].reduce((m, k) => ({ ...m, [k]: { component: k } }), {});
 
 export default {

@@ -1,10 +1,6 @@
 <template>
   <div class="asset-balance" :class="classes">
-    <asset-information-modal :asset="asset">
-      <template #activator="{ on }">
-        <asset-logo :size="32" :asset="asset" @click.native="on.click" />
-      </template>
-    </asset-information-modal>
+    <asset-logo :size="32" :asset="asset" @click.native="on.click" />
 
     <v-flex class="amount">
       <div>
@@ -20,12 +16,10 @@
 import { Asset } from "@foxone/mixin-api/types";
 import { Component, Vue, Prop } from "vue-property-decorator";
 import AssetLogo from "./AssetLogo.vue";
-import AssetInformationModal from "./AssetInformationModal.vue";
 
 @Component({
   components: {
-    AssetLogo,
-    AssetInformationModal
+    AssetLogo
   }
 })
 class AssetDetailAmount extends Vue {
