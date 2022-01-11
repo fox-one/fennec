@@ -57,9 +57,7 @@ class AddressField extends Vue {
     }
 
     try {
-      this.bindAddress = (await this.$endpoints.getWithdrawAddress(
-        this.bindId
-      )) as Address;
+      this.bindAddress = await this.$endpoints.getWithdrawAddress(this.bindId);
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }

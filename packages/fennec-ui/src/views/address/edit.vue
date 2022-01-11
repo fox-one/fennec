@@ -51,9 +51,7 @@ class AddressEdit extends Mixins(PageView) {
     this.loading = true;
 
     try {
-      this.address = (await this.$endpoints.getWithdrawAddress(
-        this.addressId
-      )) as Address;
+      this.address = await this.$endpoints.getWithdrawAddress(this.addressId);
     } catch (error) {
       this.$utils.helper.errorToast(this, error);
     }
