@@ -1,12 +1,12 @@
 <template>
-  <v-form v-model="valid" class="form">
+  <v-form v-model="valid" class="form" @submit.native.prevent>
     <f-input
       v-model.trim="password"
       :label="$t('your.password')"
       type="password"
       class="text--center"
       :rules="rules.password"
-      @keypress.native.enter="handleSubmit"
+      @keypress.native.enter.stop="handleSubmit"
     />
 
     <f-button

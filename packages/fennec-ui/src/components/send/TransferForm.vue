@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid">
+  <v-form v-model="valid" @submit.native.prevent>
     <input-field :label="$t('sending.asset')">
       <asset-amount-input
         v-model="bindForm.amount"
