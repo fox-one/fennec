@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.5.1
+
+- switch account on transfer popup
+- asset info
+- hide small assets
+- default chain assets
+- ui update
+
 ## 0.4.4
 
 - fix change account issue
