@@ -1,12 +1,12 @@
 {
   "author": "foxone",
   "description": "A wallet on Mixin Network in your browser. \n Manage your Mixin Messenger accounts without downloading the app.",
-  "homepage_url": "https://fox.one",
+  "homepage_url": "https://pando.im/fennec",
   "name": "Fennec",
   "short_name": "Fennec",
   "default_locale": "en",
   "manifest_version": 2,
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "tabs"],
   "background": {
     "scripts": ["background.js"],
     "persistent": true
