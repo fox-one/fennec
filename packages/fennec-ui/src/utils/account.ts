@@ -22,6 +22,7 @@ export async function selectAccount(vm: Vue, id: string): Promise<void> {
     return;
   }
 
+  vm.$store.commit(GlobalMutations.REMOVE_GLOBAL_SNAPSHOTS);
   vm.$store.commit(GlobalMutations.SET_KEYRING_LOADING, true);
 
   try {

@@ -14,7 +14,11 @@ const state = {
 };
 
 const mutations = {
-  ...make.mutations(state)
+  ...make.mutations(state),
+  [MutationTypes.REMOVE_GLOBAL_SNAPSHOTS](state) {
+    state.globalSnapshots = [];
+    state.globalSnapshotsEnd = false;
+  }
 };
 
 const actions = {
@@ -23,7 +27,7 @@ const actions = {
     { asset = undefined, reload = false } = {}
   ) {
     if (reload) {
-      commit("SET_SNAPSHOTS_END", false);
+      commit(MutationTypes.SET_SNAPSHOTS_END, false);
       commit(MutationTypes.SET_SNAPSHOTS, []);
     }
 
@@ -33,7 +37,7 @@ const actions = {
       {
         asset,
         onEnd: () => {
-          commit("SET_SNAPSHOTS_END", true);
+          commit(MutationTypes.SET_SNAPSHOTS_END, true);
         }
       },
       dispatch
@@ -47,7 +51,7 @@ const actions = {
     { reload = false } = {}
   ) {
     if (reload) {
-      commit("SET_GLOBAL_SNAPSHOTS_END", false);
+      commit(MutationTypes.SET_GLOBAL_SNAPSHOTS_END, false);
       commit(MutationTypes.SET_GLOBAL_SNAPSHOTS, []);
     }
 
@@ -56,7 +60,7 @@ const actions = {
       current,
       {
         onEnd: () => {
-          commit("SET_GLOBAL_SNAPSHOTS_END", true);
+          commit(MutationTypes.SET_GLOBAL_SNAPSHOTS_END, true);
         }
       },
       dispatch
