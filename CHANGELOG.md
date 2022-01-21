@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.5.4
+
+- refresh activity list after change account
+
 ## 0.5.3
 
 - remove activeTab permission
