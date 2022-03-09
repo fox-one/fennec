@@ -39,7 +39,7 @@ Clone the code
 $ git clone https://github.com/fox-one/fennec.git
 ```
 
-Build the project, and it will generate a directory at `./packages/mixin-extension/build`.
+Build the project, and it will generate a directory at `./packages/fennec-extension/build`.
 
 ```
 $ yarn
