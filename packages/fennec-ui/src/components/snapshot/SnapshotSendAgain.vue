@@ -9,9 +9,12 @@
 <script lang="ts">
 import { SnapshotMeta } from "@foxone/fennec-ui/utils/activity";
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { Sync } from "vuex-pathify";
 
 @Component
 class SnapshotSendAgain extends Vue {
+  @Sync("page/send@transferForm") form;
+
   @Prop() snapshot!: SnapshotMeta;
 
   get show() {
@@ -19,6 +22,13 @@ class SnapshotSendAgain extends Vue {
   }
 
   handleSendAgain() {
+    this.form = {
+      asset: null,
+      amount: "",
+      opponent: "",
+      memo: ""
+    };
+
     this.$router.push({
       name: "send-transfer",
       query: {

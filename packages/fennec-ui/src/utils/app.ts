@@ -29,31 +29,6 @@ export function loadMultisigsTransactionReqsFormBackground(
   return vm.$messages.subscribeMultisigsTransactionReq(
     (reqs: RawTransactionReq[]) => {
       vm.$store.commit(GlobalMutations.SET_TRANSACTION_REQUESTS, reqs);
-      // TODO: recover
-      // vm.$store.commit(GlobalMutations.SET_TRANSACTION_REQUESTS, [
-      //   {
-      //     id: "1639735731210.13",
-      //     payload: {
-      //       type: "payment",
-      //       trace_id: "43e13492-e1c7-493c-b409-893032b5da51",
-      //       asset_id: "31d2ea9c-95eb-3355-b65b-ba096853bc18",
-      //       amount: "1",
-      //       threshold: 4,
-      //       receivers: [
-      //         "5278fff7-a084-4019-b963-a7a88559d5c4",
-      //         "ab14736f-e595-4e65-9879-871819d390f5",
-      //         "8d6fb2ef-9ffb-4d9f-8e10-255a32116194",
-      //         "b7eaf2bf-207a-42c6-bc96-7731b00e6feb",
-      //         "afa1eb9d-4a6f-44d6-a9f1-05b87c2438b8",
-      //         "b7f12976-02c2-4c74-8704-f3e648e33a29"
-      //       ],
-      //       memo: "GNz+p1wFs9ySFJmDIINO91xovyYqh2yuZbKlXtQFkrlZEuw1zbZOkgoi8DvrwwrtReVrV1g/OH58LF4+yzODAA==",
-      //       created_at: "2021-12-17T10:08:50.176542638Z",
-      //       status: "pending",
-      //       code_id: "997a4de0-0d2d-4789-b400-88418fcb6ece"
-      //     }
-      //   }
-      // ]);
     }
   );
 }
@@ -121,7 +96,7 @@ export function startWalletTimer(vm: Vue) {
 
   timer = setInterval(() => {
     loadWalletData(vm, true);
-  }, 5000);
+  }, 15000);
 }
 
 export function handleError(vm: Vue, error: Error | unknown): void {

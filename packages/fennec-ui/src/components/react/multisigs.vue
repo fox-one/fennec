@@ -126,7 +126,7 @@ class MultisigsGuard extends Vue {
     const usdtAmount = +amount * +price;
     const fiatAmountText = toFiat(this, { n: usdtAmount });
     const memo = this.transactionReq?.payload.memo;
-    const receiversIcons = this.users.map((x) => x?.avatar_url);
+    const receiversIcons = this.users.map((x) => x?.avatar_url ?? "");
     const mineIcon = me?.avatar_url;
     const disabled = this.paying || this.rejecting;
     const threshold = this.transactionReq?.payload.threshold;

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import pathify from "vuex-pathify";
-import Vuex, { ModuleTree, Store, createLogger } from "vuex";
+import Vuex, { ModuleTree, Store } from "vuex";
 import { RootState } from "./types";
 import createPersistedState from "vuex-persistedstate";
 import app from "./modules/app";
@@ -36,7 +36,7 @@ export default function (): Store<RootState> {
     mutations: {},
     plugins: [
       pathify.plugin,
-      createLogger(),
+      // createLogger(),
       createPersistedState({
         key: "vuex",
         paths: [

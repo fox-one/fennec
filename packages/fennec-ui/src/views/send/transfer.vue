@@ -48,7 +48,7 @@ class TransferPage extends Mixins(PageView) {
   mounted() {
     this.setInitAsset();
 
-    if (this.opponent) {
+    if (this.opponent && !this.form.opponent) {
       this.form.opponent = this.opponent;
     }
 

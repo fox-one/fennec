@@ -119,7 +119,11 @@ const actions = {
       return user;
     }
 
-    commit("SET_USERS", await endpoints.getUser(id));
+    const resp = await endpoints.getUser(id);
+
+    commit("SET_USERS", resp);
+
+    return resp;
   },
 
   async [ActionTypes.LOAD_ME]({ commit }, { id }) {

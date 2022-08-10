@@ -5,6 +5,7 @@
       :label="$t('your.password')"
       type="password"
       class="text--center"
+      autofocus
       :rules="rules.password"
       @keypress.native.enter.stop="handleSubmit"
     />
