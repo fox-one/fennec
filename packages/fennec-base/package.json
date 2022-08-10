@@ -1,6 +1,6 @@
 {
   "name": "@foxone/fennec-base",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Fennec: Mixin Browser Wallet",
   "license": "GPL 3.0",
   "main": "index.js",
