@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.5.7
+
+- auto focus password input
+- search user issue
+- bug fix
+
 ## 0.5.4
 
 - refresh activity list after change account
