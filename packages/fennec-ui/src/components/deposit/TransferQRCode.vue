@@ -1,6 +1,14 @@
 <template>
   <qr-code-field :text="meta.text">
     <template #foot>
+      <v-layout align-center class="mb-4">
+        <v-flex class="text mr-4">
+          {{ meta.text }}
+        </v-flex>
+
+        <copy-field :text="meta.text" />
+      </v-layout>
+
       <v-layout justify-center align-center>
         <span class="mr-3">
           <v-img
@@ -9,6 +17,7 @@
             :src="require('../../assets/images/icon-mixin.png')"
           />
         </span>
+
         <div @click="handleToMixin">
           <div class="label-1">{{ $t("scan.qr") }}</div>
           <div>
@@ -55,3 +64,11 @@ class TransferQRCode extends Vue {
 }
 export default TransferQRCode;
 </script>
+
+<style lang="scss" scoped>
+.text {
+  font-weight: bold;
+  word-break: break-all;
+  text-align: center;
+}
+</style>

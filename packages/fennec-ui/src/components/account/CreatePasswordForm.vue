@@ -4,6 +4,7 @@
       v-model.trim="password"
       :label="$t('password')"
       type="password"
+      autofocus
       :hide-details="false"
       :rules="rules.password"
       class="mb-1"
@@ -13,6 +14,7 @@
       v-model.trim="confirmPassword"
       :label="$t('password.confirm')"
       type="password"
+      autofocus
       :hide-details="false"
       :rules="rules.confirmPassword"
       class="mb-1"

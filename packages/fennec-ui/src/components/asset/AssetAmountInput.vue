@@ -36,6 +36,9 @@ class AssetAmountInput extends Vue {
   get meta() {
     const { toFiat } = this.$utils.currency;
     const getters = this.$store.getters;
+    const getAsset = getters[GlobalGetters.GET_ASSET_BY_ID];
+    const getBalance = (id) => getAsset(id)?.balance ?? 0;
+
     let assets: Asset[] = getters[GlobalGetters.GET_MERGED_ASSETS];
 
     assets = assets.sort((x, y) => {
@@ -45,7 +48,7 @@ class AssetAmountInput extends Vue {
       return amountY - amountX;
     });
 
-    const balance = this.bindAsset?.balance ?? 0;
+    const balance = getBalance(this.bindAsset?.asset_id);
     const priceUsd = this.bindAsset?.price_usd ?? 0;
     const value = this.value ?? 0;
     const fiatAmount = +value * +priceUsd;

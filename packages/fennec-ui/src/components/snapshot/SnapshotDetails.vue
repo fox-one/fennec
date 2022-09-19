@@ -57,6 +57,7 @@ class SnapshotDetails extends Vue {
       progress,
       receiver,
       sender,
+      snapshot_hash,
       snapshot_id,
       text,
       transaction_hash,
@@ -110,6 +111,12 @@ class SnapshotDetails extends Vue {
         title: this.$t("snapshot.id"),
         value: snapshot_id,
         show: !!snapshot_id,
+        copyable: true
+      },
+      {
+        title: this.$t("snapshot.hash"),
+        value: snapshot_hash,
+        show: !!snapshot_hash,
         copyable: true
       },
       {
