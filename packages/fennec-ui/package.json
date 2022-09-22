@@ -1,13 +1,13 @@
 {
   "name": "@foxone/fennec-ui",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "license": "GPL 3.0",
   "main": "index.js",
   "dependencies": {
-    "@foxone/fennec-base": "^0.5.7",
+    "@foxone/fennec-base": "^0.5.8",
     "@foxone/icons": "beta",
     "@foxone/mixin-api": "^0.1.6",
-    "@foxone/uikit": "beta",
+    "@foxone/uikit": "^3.2.8",
     "@foxone/utils": "^0.2.21",
     "@vue/composition-api": "^1.0.0-rc.3",
     "bignumber.js": "^9.0.0",
@@ -17,7 +17,7 @@
     "extensionizer": "^1.0.1",
     "file-saver": "^2.0.5",
     "jszip": "^3.6.0",
-    "vue": "^2.6.11",
+    "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
     "vue-clipboard2": "^0.3.1",
     "vue-i18n": "^8.18.1",
@@ -39,7 +39,7 @@
     "typescript": "~3.9.3",
     "vue-cli-plugin-browser-extension": "~0.25.1",
     "vue-cli-plugin-vuetify": "~2.0.9",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "1.7.2"
   },
   "browserslist": [

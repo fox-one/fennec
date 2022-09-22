@@ -1,7 +1,7 @@
 import { MutationTypes, ActionTypes, GetterTypes } from "./types";
 import { initKeyringData } from "@foxone/fennec-base/state/init-data";
 import { make } from "vuex-pathify";
-import endpoints from "../../../endpoints";
+import { getUser } from "../../../endpoints/helper";
 
 const state: State.KeyringState = {
   keyring: initKeyringData,
@@ -38,8 +38,9 @@ const actions = {
 
     if (initialized && isUnlocked) {
       const actions = accounts.map(async (id: string) => {
-        return await endpoints.getUser(id);
+        return await getUser(id);
       });
+
       const profiles = await Promise.all(actions);
 
       commit(MutationTypes.SET_PROFILES, profiles);

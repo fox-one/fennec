@@ -7,5 +7,6 @@ declare namespace State {
     additionAssets: Asset[];
     exchangeRates: ExchangeRate[];
     users: User[];
+    authError: boolean;
   };
 }

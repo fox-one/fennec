@@ -16,7 +16,8 @@ export const MutationTypes = {
   SET_EXCHANGE_RATES: "SET_EXCHANGE_RATES",
   SET_ME: "SET_ME",
   SET_USERS: "SET_USERS",
-  RESET_WALLET: "RESET_WALLET"
+  RESET_WALLET: "RESET_WALLET",
+  SET_AUTH_ERROR: "SET_AUTH_ERROR"
 } as const;
 
 export const ActionTypes = {

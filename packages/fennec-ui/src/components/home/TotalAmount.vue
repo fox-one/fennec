@@ -1,6 +1,6 @@
 <template>
   <div class="total-amount" :class="classes">
-    <div class="d-inline title-1 mr-4 f-number" v-html="html"></div>
+    <div class="d-inline title-1 f-number" v-html="html"></div>
   </div>
 </template>
 
@@ -30,7 +30,11 @@ class TotalAmount extends Vue {
       true
     );
 
-    return parts.reduce((str, part) => {
+    if (!Array.isArray(parts)) {
+      return parts;
+    }
+
+    return parts?.reduce((str, part) => {
       if (part.type === "currency") {
         return `${str}<span class="symbol">${part.value}</span>`;
       }

@@ -19,9 +19,11 @@ export default function (): { vuetify: Vuetify; i18n: VueI18n } {
   Vue.use(VueClipboard);
   Vue.use(InfiniteScroll);
   Vue.use(VueI18n);
-  Vue.use(UIKit);
-  Vue.use(UIKit.Toast, vuetify, { centered: true, top: false });
-  Vue.use(UIKit.Dialog, vuetify, { flat: true });
+  Vue.use(UIKit, {
+    vuetify,
+    dialog: { flat: true },
+    toast: { centered: true, top: false }
+  });
   Vue.use(Inject);
 
   return {

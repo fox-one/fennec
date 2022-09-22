@@ -201,5 +201,7 @@
   "version": "Version",
   "wallet.name": "Wallet Name",
   "your.password": "your password",
-  "snapshot.hash": "Snapshot Hash"
+  "snapshot.hash": "Snapshot Hash",
+  "auth.error.1": "There is an authorized error occurred while getting wallet assets with current account.",
+  "auth.error.2": "If your keystore has been reset, you can remove and restore them in account setting page."
 }

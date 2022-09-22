@@ -77,10 +77,14 @@ export async function loadWalletData(vm: Vue, refresh = false): Promise<void> {
       vm.$store.dispatch(GlobalActions.LOAD_EXCHANGE_RATES),
       vm.$store.dispatch(GlobalActions.LOAD_ME, { id: selectedAccount })
     ]);
-  } catch (error) {
-    vm.$utils.helper.errorToast(vm, error);
 
-    console.log(error);
+    vm.$store.commit(GlobalMutations.SET_AUTH_ERROR, false);
+  } catch (error: any) {
+    if (error.message.includes("401")) {
+      vm.$store.commit(GlobalMutations.SET_AUTH_ERROR, true);
+    } else {
+      vm.$utils.helper.errorToast(vm, error);
+    }
   }
 }
 

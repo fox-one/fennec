@@ -10,7 +10,8 @@ const state: State.WalletState = {
   assets: [],
   exchangeRates: [],
   me: null,
-  users: []
+  users: [],
+  authError: false
 };
 
 const getters: GetterTree<State.WalletState, RootState> = {
@@ -75,6 +76,7 @@ const mutations = {
   [MutationTypes.RESET_WALLET](state) {
     state.assets = [];
     state.me = null;
+    state.authError = false;
   }
 };
 

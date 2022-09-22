@@ -40,7 +40,7 @@ export default class Migrator extends EventEmitter {
         }
 
         versionedData = migratedData;
-      } catch (error) {
+      } catch (error: any) {
         const message = error.message;
 
         error.message = `Fennec migration error: ${message}`;

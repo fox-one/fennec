@@ -26,7 +26,7 @@ import { User } from "@foxone/mixin-api/types";
 import { Component, Vue } from "vue-property-decorator";
 import UserItem from "./UserItem.vue";
 import { Sync } from "vuex-pathify";
-import axios from "axios";
+import { getUser } from "../../endpoints/helper";
 
 @Component({
   components: {
@@ -51,9 +51,7 @@ class UserSearch extends Vue {
 
   async requestSearchUser() {
     try {
-      const resp = await axios.get(`https://echo.fox.one/users/${this.search}`);
-
-      this.user = resp.data.data;
+      this.user = await getUser(this.search);
     } catch (error) {
       this.user = null;
     }

@@ -92,6 +92,7 @@ class App extends Vue {
   @Watch("meta.selectedAccount")
   async handleAccountChange(value) {
     if (value) {
+      this.$store.commit(GlobalMutations.RESET_WALLET);
       await this.$utils.app.loadWalletData(this);
       this.$store.commit(GlobalMutations.REMOVE_PAGE_DATA);
     } else {

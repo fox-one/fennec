@@ -56,6 +56,7 @@
 </template>
 
 <script lang="ts">
+import { GlobalMutations } from "@foxone/fennec-ui/store/types";
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 
 @Component
@@ -94,6 +95,7 @@ class ActionRemoveKeystore extends Vue {
 
     try {
       await this.$messages.removeAccount(id, password);
+      this.$store.commit(GlobalMutations.RESET_WALLET);
       this.$utils.app.loadWalletData(this);
       this.$emit("completed");
     } catch (error) {

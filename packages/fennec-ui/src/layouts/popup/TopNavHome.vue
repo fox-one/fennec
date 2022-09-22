@@ -3,7 +3,7 @@
     <v-layout>
       <action-lock />
 
-      <v-flex class="text-center">
+      <v-flex class="text-center account-chips">
         <account-chip @click.native="handleClick" />
       </v-flex>
 
@@ -32,3 +32,9 @@ class TopNavHome extends Vue {
 }
 export default TopNavHome;
 </script>
+
+<style lang="scss" scoped>
+.account-chips {
+  margin-left: -28px;
+}
+</style>

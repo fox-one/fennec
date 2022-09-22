@@ -4,6 +4,8 @@
 
     <asset-actions class="mt-6" />
 
+    <auth-error-warn />
+
     <f-panel padding="0" class="mt-8 details">
       <home-tabs v-model="category" />
       <asset-table v-show="category === 0" />
@@ -20,6 +22,7 @@ import TotalAmount from "../components/home/TotalAmount.vue";
 import AssetTable from "../components/asset/AssetTable.vue";
 import ActivityTableHome from "../components/activity/ActivityTableHome.vue";
 import HomeTabs from "../components/home/HomeTabs.vue";
+import AuthErrorWarn from "../components/home/AuthErrorWarn.vue";
 import { Sync } from "vuex-pathify";
 
 @Component({
@@ -28,7 +31,8 @@ import { Sync } from "vuex-pathify";
     AssetActions,
     AssetTable,
     ActivityTableHome,
-    HomeTabs
+    HomeTabs,
+    AuthErrorWarn
   }
 })
 class HomePage extends Mixins(PageView) {
@@ -44,10 +48,6 @@ class HomePage extends Mixins(PageView) {
     return {
       back: false
     };
-  }
-
-  get meta() {
-    return {};
   }
 
   get tabs() {
