@@ -7,6 +7,7 @@
           <top-nav />
           <breadcrumbs />
           <f-divider />
+          <banner class="mt-4" />
         </div>
 
         <v-flex class="page-content">
@@ -22,12 +23,14 @@ import { Component, Vue } from "vue-property-decorator";
 import SideNav from "./SideNav.vue";
 import TopNav from "./TopNav.vue";
 import Breadcrumbs from "./Breadcrumbs.vue";
+import Banner from "../../components/home/Banner.vue";
 
 @Component({
   components: {
     Breadcrumbs,
     SideNav,
-    TopNav
+    TopNav,
+    Banner
   }
 })
 class DesktopLayout extends Vue {}
