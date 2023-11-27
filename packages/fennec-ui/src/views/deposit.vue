@@ -2,13 +2,13 @@
   <div class="deposit-page">
     <f-loading v-if="loading" :loading="loading" class="pa-5" />
     <template v-else>
-      <asset-select v-model="asset" />
+      <!-- <asset-select v-model="asset" />
 
       <template v-if="asset">
         <deposit-methods :asset="asset" />
 
         <deposit-warn :asset="asset" />
-      </template>
+      </template> -->
     </template>
   </div>
 </template>

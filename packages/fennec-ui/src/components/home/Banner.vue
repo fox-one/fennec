@@ -1,6 +1,6 @@
 <template>
   <div v-if="showBanner" class="banner-wrap">
-    <div class="banner">
+    <div v-if="!fullDisplay" class="banner">
       <div
         class="banner-content"
         @click="handleShowDetail"
@@ -14,6 +14,13 @@
       >
         {{ meta.actionLabel }}
       </span>
+    </div>
+
+    <div v-if="fullDisplay" class="banner banner__full">
+      <div class="markdown-here-wrapper">
+        <div class="banner-title">{{ meta.title }}</div>
+        <div class="banner-body" v-html="bodyMd"></div>
+      </div>
     </div>
 
     <f-bottom-sheet v-model="dialog">
@@ -46,6 +53,10 @@ class Banner extends Vue {
   attrs: any = null;
   bodyStr: any = null;
   bodyMd: any = null;
+
+  get fullDisplay() {
+    return this.$route.name === "deposit";
+  }
 
   get showBanner() {
     return this.banner?.value;
@@ -148,6 +159,16 @@ export default Banner;
       cursor: pointer;
       opacity: 0.8;
     }
+  }
+}
+
+.banner.banner__full {
+  height: auto;
+
+  .banner-title {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0;
   }
 }
 
